@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd90ad49e4796145841c09709697799, type: 3}
+  m_Name: Bee_0
+  m_EditorClassIdentifier: 
+  MarkType: 2
+  SpawnDelay: 1
+  MinContractObjects: 1
+  MaxContractObjects: 2
+  contractObjects:
+  - Object: {fileID: 8223996091210863042, guid: 492c820c111025247bc463afc24f83fe, type: 3}
+    SpawnChance: 91.63
+    MinSpawnInterval: 1
+    MaxSpawnInterval: 1

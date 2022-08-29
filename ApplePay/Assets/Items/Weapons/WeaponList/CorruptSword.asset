@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e95284b4214d03749b76c3f4b5ea9291, type: 3}
+  m_Name: CorruptSword
+  m_EditorClassIdentifier: 
+  WeaponObject: {fileID: 9148067209800773098, guid: 6eb2f77e3cb4946478dd468ae44534c8, type: 3}
+  AttackAnimationSettings: {fileID: 11400000, guid: 7d20b2e1da6a6f1409451a1223c84aaa, type: 2}

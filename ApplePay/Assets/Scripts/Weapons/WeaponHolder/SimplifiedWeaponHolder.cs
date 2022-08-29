@@ -1,0 +1,17 @@
+using UnityEngine;
+
+public class SimplifiedWeaponHolder : WeaponHolder
+{
+    public WeaponItem ActiveWeapon;
+    protected override void UpdateWeaponList()
+    {
+        if(ActiveWeapon.Weapon == null) return;
+        if(ActiveWeapon.WeaponInfo.AnimationInfo.inAnimation || ActiveWeapon.WeaponInfo.AnimationInfo.timeSinceUse < ActiveWeapon.WeaponInfo.GetAttackInterval())
+        {
+            ActiveWeapon.WeaponInfo.AnimationInfo.canActivate = false;
+            ActiveWeapon.WeaponInfo.AnimationInfo.timeSinceUse += Time.deltaTime;
+        }
+        else
+            ActiveWeapon.WeaponInfo.AnimationInfo.canActivate = true;
+    }
+}

@@ -1,0 +1,54 @@
+using UnityEngine;
+
+public class MobMovement : EntityMovement
+{
+    [SerializeField] private Transform target;
+    [HideInInspector] protected bool isDisabled;
+    [Header("Movement Patterns")]
+    public System.Collections.Generic.List<MovePatterns> Patterns = new System.Collections.Generic.List<MovePatterns>();
+    [SerializeField] private byte[] activePatterns = new byte[1];
+    private MovePatterns[] GetActivePatterns()
+    {
+        MovePatterns[] patterns = new MovePatterns[activePatterns.Length];
+        for(int i = 0; i < activePatterns.Length; i++)
+        {
+            byte index = activePatterns[i];
+            if(index > Patterns.Count) throw new System.Exception("Specified index is out of array bonds.");
+            if(Patterns[index] == null) throw new System.NullReferenceException("Movement pattern with index " + index + " doesn't exist.");
+            patterns[i] = Patterns[index];
+        }
+        return patterns;
+    }
+    protected void SetTarget(Transform target) => this.target = target;
+    protected override void Start()
+    {
+        base.Start();
+        InitPatterns();
+    }
+    protected void InitPatterns()
+    {
+        foreach(MovePatterns movePattern in Patterns) movePattern.Init(this, transform, target);
+    }
+    public void SetActivePatterns(params byte[] indexes)
+    {
+        isDisabled = false;
+        activePatterns = indexes;
+    }
+    public void DisablePatterns() => isDisabled = true;
+    protected override void Update()
+    {
+        if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnUpdate();
+    }
+    protected override void OnBeforeSpeedUpdate()
+    {
+        if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnBeforeSpeedUpdate();
+    }
+    protected override void OnAfterSpeedUpdate()
+    {
+        if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnAfterSpeedUpdate();
+    }
+    private void OnCollisionEnter2D(Collision2D collision) 
+    {
+        if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnCollision(collision);
+    }
+}
