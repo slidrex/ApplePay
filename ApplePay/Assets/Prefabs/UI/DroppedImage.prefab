@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 5686334347423151765}
   - component: {fileID: 5686334347423151764}
   - component: {fileID: 7660972345793568711}
+  - component: {fileID: 2848880494865645476}
   m_Layer: 0
   m_Name: DroppedImage
   m_TagString: Untagged
@@ -229,6 +230,25 @@ MonoBehaviour:
   TextField: {fileID: 0}
   header: {fileID: 5686334347802249808}
   description: {fileID: 1071171984770717119}
+--- !u!95 &2848880494865645476
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5686334347423151771}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c10e2a1bf4bec84488bef19d34721087, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5686334347802249813
 GameObject:
   m_ObjectHideFlags: 0

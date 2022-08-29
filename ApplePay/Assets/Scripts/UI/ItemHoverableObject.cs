@@ -19,7 +19,7 @@ public class ItemHoverableObject : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        Destroy(tempPanel.gameObject);
+        tempPanel.GetAnimator().SetTrigger("CloseImage");
     }
     private void PositionUpdate()
     {
