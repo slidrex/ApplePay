@@ -17,6 +17,11 @@ public abstract class Creature : Entity
         base.Awake();
         HealthBar?.IndicatorSetup();
     }
+    protected override void Start()
+    {
+        base.Start();
+        GlobalEventManager.UpdateMobLists();
+    }
     protected override void Update()
     {
         base.Update();

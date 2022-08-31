@@ -5334,6 +5334,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a90e84dc013d74d87c22913cee941d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FreeRoomSpace: []
+  RoomConfiners:
+    scale: {x: 20.81, y: 17.85}
+    offset: {x: 0, y: 0}
+    RelatedTransform: {fileID: 7562146597832835094}
   EntityList: []
   MarkList:
   - {fileID: 11400000, guid: 237d229690ed3684a89fce3c21234776, type: 2}
