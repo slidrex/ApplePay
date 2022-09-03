@@ -9,24 +9,17 @@ public class RoomDefiner : MonoBehaviour
     {
         Creature[] entities = FindObjectsOfType<Creature>();
         Room[] rooms = FindObjectsOfType<Room>();
+        foreach(Creature entity in entities) entity.CurrentRoom = null;
         foreach(Room room in rooms)
         {
             foreach(Creature entity in entities)
             {
-                if(room.IsInsideRoom(entity.transform.position)  && !entity.isDead)
+                if(room.EntityList.Capacity > 0) room.EntityList.Clear();
+                if(room.RoomConfiners.IsInsideBound(entity.transform.position) && !entity.isDead)
                 {
-                    if(room.EntityList.Contains(entity) == false)
-                    {
-                        room.EntityList.Add(entity);
-                        entity.CurrentRoom = room;
-                    }
+                    room.EntityList.Add(entity);
+                    entity.CurrentRoom = room;
                 }
-                else if(room.EntityList.Contains(entity))
-                {
-                    room.EntityList.Remove(entity);
-                    entity.CurrentRoom = null;
-                }
-                room.EntityList.RemoveAll(s => s == null);
             }
         }
     }

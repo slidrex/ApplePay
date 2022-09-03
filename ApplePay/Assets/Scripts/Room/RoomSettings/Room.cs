@@ -3,7 +3,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     [SerializeField, Tooltip("Specified space is free for spawn objects.")] private RoomBound[] FreeRoomSpace;
-    [SerializeField, Tooltip("Used for checking if object inside the room.")] private RoomBound RoomConfiners;
+    [SerializeField, Tooltip("Used for checking if object inside the room.")] public RoomBound RoomConfiners;
     [ReadOnly] public List<Creature> EntityList = new List<Creature>();
     public List<RoomMark> MarkList = new List<RoomMark>();
     [Header("Environment settings")]
@@ -14,6 +14,7 @@ public class Room : MonoBehaviour
     public byte MobCountLimit;
     public SpawnMob[] MobList;
     public byte MinStageCount, MaxStageCount;
+    public GameObject boundMarker;
     private void Awake()
     {
         SetupBounds();
@@ -34,7 +35,11 @@ public class Room : MonoBehaviour
         isActive = true;
         FindObjectOfType<RoomDefiner>().RoomDefine(this);
     }
-    public bool IsInsideRoom(Vector2 position) => RoomConfiners.IsInsideBound(position);
+    private void Update() 
+    {
+        if(Input.GetKeyDown(KeyCode.Space)) print(IsInsideRoom(GameObject.FindGameObjectWithTag("Player").transform.position));
+    }
+    public bool IsInsideRoom(Vector2 position) =>  RoomConfiners.IsInsideBound(position);
     public Vector2 GetRandomRoomSpace() => FreeRoomSpace[Random.Range(0, FreeRoomSpace.Length)].GetRandomSpace();
     [System.Serializable]
     public struct EnvironmentObject
@@ -48,20 +53,20 @@ public class Room : MonoBehaviour
         for(int i = 0; i < FreeRoomSpace.Length; i++)
         {
             Gizmos.color = Color.white;
-            Gizmos.DrawWireCube((Vector2)FreeRoomSpace[i].GetBoundZeroPosition(), FreeRoomSpace[i].scale);
+            Gizmos.DrawWireCube((Vector2)FreeRoomSpace[i].GetOffset(), FreeRoomSpace[i].localScale);
         }
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube((Vector2)RoomConfiners.GetBoundZeroPosition(), RoomConfiners.scale);
+        Gizmos.DrawWireCube((Vector2)RoomConfiners.GetOffset(), RoomConfiners.localScale);
     }
     [System.Serializable]
     public struct RoomBound
     {
-        [SerializeField] internal Vector2 scale;
+        [SerializeField] internal Vector2 localScale;
         [SerializeField] internal Vector2 offset;
         public Transform RelatedTransform;
-        public Vector2 GetScale() => scale * (Vector2)RelatedTransform.lossyScale;
-        public Vector2 GetOffset() => offset;
-        public Vector2 GetBoundZeroPosition() => RelatedTransform.position + (Vector3)offset;
+        public Vector2 GetScale() => localScale * (Vector2)RelatedTransform.lossyScale;
+        public Vector2 GetOffset() => (Vector3)offset;
+        public Vector2 GetZeroBoundPosition() => offset + (Vector2)RelatedTransform.transform.position;
         ///<summary>
         ///<code> Gets the corners of the bounds in the following order: </code>
         ///<code> 0 - Top Left</code>
@@ -73,17 +78,16 @@ public class Room : MonoBehaviour
         {
             Vector2[] sourceCorners = 
             {
-                new Vector2(GetBoundZeroPosition().x - GetScale().x / 2, GetBoundZeroPosition().y + GetScale().y / 2),
-                GetBoundZeroPosition() + GetScale() / 2,
-                new Vector2(GetBoundZeroPosition().x + GetScale().x / 2, GetBoundZeroPosition().y - GetScale().y / 2),
-                GetBoundZeroPosition() - GetScale() / 2
+                new Vector2(GetZeroBoundPosition().x - GetScale().x / 2, GetZeroBoundPosition().y + GetScale().y / 2),
+                GetZeroBoundPosition() + GetScale() / 2,
+                new Vector2(GetZeroBoundPosition().x + GetScale().x / 2, GetZeroBoundPosition().y - GetScale().y / 2),
+                GetZeroBoundPosition() - GetScale() / 2
             };
-            
             return sourceCorners;
         }
         public bool IsInsideBound(Collider2D collider)
         {
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(GetBoundZeroPosition(), GetScale(), RelatedTransform.eulerAngles.z);
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(GetZeroBoundPosition(), GetScale(), RelatedTransform.eulerAngles.z);
             foreach(Collider2D _collider in colliders)
             {
                 if(_collider == collider)
@@ -94,7 +98,8 @@ public class Room : MonoBehaviour
         public bool IsInsideBound(Vector2 position)
         {
             Vector2[] corners = GetCorners();
-            Vector2 fixedPos = Pay.Functions.Math.RotateVector(position - (Vector2)RelatedTransform.transform.position, -RelatedTransform.eulerAngles.z);
+            Vector2 fixedPos = Pay.Functions.Math.RotateVector(position - GetZeroBoundPosition(), -RelatedTransform.eulerAngles.z) + GetZeroBoundPosition();
+            
             bool isInsideBound = fixedPos.x <= corners[1].x && fixedPos.x >= corners[0].x && corners[0].y >= fixedPos.y && corners[2].y <= fixedPos.y;
             return isInsideBound;
         }

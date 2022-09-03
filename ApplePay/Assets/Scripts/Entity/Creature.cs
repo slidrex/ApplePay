@@ -3,7 +3,7 @@ public abstract class Creature : Entity
 {
     public HealthBar HealthBar;
     public LootTable DropTable;
-    [HideInInspector] public Room CurrentRoom;
+    [ReadOnly] public Room CurrentRoom;
     [SerializeField] private Color32 startColor;
     [SerializeField] private Color32 takeDamageColor;
     [Header("After Take Damage Immortality")]

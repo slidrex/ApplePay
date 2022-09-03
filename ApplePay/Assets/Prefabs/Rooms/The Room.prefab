@@ -5051,11 +5051,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FreeRoomSpace:
-  - scale: {x: 0, y: 0}
+  - localScale: {x: 0, y: 0}
     offset: {x: 0, y: 0}
     RelatedTransform: {fileID: 4094145185703115751}
   RoomConfiners:
-    scale: {x: 20, y: 15}
+    localScale: {x: 20, y: 15}
     offset: {x: 0, y: 0}
     RelatedTransform: {fileID: 4094145185703115751}
   EntityList: []

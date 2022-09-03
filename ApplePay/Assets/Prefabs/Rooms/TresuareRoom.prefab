@@ -5336,7 +5336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FreeRoomSpace: []
   RoomConfiners:
-    scale: {x: 20.81, y: 17.85}
+    localScale: {x: 20, y: 20}
     offset: {x: 0, y: 0}
     RelatedTransform: {fileID: 7562146597832835094}
   EntityList: []
@@ -5346,8 +5346,6 @@ MonoBehaviour:
   MinObjectsCount: 0
   MaxObjectsCount: 0
   isActive: 0
-  minRoomPoint: {fileID: 3631436540944590081}
-  maxRoomPoint: {fileID: 6515514663453253457}
   MobCountLimit: 0
   MobList: []
   MinStageCount: 0
