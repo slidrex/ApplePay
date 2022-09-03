@@ -12,7 +12,6 @@ public class EffectDatabase
     private Dictionary<string, EffectTemplate> effects;
     public Dictionary<string, EffectTemplate> Effects 
     {
-    
         get
         {
             effects = new Dictionary<string, EffectTemplate>
@@ -22,7 +21,9 @@ public class EffectDatabase
                 ["move_constraint"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay((UnityEngine.Sprite)UnityEditor.AssetDatabase.LoadAssetAtPath(EffectIconPath + "Interact.png", typeof(UnityEngine.Sprite)), "Move Constraint", "Constraints your movement abilities.", Pay.Functions.Generic.RomanConverter(Level)), 1, States.MoveConstraint()),
                 ["speed_hack"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay((UnityEngine.Sprite)UnityEditor.AssetDatabase.LoadAssetAtPath(EffectIconPath + "Interact.png", typeof(UnityEngine.Sprite)), "Hack Haste", "Increases hack speed by "+ (Level * 0.1f) * 100 + "%.", Pay.Functions.Generic.RomanConverter(Level)), byte.MaxValue, States.HoldingHackSpeedChanger(0.1f * Level)),
                 ["strength"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(null, "Strength", "Increases attack damage.", ""), byte.MaxValue, States.Strength(Level * 0.1f)),
-                ["reverse_control"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(null, "Reverse", "Reverses your control.", ""), 1, States.VelocityReverser())
+                ["reverse_control"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(null, "Reverse", "Reverses your control.", ""), 1, States.VelocityReverser()),
+                ["Instant_heal"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(null, "Instant heal", "", null), byte.MaxValue, States.ChangeHealth(Level * 5)),
+                ["Instant_damage"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(null, "Instant damage", "", null), byte.MaxValue, States.ChangeHealth(Level * -5))
             };
             return effects;
         }

@@ -14,6 +14,12 @@ public class StateEffect
 }
 public class States
 {
+    public static StateEffect ChangeHealth(int amount)
+    {
+        StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.ChangeHealth(amount);
+        StateEffect stateEffect = new StateEffect(beginAction, null);
+        return stateEffect;
+    }
     public static StateEffect Strength(float changeAmount)
     {
         StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.GetComponent<IDamageDealable>().ChangeDamageMultiplier(changeAmount);

@@ -88,7 +88,7 @@ namespace PayWorld
             entity.ActiveEffects.TryGetValue(effectId, out ActiveEffect activeEffect);
             foreach(StateEffect state in activeEffect.StateEffect)
             {
-                state.EndAction.Invoke(entity);
+                state.EndAction?.Invoke(entity);
             }
             entity.ActiveEffects.Remove(effectId);
             effectId = 0;

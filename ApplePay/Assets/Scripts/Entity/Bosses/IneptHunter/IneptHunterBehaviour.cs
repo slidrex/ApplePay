@@ -32,13 +32,13 @@ public class IneptHunterBehaviour : AttackingMob
         if(curTime < maxTime && curState == Attacks.Idle) 
         {
             animator.SetBool("IsIdle", true);
-            SetHorizontalAndVerticalParameters();
+            SetAnimatorParameters();
             curTime += Time.deltaTime;
             if(curTime > maxTime)
             {
                 animator.SetBool("IsIdle", false);
                 RandomState();
-                maxTime = Random.Range(2, 4);
+                maxTime = Random.Range(1, 2.5f);
                 curTime = 0;
                 CheckStates();
             }
@@ -55,29 +55,9 @@ public class IneptHunterBehaviour : AttackingMob
             }
             case Attacks.HeavyAttack2:
             {
-                viewAngle = 105;
-                dist = Mathf.Sign(Target.transform.position.y - transform.position.y) * Vector2.up;
-                Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, 25);
-                foreach(Collider2D enemy in colls)
-                {
-                    if(enemy.gameObject == Target.gameObject)
-                    {
-                        float angle = Vector2.Angle(dist, CalcDist().normalized);
-                        if(angle <= viewAngle / 2)
-                        {
-                            CalcDist();
-                            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Pay.Functions.Math.Atan3(dist.y, dist.x));
-                            animator.SetTrigger("HA2Jump");
-                            break;   
-                        }
-                        else
-                        {
-                            curState = Attacks.HeavyAttack;
-                            CheckStates();
-                            break;
-                        }
-                    }
-                }
+                CalcDist();
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Pay.Functions.Math.Atan3(dist.y, dist.x));
+                animator.SetTrigger("HA2Jump");
                 break;
             }
             case Attacks.LiteAttack:
@@ -93,7 +73,7 @@ public class IneptHunterBehaviour : AttackingMob
                         if(angle <= viewAngle / 2)
                         {
                             animator.SetTrigger("LAttack");
-                            SetHorizontalAndVerticalParameters();
+                            SetAnimatorParameters();
                             break;
                         }
                         else
@@ -117,9 +97,12 @@ public class IneptHunterBehaviour : AttackingMob
             {
                 rb.velocity = Vector2.down * 30;
                 if(transform.position.y <= Target.transform.position.y)
-                {
                     Collision();
-                }
+                break;
+            }
+            case AttackStates.HA2Fly:
+            {
+                rb.velocity = dist.normalized * Pay.Functions.Math.ClampVectorComponents(dist, 22, 23);
                 break;
             }
         }
@@ -167,7 +150,6 @@ public class IneptHunterBehaviour : AttackingMob
     }
     public void HA2Jump()
     {
-        NormalizedVelocity(rb, 23, 25);
         curAttackState = AttackStates.HA2Fly;
     }
     public void ThrowSpear()
@@ -217,7 +199,7 @@ public class IneptHunterBehaviour : AttackingMob
     }
     private void SetDefaultEulerAngler() =>
         transform.eulerAngles = new Vector3(0, 0, 0);
-    private void SetHorizontalAndVerticalParameters()
+    private void SetAnimatorParameters()
     {
         animator.SetInteger("Horizontal", (int)CalcDist().x);
         animator.SetInteger("Vertical", (int)CalcDist().y);
@@ -226,15 +208,9 @@ public class IneptHunterBehaviour : AttackingMob
     private void EnableCollision() => 
         Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
         
-    private void NormalizedVelocity(Rigidbody2D rigidbody, float minVelocity, float maxVelocity)
-    {
-        Vector2 distVelocity = new Vector2(Mathf.Clamp(Mathf.Abs(dist.x), minVelocity, maxVelocity),
-             Mathf.Clamp(Mathf.Abs(dist.y), minVelocity, maxVelocity));
-        rigidbody.velocity = dist.normalized * distVelocity;
-    }
     private enum AttackStates
     {
-        Nothing, Fall, HA2Fly,
+        Nothing, Fall, HA2Fly
     }
     private enum Attacks
     {

@@ -11,7 +11,7 @@ public class HunterSpearBehaviour : Projectile
         {
             Animator.SetTrigger("Collision");
             Pay.Camera.CameraShake.FlatShake(0, 4.5f, 0.05f);
-            Invoke("PullOut", Random.Range(0.3f, 0.5f));
+            Invoke("Extract", Random.Range(0.3f, 0.5f));
             SetMoveVector(Vector2.zero);
         }
         if(other.gameObject.layer != obstacleLayer && other.gameObject.GetComponent<Entity>() == null)
