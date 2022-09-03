@@ -4903,6 +4903,7 @@ GameObject:
   - component: {fileID: 2961470389077100196}
   - component: {fileID: 932523071}
   - component: {fileID: 242449599305595777}
+  - component: {fileID: 27071561}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -5101,7 +5102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0bfcc93cc1ce744859610b7f249ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseSpeed: 4
+  BaseSpeed: 0.2
   AdditionalSpeed: 0
   MoveDisable: 0
   OnlyPositive: 0
@@ -5110,7 +5111,7 @@ MonoBehaviour:
   ConstraintRotation: 0
   target: {fileID: 0}
   Patterns:
-  - {fileID: 0}
+  - {fileID: 27071561}
   activePatterns: 00
 --- !u!50 &242449599305595777
 Rigidbody2D:
@@ -5133,6 +5134,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &27071561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214477276859016875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7cbbe2ecbd3f1e42b1dd0282f29e9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionChangeFrequency: 0.25
 --- !u!1 &6006621946491845973
 GameObject:
   m_ObjectHideFlags: 0

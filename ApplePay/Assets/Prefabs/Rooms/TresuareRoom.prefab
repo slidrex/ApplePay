@@ -5071,7 +5071,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.9381969, y: 0.72558105}
+  m_Offset: {x: -0.9615613, y: 0.76269615}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5082,7 +5082,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25338608, y: 0.21453929}
+  m_Size: {x: 0.2923267, y: 0.28876942}
   m_EdgeRadius: 0
 --- !u!61 &808436782243450299
 BoxCollider2D:
@@ -5097,7 +5097,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.9431662, y: 0.7320916}
+  m_Offset: {x: 0.9707013, y: 0.76727617}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5108,7 +5108,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.275154, y: 0.22407234}
+  m_Size: {x: 0.3217336, y: 0.29444152}
   m_EdgeRadius: 0
 --- !u!61 &174365775847186942
 BoxCollider2D:
@@ -5123,7 +5123,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.9218052, y: -0.72685826}
+  m_Offset: {x: -0.96466434, y: -0.7778746}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5134,7 +5134,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23270953, y: 0.24202448}
+  m_Size: {x: 0.3104539, y: 0.32810968}
   m_EdgeRadius: 0
 --- !u!61 &8421773251513998755
 BoxCollider2D:
@@ -5149,7 +5149,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.92403007, y: -0.72641814}
+  m_Offset: {x: 0.96972525, y: -0.7776277}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5160,7 +5160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24023247, y: 0.24999458}
+  m_Size: {x: 0.31175542, y: 0.34049314}
   m_EdgeRadius: 0
 --- !u!1 &7562146596638664582
 GameObject:
@@ -5273,16 +5273,16 @@ PolygonCollider2D:
     - - {x: -1.4, y: 1.2}
       - {x: 1.4, y: 1.2}
       - {x: 1.4, y: 0.8}
-      - {x: 1.4, y: -0.91}
-      - {x: 1.1, y: -0.91}
-      - {x: 1.1, y: 0.91}
-      - {x: -1.1, y: 0.91}
-      - {x: -1.1, y: -0.91}
-      - {x: 1.4, y: -0.91}
+      - {x: 1.4, y: -0.96}
+      - {x: 1.12, y: -0.96}
+      - {x: 1.12, y: 0.915}
+      - {x: -1.12, y: 0.915}
+      - {x: -1.12, y: -0.96}
+      - {x: 1.4, y: -0.96}
       - {x: 1.4, y: -1.2}
       - {x: -1.1, y: -1.2}
       - {x: -1.4, y: -1.2}
-      - {x: -1.4, y: 0.91}
+      - {x: -1.4, y: 0.915}
 --- !u!1 &7562146597832835095
 GameObject:
   m_ObjectHideFlags: 0
@@ -5350,6 +5350,7 @@ MonoBehaviour:
   MobList: []
   MinStageCount: 0
   MaxStageCount: 0
+  boundMarker: {fileID: 0}
 --- !u!1 &7562146597853863149
 GameObject:
   m_ObjectHideFlags: 0
