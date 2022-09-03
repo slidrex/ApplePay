@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1502971502634088029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1608537733295112206, guid: 25325d0915be6894381329d63b5d5554, type: 3}
+  m_PrefabInstance: {fileID: 6783308843434474620}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7353834020276399169}
+  m_Layer: 0
+  m_Name: 'RoomPosMarker (Missing Prefab with guid: 25325d0915be6894381329d63b5d5554)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7353834020276399169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4047951427588100157, guid: 25325d0915be6894381329d63b5d5554, type: 3}
+  m_PrefabInstance: {fileID: 6783308843434474620}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502971502634088029}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3740072970622133676}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1575325656694768985
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1608537733295112206, guid: 25325d0915be6894381329d63b5d5554, type: 3}
+  m_PrefabInstance: {fileID: 2139738615321634765}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2710276986831517680}
+  m_Layer: 0
+  m_Name: 'maxRoomPosMarker (Missing Prefab with guid: 25325d0915be6894381329d63b5d5554)'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2710276986831517680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4047951427588100157, guid: 25325d0915be6894381329d63b5d5554, type: 3}
+  m_PrefabInstance: {fileID: 2139738615321634765}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575325656694768985}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3740072970622133676}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2978335759705937366
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,14 +437,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a90e84dc013d74d87c22913cee941d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FreeRoomSpace: []
+  RoomConfiners:
+    localScale: {x: 4, y: 15}
+    offset: {x: 0, y: 0}
+    RelatedTransform: {fileID: 3740072970622133676}
   EntityList: []
   MarkList: []
   EnvironmentObjectList: []
   MinObjectsCount: 0
   MaxObjectsCount: 0
   isActive: 0
-  minRoomPoint: {fileID: 7353834020276399169}
-  maxRoomPoint: {fileID: 2710276986831517680}
   MobCountLimit: 10
   MobList:
   - Mob: {fileID: 5214477276859016875, guid: 71623b963fc6f074ca47f2642eb3a304, type: 3}
@@ -5368,11 +5431,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25325d0915be6894381329d63b5d5554, type: 3}
---- !u!4 &2710276986831517680 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4047951427588100157, guid: 25325d0915be6894381329d63b5d5554, type: 3}
-  m_PrefabInstance: {fileID: 2139738615321634765}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3605335924165347033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5540,11 +5598,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25325d0915be6894381329d63b5d5554, type: 3}
---- !u!4 &7353834020276399169 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4047951427588100157, guid: 25325d0915be6894381329d63b5d5554, type: 3}
-  m_PrefabInstance: {fileID: 6783308843434474620}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7198800656370087392
 PrefabInstance:
   m_ObjectHideFlags: 0

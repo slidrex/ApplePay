@@ -1,10 +1,5 @@
-using UnityEngine;
-
-public class GlobalEventManager : MonoBehaviour
+public static class GlobalEventManager
 {
    public static System.Action OnActionActivated;
-   public static void UpdateMobLists()
-   {
-        OnActionActivated?.Invoke();
-   }
+   public static void UpdateMobLists() => OnActionActivated?.Invoke();
 }

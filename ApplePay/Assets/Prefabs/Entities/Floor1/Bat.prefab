@@ -4903,7 +4903,6 @@ GameObject:
   - component: {fileID: 2961470389077100196}
   - component: {fileID: 932523071}
   - component: {fileID: 242449599305595777}
-  - component: {fileID: 932523070}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -5111,7 +5110,7 @@ MonoBehaviour:
   ConstraintRotation: 0
   target: {fileID: 0}
   Patterns:
-  - {fileID: 932523070}
+  - {fileID: 0}
   activePatterns: 00
 --- !u!50 &242449599305595777
 Rigidbody2D:
@@ -5134,18 +5133,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &932523070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5214477276859016875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04fd464ef1bc440429869de2a469dfc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6006621946491845973
 GameObject:
   m_ObjectHideFlags: 0

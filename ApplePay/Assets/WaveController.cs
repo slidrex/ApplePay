@@ -15,10 +15,10 @@ public class WaveController : MonoBehaviour
     private RoomMark[] wrappedRoomStages;
     private void Start()
     {
+        AssignWrappedEntity(WrappedCreature);
         GlobalEventManager.OnActionActivated += WaveUpdater;
         if(WrappedCreature == null)
             throw new System.NullReferenceException("Wrapped Creature hasn't been assigned.");
-        AssignWrappedEntity(WrappedCreature);
     }
     private void Update()
     {
@@ -31,10 +31,7 @@ public class WaveController : MonoBehaviour
             bindedStatus = curStatus;
         }
     }
-    private void OnDestroy()
-    {
-        GlobalEventManager.OnActionActivated -= WaveUpdater;
-    }
+    private void OnDestroy() => GlobalEventManager.OnActionActivated -= WaveUpdater;
     private void OnRoomSwitched()
     {
         byte stageCount = (byte)Random.Range(WrappedCreature.CurrentRoom.MinStageCount, WrappedCreature.CurrentRoom.MaxStageCount);
@@ -68,34 +65,34 @@ public class WaveController : MonoBehaviour
                     break;
                 }
             }
-            
         }
     }
-    private void OnWaveBegin()
-    {
-        wrappedWaveComponent.SetWaveStatus(WaveStatus.InWave);
-    }
-    private void WaveUpdater()
+    private void OnWaveBegin() => wrappedWaveComponent.SetWaveStatus(WaveStatus.InWave);
+    public void WaveUpdater()
     {
         wrappedEntityWaveStatus = wrappedWaveComponent.WaveStatus;
-        if(bindedStatus.bindTime > 0) 
+        if(bindedStatus.bindTime > 0)
         {
             wrappedWaveComponent.SetWaveStatus(bindedStatus.status);
             return;
         }
-        if(wrappedRoom != null && wrappedRoom != WrappedCreature.CurrentRoom) OnRoomSwitched();
-        wrappedRoom = WrappedCreature.CurrentRoom;
-        foreach(Creature roomCreature in wrappedRoom.EntityList)
+        if(wrappedRoom != null && WrappedCreature.CurrentRoom != null && WrappedCreature.CurrentRoom != wrappedRoom)
         {
-            foreach(Creature hostileCreature in WrappedCreature.Hostiles)
+            OnRoomSwitched();
+            foreach(Creature roomCreature in wrappedRoom.EntityList)
             {
-                if(!roomCreature.isDead && hostileCreature.GetType() == roomCreature.GetType())
+                foreach(Creature hostileCreature in WrappedCreature.Hostiles)
                 {
-                    if(wrappedWaveComponent.WaveStatus == WaveStatus.NoWave) OnWaveBegin();
-                    return;
+                    if(!roomCreature.isDead && hostileCreature.GetType() == roomCreature.GetType())
+                    {
+                        if(wrappedWaveComponent.WaveStatus == WaveStatus.NoWave) OnWaveBegin();
+                        return;
+                    }
                 }
             }
         }
+        wrappedRoom = WrappedCreature.CurrentRoom;
+        
         if(wrappedWaveComponent.WaveStatus == WaveStatus.InWave) OnWaveEnd();
     }
     private void OnWaveEnd()

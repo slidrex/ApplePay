@@ -5334,6 +5334,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a90e84dc013d74d87c22913cee941d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FreeRoomSpace: []
+  RoomConfiners:
+    localScale: {x: 20, y: 20}
+    offset: {x: 0, y: 0}
+    RelatedTransform: {fileID: 7562146597832835094}
   EntityList: []
   MarkList:
   - {fileID: 11400000, guid: 237d229690ed3684a89fce3c21234776, type: 2}
@@ -5341,8 +5346,6 @@ MonoBehaviour:
   MinObjectsCount: 0
   MaxObjectsCount: 0
   isActive: 0
-  minRoomPoint: {fileID: 3631436540944590081}
-  maxRoomPoint: {fileID: 6515514663453253457}
   MobCountLimit: 0
   MobList: []
   MinStageCount: 0

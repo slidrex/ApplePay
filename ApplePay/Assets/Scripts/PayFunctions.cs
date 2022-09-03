@@ -65,10 +65,19 @@ namespace Pay.Functions
         }
         ///<summary>Clamps length of the compenents of specified vector.</summary>
         public static Vector2 ClampVectorComponents(Vector2 vector, float min, float max) => new Vector2(Mathf.Clamp(Mathf.Abs(vector.x), min, max), Mathf.Clamp(Mathf.Abs(vector.y), min, max));
+    ///<summary>
+    ///Rotates vector along Z axis.
+    ///</summary>
+    public static Vector2 RotateVector(Vector2 vector, float angle) => Quaternion.AngleAxis(angle, Vector3.forward) * vector;
     public enum AngleType
     {
         Rad,
         Deg
+    }
+    public enum VectorComponent2D
+    {
+        X,
+        Y
     }
     }
     public static class Generic
@@ -100,6 +109,33 @@ namespace Pay.Functions
                 }
             }
             if(!minToMax) System.Array.Reverse(array);
+            return array;
+        }
+        ///<summary>
+        ///Sorts the vectors in the array comparing only specified component of the vector.
+        ///</summary>
+        public static void SortVectors(ref Vector2[] array, bool minToMax, Pay.Functions.Math.VectorComponent2D sortComponent)
+        {
+            for(int i = 0; i < array.Length; i++)
+            {
+                for(int j = i + 1; j < array.Length; j++)
+                {
+                    if((sortComponent == Pay.Functions.Math.VectorComponent2D.X && array[j].x > array[i].x) ||
+                       (sortComponent == Pay.Functions.Math.VectorComponent2D.Y && array[j].y > array[i].y)
+                    ) continue;
+                    Vector2 temp = array[j];
+                    array[j] = array[i];
+                    array[i] = temp;
+                }
+            }
+            if(!minToMax) System.Array.Reverse(array);
+        }
+        ///<summary>
+        ///Sorts the vectors in the array comparing only specified component of the vector.
+        ///</summary>
+        public static Vector2[] SortVectors(Vector2[] array, bool minToMax, Pay.Functions.Math.VectorComponent2D sortComponent)
+        {
+            SortVectors(ref array, minToMax, sortComponent);
             return array;
         }
         ///<summary>
@@ -184,15 +220,6 @@ namespace Pay.Functions
         public static string SetSides(string wrapping, string first, string second)
         {
             return first + wrapping + second;
-        }
-        ///<summary>
-        ///Returns text between two brackets (no incude).
-        ///</summary>
-        public static string Between(string sorce, string bracket)
-        {
-            int firstPos = sorce.IndexOf(bracket);
-            string returnValue = sorce.Substring(firstPos + 1, sorce.LastIndexOf(bracket) - 1 - firstPos);
-            return returnValue;
         }
     }
     
