@@ -7,7 +7,8 @@ public class ContentPanel : MonoBehaviour
     {
         UnityEngine.UI.Text obj = Instantiate(TextField, transform.position, Quaternion.identity);
         obj.gameObject.transform.SetParent(transform);
-        obj.gameObject.GetComponent<UnityEngine.UI.VerticalLayoutGroup>().padding.top = verticalOffset;
+        obj.transform.localScale = Vector3.one;
+        GetComponent<UnityEngine.UI.VerticalLayoutGroup>().padding.top = verticalOffset;
         obj.lineSpacing = textConfiguration.LineSpacing;
         obj.font = textConfiguration.Font;
         obj.color = textConfiguration.Color;
@@ -17,8 +18,5 @@ public class ContentPanel : MonoBehaviour
     ///<summary>
     ///Force unity to immediately update content transform. 
     ///</summary>
-    public void UpdateContentPanel()
-    {
-        UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
-    }
+    public void UpdateContentPanel() => UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 }

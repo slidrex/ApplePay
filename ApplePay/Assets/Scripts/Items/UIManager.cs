@@ -58,6 +58,16 @@ namespace Pay.UI
                 textObject = (TextObject)ui;
             }
         }
+        public struct TextField
+        {
+            public string Text;
+            public TextConfiguration TextConfiguration;
+            public TextField(Pay.UI.TextConfiguration configuration, string text)
+            {
+                Text = text;
+                TextConfiguration = configuration;
+            }
+        }
         public static class Indicator
         {
             public static void CreateIndicator(UIHolder holder, Canvas canvas, Pay.UI.Indicator indicator, out byte id, params Pay.UI.Options.UIProperty[] properties)

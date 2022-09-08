@@ -84,13 +84,12 @@ public class InteractManager : MonoBehaviour
         anim.SetTrigger("isHacking");
         Entity curEntity = gameObject.GetComponent<Entity>();
 
-        PayWorld.EffectController.AddEffect(curEntity, out constraintId, 
+        PayWorld.EffectController.ActiveEffect effect = PayWorld.EffectController.AddEffect(curEntity, out constraintId, 
             PayWorld.Effect.States.MoveConstraint(),
             PayWorld.Effect.States.WeaponConstraint()
         );
         
-        PayWorld.EffectController.AttachVisualAttrib(curEntity, constraintId, "Interact Constrainer", "Some abilities are under constraint.", "", EffectDatabase.FindEffectSprite("Interact.png"));
-        
+        PayWorld.EffectController.AttachVisualAttrib(effect, "Interact Constrainer", "Some abilities are under constraint.", "", EffectDatabase.FindEffectSprite("Interact.png"));
         Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.FollowCanvas, indicator, out interactIndicatorId,
             Pay.UI.Options.Transform.StaticProperty.Position(transform.position + Vector3.up / 1.2f),
             Pay.UI.Options.Transform.DynamicProperty.LocalScale(Vector3.one / 3, Vector3.one / 4, true, 0.5f)

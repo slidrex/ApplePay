@@ -4,7 +4,7 @@ using System.Linq;
 
 public class RoomSpawner : MonoBehaviour
 {
-    [SerializeField] private MarkDatabase markDatabase;
+    private const string MarkDatabaseName = "mark";
     internal struct walker
     {
         internal walker(Vector2 position)
@@ -138,20 +138,20 @@ public class RoomSpawner : MonoBehaviour
     }
     private void FillMark(Room room)
     {
-            for(int i = 0; i < room.MarkList.Count; i++)
+        MarkDatabase markDatabase = (MarkDatabase)PayDatabase.GetDatabase(MarkDatabaseName);
+        for(int i = 0; i < room.MarkList.Count; i++)
+        {
+            while(room.MarkList[i] == null)
             {
-                while(room.MarkList[i] == null)
+                int index = Random.Range(0, markDatabase.MarkList.Length);
+                if(markDatabase.MarkList[index].SpawnChance >= Random.Range(1, 101))
                 {
-                    
-                    int index = Random.Range(0, markDatabase.MarkList.Count);
-                    if(markDatabase.MarkList[index].SpawnChance >= Random.Range(1, 101))
-                    {
-                        room.MarkList[i] = markDatabase.MarkList[index].Mark;
-                        break;
-                    }
-                    
+                    room.MarkList[i] = markDatabase.MarkList[index].Mark;
+                    break;
                 }
+                    
             }
+        }
     }
     private void DoorsSetup()
     {

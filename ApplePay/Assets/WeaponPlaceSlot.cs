@@ -4,7 +4,7 @@ public class WeaponPlaceSlot : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Image ImageRenderer;
     [Header("Slot indicator")]
     [SerializeField] private Pay.UI.Indicator indicator;
-    private byte indicatorID, textID;
+    [SerializeField] private byte indicatorID, textID;
     private void Start() => SetItem(null);
     public void SetItem(Sprite item)
     {

@@ -17,53 +17,70 @@ namespace PayWorld
             id = _id;
         }
         ///<summary>
-        ///Adds effect to selected entity (use "AttachVisualAttrib" to specify effect visual attributes).
+        ///Adds effect to the specified entity by template.
         ///</summary>
-        public static void AddEffect(Entity applyEntity, float duration, out byte id, params StateEffect[] stateEffects)
+        public static ActiveEffect AddEffect(Entity applyEntity, string id, byte level, float duration)
         {
-            AddEffect(applyEntity, duration, false, out id, stateEffects);
+            EffectDatabase effectDatabase = new EffectDatabase(level);
+            if(effectDatabase.Effects.ContainsKey(id) == false) 
+            {
+                Debug.LogWarning("Invalid effect id (" + id + ").");
+                return null;
+            }
+            effectDatabase.Effects.TryGetValue(id, out EffectTemplate databaseEffect);
+            
+            ActiveEffect effect = CreateEffect(duration, false, databaseEffect.StateEffects);
+            AttachVisualAttrib(effect, databaseEffect.TemplateDisplay.Name, databaseEffect.TemplateDisplay.Description, databaseEffect.TemplateDisplay.Index, databaseEffect.TemplateDisplay.Sprite, databaseEffect.TemplateDisplay.Additionals);
+            return AddEffect(applyEntity, effect, out byte _id);
         }
         ///<summary>
         ///Adds effect to selected entity (use "AttachVisualAttrib" to specify effect visual attributes).
         ///</summary>
-        public static void AddEffect(Entity applyEntity, out byte id, params StateEffect[] stateEffects)
+        public static ActiveEffect AddEffect(Entity applyEntity, float duration, out byte id, params StateEffect[] stateEffects) => AddEffect(applyEntity, duration, false, out id, stateEffects);
+        ///<summary>
+        ///Adds effect to selected entity (use "AttachVisualAttrib" to specify effect visual attributes).
+        ///</summary>
+        public static ActiveEffect AddEffect(Entity applyEntity, out byte id, params StateEffect[] stateEffects) => AddEffect(applyEntity, 0f, true, out id, stateEffects);
+        private static ActiveEffect AddEffect(Entity applyEntity, float duration, bool endless, out byte id, StateEffect[] stateEffects)
         {
-            AddEffect(applyEntity, 0f, true, out id, stateEffects);
+            ActiveEffect activeEffect = CreateEffect(duration, endless, stateEffects);
+            AddEffect(applyEntity, activeEffect, out id);
+            return activeEffect;
         }
-        private static void AddEffect(Entity applyEntity, float duration, bool endless, out byte id, StateEffect[] stateEffects)
+        private static ActiveEffect AddEffect(Entity entity, ActiveEffect effect, out byte id)
         {
-            byte[] usedID = Pay.Functions.Generic.CombineArrays(applyEntity.ActiveEffects.Keys.ToArray(), applyEntity.EffectBundleBuffer.Keys.ToArray());
+
+            byte[] usedID = Pay.Functions.Generic.CombineArrays(entity.ActiveEffects.Keys.ToArray(), entity.EffectBundleBuffer.Keys.ToArray());
             byte _id = Pay.Functions.Math.GetUniqueByte(usedID, 0);
-            ActiveEffect activeEffect = new ActiveEffect();
-            foreach(StateEffect stateEffect in stateEffects)
-                stateEffect.BeginAction.Invoke(applyEntity);
-            activeEffect = InstantiateActiveEffect(stateEffects.ToList(), duration, endless);
-            applyEntity.ActiveEffects.Add(_id, activeEffect);
-            if(applyEntity.GetComponent<IEffectUpdateHandler>() != null)
-                applyEntity.GetComponent<IEffectUpdateHandler>().OnEffectUpdated();
+            foreach(StateEffect stateEffect in effect.StateEffect)
+                stateEffect.BeginAction?.Invoke(entity);
+            
+            entity.ActiveEffects.Add(_id, effect);
+            
+            entity.GetComponent<IEffectUpdateHandler>()?.OnEffectUpdated();
             id = _id;
+            return effect;
         }
-        
+        private static ActiveEffect CreateEffect(float duration, bool endless, StateEffect[] stateEffects) => new ActiveEffect(stateEffects.ToList(), duration, endless);
         ///<summary>
         ///Attaches display attribute to an active effect.
         ///</summary>
-        public static void AttachVisualAttrib(Entity wrappedEntity, byte effectID, string name, string description, string index, Sprite sprite, params string[] additionals)
+        public static void AttachVisualAttrib(ActiveEffect effect, string name, string description, string index, Sprite sprite, Pay.UI.UIManager.TextField[] additionals)
         {
-            VisualAttribHandler(wrappedEntity, effectID, name, description, index, sprite, additionals);
+            VisualAttribHandler(effect, name, description, index, sprite, additionals);
         }
-        private static void VisualAttribHandler(Entity wrappedEntity, byte effectID, string name, string description, string index, Sprite sprite, params string[] additionals)
+        ///<summary>
+        ///Attaches display attribute to an active effect.
+        ///</summary>
+        public static void AttachVisualAttrib(ActiveEffect effect, string name, string description, string index, Sprite sprite)
         {
-            wrappedEntity.ActiveEffects.TryGetValue(effectID, out PayWorld.EffectController.ActiveEffect activeEffect);
+            VisualAttribHandler(effect, name, description, index, sprite, null);
+        }
+        private static void VisualAttribHandler(ActiveEffect effect, string name, string description, string index, Sprite sprite, Pay.UI.UIManager.TextField[] additionals)
+        {
+            EffectController.EffectDisplay effectDisplay = new EffectDisplay(sprite, name, description, index, additionals);
             
-            EffectController.EffectDisplay effectDisplay = new EffectDisplay();
-            effectDisplay.Description = description;
-            effectDisplay.Name = name;
-            effectDisplay.Sprite = sprite;
-            effectDisplay.Additionals = additionals;
-            effectDisplay.Index = index;
-            activeEffect.EffectDisplay = effectDisplay;
-            
-            wrappedEntity.ActiveEffects[effectID] = activeEffect;
+            effect.EffectDisplay = effectDisplay;
         }
     
         ///<summary>
@@ -82,6 +99,18 @@ namespace PayWorld
             }
             if(applyEntity.GetComponent<IEffectUpdateHandler>() != null)
                 applyEntity.GetComponent<IEffectUpdateHandler>().OnEffectUpdated();
+        }
+        public static void HandleStateEffect(Entity entity, ref StateEffect effect)
+        {
+            StateEffect.TickImplementation tick = effect.TickImplement;
+            if(tick.Equals(new StateEffect.TickImplementation())) return;
+            if(tick.TimeSinceAction >= tick.TickScale)
+            {
+                tick.TimeSinceAction = 0;
+                tick.TickAction.Invoke(entity);
+            }
+            else tick.TimeSinceAction += Time.deltaTime;
+            effect.TickImplement = tick;
         }
         private static void RemoveSingle(Entity entity, ref byte effectId)
         {
@@ -106,28 +135,23 @@ namespace PayWorld
             entity.EffectBundleBuffer.Remove(bundleId);
 
         }
-        private static ActiveEffect InstantiateActiveEffect(System.Collections.Generic.List<StateEffect> states, float duration, bool endless)
-        {
-            ActiveEffect activeEffect = new ActiveEffect();
-            activeEffect.StateEffect = states;
-            activeEffect.RemainTime = duration;
-            activeEffect.Endless = endless;
-            return activeEffect;
-        }
         public class ActiveEffect
         {
             internal System.Collections.Generic.List<StateEffect> StateEffect = new System.Collections.Generic.List<StateEffect>();
             internal float RemainTime;
             internal bool Endless;
             public EffectDisplay EffectDisplay;
-        }
-        public class EffectDisplay
-        {
-            public EffectDisplay()
+            public ActiveEffect(System.Collections.Generic.List<StateEffect> states, float duration, bool endless)
             {
-
+                StateEffect = states;
+                RemainTime = duration;
+                Endless = endless;
             }
-            public EffectDisplay(Sprite sprite, string name, string description, string index, params string[] additionals)
+            public ActiveEffect() { }
+        }
+        public struct EffectDisplay
+        {
+            public EffectDisplay(Sprite sprite, string name, string description, string index, params Pay.UI.UIManager.TextField[] additionals)
             {
                 Sprite = sprite;
                 Name = name;
@@ -139,31 +163,13 @@ namespace PayWorld
             public string Name;
             public string Description;
             public string Index;
-            public string[] Additionals;
-
+            public Pay.UI.UIManager.TextField[] Additionals;
         }
-        public static EffectTemplate GetEffectTemplateByID(string effectID, byte level)
+        public static EffectTemplate GetEffectTemplate(string effectID, byte level)
         {
             EffectDatabase effectDatabase = new EffectDatabase(level);
             effectDatabase.Effects.TryGetValue(effectID, out EffectTemplate databaseEffect);
             return databaseEffect;
-        }
-        ///<summary>
-        ///Adds effect to the specified entity by template.
-        ///</summary>
-        public static void AddEffect(Entity applyEntity, string id, byte level, float duration)
-        {
-            EffectDatabase effectDatabase = new EffectDatabase(level);
-            if(effectDatabase.Effects.ContainsKey(id) == false) 
-            {
-                Debug.LogWarning("Effect with id " + id + " doesn't exist.");
-                return;
-            }
-            effectDatabase.Effects.TryGetValue(id, out EffectTemplate databaseEffect);
-            
-            AddEffect(applyEntity, duration, false, out byte _id, databaseEffect.StateEffects);
-            AttachVisualAttrib(applyEntity, _id, databaseEffect.TemplateDisplay.Name, databaseEffect.TemplateDisplay.Description, databaseEffect.TemplateDisplay.Index, databaseEffect.TemplateDisplay.Sprite, databaseEffect.TemplateDisplay.Additionals);
-
         }
     }
 }

@@ -58,7 +58,7 @@ public class WaveController : MonoBehaviour
             while(markArray[i] == null)
             {
                 int rand = Random.Range(0, 100);
-                MarkDatabase.MarkSlot currentRoomMark = markDatabase.MarkList[Random.Range(0, markDatabase.MarkList.Count)];
+                MarkDatabase.MarkSlot currentRoomMark = markDatabase.MarkList[Random.Range(0, markDatabase.MarkList.Length)];
                 if(currentRoomMark.SpawnChance >= rand && currentRoomMark.Mark.MarkType == MarkDatabase.MarkType.Mob)
                 {
                     markArray[i] = currentRoomMark.Mark;

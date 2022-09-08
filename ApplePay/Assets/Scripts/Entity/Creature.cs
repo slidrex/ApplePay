@@ -44,12 +44,13 @@ public abstract class Creature : Entity
     }
     protected override void ApplyDamage(Creature handler)
     {
-        curDuration = 0;
+        if(handler != null) StartImmortality();
         SpriteRenderer.color = takeDamageColor;
         Invoke("StartColor", 0.2f);
         HealthBar?.Animator.SetTrigger("TakeDamage");
         if(CurrentHealth <= 0) Die(handler);
     }
+    protected void StartImmortality() => curDuration = 0;
     protected override void Die(Creature killer)
     {
         DropTable?.DropLoot();

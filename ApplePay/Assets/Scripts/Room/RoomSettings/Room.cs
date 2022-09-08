@@ -14,7 +14,6 @@ public class Room : MonoBehaviour
     public byte MobCountLimit;
     public SpawnMob[] MobList;
     public byte MinStageCount, MaxStageCount;
-    public GameObject boundMarker;
     private void Awake()
     {
         SetupBounds();
@@ -34,10 +33,6 @@ public class Room : MonoBehaviour
     {
         isActive = true;
         FindObjectOfType<RoomDefiner>().RoomDefine(this);
-    }
-    private void Update() 
-    {
-        if(Input.GetKeyDown(KeyCode.Space)) print(IsInsideRoom(GameObject.FindGameObjectWithTag("Player").transform.position));
     }
     public bool IsInsideRoom(Vector2 position) =>  RoomConfiners.IsInsideBound(position);
     public Vector2 GetRandomRoomSpace() => FreeRoomSpace[Random.Range(0, FreeRoomSpace.Length)].GetRandomSpace();

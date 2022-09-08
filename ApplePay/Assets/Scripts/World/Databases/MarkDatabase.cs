@@ -1,9 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
+
 [CreateAssetMenu( menuName = "Databases/Mark database" )]
-public class MarkDatabase : ScriptableObject
+
+public class MarkDatabase : Database
 {
-    public List<MarkSlot> MarkList = new List<MarkSlot>();    
+    public MarkSlot[] MarkList;    
     [HideInInspector] public enum MarkType { None, Mob, Contract , Boss, Treasure, Bonus, End };
     [System.Serializable]
     public struct MarkSlot

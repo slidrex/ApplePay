@@ -2,6 +2,21 @@ namespace PayWorld.Effect
 {
 public class StateEffect
 {
+    public struct TickImplementation
+    {
+        public TickImplementation(TickActionHandler action, float tickScale)
+        {
+            TickAction = action;
+            TickScale = tickScale;
+            TimeSinceAction = 0;
+        }
+        public TickActionHandler TickAction;
+        public float TickScale {get; private set;}
+        public float TimeSinceAction;
+
+    }
+    public TickImplementation TickImplement;
+    public delegate void TickActionHandler(Entity entity);
     public delegate void BeginActionHandler(Entity entity);
     public delegate void EndActionHandler(Entity entity);
     public BeginActionHandler BeginAction;
@@ -11,14 +26,36 @@ public class StateEffect
         BeginAction = beginAction;
         EndAction = endAction;
     }
+    public StateEffect(BeginActionHandler beginAction) => BeginAction = beginAction;
+    public StateEffect(TickImplementation tick) => TickImplement = tick;
+    public StateEffect(BeginActionHandler beginAction, EndActionHandler endAction, TickImplementation tick)
+    {
+        BeginAction = beginAction;
+        EndAction = endAction;
+        TickImplement = tick;
+    }
 }
 public class States
 {
+    public static StateEffect ChangeHealth(float amount, float tickScale)
+    {
+        StateEffect.TickActionHandler tickAction = (Entity entity) => entity.ChangeHealth((int)(entity.MaxHealth * amount));
+        return new StateEffect(new StateEffect.TickImplementation(tickAction, tickScale));
+    }
+    public static StateEffect ChangeHealth(float amount)
+    {
+        StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.ChangeHealth((int)(entity.MaxHealth * amount));
+        return new StateEffect(beginAction);
+    }
+    public static StateEffect ChangeHealth(int amount, float tickScale)
+    {
+        StateEffect.TickActionHandler tickAction = (Entity entity) => entity.ChangeHealth(amount);
+        return new StateEffect(new StateEffect.TickImplementation(tickAction, tickScale));
+    }
     public static StateEffect ChangeHealth(int amount)
     {
         StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.ChangeHealth(amount);
-        StateEffect stateEffect = new StateEffect(beginAction, null);
-        return stateEffect;
+        return new StateEffect(beginAction);
     }
     public static StateEffect Strength(float changeAmount)
     {
@@ -66,7 +103,6 @@ public class States
     {
         StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.GetComponent<WeaponHolder>().Disable = true;
         StateEffect.EndActionHandler endAction = (Entity entity) => entity.GetComponent<WeaponHolder>().Disable = false;
-        
 
         StateEffect stateEffect = new StateEffect(beginAction, endAction);
         return stateEffect;

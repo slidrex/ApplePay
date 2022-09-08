@@ -48,7 +48,6 @@ public enum TransformType
 }
 public static class IndicatorSettings
 {
-    
     ///<summary>
     ///Automatically removes indicator if its value reaches 100%.
     ///</summary>

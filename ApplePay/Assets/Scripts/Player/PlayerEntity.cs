@@ -28,7 +28,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         }
         for(int i = 0; i < ActiveEffects.Count; i++)
         {
-            if(ActiveEffects.ElementAt(i).Value.EffectDisplay == null)
+            if(ActiveEffects.ElementAt(i).Value.EffectDisplay.Equals(new PayWorld.EffectController.EffectDisplay()))
                 continue;
             var obj = Instantiate(effectCell.gameObject, Vector3.zero, Quaternion.identity);
             obj.transform.SetParent(EffectList.transform);
@@ -39,6 +39,10 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Update()
     {
         base.Update();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            PayWorld.EffectController.AddEffect(this, "slowness", 3, 10f);
+        }
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);
     }
     public override void ChangeHealth(int changeAmount, Creature handler)

@@ -6,7 +6,7 @@ public class ItemEffect
     public byte Level = 1;
     public byte BeginFunction(Entity entity)
     {
-        PayWorld.EffectController.AddEffect(entity, out byte id, PayWorld.EffectController.GetEffectTemplateByID(EffectID, Level).StateEffects);
+        PayWorld.EffectController.AddEffect(entity, out byte id, PayWorld.EffectController.GetEffectTemplate(EffectID, Level).StateEffects);
         return id;
     }
     public void UpdateFunction() { }

@@ -53,6 +53,12 @@ public abstract class Entity : MonoBehaviour
                 if(ActiveEffects.ElementAt(i).Value.Endless) continue;
                 PayWorld.EffectController.ActiveEffect activeEffect = ActiveEffects[ActiveEffects.ElementAt(i).Key];
                 activeEffect.RemainTime -= Time.deltaTime;
+                for(int j = 0; j < activeEffect.StateEffect.Count; j++)
+                {
+                    PayWorld.Effect.StateEffect stateEffect = activeEffect.StateEffect[j];
+                    PayWorld.EffectController.HandleStateEffect(this, ref stateEffect);
+                    activeEffect.StateEffect[j] = stateEffect;
+                }
                 ActiveEffects[ActiveEffects.ElementAt(i).Key] = activeEffect;
                 if(ActiveEffects[ActiveEffects.ElementAt(i).Key].RemainTime <= 0)
                 {
