@@ -1,52 +1,34 @@
 fileFormatVersion: 2
-guid: 43e69d5b4f6388647a37786fccacf06c
+guid: efea614a356118d48b323a58c76efc1d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -914729477713924220
-    second: stateTop_0
+      213: 1670660276820739667
+    second: Dust_0
   - first:
-      213: 5421104534529341965
-    second: stateTop_1
+      213: -5929832237704200204
+    second: Dust_1
   - first:
-      213: -2175247368432391173
-    second: stateTop_2
+      213: 3207967757382678166
+    second: Dust_2
   - first:
-      213: -4437352807157487839
-    second: stateTop_3
+      213: -2696115198898644070
+    second: Dust_3
   - first:
-      213: -8826514154401974696
-    second: stateTop_4
+      213: 952623855650433617
+    second: Dust_4
   - first:
-      213: 9105392230041243441
-    second: stateTop_5
+      213: -4267497323730781568
+    second: Dust_5
   - first:
-      213: -7841741305421908829
-    second: stateTop_6
+      213: 4867414469933269289
+    second: Dust_6
   - first:
-      213: -444313781132161310
-    second: stateTop_7
+      213: -5132074842684296794
+    second: Dust_7
   - first:
-      213: -2106521013455480104
-    second: stateTop_8
-  - first:
-      213: 3577696348425922729
-    second: stateTop_9
-  - first:
-      213: 6476285320945011745
-    second: stateTop_10
-  - first:
-      213: -4468928433040856121
-    second: stateTop_11
-  - first:
-      213: 7413143295857973879
-    second: stateTop_12
-  - first:
-      213: -3186278427259691779
-    second: stateTop_13
-  - first:
-      213: 7329976782436502019
-    second: stateTop_14
+      213: -4167334906893894227
+    second: Dust_8
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -113,7 +95,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -125,7 +107,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -136,13 +118,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stateTop_0
+      name: Dust_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48f684fe26a3e43f0800000000000000
-      internalID: -914729477713924220
+      spriteID: 35681449ba06f2710800000000000000
+      internalID: 1670660276820739667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stateTop_1
+      name: Dust_1
       rect:
         serializedVersion: 2
-        x: 40
+        x: 64
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0a71e61ad1ab3b40800000000000000
-      internalID: 5421104534529341965
+      spriteID: 4ff3bf55ff005bda0800000000000000
+      internalID: -5929832237704200204
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stateTop_2
+      name: Dust_2
       rect:
         serializedVersion: 2
-        x: 80
+        x: 128
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bfbebf91b08ffc1e0800000000000000
-      internalID: -2175247368432391173
+      spriteID: 69673b5cdadf48c20800000000000000
+      internalID: 3207967757382678166
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stateTop_3
+      name: Dust_3
       rect:
         serializedVersion: 2
-        x: 120
+        x: 192
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 127ab4ac12b5b62c0800000000000000
-      internalID: -4437352807157487839
+      spriteID: a9b5d10e289759ad0800000000000000
+      internalID: -2696115198898644070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stateTop_4
+      name: Dust_4
       rect:
         serializedVersion: 2
-        x: 160
+        x: 256
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,83 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 856b9e5342ce18580800000000000000
-      internalID: -8826514154401974696
+      spriteID: 15a6b987956683d00800000000000000
+      internalID: 952623855650433617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stateTop_5
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 13fc534adf9dc5e70800000000000000
-      internalID: 9105392230041243441
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stateTop_6
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a4b1dd74d98c2390800000000000000
-      internalID: -7841741305421908829
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stateTop_7
-      rect:
-        serializedVersion: 2
-        x: 280
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2ee8eca58fa75d9f0800000000000000
-      internalID: -444313781132161310
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stateTop_8
+      name: Dust_5
       rect:
         serializedVersion: 2
         x: 320
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -318,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8da17119c4224c2e0800000000000000
-      internalID: -2106521013455480104
+      spriteID: 08ab8135bcdc6c4c0800000000000000
+      internalID: -4267497323730781568
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stateTop_9
+      name: Dust_6
       rect:
         serializedVersion: 2
-        x: 360
+        x: 384
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -339,20 +258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a8a32a9fd786a130800000000000000
-      internalID: 3577696348425922729
+      spriteID: 92108f6fba78c8340800000000000000
+      internalID: 4867414469933269289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stateTop_10
+      name: Dust_7
       rect:
         serializedVersion: 2
-        x: 400
+        x: 448
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -360,20 +279,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12c0103cf2360e950800000000000000
-      internalID: 6476285320945011745
+      spriteID: 6a175191f1537c8b0800000000000000
+      internalID: -5132074842684296794
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: stateTop_11
+      name: Dust_8
       rect:
         serializedVersion: 2
-        x: 440
+        x: 512
         y: 0
-        width: 40
-        height: 40
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -381,71 +300,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7cbe4fd744d2bf1c0800000000000000
-      internalID: -4468928433040856121
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stateTop_12
-      rect:
-        serializedVersion: 2
-        x: 480
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 77adea21d86c0e660800000000000000
-      internalID: 7413143295857973879
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stateTop_13
-      rect:
-        serializedVersion: 2
-        x: 520
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dfc12bbe6a018c3d0800000000000000
-      internalID: -3186278427259691779
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: stateTop_14
-      rect:
-        serializedVersion: 2
-        x: 560
-        y: 0
-        width: 40
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 30a0df83c0f49b560800000000000000
-      internalID: 7329976782436502019
+      spriteID: dadf08e4bf6aa26c0800000000000000
+      internalID: -4167334906893894227
       vertices: []
       indices: 
       edges: []

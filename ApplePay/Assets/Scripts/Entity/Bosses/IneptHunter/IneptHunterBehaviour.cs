@@ -11,6 +11,7 @@ public class IneptHunterBehaviour : AttackingMob
     [SerializeField] private Attacks curState;
     [SerializeField] private GameObject shockWave;
     [SerializeField] private GameObject obstacleCollisionParticles;
+    [SerializeField] private GameObject dustAfterJump;
     [SerializeField] private float maxTime = 3, curTime = 0;
     private float viewAngle;
     private int collisionDamage = 15;
@@ -129,9 +130,10 @@ public class IneptHunterBehaviour : AttackingMob
     }
     public void Jump()
     {
+        PayWorld.Particles.InstantiateParticles(dustAfterJump, new Vector2(transform.position.x, transform.position.y + 0.75f), Quaternion.identity, 0.85f);
         GetComponent<Collider2D>().enabled = false;
-        rb.velocity = Vector2.up * 25;
-        Invoke("Fall", 2);
+        rb.velocity = Vector2.up * 30;
+        Invoke("Fall", 1.4f);
     }
     private void Fall()
     {
@@ -143,7 +145,7 @@ public class IneptHunterBehaviour : AttackingMob
     {
         animator.SetTrigger("Collision");
         rb.velocity = Vector3.zero;
-        PayWorld.Particles.InstantiateParticles(shockWave, new Vector2(transform.position.x, transform.position.y - 0.6f), Quaternion.identity, 1);
+        PayWorld.Particles.InstantiateParticles(shockWave, new Vector2(transform.position.x, transform.position.y - 0.6f), Quaternion.identity, 0.9f);
         StartCoroutine(CameraShake.SmoothShake(0, 6, 6, 0, 6));
         GetComponent<Collider2D>().enabled = true;
         curAttackState = AttackStates.Nothing;

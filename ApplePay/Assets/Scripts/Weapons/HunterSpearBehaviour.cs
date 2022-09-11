@@ -5,6 +5,10 @@ public class HunterSpearBehaviour : Projectile
     private bool canCollison = true;
     private Vector2 dist;
     private const int obstacleLayer = 6;
+    protected override void Start()
+    {
+        base.Start();
+    }
     protected override void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.layer == obstacleLayer && canCollison == true)
@@ -28,6 +32,8 @@ public class HunterSpearBehaviour : Projectile
     protected override void Update()
     {
         base.Update();
+        dist = ProjectileOwner.transform.position - transform.position;
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Pay.Functions.Math.Atan3(dist.y, dist.x));
         ReturnToOwner();
     }
     private void ReturnToOwner()

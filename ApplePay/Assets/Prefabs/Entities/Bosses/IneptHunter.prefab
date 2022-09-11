@@ -239,6 +239,7 @@ MonoBehaviour:
   curState: 0
   shockWave: {fileID: 3254439248112907315, guid: 1e6311078f6e70a4c91a1c18289738b1, type: 3}
   obstacleCollisionParticles: {fileID: 881860692434907308, guid: e95443df24be050499ee6c455d949c68, type: 3}
+  dustAfterJump: {fileID: 7066064494759315504, guid: d132e22e7ca490e4e982eb33f8123646, type: 3}
   maxTime: 3
   curTime: 0
 --- !u!114 &596466385
