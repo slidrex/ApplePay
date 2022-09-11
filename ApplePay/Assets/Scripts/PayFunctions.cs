@@ -160,10 +160,7 @@ namespace Pay.Functions
         ///<summary>
         ///Returns current mouse position.
         ///</summary>
-        public static Vector2 GetMousePos(UnityEngine.Camera camera)
-        {
-            return camera.ScreenToWorldPoint(Input.mousePosition);
-        }
+        public static Vector2 GetMousePos(UnityEngine.Camera camera) => camera.ScreenToWorldPoint(Input.mousePosition);
         ///<summary>
         ///Converts integer from number to roman
         ///</summary>
@@ -191,9 +188,9 @@ namespace Pay.Functions
         ///</summary>
         public static Vector2 GetAspectRatio(UnityEngine.Camera camera)
         {
-            Vector2 cameraResolution = new Vector2(camera.pixelWidth, camera.pixelHeight);
-            Vector2 aspectRation = new Vector2(camera.pixelWidth/camera.pixelHeight, camera.pixelHeight/camera.pixelWidth);
-            return aspectRation;
+            Vector2 cameraResolution = new Vector2(camera.scaledPixelWidth, camera.scaledPixelHeight);
+            Vector2 aspectRatio = new Vector2(cameraResolution.x/cameraResolution.y, cameraResolution.y/cameraResolution.x);
+            return aspectRatio;
         }
         public static System.Collections.Generic.Dictionary<int, string> RomanNumbers = new System.Collections.Generic.Dictionary<int, string>()
         {

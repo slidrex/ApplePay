@@ -5,7 +5,7 @@ public class EffectGrid : MonoBehaviour
     [SerializeField, ReadOnly] private Canvas canvas;
     [SerializeField] private EffectPanel effectPanel;
     [HideInInspector] public EffectPanel CurrentEffectPanel;
-    [SerializeField] private Vector2 offset;
+    [SerializeField] private GameObject test;
     public void OnCellEnter(EffectCell cell)
     {
         PanelSet(cell);
@@ -24,13 +24,15 @@ public class EffectGrid : MonoBehaviour
     }
     public void OnCellOver(EffectCell cell)
     {
-        Vector2 nativeOffset = Vector2.right/3;
-        Vector2 res = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
-        Vector2 aspectRatio = new Vector2(res.x/res.y, res.y/res.x);
+        Vector2 nativeOffset = Vector2.right * 5f;
+        Vector3[] verteces = new Vector3[4];
+        CurrentEffectPanel.GetComponent<RectTransform>().GetWorldCorners(verteces);
+        Vector2 scale = Vector2.one;
+        
+        Vector2 mousePos = Pay.Functions.Generic.GetMousePos(Camera.main) + nativeOffset /  Pay.Functions.Generic.GetAspectRatio(Camera.main);
         
         
-        Vector2 additionalScale = CurrentEffectPanel.GetComponent<RectTransform>().rect.size * canvas.transform.lossyScale;
-        Vector2 mousePos = Pay.Functions.Generic.GetMousePos(Camera.main) + (offset + nativeOffset) * additionalScale * aspectRatio;
+        
         if(CurrentEffectPanel != null) CurrentEffectPanel.transform.position = mousePos;
     }
     public void OnCellExit(EffectCell cell)

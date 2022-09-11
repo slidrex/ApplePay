@@ -10,7 +10,7 @@ public class InteractManager : MonoBehaviour
     private InteractiveObject currentInteractObj;
     private bool InteractUpdate;
     [HideInInspector] public bool InInteract;
-    private byte interactIndicatorId;
+    private Pay.UI.IndicatorObject interactIndicator;
     private byte constraintId;
     public float HackSpeed { get; private set; } = 1;
     [SerializeField] private Pay.UI.UIHolder holder;
@@ -90,7 +90,7 @@ public class InteractManager : MonoBehaviour
         );
         
         PayWorld.EffectController.AttachVisualAttrib(effect, "Interact Constrainer", "Some abilities are under constraint.", "", EffectDatabase.FindEffectSprite("Interact.png"));
-        Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.FollowCanvas, indicator, out interactIndicatorId,
+        Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.FollowCanvas, indicator, out interactIndicator,
             Pay.UI.Options.Transform.StaticProperty.Position(transform.position + Vector3.up / 1.2f),
             Pay.UI.Options.Transform.DynamicProperty.LocalScale(Vector3.one / 3, Vector3.one / 4, true, 0.5f)
         );
@@ -105,7 +105,7 @@ public class InteractManager : MonoBehaviour
         interactiveObj.InteractLoop();
         GetComponent<EntityMovement>().SetMoveMod(false);
         if(interactiveObj.GetComponent<HackSystem>() != null)
-            Pay.UI.UIManager.Indicator.UpdateIndicator(holder, interactIndicatorId, interactiveObj.GetComponent<HackSystem>().CurrentProgess, interactiveObj.GetComponent<HackSystem>().MaxProgress);
+            Pay.UI.UIManager.Indicator.UpdateIndicator(interactIndicator, interactiveObj.GetComponent<HackSystem>().CurrentProgess, interactiveObj.GetComponent<HackSystem>().MaxProgress);
     }
     public void InteractEnd()
     {
@@ -113,7 +113,7 @@ public class InteractManager : MonoBehaviour
         currentInteractObj = null;
         anim.SetBool("isUnhacking", true);
         PayWorld.EffectController.RemoveEffect(GetComponent<Entity>(), ref constraintId);
-        Pay.UI.UIManager.RemoveUI(holder, ref interactIndicatorId);
+        Pay.UI.UIManager.RemoveUI(interactIndicator);
     }
     
 }

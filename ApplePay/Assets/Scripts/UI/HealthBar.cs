@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image value;
     [SerializeField] private Creature entityScript;
     [SerializeField] private Pay.UI.UIHolder holder;
-    private byte healthBarId;
-    public void IndicatorSetup() => Pay.UI.UIManager.Indicator.RegisterIndicator(holder, value, out healthBarId);
-    public void IndicatorUpdate() => Pay.UI.UIManager.Indicator.UpdateIndicator(holder, healthBarId, entityScript.CurrentHealth, entityScript.MaxHealth);
+    private Pay.UI.IndicatorObject indicatorObject;
+    public void IndicatorSetup() => Pay.UI.UIManager.Indicator.RegisterIndicator(holder, value, out indicatorObject);
+    public void IndicatorUpdate() => Pay.UI.UIManager.Indicator.UpdateIndicator(indicatorObject, entityScript.CurrentHealth, entityScript.MaxHealth);
 }
