@@ -1,46 +1,30 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
+
 namespace Pay.UI
 {
     public static class UIManager
     {
         ///<summary>
-        ///Creates id that can be used to access all the specified UI elements (not removing individual specified id). 
+        ///Creates unique UI container that can be used to access all the specified UI elements (not removing individual specified UI containers). 
         ///</summary>
-        public static void CreateBundle(UIHolder holder, out byte id, params byte[] UIIDs)
+        public static UIElementBundle CreateBundle(params UIElement[] elements) => new UIElementBundle(elements);
+        public static void RemoveUI(UIElement element) 
         {
-            id = GetID(holder);
-            holder.BundleBuffer.Add(id, UIIDs);
-        }
-        public static bool ContainsId(UIHolder holder, byte id) => holder.InstantiatedUI.ContainsKey(id) || holder.BundleBuffer.ContainsKey(id);
-        ///<summary>Removes UI (or all the bundled UI if specified id is a bundle).</summary>
-        public static void RemoveUI(UIHolder holder, ref byte id)
-        {
-            bool containsUI = holder.InstantiatedUI.ContainsKey(id);
-            bool containsBundle = holder.BundleBuffer.ContainsKey(id);
-            if(containsUI && !containsBundle) RemoveSingle(holder, ref id);
-            else if(containsBundle && !containsUI) RemoveBundle(holder, ref id);
-            id = 0;
-        }
-        private static void RemoveSingle(UIHolder holder, ref byte id)
-        {
-            holder.InstantiatedUI.TryGetValue(id, out UIObject element);
-            if(element == null) return;
+            if(element == null || element.IsEmpty() || element.GetObject() == null) return;
             element.OnRemove();
-            holder.InstantiatedUI.Remove(id);
         }
-        private static void RemoveBundle(UIHolder holder, ref byte id)
+        public static void RemoveUI(UIElementBundle bundle)
         {
-            holder.BundleBuffer.TryGetValue(id, out byte[] bundledID);
-            for(int i = 0; i < bundledID.Length; i++) RemoveSingle(holder, ref bundledID[i]);
-            holder.BundleBuffer.Remove(id);
+            foreach(UIElement element in bundle.Elements)
+            {
+                element.GetHolder().InstantiatedUI.Remove(element);
+                element.OnRemove();
+            }
         }
-        internal static byte GetID(UIHolder holder) => Pay.Functions.Math.GetUniqueByte(Pay.Functions.Generic.CombineArrays(holder.BundleBuffer.Keys.ToArray(), holder.InstantiatedUI.Keys.ToArray()), 0);
-
         public static class Text
         {
-            public static void CreateText(UIHolder holder, Canvas canvas, string text, TextConfiguration textConfiguration, float duration, float fadeIn, float fadeOut, out byte id, params Pay.UI.Options.TransformProperty[] properties)
+            public static void CreateText(UIHolder holder, Canvas canvas, string text, TextConfiguration textConfiguration, float duration, float fadeIn, float fadeOut, out TextObject container, params Pay.UI.Options.TransformProperty[] properties)
             {
                 GameObject obj = MonoBehaviour.Instantiate(holder.TextObject.gameObject, canvas.transform);
                 obj.AddComponent<UITransform>();
@@ -49,13 +33,10 @@ namespace Pay.UI
                 currentText.font = textConfiguration.Font;
                 currentText.color = textConfiguration.Color;
                 currentText.lineSpacing = textConfiguration.LineSpacing;
-                id = GetID(holder);
-                TextObject textObject = new TextObject(holder, id, currentText, fadeIn, duration, fadeOut);
+                container = new TextObject(holder, currentText, fadeIn, duration, fadeOut);
                 
-                holder.InstantiatedUI.Add(id, textObject);
-                UIObject ui = textObject;
-                UIManager.ActivateProperties(properties, ui);
-                textObject = (TextObject)ui;
+                holder.InstantiatedUI.Add(container);
+                UIManager.ActivateProperties(properties, container);
             }
         }
         public struct TextField
@@ -70,7 +51,7 @@ namespace Pay.UI
         }
         public static class Indicator
         {
-            public static void CreateIndicator(UIHolder holder, Canvas canvas, Pay.UI.Indicator indicator, out byte id, params Pay.UI.Options.UIProperty[] properties)
+            public static void CreateIndicator(UIHolder holder, Canvas canvas, Pay.UI.Indicator indicator, out IndicatorObject container, params Pay.UI.Options.UIProperty[] properties)
             {
                 Image indicatorImage = new GameObject("Indicator", typeof(UITransform)).AddComponent<Image>();
                 indicatorImage.type = Image.Type.Filled;
@@ -79,59 +60,68 @@ namespace Pay.UI
                 indicatorImage.transform.SetParent(canvas.transform);
                 indicatorImage.transform.localPosition = Vector3.zero;
                 indicatorImage.transform.localScale = Vector3.one;
-                id = GetID(holder);
-                IndicatorObject indicatorObject = new IndicatorObject(holder, id, indicatorImage);
-                holder.InstantiatedUI.Add(id, indicatorObject);
-                UIObject ui = indicatorObject;
-                ActivateProperties(properties, ui);
-                indicatorObject = (IndicatorObject)ui;
+                
+                container = new IndicatorObject(holder, indicatorImage);
+                holder.InstantiatedUI.Add(container);
+                ActivateProperties(properties, container);
             }
-            public static void UpdateIndicator(UIHolder holder, byte id, float currentAmount, float maxAmount, params Pay.UI.Options.IndicatorProperty[] properties)
+            public static void UpdateIndicator(IndicatorObject indicator, float currentAmount, float maxAmount, params Pay.UI.Options.IndicatorProperty[] properties)
             {
-                holder.InstantiatedUI.TryGetValue(id, out UIObject ui);
-                if(ui == null) return;
-                IndicatorObject indicatorObject = (IndicatorObject)ui;
-                indicatorObject.IndicatorValue = currentAmount / maxAmount;
-                indicatorObject.indicatorObject.fillAmount = indicatorObject.IndicatorValue;
-                ActivateProperties(properties, ui);
-                indicatorObject = (IndicatorObject)ui;
+                indicator.IndicatorValue = currentAmount / maxAmount;
+                indicator.indicatorObject.fillAmount = indicator.IndicatorValue;
+                ActivateProperties(properties, indicator);
             }
-            public static void RegisterIndicator(UIHolder holder, Image indicator, out byte id)
+            public static void RegisterIndicator(UIHolder holder, Image indicator, out IndicatorObject container)
             {
-                id = GetID(holder);
-                IndicatorObject indicatorObject = new IndicatorObject(holder, id, indicator);
-                holder.InstantiatedUI.Add(id, indicatorObject);
+                container = new IndicatorObject(holder, indicator);
+                holder.InstantiatedUI.Add(container);
             }
         }
-        private static void ActivateProperties(Pay.UI.Options.UIProperty[] properties, UIObject propertyUI)
+        private static void ActivateProperties(Pay.UI.Options.UIProperty[] properties, UIElement propertyUI)
         {
             foreach(Pay.UI.Options.UIProperty property in properties) property.Action?.Invoke(propertyUI);
         }
     }
-    public abstract class UIObject 
+    public class UIElementBundle
     {
-        public byte Id {get; private set;}
-        public UIHolder Holder{get; private set;}
-        public abstract GameObject GetObject();
-        public virtual void OnRemove() => MonoBehaviour.Destroy(GetObject());
-        public UIObject(UIHolder holder, byte id)
+        public UIElement[] Elements { get; private set; }
+        public void AddElements(params UIElement[] elements) => Elements = elements;
+        ///<summary> Removes all the elements the bundle contains. </summary>
+        public void RemoveBundle()
         {
-            Id = id;
-            Holder = holder;
+            foreach(UIElement iObject in Elements) iObject.OnRemove();
+            Elements = null;
         }
+        public UIElementBundle(params UIElement[] elements) => AddElements(elements);
     }
-    
-    public class IndicatorObject : UIObject
+    public abstract class UIElement
     {
-        public IndicatorObject(UIHolder holder, byte id, Image indicator) : base(holder, id) => indicatorObject = indicator;
+        [SerializeField] protected UIHolder Holder;
+
+        public abstract GameObject GetObject();
+        ///<summary>Checks if the holder holder is attached. (Note that if a container has attached holder and it contains no UI it is NOT empty). </summary>
+        public bool IsEmpty() => Holder == null;
+        public UIHolder GetHolder() => Holder;
+        public virtual void OnRemove() 
+        {
+            Holder.InstantiatedUI.Remove(this);
+            Holder = null;
+            MonoBehaviour.Destroy(GetObject());
+        }
+        public UIElement(UIHolder holder) => Holder = holder;
+    }
+    [System.Serializable]
+    public class IndicatorObject : UIElement
+    {
+        public IndicatorObject(UIHolder holder, Image indicator) : base(holder) => indicatorObject = indicator;
         public Image indicatorObject {get; private set;}
         public float IndicatorValue {get; set;}
-        public override GameObject GetObject() => indicatorObject.gameObject;
+        public override GameObject GetObject() => indicatorObject == null ? null : indicatorObject.gameObject;
     }
-    
-    public class TextObject : UIObject
+    [System.Serializable]
+    public class TextObject : UIElement
     {
-        public TextObject(UIHolder holder, byte id, UnityEngine.UI.Text text, float fadeIn, float duration, float fadeOut) : base(holder, id)
+        public TextObject(UIHolder holder, UnityEngine.UI.Text text, float fadeIn, float duration, float fadeOut) :  base(holder)
         {
             Text = text;
             FadeInDuration = fadeIn;
@@ -145,13 +135,7 @@ namespace Pay.UI
         internal float curFadeInDuration;
         internal float curDuration;
         internal float curFadeOutDuration;
-        public override GameObject GetObject() => Text.gameObject;
-    }
-    public class ImageObject : UIObject
-    {
-        public Image Object;
-        public override GameObject GetObject() => Object.gameObject;
-        public ImageObject(UIHolder holder, byte id, Image image) : base(holder, id) => Object = image;
+        public override GameObject GetObject() => Text == null ? null : Text.gameObject;
     }
     
     [System.Serializable]

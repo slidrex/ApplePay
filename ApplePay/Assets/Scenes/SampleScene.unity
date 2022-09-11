@@ -1453,7 +1453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -201.22638, y: 0}
+  m_AnchoredPosition: {x: -201.22632, y: 0}
   m_SizeDelta: {x: 131.25, y: 48.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &931947518
@@ -1603,8 +1603,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ImageRenderer: {fileID: 937445610}
   indicator: {fileID: 11400000, guid: 44a602ae3b6f9624987185df3cc685c7, type: 2}
-  indicatorID: 0
-  textID: 0
 --- !u!1001 &958765758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2016,7 +2014,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014642741}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.87, y: -1.36, z: 1}
+  m_LocalPosition: {x: -4.61, y: 0.24, z: 1}
   m_LocalScale: {x: 7.2, y: 7.2, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4192,6 +4190,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: test
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: holder
       value: 
       objectReference: {fileID: 1124329983}
@@ -4356,6 +4358,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8189285200546192267, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8189285200546192267, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: menuComponents
       value: 
       objectReference: {fileID: 2116521018}
@@ -4465,6 +4471,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1321229241}
     m_Modifications:
+    - target: {fileID: 583544668702123723, guid: 3dcebf4e2be0ee4438de15d867a8cc26, type: 3}
+      propertyPath: test
+      value: 
+      objectReference: {fileID: 1551268711184522188, guid: 76d1b137bba8d3049bc750c4fb15637f, type: 3}
     - target: {fileID: 583544668702123723, guid: 3dcebf4e2be0ee4438de15d867a8cc26, type: 3}
       propertyPath: canvas
       value: 

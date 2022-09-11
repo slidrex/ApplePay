@@ -36,14 +36,14 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     }
     public override void OnWeaponActivate(WeaponItem weapon, bool status)
     {
-        weaponPlaceSlot.RemoveIndicator(holder);
+        weaponPlaceSlot.RemoveIndicator();
         if(weapon != null) weaponPlaceSlot.CreateSlotIndicator(holder);
     }
     protected override void OnActiveWeaponUpdate()
     {
         weaponPlaceSlot.SetItem(null);
-        weaponPlaceSlot.RemoveSlotUI(holder);
-        if(GetActiveWeapon() != null) 
+        weaponPlaceSlot.RemoveSlotUI();
+        if(GetActiveWeapon() != null)
         {
             weaponPlaceSlot.CreateSlotIndicator(holder);
             weaponPlaceSlot.SetItem(GetActiveWeapon().WeaponInfo.Display.InventorySprite);

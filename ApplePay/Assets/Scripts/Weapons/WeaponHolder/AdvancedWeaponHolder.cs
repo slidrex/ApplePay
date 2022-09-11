@@ -14,7 +14,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     [SerializeField] private float dropOffset;
     [SerializeField] protected Pay.UI.UIHolder holder;
     [SerializeField] private Pay.UI.Indicator indicator;
-    private byte currentIndicatorId;
+    private Pay.UI.IndicatorObject currentDropIndicatorObject;
     [Header("Item Constraints")]
     [SerializeField] private float droppedItemBlockTime;
     public virtual void OnAddItem(ref WeaponItem item)
@@ -72,17 +72,17 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     }
     private void IndicatorStartup()
     {
-        Pay.UI.UIManager.RemoveUI(holder, ref currentIndicatorId);
+        Pay.UI.UIManager.RemoveUI(currentDropIndicatorObject);
         
-        Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.FollowCanvas, indicator, out currentIndicatorId,
+        Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.FollowCanvas, indicator, out currentDropIndicatorObject,
             Pay.UI.Options.Transform.DynamicProperty.LocalScale(Vector3.one / 8, Vector3.one / 4, true, 1f),
             Pay.UI.Options.Transform.StaticProperty.Position(transform.position + Vector3.up)
         );
     }
     protected void DropPreparation() 
     {
-        if(currentIndicatorId == 0) DropStart();
-        Pay.UI.UIManager.Indicator.UpdateIndicator(holder, currentIndicatorId, targetForce, maxForce);
+        if(currentDropIndicatorObject == null) DropStart();
+        Pay.UI.UIManager.Indicator.UpdateIndicator(currentDropIndicatorObject, targetForce, maxForce);
         targetForce = Mathf.Clamp(targetForce + forceAddSpeed * Time.deltaTime, 0, maxForce);
     }
     protected void DropRelease(WeaponItem dropItem)
@@ -95,7 +95,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     {
         if(Repository.InventoryItems.Count == 0 || Repository.InventoryItems.Contains(drop) == false) return;
         InstantiateDroppedObject(drop, SetDropDirection(), SetDropDirection() * (targetForce + minForce));
-        if(currentIndicatorId != 0) Pay.UI.UIManager.RemoveUI(holder, ref currentIndicatorId);
+        if(currentDropIndicatorObject != null) Pay.UI.UIManager.RemoveUI(currentDropIndicatorObject);
         targetForce = 0;
         OnActiveWeaponUpdate();
     }

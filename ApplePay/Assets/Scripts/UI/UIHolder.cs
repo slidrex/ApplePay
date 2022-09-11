@@ -6,8 +6,7 @@ namespace Pay.UI
         public Canvas FollowCanvas;
         public Canvas HUDCanvas;
         public UnityEngine.UI.Text TextObject;
-        public System.Collections.Generic.Dictionary<byte, UIObject> InstantiatedUI = new System.Collections.Generic.Dictionary<byte, UIObject>();
-        public System.Collections.Generic.Dictionary<byte, byte[]> BundleBuffer = new System.Collections.Generic.Dictionary<byte, byte[]>();
+        public System.Collections.Generic.List<UIElement> InstantiatedUI = new System.Collections.Generic.List<UIElement>();
         private void Update() => TextUpdateHandler();
         private void TextUpdateHandler()
         {
