@@ -214,10 +214,9 @@ namespace Pay.Functions
         ///<summary>
         ///Sets two strings on sides of the wrapping word.
         ///</summary>
-        public static string SetSides(string wrapping, string first, string second)
-        {
-            return first + wrapping + second;
-        }
+        public static string SetSides(string wrapping, string first, string second) => first + wrapping + second;
+        public static string SetRichTextTag(string text, string tagName, string tagContent) => "<" + tagName + "=" + tagContent + ">" + text + "</" + tagName +">";
+        public static string SetRichTextTag(string text, string tagName) => "<" + tagName + ">" + text + "</" + tagName +">";
     }
     
 }
