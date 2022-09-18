@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class CharmRepositoryRenderer : RepositoryRenderer
 {
     [SerializeField] private CharmRepository repository;
@@ -8,37 +7,21 @@ public class CharmRepositoryRenderer : RepositoryRenderer
     private void OnEnable() => Render();
     private void Render()
     {
-        CharmDisplay[] itemDisplays = new CharmDisplay[repository.InventoryItems.Count];
+        ItemDisplay[] itemDisplays = new ItemDisplay[repository.InventoryItems.Count];
         for(int i = 0; i < itemDisplays.Length; i++)
         {
             itemDisplays[i] = repository.InventoryItems[i].Item.Display;
         }
-        SetupItems(itemDisplays);
+        RenderItems(itemDisplays);
     }
     public override void OnCellTriggerEnter(ItemDisplay display, InventoryDisplaySlot slot)
     {
-        hoverboard.RemoveAddditionalFields();
-        if(display.InventorySprite == null)
+        if(display == null || display.Description.Name == "")
         {
             hoverboard.SetDefaultDescription();
             return;
         }
-        CharmDisplay _display = (CharmDisplay)display;
-        if(_display == null || _display.Description.Name == "")
-        {
-            hoverboard.SetDefaultDescription();
-            return;
-        }
-        hoverboard.SetDescription(_display.Description.Name, _display.Description.Description);
-        
-        foreach(CharmDisplay.CharmAddtionalField stat in _display.AdditionalFields)
-        {
-            hoverboard.AddField(stat.Text, stat.Color);
-        }
+        hoverboard.SetDescription(display.Description.Name, display.Description.Description);
     }
-    public override void OnCellTriggerExit(ItemDisplay display, InventoryDisplaySlot slot)
-    {
-        hoverboard.SetDefaultDescription();
-        hoverboard.RemoveAddditionalFields();
-    }
+    public override void OnCellTriggerExit(ItemDisplay display, InventoryDisplaySlot slot) => hoverboard.SetDefaultDescription();
 }

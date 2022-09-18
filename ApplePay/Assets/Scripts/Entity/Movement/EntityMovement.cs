@@ -1,18 +1,27 @@
 using UnityEngine;
-abstract public class EntityMovement : MonoBehaviour, IAttributable
+abstract public class EntityMovement : MonoBehaviour
 {
     public Animator animator {get; private set;}
     [Header("Entity Movement")]
+    public float BaseSpeed;
+    public float AdditionalSpeed;
+    public float SpeedMultiplier { get; private set; } = 1;
     [HideInInspector] public bool MoveDisable;
-    
-    public float CurrentSpeed;
+    [HideInInspector] public bool OnlyPositive;
+    [HideInInspector] public bool Reversed { get; private set; }
+    public float CurrentSpeed { get; private set; }
     [ReadOnly] public Vector2 MoveVector;
     [ReadOnly] public Rigidbody2D Rigidbody;
     [HideInInspector] public bool ConstraintRotation;
     private float curConstraintDuration;
-    public float AttributeValue {get => CurrentSpeed; set => CurrentSpeed = value;}
-    public void AddAttribute(Entity entity) => entity.AddAttribute(GetComponent<IAttributable>(), "movementSpeed");
-    private void Awake() => AddAttribute(GetComponent<Entity>());
+    public void ReverseControl() => Reversed = !Reversed;
+    public void ChangeSpeedMultiplier(float value) => ChangeSpeedMultiplier(value, out float changedValue);
+    public void ChangeSpeedMultiplier(float value, out float changedValue)
+    {
+        float oldValue = SpeedMultiplier;
+        SpeedMultiplier += value;
+        changedValue = SpeedMultiplier - oldValue;
+    }
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
@@ -21,8 +30,10 @@ abstract public class EntityMovement : MonoBehaviour, IAttributable
     protected virtual void Update() => RotationConstraintHandler();
     protected virtual void FixedUpdate()
     {
+        float resultMultiplier = SpeedMultiplier < 0 && OnlyPositive ? 0 : SpeedMultiplier;
         OnBeforeSpeedUpdate();
-        
+        CurrentSpeed = (BaseSpeed + AdditionalSpeed) * resultMultiplier;
+        if(Reversed) CurrentSpeed = -CurrentSpeed;
         if(MoveDisable) CurrentSpeed = 0;
         OnAfterSpeedUpdate();
     }

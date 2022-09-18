@@ -17,12 +17,11 @@ public abstract class RepositoryRenderer : MonoBehaviour
     }
     public virtual void OnRepositoryUpdate(InventoryRepository repository) {}
     public void LinkRepositoryRenderer(InventoryRepository repository) => repository.RepositoryRenderer = this;
-    public void SetupItems(ItemDisplay[] displayItems)
+    public virtual void RenderItems(ItemDisplay[] renderItems)
     {
-        for(int i = 0; i < displayItems.Length; i++)
+        for(int i = 0; i < renderItems.Length; i++)
         {
-            Slots[i].LinkDisplay(displayItems[i]);
-            Slots[i].SetItem(displayItems[i].InventorySprite);
+            Slots[i].SetItem(renderItems[i]);
         }
     }
     private void SetSlotsRenderer()

@@ -4,6 +4,7 @@ public class InventorySystem : MonoBehaviour
 {
     public Creature InventoryOwner;
     public List<InventoryRepository> Repositories = new List<InventoryRepository>();
+    public Dictionary<ItemEffect, byte> ItemEffectBuffer = new Dictionary<ItemEffect, byte>();
     public void AddItem(Item item, out bool isAdded) 
     {
         isAdded = false;

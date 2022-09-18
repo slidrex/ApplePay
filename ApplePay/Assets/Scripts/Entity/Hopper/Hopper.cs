@@ -8,8 +8,6 @@ public class Hopper : AttackingMob, ICollideDamageDealer
     [SerializeField] private float seenRadius;
     public int CollideDamage {get; set;} = 15;
     private System.Collections.Generic.List<CollisionContract> contactColliders = new System.Collections.Generic.List<CollisionContract>();
-    private const float AttackStateSpeed = 6f;
-    private const float MovingStateSpeed = 10f;
     protected override void Start()
     {
         base.Start();
@@ -45,7 +43,7 @@ public class Hopper : AttackingMob, ICollideDamageDealer
         if(state == AttackState.Attack)
         {
             anim.SetBool("inAttack", true);
-            movement.CurrentSpeed = AttackStateSpeed;
+            movement.BaseSpeed = 6;
             Collider2D[] col = Physics2D.OverlapCircleAll(transform.position, seenRadius);
             foreach (Collider2D collider in col)
             {
@@ -58,7 +56,7 @@ public class Hopper : AttackingMob, ICollideDamageDealer
         else if(state == AttackState.Moving)
         {
             anim.SetBool("inAttack", false);
-            movement.CurrentSpeed = MovingStateSpeed;
+            movement.BaseSpeed = 10;
         } 
     }
     private void OnCollisionEnter2D(Collision2D other)
