@@ -1,19 +1,31 @@
 fileFormatVersion: 2
-guid: d8503aa7441ce2e43bfa01c91a7050f6
+guid: 218bb0226136559468a24aac48ab20c6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3371666798189279907
-    second: bottom_run_0
+      213: 5021154340700164846
+    second: IdleDown_0
   - first:
-      213: -714923936374654070
-    second: bottom_run_1
+      213: -8032636247785431155
+    second: IdleDown_1
   - first:
-      213: 5435959176259918422
-    second: bottom_run_2
+      213: 6506578957311756106
+    second: IdleDown_2
   - first:
-      213: -8064930138227092160
-    second: bottom_run_3
+      213: 4956444408882252435
+    second: IdleDown_3
+  - first:
+      213: -2104644509683502283
+    second: IdleDown_4
+  - first:
+      213: -779580028412336569
+    second: IdleDown_5
+  - first:
+      213: -1459827066784766461
+    second: IdleDown_6
+  - first:
+      213: 5889146360451255800
+    second: IdleDown_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -99,41 +111,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 3
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bottom_run_0
+      name: IdleDown_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,20 +129,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3aafc0fc6119ace20800000000000000
-      internalID: 3371666798189279907
+      spriteID: ee218d70549bea540800000000000000
+      internalID: 5021154340700164846
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bottom_run_1
+      name: IdleDown_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 36
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8bf6fab7741416f0800000000000000
-      internalID: -714923936374654070
+      spriteID: d8f92d034e7568090800000000000000
+      internalID: -8032636247785431155
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bottom_run_2
+      name: IdleDown_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 72
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65a5f72e118607b40800000000000000
-      internalID: 5435959176259918422
+      spriteID: a47499d96130c4a50800000000000000
+      internalID: 6506578957311756106
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bottom_run_3
+      name: IdleDown_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 108
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,8 +192,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 045d1a4e4cc931090800000000000000
-      internalID: -8064930138227092160
+      spriteID: 39ac564fde3d8c440800000000000000
+      internalID: 4956444408882252435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleDown_4
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 533b6d528fccac2e0800000000000000
+      internalID: -2104644509683502283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleDown_5
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7466e7438106e25f0800000000000000
+      internalID: -779580028412336569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleDown_6
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3062bca6407adbbe0800000000000000
+      internalID: -1459827066784766461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleDown_7
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fd4bfca9637ab150800000000000000
+      internalID: 5889146360451255800
       vertices: []
       indices: 
       edges: []

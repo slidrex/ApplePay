@@ -1,22 +1,31 @@
 fileFormatVersion: 2
-guid: 2a7d859ef2f861e4c9db1b5b0a681e9c
+guid: 53590df2c2460304ebabdef995d0a196
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7274115927680440318
-    second: top_idle_0
+      213: -8367928949291980275
+    second: IdleTop_0
   - first:
-      213: 1517227119872605608
-    second: top_idle_1
+      213: 7483548534376031706
+    second: IdleTop_1
   - first:
-      213: -2502636961442096800
-    second: top_idle_2
+      213: -4714748131536644430
+    second: IdleTop_2
   - first:
-      213: 3770332867180566164
-    second: top_idle_3
+      213: -4573628341940484876
+    second: IdleTop_3
   - first:
-      213: -436991996958038190
-    second: top_idle_4
+      213: 6471866883853614916
+    second: IdleTop_4
+  - first:
+      213: 7245038454546509203
+    second: IdleTop_5
+  - first:
+      213: -2495105844250585398
+    second: IdleTop_6
+  - first:
+      213: -279160625804219206
+    second: IdleTop_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -83,7 +92,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -95,19 +104,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 3
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: top_idle_0
+      name: IdleTop_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +129,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 208a89b8a162d0b90800000000000000
-      internalID: -7274115927680440318
+      spriteID: d0a6ebfa4f42fdb80800000000000000
+      internalID: -8367928949291980275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: top_idle_1
+      name: IdleTop_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 36
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ad7893e6064e0510800000000000000
-      internalID: 1517227119872605608
+      spriteID: ad5e0e21eb7ead760800000000000000
+      internalID: 7483548534376031706
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: top_idle_2
+      name: IdleTop_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 72
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0691b7f61f8d44dd0800000000000000
-      internalID: -2502636961442096800
+      spriteID: 2b6525edd89d19eb0800000000000000
+      internalID: -4714748131536644430
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: top_idle_3
+      name: IdleTop_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 108
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +192,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 496174144c9e25430800000000000000
-      internalID: 3770332867180566164
+      spriteID: 4f48aff41453780c0800000000000000
+      internalID: -4573628341940484876
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: top_idle_4
+      name: IdleTop_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 144
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +213,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 257a0a3181e7fe9f0800000000000000
-      internalID: -436991996958038190
+      spriteID: 44f75b534a0b0d950800000000000000
+      internalID: 6471866883853614916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleTop_5
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39d2a4ba61c8b8460800000000000000
+      internalID: 7245038454546509203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleTop_6
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac6517c447a9f5dd0800000000000000
+      internalID: -2495105844250585398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IdleTop_7
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abce9afc3e8302cf0800000000000000
+      internalID: -279160625804219206
       vertices: []
       indices: 
       edges: []

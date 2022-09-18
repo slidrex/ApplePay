@@ -1,22 +1,31 @@
 fileFormatVersion: 2
-guid: 9057121912d4a1648b1455be7fd22bc9
+guid: 977655a72816a524c8ee85b2a8517fe4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3368266460380352764
-    second: side_idle_0
+      213: -1249527781935155869
+    second: RunTop_0
   - first:
-      213: -1723766828268264611
-    second: side_idle_1
+      213: 8397955031573175636
+    second: RunTop_1
   - first:
-      213: 5961137314602164554
-    second: side_idle_2
+      213: 8073176771304396615
+    second: RunTop_2
   - first:
-      213: 1933193443141038440
-    second: side_idle_3
+      213: 4625346751129366978
+    second: RunTop_3
   - first:
-      213: 3176968393094692364
-    second: side_idle_4
+      213: 1275580803837699243
+    second: RunTop_4
+  - first:
+      213: -5510172735228875702
+    second: RunTop_5
+  - first:
+      213: 1896220915947557309
+    second: RunTop_6
+  - first:
+      213: 1938660518382618401
+    second: RunTop_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -83,7 +92,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -95,19 +104,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 3
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: side_idle_0
+      name: RunTop_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +129,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf055d7ff7c7ebe20800000000000000
-      internalID: 3368266460380352764
+      spriteID: 365f5c44a19c8aee0800000000000000
+      internalID: -1249527781935155869
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: side_idle_1
+      name: RunTop_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 36
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d53e77dd333f318e0800000000000000
-      internalID: -1723766828268264611
+      spriteID: 45d9f906b978b8470800000000000000
+      internalID: 8397955031573175636
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: side_idle_2
+      name: RunTop_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 72
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a41203eddc63ab250800000000000000
-      internalID: 5961137314602164554
+      spriteID: 747988eff7fa90070800000000000000
+      internalID: 8073176771304396615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: side_idle_3
+      name: RunTop_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 108
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +192,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 861398ca13514da10800000000000000
-      internalID: 1933193443141038440
+      spriteID: 2c1b2103d58803040800000000000000
+      internalID: 4625346751129366978
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: side_idle_4
+      name: RunTop_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 144
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +213,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0e7d05dbebd61c20800000000000000
-      internalID: 3176968393094692364
+      spriteID: ba4ad079bf5c3b110800000000000000
+      internalID: 1275580803837699243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RunTop_5
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4ce3a9671fe783b0800000000000000
+      internalID: -5510172735228875702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RunTop_6
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db158be50eab05a10800000000000000
+      internalID: 1896220915947557309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RunTop_7
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1274542587187ea10800000000000000
+      internalID: 1938660518382618401
       vertices: []
       indices: 
       edges: []

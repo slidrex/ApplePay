@@ -1,22 +1,28 @@
 fileFormatVersion: 2
-guid: db7cacb64e7ec2942bc79b1ecc921042
+guid: f6fdb5c4c5b70364b8be79d371c07bb0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1410974516554992203
-    second: HackSideleft_0
+      213: 3513975940122632408
+    second: RunSide_0
   - first:
-      213: -2355609077346709556
-    second: HackSideleft_1
+      213: 6319700497310507979
+    second: RunSide_1
   - first:
-      213: -8746036888322694039
-    second: HackSideleft_2
+      213: -5242866410477124421
+    second: RunSide_2
   - first:
-      213: -7669503761282641047
-    second: HackSideleft_3
+      213: 3078334008653712958
+    second: RunSide_3
   - first:
-      213: 4563697699026691902
-    second: HackSideleft_4
+      213: 7657951089002148145
+    second: RunSide_4
+  - first:
+      213: -4034562358773559341
+    second: RunSide_5
+  - first:
+      213: 4806051935797122471
+    second: RunSide_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -83,7 +89,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -95,19 +101,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HackSideleft_0
+      name: RunSide_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +126,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b57c9127263b6ce0800000000000000
-      internalID: -1410974516554992203
+      spriteID: 8d0674cef7624c030800000000000000
+      internalID: 3513975940122632408
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HackSideleft_1
+      name: RunSide_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 36
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +147,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccf401356023f4fd0800000000000000
-      internalID: -2355609077346709556
+      spriteID: bc36d0d7e1614b750800000000000000
+      internalID: 6319700497310507979
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HackSideleft_2
+      name: RunSide_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 72
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +168,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 964201fd9c5df9680800000000000000
-      internalID: -8746036888322694039
+      spriteID: bb40fae07c89d37b0800000000000000
+      internalID: -5242866410477124421
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HackSideleft_3
+      name: RunSide_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 108
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +189,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 963d931c6f2709590800000000000000
-      internalID: -7669503761282641047
+      spriteID: e3e0fcd987078ba20800000000000000
+      internalID: 3078334008653712958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HackSideleft_4
+      name: RunSide_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 144
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +210,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e37e0c4b0e2855f30800000000000000
-      internalID: 4563697699026691902
+      spriteID: 131f94f11f1864a60800000000000000
+      internalID: 7657951089002148145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RunSide_5
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dfc32529ea5208c0800000000000000
+      internalID: -4034562358773559341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RunSide_6
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a51445a5c682b240800000000000000
+      internalID: 4806051935797122471
       vertices: []
       indices: 
       edges: []

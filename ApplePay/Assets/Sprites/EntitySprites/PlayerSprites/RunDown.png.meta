@@ -1,19 +1,31 @@
 fileFormatVersion: 2
-guid: 339ce714462a3e941bc8f0e7184e45ac
+guid: e1f40ab40949ac94db80429316c7cfe7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3686053137858640432
-    second: side_run_0
+      213: 5418130786354320263
+    second: RunDown_0
   - first:
-      213: -1327853817205725952
-    second: side_run_1
+      213: 4130902561586801914
+    second: RunDown_1
   - first:
-      213: -9063706888624967119
-    second: side_run_2
+      213: 1099950986459024416
+    second: RunDown_2
   - first:
-      213: 660316664256462649
-    second: side_run_3
+      213: 3539030293778388343
+    second: RunDown_3
+  - first:
+      213: -6219880351055038522
+    second: RunDown_4
+  - first:
+      213: 3871237698512098946
+    second: RunDown_5
+  - first:
+      213: 71494022977065888
+    second: RunDown_6
+  - first:
+      213: -8508826580533159795
+    second: RunDown_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -99,41 +111,17 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 3
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: side_run_0
+      name: RunDown_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,20 +129,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03a3741accd772330800000000000000
-      internalID: 3686053137858640432
+      spriteID: 783d1436e31113b40800000000000000
+      internalID: 5418130786354320263
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: side_run_1
+      name: RunDown_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 36
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0056ecf0df3829de0800000000000000
-      internalID: -1327853817205725952
+      spriteID: afce1294ef9e35930800000000000000
+      internalID: 4130902561586801914
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: side_run_2
+      name: RunDown_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 72
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1327f3b3b9e373280800000000000000
-      internalID: -9063706888624967119
+      spriteID: 02c0b3a289fc34f00800000000000000
+      internalID: 1099950986459024416
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: side_run_3
+      name: RunDown_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 108
         y: 0
-        width: 32
-        height: 32
+        width: 36
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,8 +192,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93ff644f18ae92900800000000000000
-      internalID: 660316664256462649
+      spriteID: 775d1063d492d1130800000000000000
+      internalID: 3539030293778388343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RunDown_4
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c7bee966cb8ea9a0800000000000000
+      internalID: -6219880351055038522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RunDown_5
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2861ae41d2669b530800000000000000
+      internalID: 3871237698512098946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RunDown_6
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a39c136f6ffdf000800000000000000
+      internalID: 71494022977065888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RunDown_7
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d885be38e439ae980800000000000000
+      internalID: -8508826580533159795
       vertices: []
       indices: 
       edges: []
