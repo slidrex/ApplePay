@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6665c162982aff64aa3c6af4101bf52a, type: 3}
   m_Name: StrengthScissors
   m_EditorClassIdentifier: 
-  Effect:
-    EffectID: strength
-    Level: 3
+  Attributes: []
   Display:
     InventorySprite: {fileID: 21300000, guid: ecb978154d9b3104fa36bb61d71f4108, type: 3}
     Description:
-      Name: Scissors Of Strength
+      Name: Scissors of Strength
       Description: Increases attack damage.
+    AdditionalFields: []
