@@ -1,20 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
+using PayWorld;
 using System.Linq;
 public abstract class Entity : MonoBehaviour
 {
     [SerializeField] protected SpriteRenderer SpriteRenderer;
     public Dictionary<byte, byte[]> EffectBundleBuffer = new Dictionary<byte, byte[]>();
-    public Dictionary<byte, PayWorld.EffectController.ActiveEffect> ActiveEffects = new Dictionary<byte, PayWorld.EffectController.ActiveEffect>(); 
+    public Dictionary<byte, EffectController.ActiveEffect> ActiveEffects = new Dictionary<byte, EffectController.ActiveEffect>(); 
     public bool Immortal;
     [SerializeField] private GameObject deathParticle, takeDamageParticle, appearParticle;
     [Header("Health")]
     public int MaxHealth = 100;
     [ReadOnly] public int CurrentHealth;
+    public System.Collections.Generic.List<EntityAttribute> Attributes = new System.Collections.Generic.List<EntityAttribute>();
+    public void AddAttribute(IAttributable attribute, string name) => Attributes.Add(new EntityAttribute(attribute, name));
+    public EntityAttribute FindAttribute(string name)  => Attributes.First(x => x.Name == name);
     protected virtual void Awake()
     {
         if(SpriteRenderer == null) SpriteRenderer = GetComponent<SpriteRenderer>();
-        PayWorld.Particles.InstantiateParticles(appearParticle, transform.position, Quaternion.identity, 2);
+        Particles.InstantiateParticles(appearParticle, transform.position, Quaternion.identity, 2);
         CurrentHealth = MaxHealth;
     }
     protected virtual void Start() {}
@@ -30,7 +34,7 @@ public abstract class Entity : MonoBehaviour
     }
     protected virtual void ApplyDamage(Creature handler)
     {
-        PayWorld.Particles.InstantiateParticles(takeDamageParticle, transform.position, Quaternion.identity, 1.5f, transform);
+        Particles.InstantiateParticles(takeDamageParticle, transform.position, Quaternion.identity, 1.5f, transform);
         if(CurrentHealth <= 0)
             Die(handler);
     }
@@ -43,29 +47,46 @@ public abstract class Entity : MonoBehaviour
     {
         for(int i = 0; i < ActiveEffects.Count; i++)
         {
-                PayWorld.EffectController.ActiveEffect emptyEffect = new PayWorld.EffectController.ActiveEffect();
+                EffectController.ActiveEffect emptyEffect = new EffectController.ActiveEffect();
                 if(ActiveEffects.ElementAt(i).Value.Equals(emptyEffect))
                 {
                     ActiveEffects.Remove(ActiveEffects.ElementAt(i).Key);
                     break;
                 }
                 
-                if(ActiveEffects.ElementAt(i).Value.Endless) continue;
-                PayWorld.EffectController.ActiveEffect activeEffect = ActiveEffects[ActiveEffects.ElementAt(i).Key];
-                activeEffect.RemainTime -= Time.deltaTime;
-                for(int j = 0; j < activeEffect.StateEffect.Count; j++)
+                EffectController.ActiveEffect activeEffect = ActiveEffects[ActiveEffects.ElementAt(i).Key];
+                
+                for(int j = 0; j < activeEffect.EffectProperties.Count; j++)
                 {
-                    PayWorld.Effect.StateEffect stateEffect = activeEffect.StateEffect[j];
-                    PayWorld.EffectController.HandleStateEffect(this, ref stateEffect);
-                    activeEffect.StateEffect[j] = stateEffect;
+                    PayWorld.Effect.EffectProperty property = activeEffect.EffectProperties[j];
+                    UpdateEffectTick(property.StateEffect);
+                    activeEffect.EffectProperties[j] = property;
+                }
+                
+                if(ActiveEffects.ElementAt(i).Value.Endless == false)
+                {
+                    activeEffect.RemainTime -= Time.deltaTime;
+                    if(ActiveEffects[ActiveEffects.ElementAt(i).Key].RemainTime <= 0)
+                    {
+                        byte id = ActiveEffects.ElementAt(i).Key;
+                        PayWorld.EffectController.RemoveEffect(this, ref id);
+                        return;
+                    }
                 }
                 ActiveEffects[ActiveEffects.ElementAt(i).Key] = activeEffect;
-                if(ActiveEffects[ActiveEffects.ElementAt(i).Key].RemainTime <= 0)
-                {
-                    byte id = ActiveEffects.ElementAt(i).Key;
-                    PayWorld.EffectController.RemoveEffect(this, ref id);
-                }
         }
         
+    }
+    private void UpdateEffectTick(PayWorld.Effect.StateEffect state)
+    {
+        PayWorld.Effect.StateEffect.TickImplementation tick = state.TickImplement;
+        if(tick.Equals(new PayWorld.Effect.StateEffect.TickImplementation())) return;
+        if(tick.TimeSinceAction >= tick.TickScale)
+        {
+            tick.TimeSinceAction = 0;
+            tick.TickAction.Invoke(this);
+        }
+        else tick.TimeSinceAction += Time.deltaTime;
+        state.TickImplement = tick;
     }
 }

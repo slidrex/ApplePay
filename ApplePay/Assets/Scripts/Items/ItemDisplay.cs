@@ -2,6 +2,9 @@
 public class ItemDisplay
 {
     public UnityEngine.Sprite InventorySprite;
+}
+public class WeaponDisplay : ItemDisplay
+{
     public ItemDescription Description;
 }
 [System.Serializable]

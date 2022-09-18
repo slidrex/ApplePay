@@ -69,15 +69,15 @@ namespace Pay.Functions
     ///Rotates vector along Z axis.
     ///</summary>
     public static Vector2 RotateVector(Vector2 vector, float angle) => Quaternion.AngleAxis(angle, Vector3.forward) * vector;
-    public enum AngleType
-    {
-        Rad,
-        Deg
-    }
     public enum VectorComponent2D
     {
         X,
         Y
+    }
+    public enum NumberType
+    {
+        Unit,
+        Percent
     }
     }
     public static class Generic
@@ -211,13 +211,9 @@ namespace Pay.Functions
     }
     public static class String
     {
-        ///<summary>
-        ///Sets two strings on sides of the wrapping word.
-        ///</summary>
-        public static string SetSides(string wrapping, string first, string second)
-        {
-            return first + wrapping + second;
-        }
+        ///<summary> Sets two strings on sides of the wrapping word. </summary>
+        public static string SetSides(string wrapping, string first, string second) => first + wrapping + second;
+        public static string SetRichTextTag(string text, string tagName, string tagContent) => "<" + tagName + "=" + tagContent + ">" + text + "</" + tagName +">";
+        public static string SetRichTextTag(string text, string tagName) => "<" + tagName + ">" + text + "</" + tagName +">";
     }
-    
 }

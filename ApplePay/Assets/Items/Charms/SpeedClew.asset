@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6665c162982aff64aa3c6af4101bf52a, type: 3}
   m_Name: SpeedClew
   m_EditorClassIdentifier: 
-  Effect:
-    EffectID: speed
-    Level: 3
+  Attributes:
+  - AttributeName: movementSpeed
+    AdditionalAttributeValue: 0.5
+    Type: 0
+    EffectColor: 0
   Display:
     InventorySprite: {fileID: 21300000, guid: a14636511c9af6140afa1203292f0c6d, type: 3}
     Description:
-      Name: Clew of speed
+      Name: Clew of Speed
       Description: Increases movement speed
+    AdditionalFields: []

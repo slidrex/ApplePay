@@ -29,11 +29,10 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     }
     private void CreateDropInstance(ref CollectableObject drop)
     {
-        CollectableObject dropPrefab = Instantiate(drop, weaponList.position, Quaternion.identity);
-        dropPrefab.StoredHealth = drop.CurrentHealth;
-        drop = dropPrefab;
-        dropPrefab.transform.SetParent(weaponList);
-        dropPrefab.gameObject.SetActive(false);
+        drop = Instantiate(drop, weaponList.position, Quaternion.identity);
+        drop.StoredHealth = drop.CurrentHealth;
+        drop.transform.SetParent(weaponList);
+        drop.gameObject.SetActive(false);
     }
     protected WeaponItem GetActiveWeapon()
     {
@@ -102,6 +101,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     private CollectableObject InstantiateDroppedObject(WeaponItem instanceObject, Vector2 offsetDirection, Vector2 force)
     {
         CollectableObject droppedObject = Instantiate(instanceObject.DropPrefab, (Vector2)transform.position + offsetDirection * dropOffset, Quaternion.identity);
+        
         droppedObject.transform.localScale = instanceObject.DropPrefab.transform.lossyScale;
         droppedObject.gameObject.SetActive(true);
         droppedObject.StoredHealth = instanceObject.DropPrefab.StoredHealth;
