@@ -24,7 +24,7 @@ public class HunterSpearBehaviour : Projectile
         }
         if(other.gameObject.GetComponent<Entity>() != null)
         {
-            other.gameObject.GetComponent<Entity>().ChangeHealth(-Damage);
+            other.gameObject.GetComponent<Entity>().Damage(Damage, DamageType.Physical, ProjectileOwner);
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), other.gameObject.GetComponent<Collider2D>(), true);
             Extract();
         }

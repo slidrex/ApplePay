@@ -178,7 +178,7 @@ public class IneptHunterBehaviour : AttackingMob
         else if(curAttackState == AttackStates.HA2Fly && other.gameObject.layer != obstacleLayer)
         {
             if(other.gameObject.GetComponent<Creature>() != null)
-                other.gameObject.GetComponent<Creature>().ChangeHealth(-collisionDamage);
+                other.gameObject.GetComponent<Creature>().Damage(collisionDamage, DamageType.Physical, this);
             Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
             this.other = other.gameObject.GetComponent<Collider2D>();
             Invoke("EnableCollision", 1f);

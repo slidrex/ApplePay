@@ -1,4 +1,4 @@
-[UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Stat Charm", fileName = "new charm")]
+[UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Attribute Charm", fileName = "new charm")]
 public class Charm : UnityEngine.ScriptableObject
 {
     public AdditionalItemAttributes[] Attributes;
@@ -8,6 +8,7 @@ public class Charm : UnityEngine.ScriptableObject
     protected void SetCharmStats(Entity entity)
     {
         TaggedAttributes = new TagAttribute[Attributes.Length];
+        
         
         for(int i = 0; i < Attributes.Length; i++)
         {
@@ -41,17 +42,11 @@ public class AdditionalItemAttributes
     public string AttributeName;
     public float AdditionalAttributeValue;
     public AttributeType Type;
-    [UnityEngine.Tooltip("Automatically defines effect color in charm hoverboard (or take Additional Field color if \"Unassigned\" is chosen).")]
-    public EffectType EffectColor;
 }
-    public enum EffectType
-    {
-        Unassigned,
-        Positive,
-        Negative,
-        Neutral
-    }
-public static class CharmStatExtension
+public enum EffectType
 {
-    
+    Unassigned,
+    Positive,
+    Negative,
+    Neutral
 }

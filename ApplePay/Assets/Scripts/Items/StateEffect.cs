@@ -3,15 +3,17 @@ namespace PayWorld.Effect
     public struct EffectProperty
     {
         public StateEffect StateEffect;
-        public EffectProperty(StateEffect state)
-        {
-            StateEffect = state;
-        }
+        public EffectProperty(StateEffect state) => StateEffect = state;
     }
     public class EffectValue
     {
         public float Value;
-        public EffectValue(float value) => Value = value;
+        public float BaseValue;
+        public EffectValue(float value)
+        {
+            BaseValue = value;
+            Value = value;
+        }
     }
     public class StateEffect
     {

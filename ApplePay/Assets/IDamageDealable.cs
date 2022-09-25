@@ -1,5 +1,5 @@
 public interface IDamageDealable
 {
-    public int Damage { get; }
+    public int AttackDamage { get; }
     public void AddDamageAttribute();
 }

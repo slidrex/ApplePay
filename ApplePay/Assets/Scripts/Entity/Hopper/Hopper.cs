@@ -72,7 +72,7 @@ public class Hopper : AttackingMob, ICollideDamageDealer
         }
     }
     public void DealCollideDamage(Entity entity, int damage, Creature dealer) =>
-        entity?.ChangeHealth(-damage, dealer);
+        entity?.Damage(damage, DamageType.Physical, dealer);
     private void IgnoreCollision(Collider2D collider, bool ignore) =>
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collider, ignore);
 

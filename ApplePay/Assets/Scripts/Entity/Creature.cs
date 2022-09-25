@@ -38,18 +38,18 @@ public abstract class Creature : Entity
 
     }
 
-    public override void ChangeHealth(int changeAmount, Creature handler)
+    public override void ChangeHealth(int changeAmount)
     {
-        base.ChangeHealth(changeAmount, handler);
+        base.ChangeHealth(changeAmount);
         HealthBar?.IndicatorUpdate();
     }
     protected override void ApplyDamage(Creature handler)
     {
-        if(handler != null) StartImmortality();
+        base.ApplyDamage(handler);
+        StartImmortality();
         SpriteRenderer.color = takeDamageColor;
         Invoke("StartColor", 0.2f);
         HealthBar?.Animator.SetTrigger("TakeDamage");
-        if(CurrentHealth <= 0) Die(handler);
     }
     protected void StartImmortality() => curDuration = 0;
     protected override void Die(Creature killer)
