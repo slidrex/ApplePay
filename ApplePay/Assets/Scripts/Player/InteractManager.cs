@@ -12,9 +12,15 @@ public class InteractManager : MonoBehaviour
     [HideInInspector] public bool InInteract;
     private Pay.UI.IndicatorObject interactIndicator;
     private byte constraintId;
-    public float HackSpeed { get; private set; } = 1;
+    public float HackSpeed = 1;
     [SerializeField] private Pay.UI.UIHolder holder;
     [SerializeField] private Pay.UI.Indicator indicator;
+    private void Awake()
+    {
+        GetComponent<Entity>().AddAttribute("hackSpeed", new ReferencedAttribute(
+            () => HackSpeed, val => HackSpeed = val), HackSpeed
+        );
+    }
     private void Start()
     {
         anim = GetComponent<Animator>();

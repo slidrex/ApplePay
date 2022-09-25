@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6665c162982aff64aa3c6af4101bf52a, type: 3}
   m_Name: ThiefGlove
   m_EditorClassIdentifier: 
-  Effect:
-    EffectID: speed_hack
-    Level: 8
+  Attributes:
+  - AttributeName: hackSpeed
+    AdditionalAttributeValue: 0.5
+    Type: 0
   Display:
     InventorySprite: {fileID: 21300000, guid: 3f1fbd2c0686a634a9121c6447ffcf22, type: 3}
     Description:
       Name: Glove of Nefor
-      Description: Increases speed of hack.
+      Description: Increases speed of hack
+    AdditionalFields:
+    - Color: {r: 0.6627451, g: 1, b: 0.654902, a: 1}
+      Text: +50% hack speed

@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attributes:
   - AttributeName: movementSpeed
-    AdditionalAttributeValue: 0.1
+    AdditionalAttributeValue: 0.05
     Type: 0
-    EffectColor: 1
   Display:
     InventorySprite: {fileID: 21300000, guid: 6c8fb1ae77e03b346a8014eac61142d4, type: 3}
     Description:
@@ -24,10 +23,10 @@ MonoBehaviour:
       Description: Amplifies active effects
     AdditionalFields:
     - Color: {r: 1, g: 0.884319, b: 0.5882353, a: 1}
-      Text: x3 Effect Strength
+      Text: x2 Effect Strength
     - Color: {r: 0.8800324, g: 0.990566, b: 0.68633556, a: 1}
       Text: x1.5 Positive Effect Duration
     - Color: {r: 0.66315246, g: 1, b: 0.6551362, a: 1}
-      Text: +10% Movement Speed
-  AdditionalEffectAmplifying: 3
+      Text: +5% Movement Speed
+  AdditionalEffectAmplifying: 2
   AdditionalEffectDuration: 1.5

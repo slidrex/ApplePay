@@ -162,7 +162,8 @@ namespace PayWorld
             effect.RemainTime = effect.baseRemainTime;
             foreach(EffectProperty property in effect.EffectProperties)
             {
-                property.StateEffect.Value.Value = property.StateEffect.Value.BaseValue;
+                if(property.StateEffect.Value != null)
+                    property.StateEffect.Value.Value = property.StateEffect.Value.BaseValue;
             }
             foreach(EffectMask mask in effect.Masks) effect += mask;
         }
