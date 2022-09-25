@@ -1947,7 +1947,6 @@ MonoBehaviour:
   appearParticle: {fileID: 0}
   MaxHealth: 100
   CurrentHealth: 0
-  Attributes: []
   StoredHealth: 0
   maxHealthColor:
     serializedVersion: 2
@@ -3216,7 +3215,6 @@ MonoBehaviour:
   appearParticle: {fileID: 0}
   MaxHealth: 100
   CurrentHealth: 0
-  Attributes: []
   StoredHealth: 0
   maxHealthColor:
     serializedVersion: 2
@@ -3399,7 +3397,6 @@ MonoBehaviour:
   appearParticle: {fileID: 0}
   MaxHealth: 50
   CurrentHealth: 0
-  Attributes: []
   StoredHealth: 0
   maxHealthColor:
     serializedVersion: 2
@@ -3614,7 +3611,6 @@ MonoBehaviour:
   appearParticle: {fileID: 0}
   MaxHealth: 50
   CurrentHealth: 0
-  Attributes: []
   StoredHealth: 0
   maxHealthColor:
     serializedVersion: 2

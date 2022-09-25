@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour
     public Transform Target {get; private set;}
     [HideInInspector] public List<Collider2D> ignoreCollision = new List<Collider2D>();
     [SerializeField] private GameObject destroyParticle;
+    [SerializeField] private DamageType damageType;
     [HideInInspector] public Vector2 MoveVector { get; private set; }
     public bool SetMoveRotation;
     public void Setup(Vector2 moveVector, Creature owner, Transform target)
@@ -55,7 +56,7 @@ public class Projectile : MonoBehaviour
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.GetComponent<Entity>() != null)
-            collision.gameObject.GetComponent<Entity>().ChangeHealth(-Damage, ProjectileOwner);
+            collision.gameObject.GetComponent<Entity>().Damage(Damage, damageType, ProjectileOwner);
         Destroy(gameObject);
     }
     protected virtual void OnDestroy() => PayWorld.Particles.InstantiateParticles(destroyParticle, transform.position, Quaternion.identity, 1f);

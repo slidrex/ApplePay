@@ -10,7 +10,7 @@ public class PlayerInteraction : MonoBehaviour
     private void Update()
     {
         if(Input.GetKeyDown(activateKey))
-            SetComponentActive(!menuComponents.gameObject.activeSelf , toggleActiveElements);
+            SetComponentActive(!menuComponents.gameObject.activeSelf, toggleActiveElements);
     }
     private void SetComponentActive(bool active, GameObject[] elements)
     {
@@ -18,8 +18,10 @@ public class PlayerInteraction : MonoBehaviour
         menuComponents.SetActiveElements(active, elements);
         bool isTabOpen = menuComponents.gameObject.activeInHierarchy;
         GetComponent<Animator>().SetBool("isMoving", false);
-        if(constraintID != 0) PayWorld.EffectController.RemoveEffect(GetComponent<Entity>(), ref constraintID);
-        if(isTabOpen) OnTabOpen();
+        if(isTabOpen == true) OnTabOpen();
+        else
+            OnTabClose();
     }
-    private void OnTabOpen() => PayWorld.EffectController.AddEffect(GetComponent<Entity>(), out constraintID, new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.MoveConstraint(), "movementStatus"), new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.WeaponConstraint(), "weaponStatus"));
+    private void OnTabClose() => PayWorld.EffectController.RemoveEffect(GetComponent<Entity>(), ref constraintID);
+    private void OnTabOpen() => PayWorld.EffectController.AddEffect(GetComponent<Entity>(), out constraintID, new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.MoveConstraint()), new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.WeaponConstraint()));
 }

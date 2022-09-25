@@ -1,16 +1,20 @@
 public class AttackingMob : MobEntity, IDamageDealable
 {
     public int DamageField;
-    public int Damage 
+    public int AttackDamage 
     {
         get => DamageField;
         set
         {
             DamageField = value;
-            Damage = value;
+            AttackDamage = value;
         }
     }
-    public float DamageMultiplier { get; private set; } = 1;
-    public void ChangeDamageMultiplier(float amount) => DamageMultiplier += amount;
-    public void ChangeDamage(int amount) => Damage += amount;
+    public void AddDamageAttribute() 
+    {
+        GetComponent<Entity>().AddAttribute("attack_damage", new ReferencedAttribute(
+            () => AttackDamage,
+            val => AttackDamage = (int)val
+        ), AttackDamage);
+    }
 }

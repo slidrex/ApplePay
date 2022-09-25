@@ -5,7 +5,7 @@ public abstract class InventoryRepository : MonoBehaviour
     public RepositoryRenderer RepositoryRenderer { get; set; }
     public InventorySystem AttachedSystem {get; private set;}
     public byte Capacity;
-    public abstract System.Type RepositoryType {get; }
+    public abstract System.Type RepositoryType { get; }
     public System.Collections.Generic.List<Item> RepositoryItems {get; private set;} = new System.Collections.Generic.List<Item>();
     public void LinkInventorySystem(InventorySystem inventorySystem) => AttachedSystem = inventorySystem;
     public virtual void AddItem(Item item, out bool isAdded)

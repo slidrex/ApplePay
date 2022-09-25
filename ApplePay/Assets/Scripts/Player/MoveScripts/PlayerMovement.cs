@@ -5,7 +5,7 @@ public class PlayerMovement : EntityMovement
     protected override void Update()
     {
         base.Update();
-        if(!MoveDisable) MoveInput();
+        if(CurrentSpeed != 0) MoveInput();
     }
     private void MoveInput()
     {

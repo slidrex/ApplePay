@@ -1,33 +1,29 @@
 using UnityEngine;
-abstract public class EntityMovement : MonoBehaviour, IAttributable
+abstract public class EntityMovement : MonoBehaviour
 {
     public Animator animator {get; private set;}
     [Header("Entity Movement")]
-    [HideInInspector] public bool MoveDisable;
-    
-    public float CurrentSpeed;
+    public float CurrentSpeed = Mathf.PI;
     [ReadOnly] public Vector2 MoveVector;
     [ReadOnly] public Rigidbody2D Rigidbody;
     [HideInInspector] public bool ConstraintRotation;
     private float curConstraintDuration;
-    public float AttributeValue {get => CurrentSpeed; set => CurrentSpeed = value;}
-    public void AddAttribute(Entity entity) => entity.AddAttribute(GetComponent<IAttributable>(), "movementSpeed");
-    private void Awake() => AddAttribute(GetComponent<Entity>());
+    private void Awake() => GetComponent<Entity>().AddAttribute(
+        "movementSpeed",
+        new ReferencedAttribute(
+        () => CurrentSpeed,
+        val => CurrentSpeed = val
+        ),
+        CurrentSpeed
+    );
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
     }
     protected virtual void Update() => RotationConstraintHandler();
-    protected virtual void FixedUpdate()
-    {
-        OnBeforeSpeedUpdate();
-        
-        if(MoveDisable) CurrentSpeed = 0;
-        OnAfterSpeedUpdate();
-    }
-    virtual protected void OnBeforeSpeedUpdate() {}
-    virtual protected void OnAfterSpeedUpdate() {}
+    protected virtual void FixedUpdate() => OnSpeedUpdate();
+    virtual protected void OnSpeedUpdate() {}
     protected void RotationConstraintHandler()
     {
         if(curConstraintDuration >= 0)

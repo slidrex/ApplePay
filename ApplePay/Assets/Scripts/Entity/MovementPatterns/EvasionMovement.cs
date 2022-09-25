@@ -38,5 +38,5 @@ public class EvasionMovement : MovePatterns
         if(dirList.Count == 0) return MovementVector;
         return dirList[Random.Range(0, dirList.Count)];
     }
-    public override void OnAfterSpeedUpdate() => UpdateRigidbodyVector();
+    public override void OnSpeedUpdate() => UpdateRigidbodyVector();
 }

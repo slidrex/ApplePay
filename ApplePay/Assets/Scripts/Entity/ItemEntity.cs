@@ -15,10 +15,10 @@ public class ItemEntity : Entity
         CurrentHealth = StoredHealth;
         ColorUpdate();
     }
-    public override void ChangeHealth(int changeAmount, Creature handler)
+    public override void ChangeHealth(int changeAmount)
     {
         ColorUpdate();
-        base.ChangeHealth(changeAmount, handler);
+        base.ChangeHealth(changeAmount);
     }
     private void ColorUpdate() => SpriteRenderer.color = Color32.Lerp(minHealthColor,maxHealthColor, (float)CurrentHealth/MaxHealth);
 }

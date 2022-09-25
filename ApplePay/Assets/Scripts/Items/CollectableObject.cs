@@ -107,7 +107,7 @@ public abstract class CollectableObject : ItemEntity
         if(targetRB != null) targetRB.AddForce(-collision.GetContact(0).normal * TargetVelocity.magnitude / targetRB.mass, ForceMode2D.Impulse); 
         AddForce(Vector2.Reflect(TargetVelocity, collision.GetContact(0).normal));
     }
-    public void DealCollideDamage(Entity entity, int damage, Creature dealer) => entity?.ChangeHealth(-damage, dealer);
+    public void DealCollideDamage(Entity entity, int damage, Creature dealer) => entity?.Damage(damage, DamageType.Physical, dealer);
     public virtual void Collect(Collider2D collision, ref bool collectStatus)
     {
         if(collectStatus) OnCollect();

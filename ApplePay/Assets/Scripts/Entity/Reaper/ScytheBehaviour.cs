@@ -45,7 +45,7 @@ public class ScytheBehaviour : AttackingMob
             {
                 if(ray.collider.gameObject.GetComponent<Creature>().Immortal) Physics2D.IgnoreCollision(ray.collider, GetComponent<Collider2D>(), true);
                 else Physics2D.IgnoreCollision(ray.collider, GetComponent<Collider2D>(), false);
-                Target.GetComponent<Creature>().ChangeHealth(-Damage);
+                Target.GetComponent<Creature>().Damage(AttackDamage, DamageType.Magical, this);
             }
         }
     }

@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Linq;
+
 public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable
 {
-    public int Damage {get; set;} = 10;
-    public float DamageMultiplier {get; set;} = 1;
+    
+    public int AttackDamage {get; set;} = 10;
     [Header("Player Entity")]
     [SerializeField] private GameObject EffectList;
     [HideInInspector] public float ChangeAmount;
@@ -12,13 +13,19 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     public WaveStatus WaveStatus { get; private set; }
     [SerializeField] private EffectCell effectCell;
     private UnityEngine.Rendering.Universal.Vignette vignette;
+    public void AddDamageAttribute()
+    {
+        GetComponent<Entity>().AddAttribute("attackDamage", new ReferencedAttribute(
+            () => AttackDamage,
+            val => AttackDamage = (int)val
+        ), AttackDamage);
+    }
     protected override void Start()
     {
+        AddDamageAttribute();
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
         base.Start();
     }
-    public void ChangeDamage(int amount) => Damage += amount;
-    public void ChangeDamageMultiplier(float amount) => DamageMultiplier += amount;
     public void SetWaveStatus(WaveStatus waveStatus) => WaveStatus = waveStatus;
     public void OnEffectUpdated()
     {
@@ -41,15 +48,15 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         base.Update();
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            PayWorld.EffectController.AddEffect(this, "speed", 3, 2f);
-        
+            //PayWorld.EffectController.AddEffect(this, "speed", 5, 2f);
+            Damage(5, DamageType.Physical, null);
         }
 
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);
     }
-    public override void ChangeHealth(int changeAmount, Creature handler)
+    public override void ChangeHealth(int changeAmount)
     {
-        base.ChangeHealth(changeAmount, handler);
+        base.ChangeHealth(changeAmount);
         vignetteIntensity = (float)CurrentHealth / (float)MaxHealth;
         vignette.intensity = new UnityEngine.Rendering.ClampedFloatParameter(Mathf.Lerp(0.5f, 1f, 1 - vignetteIntensity), CurrentHealth, MaxHealth);
     }
@@ -57,12 +64,5 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     {
         base.Die(killer);
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-    }
-    
-    public enum PlayerInteraction
-    {
-        First = 1,
-        Second = 2,
-        Third = 3
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PayWorld;
 using System.Linq;
+
 public abstract class Entity : MonoBehaviour
 {
     [SerializeField] protected SpriteRenderer SpriteRenderer;
@@ -12,31 +13,52 @@ public abstract class Entity : MonoBehaviour
     [Header("Health")]
     public int MaxHealth = 100;
     [ReadOnly] public int CurrentHealth;
-    public System.Collections.Generic.List<EntityAttribute> Attributes = new System.Collections.Generic.List<EntityAttribute>();
-    public void AddAttribute(IAttributable attribute, string name) => Attributes.Add(new EntityAttribute(attribute, name));
-    public EntityAttribute FindAttribute(string name)  => Attributes.First(x => x.Name == name);
+    [ReadOnly, SerializeField] private float evasionRate;
+    public System.Collections.Generic.Dictionary<string, EntityAttribute> Attributes = new System.Collections.Generic.Dictionary<string, EntityAttribute>();
     protected virtual void Awake()
     {
+        AttributesSetup();
+        
         if(SpriteRenderer == null) SpriteRenderer = GetComponent<SpriteRenderer>();
         Particles.InstantiateParticles(appearParticle, transform.position, Quaternion.identity, 2);
         CurrentHealth = MaxHealth;
     }
+    private void AttributesSetup()
+    {
+        GetComponent<Entity>().AddAttribute("maxHealth", new ReferencedAttribute(
+            () => MaxHealth,
+            val => MaxHealth = (int)val
+        ), MaxHealth);
+        GetComponent<Entity>().AddAttribute("evasion", new ReferencedAttribute(
+            () => evasionRate,
+            val => evasionRate = val
+        ), 0f);
+    }
     protected virtual void Start() {}
     protected virtual void Update() => EffectsUpdate();
-    public virtual void ChangeHealth(int amount) => ChangeHealth(amount, null);
-    public virtual void ChangeHealth(int amount, Creature handler)
+    public virtual void Damage(int amount, DamageType damageType, Creature handler)
     {
-        if(amount < 0 && Immortal)
-            amount = 0;
-        
+        bool evaded = Random.Range(0, 1f) < evasionRate && damageType == DamageType.Physical;
+        if(evaded) Debug.Log("Evaded!");
+        if(Immortal == false && evaded == false) 
+        {
+            ChangeHealth(-amount);
+            ApplyDamage(handler);
+        }
+        if(CurrentHealth <= 0) Die(handler);
+    }
+    public virtual void Heal(int amount, Creature handler)
+    {
+        ChangeHealth(amount);
+    }
+    public virtual void ChangeHealth(int amount) 
+    {
         CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, MaxHealth);
-        if(amount < 0) ApplyDamage(handler);
+        if(CurrentHealth <= 0) Die(null);
     }
     protected virtual void ApplyDamage(Creature handler)
     {
         Particles.InstantiateParticles(takeDamageParticle, transform.position, Quaternion.identity, 1.5f, transform);
-        if(CurrentHealth <= 0)
-            Die(handler);
     }
     protected virtual void Die(Creature killer)
     {   
@@ -69,7 +91,7 @@ public abstract class Entity : MonoBehaviour
                     if(ActiveEffects[ActiveEffects.ElementAt(i).Key].RemainTime <= 0)
                     {
                         byte id = ActiveEffects.ElementAt(i).Key;
-                        PayWorld.EffectController.RemoveEffect(this, ref id);
+                        EffectController.RemoveEffect(this, ref id);
                         return;
                     }
                 }
@@ -89,4 +111,10 @@ public abstract class Entity : MonoBehaviour
         else tick.TimeSinceAction += Time.deltaTime;
         state.TickImplement = tick;
     }
+}
+public enum DamageType
+{
+    Physical,
+    Magical,
+    Clear
 }

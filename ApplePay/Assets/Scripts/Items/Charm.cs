@@ -1,26 +1,28 @@
-[UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Stat Charm", fileName = "new charm")]
+[UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Attribute Charm", fileName = "new charm")]
 public class Charm : UnityEngine.ScriptableObject
 {
     public AdditionalItemAttributes[] Attributes;
     public CharmDisplay Display;
-    public virtual void BeginFunction(Entity entity) => SetCharmStats(entity, true);
-    protected void SetCharmStats(Entity entity, bool positive)
+    protected TagAttribute[] TaggedAttributes;
+    public virtual void BeginFunction(Entity entity) => SetCharmStats(entity);
+    protected void SetCharmStats(Entity entity)
     {
-        foreach(AdditionalItemAttributes attribute in Attributes)
+        TaggedAttributes = new TagAttribute[Attributes.Length];
+        
+        
+        for(int i = 0; i < Attributes.Length; i++)
         {
-            float sign = positive == true ? 1 : -1;
-            EntityAttribute attrib = entity.FindAttribute(attribute.AttributeName);
-            if(attribute.Type == TagAttribute.AttributeChangeType.Unit)
-            {
-                entity.FindAttribute(attribute.AttributeName).AddAttributeValue(attribute.AdditionalAttributeValue * sign, "charmStats");
-            }
-            else entity.FindAttribute(attribute.AttributeName).AddMultiplier(attribute.AdditionalAttributeValue * sign, "charmStats");
+            AdditionalItemAttributes current = Attributes[i];
             
+            TagAttribute taggedAttrib = entity.FindAttribute(current.AttributeName).AddTaggedAttribute(current.AdditionalAttributeValue, current.Type, "charmStats");
+            TaggedAttributes[i] = taggedAttrib;
         }
-
     }
-    public void UpdateFunction() { }
-    public void EndFunction(Entity entity) => SetCharmStats(entity, false);
+    public virtual void UpdateFunction(Entity entity) { }
+    public virtual void EndFunction(Entity entity)
+    {
+        foreach(TagAttribute tag in TaggedAttributes) tag.Remove();
+    }
 }
 [System.Serializable]
 public class CharmDisplay : ItemDisplay
@@ -39,18 +41,12 @@ public class AdditionalItemAttributes
 {
     public string AttributeName;
     public float AdditionalAttributeValue;
-    public TagAttribute.AttributeChangeType Type;
-    [UnityEngine.Tooltip("Automatically defines effect color in charm hoverboard (or take Additional Field color if \"Unassigned\" is chosen).")]
-    public EffectStatus EffectColor;
-    public enum EffectStatus
-    {
-        Unassigned,
-        Positive,
-        Negative,
-        Neutral
-    }
+    public AttributeType Type;
 }
-public static class CharmStatExtension
+public enum EffectType
 {
-    
+    Unassigned,
+    Positive,
+    Negative,
+    Neutral
 }
