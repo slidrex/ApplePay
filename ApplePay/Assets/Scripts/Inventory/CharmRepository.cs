@@ -4,7 +4,7 @@ public class CharmRepository : InventoryRepository
     public System.Collections.Generic.List<CharmItem> InventoryItems = new System.Collections.Generic.List<CharmItem>();
     protected override void Update()
     {
-        foreach(CharmItem charmItem in InventoryItems) charmItem.Item.UpdateFunction();
+        foreach(CharmItem charmItem in InventoryItems) charmItem.Item.UpdateFunction(AttachedSystem.InventoryOwner);
     }
     public override void OnItemAdded(Item added)
     {

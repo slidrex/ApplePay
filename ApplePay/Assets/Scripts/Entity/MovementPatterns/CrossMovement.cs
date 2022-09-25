@@ -15,5 +15,5 @@ public class CrossMovement : MovePatterns
             currentDirectionChangeFrequency = 0;
         }
     }
-    public override void OnAfterSpeedUpdate() => UpdateRigidbodyVector();
+    public override void OnSpeedUpdate() => UpdateRigidbodyVector();
 }

@@ -30,7 +30,6 @@ public abstract class MovePatterns : MonoBehaviour
     protected void SetRigidbodyVelocity(Vector2 velocity) => Movement.Rigidbody.velocity = velocity;
     public virtual void OnUpdate() { }
     public virtual void OnStart() { }
-    public virtual void OnBeforeSpeedUpdate() { }
-    public virtual void OnAfterSpeedUpdate() { }
+    public virtual void OnSpeedUpdate() { }
     public virtual void OnCollision(Collision2D collision) { }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public abstract class Creature : Entity
 {
     public HealthBar HealthBar;

@@ -29,7 +29,7 @@ namespace PayWorld
             }
             effectDatabase.Effects.TryGetValue(id, out EffectTemplate databaseEffect);
             
-            ActiveEffect effect = CreateEffect(duration, false, databaseEffect.Properties);
+            ActiveEffect effect = CreateEffect(duration, false, databaseEffect.Properties, databaseEffect.EntryTag, "activeEffect");
             AttachVisualAttrib(effect, databaseEffect.TemplateDisplay.Name, databaseEffect.TemplateDisplay.Description, databaseEffect.TemplateDisplay.Index, databaseEffect.TemplateDisplay.Sprite, databaseEffect.TemplateDisplay.Additionals);
             return AddEffect(applyEntity, effect, out byte _id);
         }
@@ -62,20 +62,13 @@ namespace PayWorld
             id = _id;
             return effect;
         }
-        private static ActiveEffect CreateEffect(float duration, bool endless, EffectProperty[] properties) => new ActiveEffect(properties.ToList(), duration, endless);
+        private static ActiveEffect CreateEffect(float duration, bool endless, EffectProperty[] properties, params string[] tags) => new ActiveEffect(properties.ToList(), duration, endless, tags);
         ///<summary>
         ///Attaches display attribute to an active effect.
         ///</summary>
         public static void AttachVisualAttrib(ActiveEffect effect, string name, string description, string index, Sprite sprite, Pay.UI.UIManager.TextField[] additionals)
         {
             VisualAttribHandler(effect, name, description, index, sprite, additionals);
-        }
-        public static void AddTags(ActiveEffect effect, params string[] tags) 
-        {
-            foreach(EffectProperty property in effect.EffectProperties)
-            {
-                property.AddTags(tags);
-            }
         }
         ///<summary>
         ///Attaches display attribute to an active effect.
@@ -138,12 +131,14 @@ namespace PayWorld
             internal System.Collections.Generic.List<EffectProperty> EffectProperties = new System.Collections.Generic.List<EffectProperty>();
             internal float RemainTime;
             internal bool Endless;
+            public System.Collections.Generic.List<string> Tags = new System.Collections.Generic.List<string>();
             public EffectDisplay EffectDisplay;
-            public ActiveEffect(System.Collections.Generic.List<EffectProperty> states, float duration, bool endless)
+            public ActiveEffect(System.Collections.Generic.List<EffectProperty> states, float duration, bool endless, params string[] tags)
             {
                 EffectProperties = states;
                 RemainTime = duration;
                 Endless = endless;
+                Tags.AddRange(tags);
             }
             public ActiveEffect() { }
         }

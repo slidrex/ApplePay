@@ -85,8 +85,8 @@ public class InteractManager : MonoBehaviour
         Entity curEntity = gameObject.GetComponent<Entity>();
 
         PayWorld.EffectController.ActiveEffect effect = PayWorld.EffectController.AddEffect(curEntity, out constraintId, 
-            new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.WeaponConstraint(), "movementState"),
-            new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.MoveConstraint(), "movementState")
+            new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.WeaponConstraint()),
+            new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.MoveConstraint())
         );
         
         PayWorld.EffectController.AttachVisualAttrib(effect, "Interact Constrainer", "Some abilities are under constraint.", "", EffectDatabase.FindEffectSprite("Interact.png"));

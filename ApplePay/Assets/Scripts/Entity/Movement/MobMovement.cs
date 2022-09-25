@@ -39,13 +39,9 @@ public class MobMovement : EntityMovement
     {
         if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnUpdate();
     }
-    protected override void OnBeforeSpeedUpdate()
+    protected override void OnSpeedUpdate()
     {
-        if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnBeforeSpeedUpdate();
-    }
-    protected override void OnAfterSpeedUpdate()
-    {
-        if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnAfterSpeedUpdate();
+        if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnSpeedUpdate();
     }
     private void OnCollisionEnter2D(Collision2D collision) 
     {

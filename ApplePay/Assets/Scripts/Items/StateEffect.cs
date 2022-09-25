@@ -3,25 +3,9 @@ namespace PayWorld.Effect
     public struct EffectProperty
     {
         public StateEffect StateEffect;
-        public string PropertyName;
-        public System.Collections.Generic.List<string> Tags { get; private set; }
-        public bool IsActive;
-        public bool IsNumerable() => StateEffect.Value != null;
-        public float GetValue() => StateEffect.GetValue();
-        public bool ContainsTag(string tag) => Tags.Contains(tag);
-        public void AddTag(string tag) => Tags.Add(tag);
-        public void AddTags(string[] tags) => Tags.AddRange(tags);
-        public void RemoveTag(string tag)
-        {
-            if(Tags.Remove(tag) == false) UnityEngine.Debug.LogWarning("Tag \"" + tag + "\" hasn't been found");
-        }
-        public EffectProperty(StateEffect state, string name, params string[] entryTags)
+        public EffectProperty(StateEffect state)
         {
             StateEffect = state;
-            PropertyName = name;
-            IsActive = true;
-            Tags = new System.Collections.Generic.List<string>();
-            AddTags(entryTags);
         }
     }
     public class EffectValue
@@ -99,8 +83,8 @@ namespace PayWorld.Effect
         public static StateEffect Strength(float amount)
         {
             StateEffect effect = CreateState(amount);
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.GetComponent<IDamageDealable>().ChangeDamageMultiplier(effect.GetValue());
-            StateEffect.EndActionHandler endAction = (Entity entity) => entity.GetComponent<IDamageDealable>().ChangeDamageMultiplier(-effect.GetValue());
+            StateEffect.BeginActionHandler beginAction = (Entity entity)  => entity.FindAttribute("attack_damage")?.AddMultiplier(effect.GetValue());
+            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("attack_damage")?.AddMultiplier(-effect.GetValue());
 
             return effect.LinkActions(beginAction, endAction);
         }
@@ -116,27 +100,39 @@ namespace PayWorld.Effect
         public static StateEffect VelocityChanger(float amount)
         {
             StateEffect stateEffect = CreateState(amount);
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.FindAttribute("movementSpeed").AddMultiplier(amount);
-            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("movementSpeed").AddMultiplier(-amount);
+            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.FindAttribute("movementSpeed").AddMultiplier(stateEffect.GetValue());
+            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("movementSpeed").AddMultiplier(-stateEffect.GetValue());
             
             return stateEffect.LinkActions(beginAction, endAction);
         }
         public static StateEffect VelocityReverser()
         {
             StateEffect stateEffect = CreateState();
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.FindAttribute("movementSpeed").SetMultiplier(entity.FindAttribute("movementSpeed").GetMultiplier() * -1);
-            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("movementSpeed").SetMultiplier(entity.FindAttribute("movementSpeed").GetMultiplier() * -1);
+            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.FindAttribute("movementSpeed").SetMultiplier(entity.FindAttribute("movementSpeed").ValueMultiplier * -1);
+            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("movementSpeed").SetMultiplier(entity.FindAttribute("movementSpeed").ValueMultiplier * -1);
             
             return stateEffect.LinkActions(beginAction, endAction);
         }
-        
-        
         public static StateEffect MoveConstraint()
         {
             StateEffect stateEffect = CreateState();
-            StateEffect.BeginActionHandler action = (Entity entity) => entity.GetComponent<EntityMovement>().MoveDisable = true;
             
-            StateEffect.EndActionHandler endAction = (Entity entity) => entity.GetComponent<EntityMovement>().MoveDisable = false;
+            StateEffect.BeginActionHandler action = delegate(Entity entity) 
+            {
+                EntityAttribute attribute = entity.FindAttribute("movementSpeed");
+                if(attribute.ContainsTaggedAttribute("effectMovementConstrinaint") == false)
+                    attribute.SetTaggedAttribute(0f, AttributeType.Multiplier, "effectMovementConstrinaint");
+                
+                attribute.GetTagAttributes("effectMovementConstrinaint")[0].Count ++;
+            };
+            
+            StateEffect.EndActionHandler endAction = delegate(Entity entity) 
+            {
+                EntityAttribute attribute = entity.FindAttribute("movementSpeed");
+                attribute.GetTagAttributes("effectMovementConstrinaint")[0].Count--;
+                if(attribute.GetTagAttributes("effectMovementConstrinaint")[0].Count == 0)
+                    attribute.GetTagAttributes("effectMovementConstrinaint")[0].Remove();
+            };
             
             return stateEffect.LinkActions(action, endAction);
         }

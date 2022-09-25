@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using PayWorld;
 using System.Linq;
+
 public abstract class Entity : MonoBehaviour
 {
     [SerializeField] protected SpriteRenderer SpriteRenderer;
@@ -12,11 +13,14 @@ public abstract class Entity : MonoBehaviour
     [Header("Health")]
     public int MaxHealth = 100;
     [ReadOnly] public int CurrentHealth;
-    public System.Collections.Generic.List<EntityAttribute> Attributes = new System.Collections.Generic.List<EntityAttribute>();
-    public void AddAttribute(IAttributable attribute, string name) => Attributes.Add(new EntityAttribute(attribute, name));
-    public EntityAttribute FindAttribute(string name)  => Attributes.First(x => x.Name == name);
+    public System.Collections.Generic.Dictionary<string, EntityAttribute> Attributes = new System.Collections.Generic.Dictionary<string, EntityAttribute>();
     protected virtual void Awake()
     {
+        GetComponent<Entity>().AddAttribute("maxHealth", new ReferencedAttribute(
+            () => MaxHealth,
+            val => MaxHealth = (int)val
+        ), MaxHealth);
+        
         if(SpriteRenderer == null) SpriteRenderer = GetComponent<SpriteRenderer>();
         Particles.InstantiateParticles(appearParticle, transform.position, Quaternion.identity, 2);
         CurrentHealth = MaxHealth;
@@ -69,7 +73,7 @@ public abstract class Entity : MonoBehaviour
                     if(ActiveEffects[ActiveEffects.ElementAt(i).Key].RemainTime <= 0)
                     {
                         byte id = ActiveEffects.ElementAt(i).Key;
-                        PayWorld.EffectController.RemoveEffect(this, ref id);
+                        EffectController.RemoveEffect(this, ref id);
                         return;
                     }
                 }
