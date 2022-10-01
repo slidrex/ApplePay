@@ -5,7 +5,6 @@ public class EffectGrid : MonoBehaviour
     [SerializeField, ReadOnly] private Canvas canvas;
     [SerializeField] private EffectPanel effectPanel;
     [HideInInspector] public EffectPanel CurrentEffectPanel;
-    [SerializeField] private GameObject test;
     public void OnCellEnter(EffectCell cell)
     {
         PanelSet(cell);

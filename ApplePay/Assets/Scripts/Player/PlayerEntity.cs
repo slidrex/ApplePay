@@ -29,14 +29,15 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     public void SetWaveStatus(WaveStatus waveStatus) => WaveStatus = waveStatus;
     public void OnEffectUpdated()
     {
-        for(int k = 0; k < EffectList.transform.childCount; k++)
+        for(int i = 0; i < EffectList.transform.childCount; i++)
         {
-            Destroy(EffectList.transform.GetChild(k).gameObject);
+            Destroy(EffectList.transform.GetChild(i).gameObject);
         }
         for(int i = 0; i < ActiveEffects.Count; i++)
         {
             if(ActiveEffects.ElementAt(i).Value.EffectDisplay.Equals(new PayWorld.EffectController.EffectDisplay()))
                 continue;
+                
             var obj = Instantiate(effectCell.gameObject, Vector3.zero, Quaternion.identity);
             obj.transform.SetParent(EffectList.transform);
             obj.transform.localScale = Vector3.one;
@@ -48,7 +49,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         base.Update();
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            PayWorld.EffectController.AddEffect(this, "speed", 5, 2f);
+            PayWorld.EffectController.AddEffect(this, "decay", 3, 5f);
             //Damage(5, DamageType.Physical, null);
         }
 

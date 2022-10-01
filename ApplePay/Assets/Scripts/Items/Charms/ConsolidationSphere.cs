@@ -12,11 +12,11 @@ public class ConsolidationSphere : Charm
         {
             if(effect.Tags.Contains("SphereAmplified") == false)
             {
-                valueMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.EffectValue, AttributeOperation.Multiply, AdditionalEffectAmplifying);
                 if(effect.Tags.Contains("positiveEffect"))
                 {
                     durationMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.RemainTime, AttributeOperation.Multiply, AdditionalEffectDuration);
                 }
+                valueMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.EffectValue, AttributeOperation.Multiply, AdditionalEffectAmplifying);
                 effect.Tags.Add("SphereAmplified");
             }
         }

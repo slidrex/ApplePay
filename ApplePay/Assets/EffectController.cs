@@ -29,7 +29,7 @@ namespace PayWorld
             }
             effectDatabase.Effects.TryGetValue(id, out EffectTemplate databaseEffect);
             
-            ActiveEffect effect = CreateEffect(duration, false, databaseEffect.Properties, databaseEffect.EntryTag, "activeEffect");
+            ActiveEffect effect = CreateEffect(applyEntity, duration, false, databaseEffect.Properties, databaseEffect.EntryTag, "activeEffect");
             AttachVisualAttrib(effect, databaseEffect.TemplateDisplay.Name, databaseEffect.TemplateDisplay.Description, databaseEffect.TemplateDisplay.Index, databaseEffect.TemplateDisplay.Sprite, databaseEffect.TemplateDisplay.Additionals);
             return AddEffect(applyEntity, effect, out byte _id);
         }
@@ -43,7 +43,7 @@ namespace PayWorld
         public static ActiveEffect AddEffect(Entity applyEntity, out byte id, params EffectProperty[] stateEffects) => AddEffect(applyEntity, 0f, true, out id, stateEffects);
         private static ActiveEffect AddEffect(Entity applyEntity, float duration, bool endless, out byte id, EffectProperty[] stateEffects)
         {
-            ActiveEffect activeEffect = CreateEffect(duration, endless, stateEffects);
+            ActiveEffect activeEffect = CreateEffect(applyEntity, duration, endless, stateEffects);
             AddEffect(applyEntity, activeEffect, out id);
             return activeEffect;
         }
@@ -62,7 +62,7 @@ namespace PayWorld
             id = _id;
             return effect;
         }
-        private static ActiveEffect CreateEffect(float duration, bool endless, EffectProperty[] properties, params string[] tags) => new ActiveEffect(properties.ToList(), duration, endless, tags);
+        private static ActiveEffect CreateEffect(Entity entity, float duration, bool endless, EffectProperty[] properties, params string[] tags) => new ActiveEffect(entity, properties.ToList(), duration, endless, tags);
         ///<summary>
         ///Attaches display attribute to an active effect.
         ///</summary>
@@ -128,6 +128,7 @@ namespace PayWorld
         }
         public class ActiveEffect
         {
+            public Entity Owner;
             internal System.Collections.Generic.List<EffectProperty> EffectProperties = new System.Collections.Generic.List<EffectProperty>();
             public System.Collections.Generic.List<string> Tags = new System.Collections.Generic.List<string>();
             public System.Collections.Generic.List<EffectMask> Masks = new System.Collections.Generic.List<EffectMask>();
@@ -135,13 +136,14 @@ namespace PayWorld
             internal float baseRemainTime;
             internal bool Endless;
             public EffectDisplay EffectDisplay;
-            public ActiveEffect(System.Collections.Generic.List<EffectProperty> states, float duration, bool endless, params string[] tags)
+            public ActiveEffect(Entity entity, System.Collections.Generic.List<EffectProperty> states, float duration, bool endless, params string[] tags)
             {
                 EffectProperties = states;
                 baseRemainTime = duration;
                 RemainTime = duration;
                 Endless = endless;
                 Tags.AddRange(tags);
+                Owner = entity;
             }
             public ActiveEffect() { }
         }
@@ -159,12 +161,33 @@ namespace PayWorld
         }
         private static void UpdateEffectMasks(this ActiveEffect effect)
         {
-            effect.RemainTime = effect.baseRemainTime;
+            float timeAdd = 0, timeMultiplier = 1;
+            float valueAdd = 0, valueMultiplier = 1;
+            foreach(EffectMask mask in effect.Masks) 
+            {
+                if(mask.Parameter == EffectMask.MaskedParameter.EffectValue)
+                {
+                    if(mask.Operation == AttributeOperation.Add) valueAdd += mask.Value;
+                    else valueMultiplier *= mask.Value;
+                }
+                else
+                {
+                    if(mask.Operation == AttributeOperation.Add) timeAdd += mask.Value;
+                    else timeMultiplier *= mask.Value;
+                }
+
+            }
             foreach(EffectProperty property in effect.EffectProperties)
             {
-                if(property.StateEffect.Value != null) property.StateEffect.Value.Value = property.StateEffect.Value.BaseValue;
+                if(property.StateEffect.Value != null) property.StateEffect.Value.Value = (property.StateEffect.Value.BaseValue + valueAdd) * valueMultiplier;
             }
-            foreach(EffectMask mask in effect.Masks) effect += mask;
+            effect.RemainTime = (effect.RemainTime + timeAdd) * timeMultiplier;
+            
+            foreach(EffectProperty _property in effect.EffectProperties)
+            {
+                if(_property.StateEffect.EndAction != null) _property.StateEffect.EndAction(effect.Owner);
+                if(_property.StateEffect.BeginAction != null) _property.StateEffect.BeginAction(effect.Owner);
+            }
         }
         public struct EffectMask
         {
@@ -176,27 +199,6 @@ namespace PayWorld
             {
                 RemainTime,
                 EffectValue
-            }
-            public static ActiveEffect operator +(ActiveEffect effect, EffectMask mask)
-            {
-                UnityEngine.Vector2 time = new Vector2();
-                UnityEngine.Vector2 value = new Vector2();
-
-                if(mask.Parameter == EffectMask.MaskedParameter.RemainTime)
-                    time += mask.Operation == AttributeOperation.Add ? mask.Value * Vector2.right : Vector2.up *  mask.Value;
-                
-                else if(mask.Parameter == EffectMask.MaskedParameter.EffectValue)
-                    value += mask.Operation == AttributeOperation.Add ? mask.Value * Vector2.right : Vector2.up * mask.Value;
-                
-                effect.RemainTime = (effect.RemainTime + time.x) * time.y;
-                
-                foreach(EffectProperty property in effect.EffectProperties)
-                {
-                    if(property.StateEffect.Value != null)
-                        property.StateEffect.Value.Value = (property.StateEffect.Value.Value + value.x) * value.y;
-                }
-                
-                return effect;
             }
             public EffectMask(MaskedParameter parameter, AttributeOperation operation, float value, ActiveEffect attachedEffect)
             {
