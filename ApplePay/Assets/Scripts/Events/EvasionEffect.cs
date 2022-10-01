@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class DodgeEffect : MonoBehaviour
+public class EvasionEffect : MonoBehaviour
 {
     [SerializeField] private GameObject collisionParticles;
 
-    private void Start()
+    private void Awake()
     {
-        Invoke("ActivateParticles", 0.1f);
+        Invoke("ActivateParticles", 0.05f);
     } 
     private void ActivateParticles() => PayWorld.Particles.InstantiateParticles(collisionParticles, 
         transform.position, Quaternion.identity, 1, transform);

@@ -42,7 +42,8 @@ public abstract class Entity : MonoBehaviour
         bool evaded = Random.Range(0, 1f) < evasionRate && damageType == DamageType.Physical;
         if(evaded)
         {
-            PayWorld.Particles.InstantiateParticles(evasionEffect, transform.position, Quaternion.identity, 1.7f, transform);
+            Debug.Log("Evaded!");
+            PayWorld.Particles.InstantiateParticles(evasionEffect, transform.position, Quaternion.identity, 0.25f, transform);
         }
         if(Immortal == false && evaded == false)
         {

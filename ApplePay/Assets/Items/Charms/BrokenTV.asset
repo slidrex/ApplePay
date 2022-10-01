@@ -17,7 +17,7 @@ MonoBehaviour:
     AdditionalAttributeValue: 0.2
     Type: 1
   Display:
-    InventorySprite: {fileID: 369557011671058371, guid: 68942fbf25a060740a24ab00265e8df8, type: 3}
+    InventorySprite: {fileID: -6407655375219818683, guid: 611b30f189a9fd54ca426385d5955070, type: 3}
     Description:
       Name: Broken Television
       Description: Increases evasion abilities
