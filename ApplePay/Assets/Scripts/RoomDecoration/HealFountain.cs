@@ -29,7 +29,7 @@ public class HealFountain : MonoBehaviour
                 {
                     if(collider.GetComponent<Creature>() != null)
                     {
-                        PayWorld.EffectController.AddEffect(collider.GetComponent<Creature>(), "instant_heal", 2, 0);
+                        PayWorld.EffectController.AddEffect(collider.GetComponent<Creature>(), "instant_health", 2, 0);
                     }
                 }
             }

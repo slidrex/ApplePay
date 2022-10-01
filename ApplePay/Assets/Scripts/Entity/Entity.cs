@@ -14,6 +14,7 @@ public abstract class Entity : MonoBehaviour
     public int MaxHealth = 100;
     [ReadOnly] public int CurrentHealth;
     [ReadOnly, SerializeField] private float evasionRate;
+    [SerializeField] private GameObject evasionEffect;
     public System.Collections.Generic.Dictionary<string, EntityAttribute> Attributes = new System.Collections.Generic.Dictionary<string, EntityAttribute>();
     protected virtual void Awake()
     {
@@ -39,8 +40,11 @@ public abstract class Entity : MonoBehaviour
     public virtual void Damage(int amount, DamageType damageType, Creature handler)
     {
         bool evaded = Random.Range(0, 1f) < evasionRate && damageType == DamageType.Physical;
-        if(evaded) Debug.Log("Evaded!");
-        if(Immortal == false && evaded == false) 
+        if(evaded)
+        {
+            PayWorld.Particles.InstantiateParticles(evasionEffect, transform.position, Quaternion.identity, 1.7f, transform);
+        }
+        if(Immortal == false && evaded == false)
         {
             ChangeHealth(-amount);
             ApplyDamage(handler);
