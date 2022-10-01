@@ -1,9 +1,12 @@
 using UnityEngine;
+/*
 public abstract class AdvancedWeaponHolder : WeaponHolder
 {
     [Header("Weapon display")]
     [SerializeField, Tooltip("The object which stores weapon drop object in inventory.")] private Transform weaponList;
-    public WeaponRepository Repository;
+    public InventorySystem InventorySystem;
+    [SerializeField] private string repositoryName;
+    [SerializeField, ReadOnly] protected InventoryRepository Repository; 
     [Header("Weapon Switch")]
     [SerializeField, ReadOnly] protected byte ActiveWeaponIndex;
     [SerializeField, ReadOnly] private float targetForce;
@@ -17,6 +20,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     private Pay.UI.IndicatorObject currentDropIndicatorObject;
     [Header("Item Constraints")]
     [SerializeField] private float droppedItemBlockTime;
+    private void Awake() => Repository = InventorySystem.GetRepository(repositoryName);
     public virtual void OnAddItem(ref WeaponItem item)
     {
         if(weaponList == null) throw new System.NullReferenceException("Weapon list hasn't been specified.");
@@ -113,3 +117,4 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     protected virtual void OnActiveWeaponUpdate() {}
     protected abstract Vector2 SetDropDirection();
 }
+*/

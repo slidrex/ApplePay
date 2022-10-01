@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Creature : Entity
 {
+    [HideInInspector] public InventorySystem InventorySystem;
     public HealthBar HealthBar;
     public LootTable DropTable;
     [ReadOnly] public Room CurrentRoom;

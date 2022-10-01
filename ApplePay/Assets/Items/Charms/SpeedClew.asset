@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attributes:
   - AttributeName: movementSpeed
-    AdditionalAttributeValue: 0.5
+    AdditionalAttributeValue: 0.25
     Type: 0
-    EffectColor: 0
   Display:
     InventorySprite: {fileID: 21300000, guid: a14636511c9af6140afa1203292f0c6d, type: 3}
     Description:
       Name: Clew of Speed
       Description: Increases movement speed
-    AdditionalFields: []
+    AdditionalFields:
+    - Color: {r: 0.6627451, g: 1, b: 0.654902, a: 1}
+      Text: +25% movement Speed

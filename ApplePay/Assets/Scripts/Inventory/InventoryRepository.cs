@@ -1,47 +1,50 @@
-using UnityEngine;
 [System.Serializable]
-public abstract class InventoryRepository : MonoBehaviour
+
+public struct InventoryRepository
 {
-    public RepositoryRenderer RepositoryRenderer { get; set; }
-    public InventorySystem AttachedSystem {get; private set;}
-    public byte Capacity;
-    public abstract System.Type RepositoryType { get; }
-    public System.Collections.Generic.List<Item> RepositoryItems {get; private set;} = new System.Collections.Generic.List<Item>();
-    public void LinkInventorySystem(InventorySystem inventorySystem) => AttachedSystem = inventorySystem;
-    public virtual void AddItem(Item item, out bool isAdded)
+    public RepositoryRenderer Renderer;
+    public InventorySystem System;
+    public Item[] Items;
+    public InventoryRepository(InventorySystem owner, byte capacity, RepositoryRenderer renderer)
     {
-        isAdded = false;
-        if(RepositoryItems.Count >= Capacity)
+        Items = new Item[capacity];
+        System = owner;
+        Renderer = renderer;
+    }
+    
+}
+public static class InventoryRepositoryExtension
+{
+    public static bool AddItem(this InventoryRepository repository, Item item)
+    {
+        for(int i = 0; i < repository.Items.Length; i++)
         {
-            OnCapacityLimit(ref item);
-            return;
+            if(repository.Items[i] == null)
+            {
+                repository.Items[i] = item;
+                repository.Items[i].OnRepositoryAdded(repository.System);
+                repository.Renderer.OnRepositoryUpdate();
+                return true;
+            } else
+            if(i == repository.Items.Length - 1) UnityEngine.Debug.LogWarning("Repository you are trying to add item to is full!");
         }
-        RepositoryItems.Add(item);
-        isAdded = true;
-        OnItemAdded(item);
-        RepositoryRenderer?.OnRepositoryUpdate(this);
+        UnityEngine.Debug.LogWarning("Item hasn't been added!");
+        return false;
     }
-    public virtual void AddItem(Item item, byte index, out bool isAdded)
+    public static bool RemoveItem(this InventoryRepository repository, Item item)
     {
-        isAdded = false;
-        if(index > Capacity)
-            return;
-        RepositoryItems[index] = item;
-        OnItemAdded(item, index);
-        RepositoryRenderer?.OnRepositoryUpdate(this);
-    }
-    public void RemoveItem(Item item, out bool removed) 
-    {
-        removed = RepositoryItems.Remove(item);
-        if(removed) 
+        for(int i = 0; i < repository.Items.Length; i++)
         {
-            OnItemRemoved(item);
-            RepositoryRenderer?.OnRepositoryUpdate(this);
+            if(repository.Items[i] == item) 
+            {
+                repository.Items[i].OnRepositoryRemoved(repository.System);
+                repository.Renderer?.OnRepositoryUpdate();
+                repository.Items[i] = null;
+                return true;
+            }
+            else if(i == repository.Items.Length) UnityEngine.Debug.LogWarning("Repository you are trying to remove item from doesn't contain specified item!");
         }
+        UnityEngine.Debug.LogWarning("Item hasn't been removed!");
+        return false;
     }
-    protected virtual void Update() {}
-    public virtual void OnItemAdded(Item added) {}
-    public virtual void OnItemAdded(Item added, byte index) {}
-    public virtual void OnCapacityLimit(ref Item item) {}
-    public virtual void OnItemRemoved(Item removed) {}
 }

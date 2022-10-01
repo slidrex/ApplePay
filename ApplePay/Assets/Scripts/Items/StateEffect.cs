@@ -138,7 +138,7 @@ namespace PayWorld.Effect
             
             return stateEffect.LinkActions(action, endAction);
         }
-        public static StateEffect WeaponConstraint()
+        /*public static StateEffect WeaponConstraint()
         {
             StateEffect stateEffect = CreateState();
             StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.GetComponent<WeaponHolder>().Disable = true;
@@ -146,5 +146,6 @@ namespace PayWorld.Effect
 
             return stateEffect.LinkActions(beginAction, endAction);
         }
+        */
     }
 }
