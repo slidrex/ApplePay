@@ -7,7 +7,7 @@ public class Hoverboard : MonoBehaviour
     [SerializeField] private Text _nametag;
     [SerializeField] private Text _description;
     [SerializeField] private Text _additionalFieldObject;
-    [SerializeField] private Transform additionalFieldList;
+    [SerializeField] private RectTransform additionalFieldList;
     [ReadOnly] public System.Collections.Generic.List<Text> InstantiatedFields = new System.Collections.Generic.List<Text>();
     private void Start() => SetDefaultDescription();
     public void SetDescription(string name, string description)
@@ -18,26 +18,22 @@ public class Hoverboard : MonoBehaviour
     public void SetDefaultDescription()
     {
         RemoveAddditionalFields();
-        _nametag.text = defaultDescription.Name;
-        _description.text = defaultDescription.Description;
+        SetDescription(defaultDescription.Name, defaultDescription.Description);
     }
     public void AddField(string text, Color color)
     {
-        GameObject obj = Instantiate(_additionalFieldObject.gameObject, transform.position, Quaternion.identity);
+        Text obj = Instantiate(_additionalFieldObject, transform.position, Quaternion.identity);
+        InstantiatedFields.Add(obj);
         Vector2 sourceScale = obj.transform.localScale;
         obj.transform.SetParent(additionalFieldList);
         obj.transform.localScale = sourceScale;
-        Text _text = obj.GetComponent<Text>();
-        InstantiatedFields.Add(_text);
-        _text.text = text;
-        _text.color = color;
+        obj.text = text;
+        obj.color = color;
+        UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(additionalFieldList);
     }
     public void RemoveAddditionalFields()
     {
-        for(int i = 0 ; i < InstantiatedFields.Count; i++)
-        {
-            Destroy(InstantiatedFields[i].gameObject);
-            InstantiatedFields.RemoveAt(i);
-        }
+        foreach(Text text in InstantiatedFields) Destroy(text.gameObject);
+        InstantiatedFields.Clear();
     }
 }

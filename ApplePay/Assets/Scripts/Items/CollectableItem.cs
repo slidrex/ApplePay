@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class CollectableItem : CollectableObject
 {
     protected abstract Item CollectableObject { get; }
+    public abstract string TargetRepository { get; }
     [SerializeField] private ItemHoverableObject itemHoverableObject;
 
     public override void Collect(Collider2D collision, ref bool collectStatus)
@@ -23,6 +24,12 @@ public abstract class CollectableItem : CollectableObject
         if(inventorySystem == null)
             return;
         
-        inventorySystem.AddItem(item, out pickStatus);
+        if(inventorySystem.ContainsRepository(TargetRepository) == false) 
+        {
+            Debug.LogWarning(inventorySystem + " system doesn't contain \"" +  TargetRepository + "\" repository");
+            return;
+        }
+        InventoryRepository repository = inventorySystem.GetRepository(TargetRepository);
+        pickStatus = repository.AddItem(item);
     }
 }

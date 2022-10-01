@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 68942fbf25a060740a24ab00265e8df8
+<<<<<<<< HEAD:ApplePay/Assets/Test/Panel.png.meta
+guid: 611b30f189a9fd54ca426385d5955070
+========
+guid: 6b74cb05d6d186146a8c4200895def60
+>>>>>>>> 6ae1a22ecfc550385e0e11ea826a581c001445b3:ApplePay/Assets/Sprites/Charms/Telik.png.meta
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -99,6 +103,21 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<<< HEAD:ApplePay/Assets/Test/Panel.png.meta
+========
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+>>>>>>>> 6ae1a22ecfc550385e0e11ea826a581c001445b3:ApplePay/Assets/Sprites/Charms/Telik.png.meta
   spriteSheet:
     serializedVersion: 2
     sprites:

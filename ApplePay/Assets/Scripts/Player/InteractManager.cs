@@ -91,7 +91,7 @@ public class InteractManager : MonoBehaviour
         Entity curEntity = gameObject.GetComponent<Entity>();
 
         PayWorld.EffectController.ActiveEffect effect = PayWorld.EffectController.AddEffect(curEntity, out constraintId, 
-            new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.WeaponConstraint()),
+            //new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.WeaponConstraint()),
             new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.MoveConstraint())
         );
         

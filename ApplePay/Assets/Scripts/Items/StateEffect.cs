@@ -93,7 +93,8 @@ namespace PayWorld.Effect
         public static StateEffect HoldingHackSpeedChanger(float amount)
         {
             StateEffect stateEffect = CreateState(amount);
-
+            TagAttribute tag = null;
+            
             StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.GetComponent<InteractManager>().ChangeHackSpeed(stateEffect.GetValue());
             StateEffect.EndActionHandler endAction = (Entity entity) => entity.GetComponent<InteractManager>().ChangeHackSpeed(-stateEffect.GetValue());
 
@@ -102,8 +103,9 @@ namespace PayWorld.Effect
         public static StateEffect VelocityChanger(float amount)
         {
             StateEffect stateEffect = CreateState(amount);
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.FindAttribute("movementSpeed").AddMultiplier(stateEffect.GetValue());
-            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("movementSpeed").AddMultiplier(-stateEffect.GetValue());
+            TagAttribute tag = null;
+            StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("movementSpeed").AddTaggedAttribute(stateEffect.GetValue(), AttributeType.Multiplier);
+            StateEffect.EndActionHandler endAction = (Entity entity) => tag.Remove();
             
             return stateEffect.LinkActions(beginAction, endAction);
         }
@@ -138,7 +140,7 @@ namespace PayWorld.Effect
             
             return stateEffect.LinkActions(action, endAction);
         }
-        public static StateEffect WeaponConstraint()
+        /*public static StateEffect WeaponConstraint()
         {
             StateEffect stateEffect = CreateState();
             StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.GetComponent<WeaponHolder>().Disable = true;
@@ -146,5 +148,6 @@ namespace PayWorld.Effect
 
             return stateEffect.LinkActions(beginAction, endAction);
         }
+        */
     }
 }

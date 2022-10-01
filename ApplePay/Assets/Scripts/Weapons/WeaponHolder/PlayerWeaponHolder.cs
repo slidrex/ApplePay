@@ -1,5 +1,5 @@
 using UnityEngine;
-
+/*
 public class PlayerWeaponHolder : AdvancedWeaponHolder
 {
     [Header("Player Holder")]
@@ -51,3 +51,4 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     }
     protected override Vector2 SetDropDirection() => (Pay.Functions.Generic.GetMousePos(Camera.main) - (Vector2)transform.position).normalized;
 }
+*/

@@ -8,6 +8,7 @@ public class InventoryDisplaySlot : HoverableObject
     [HideInInspector] public ItemDisplay Display;
     public void SetItem(Sprite display) => RenderItem(display);
     public void LinkDisplay(ItemDisplay display) => Display = display;
+    public void LinkRender(RepositoryRenderer renderer) => attachedRenderer = renderer;
     public void RenderItem(Sprite sprite)
     {
         if(sprite == null)
@@ -33,5 +34,4 @@ public class InventoryDisplaySlot : HoverableObject
         base.OnPointerExit(pointerData);
         attachedRenderer.OnCellTriggerExit(Display, this);
     }
-    public void LinkRender(RepositoryRenderer renderer) => attachedRenderer = renderer;
 }

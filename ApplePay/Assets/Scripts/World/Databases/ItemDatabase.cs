@@ -1,4 +1,9 @@
-public abstract class Item  {}
+public abstract class Item  
+{
+    public virtual void OnRepositoryAdded(InventorySystem system) { }
+    public virtual void OnRepositoryUpdate(InventorySystem system) { }
+    public virtual void OnRepositoryRemoved(InventorySystem system) { }
+}
 
 [System.Serializable]
 public class WeaponItem : Item
@@ -30,6 +35,9 @@ public struct WeaponAnimationInfo
 public class CharmItem : Item
 {
     public Charm Item;
+    public override void OnRepositoryAdded(InventorySystem system) => Item.BeginFunction(system.InventoryOwner);
+    public override void OnRepositoryRemoved(InventorySystem system) => Item.EndFunction(system.InventoryOwner);
+    public override void OnRepositoryUpdate(InventorySystem system) => Item.UpdateFunction(system.InventoryOwner);
 }
 [System.Serializable]
 public class WeaponAnimationSettings

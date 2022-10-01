@@ -23,5 +23,5 @@ public class PlayerInteraction : MonoBehaviour
             OnTabClose();
     }
     private void OnTabClose() => PayWorld.EffectController.RemoveEffect(GetComponent<Entity>(), ref constraintID);
-    private void OnTabOpen() => PayWorld.EffectController.AddEffect(GetComponent<Entity>(), out constraintID, new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.MoveConstraint()), new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.WeaponConstraint()));
+    private void OnTabOpen() => PayWorld.EffectController.AddEffect(GetComponent<Entity>(), out constraintID, new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.MoveConstraint()));
 }

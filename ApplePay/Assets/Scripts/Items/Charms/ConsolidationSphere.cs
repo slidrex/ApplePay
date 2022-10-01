@@ -1,5 +1,5 @@
 using PayWorld;
-[UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Other/Consolidation sphere", fileName = "new charm")]
+[UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Other/Consolidation sphere")]
 public class ConsolidationSphere : Charm
 {
     [UnityEngine.SerializeField] private float AdditionalEffectAmplifying;
@@ -12,11 +12,11 @@ public class ConsolidationSphere : Charm
         {
             if(effect.Tags.Contains("SphereAmplified") == false)
             {
-                valueMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.EffectValue, AttributeOperation.Multiply, 2f);
                 if(effect.Tags.Contains("positiveEffect"))
                 {
-                    durationMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.RemainTime, AttributeOperation.Multiply, 1.5f);
+                    durationMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.RemainTime, AttributeOperation.Multiply, AdditionalEffectDuration);
                 }
+                valueMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.EffectValue, AttributeOperation.Multiply, AdditionalEffectAmplifying);
                 effect.Tags.Add("SphereAmplified");
             }
         }
@@ -24,7 +24,7 @@ public class ConsolidationSphere : Charm
     public override void EndFunction(Entity entity)
     {
         base.EndFunction(entity);
-        valueMask.Remove();
-        durationMask.Remove();
+        if(valueMask.Equals(new EffectController.EffectMask()) == false) valueMask.Remove();
+        if(durationMask.Equals(new EffectController.EffectMask()) == false) durationMask.Remove();
     }
 }

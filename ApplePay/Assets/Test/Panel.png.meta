@@ -1,7 +1,23 @@
 fileFormatVersion: 2
-guid: 1c6921a9c399bc34f90b6cbd74b1b7e0
+<<<<<<<< HEAD:ApplePay/Assets/Test/Panel.png.meta
+guid: a709f2c1477e7ab49b3eaee8341bfac8
+========
+guid: 6b74cb05d6d186146a8c4200895def60
+>>>>>>>> 6ae1a22ecfc550385e0e11ea826a581c001445b3:ApplePay/Assets/Sprites/Charms/Telik.png.meta
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -6407655375219818683
+    second: Telik_0
+  - first:
+      213: 369557011671058371
+    second: Telik_1
+  - first:
+      213: -521147176744850903
+    second: Telik_2
+  - first:
+      213: 8961725003365801857
+    second: Telik_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -37,11 +53,11 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -61,7 +77,7 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -87,9 +103,108 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<<< HEAD:ApplePay/Assets/Test/Panel.png.meta
+========
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+>>>>>>>> 6ae1a22ecfc550385e0e11ea826a581c001445b3:ApplePay/Assets/Sprites/Charms/Telik.png.meta
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Telik_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54f76eca26f6317a0800000000000000
+      internalID: -6407655375219818683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Telik_1
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 0
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c788e4e42ee02500800000000000000
+      internalID: 369557011671058371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Telik_2
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 0
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92aec66676384c8f0800000000000000
+      internalID: -521147176744850903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Telik_3
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 0
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18fda58c8617e5c70800000000000000
+      internalID: 8961725003365801857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

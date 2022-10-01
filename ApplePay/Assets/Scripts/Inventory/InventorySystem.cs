@@ -1,48 +1,56 @@
 using UnityEngine;
 using System.Collections.Generic;
+
+[System.Serializable]
+public struct InventoryRepositoryObject
+{
+    public byte RepositoryLength;
+    public string Name;
+    public RepositoryRenderer Renderer;
+}
+
 public class InventorySystem : MonoBehaviour
 {
+    [SerializeField] private InventoryRepositoryObject[] StartRepositories;
     public Creature InventoryOwner;
-    public List<InventoryRepository> Repositories = new List<InventoryRepository>();
-    public void AddItem(Item item, out bool isAdded) 
+    public Dictionary<string, InventoryRepository> Repositories = new Dictionary<string, InventoryRepository>();
+    private void Awake() => FillSetupRepositories();
+    private void Update()
     {
-        isAdded = false;
-        
-        GetRepository(item.GetType())?.AddItem(item, out isAdded);
+        UpdateRepositoryItems();
     }
-    public InventoryRepository GetRepository(System.Type repositoryType)
+    private void UpdateRepositoryItems()
     {
-        UpdateRepositories();
-        foreach(InventoryRepository repository in Repositories)
+        foreach(InventoryRepository repository in Repositories.Values)
         {
-            if(repository.RepositoryType == repositoryType)
-                return repository;
-        }
-        Debug.LogWarning("Repository of type " + "\"" + repositoryType + "\"" + " hasn't been found.");
-        return null;
-    }
-    private void UpdateRepositories()
-    {
-        CheckRepositories();
-        LinkRepositories();
-    }
-    private void LinkRepositories()
-    {
-        foreach(InventoryRepository repository in Repositories)
-        {
-            if(repository.AttachedSystem != this)
-                repository.LinkInventorySystem(this);
-        }
-    }
-    private void CheckRepositories()
-    {
-        for(int i = 0; i < Repositories.Count; i++)
-        {
-            for(int j = i + 1; j < Repositories.Count; j++)
+            foreach(Item item in repository.Items)
             {
-                if(Repositories[j].GetType() == Repositories[i].GetType())
-                    throw new System.Exception(this + " inventory system contains multiple " + Repositories[j] + " repositories.");
+                item?.OnRepositoryUpdate(this);
             }
         }
+    }
+    private void FillSetupRepositories()
+    {
+        foreach(InventoryRepositoryObject repository in StartRepositories) AddRepository(repository.Name, repository.RepositoryLength, repository.Renderer);
+    }
+    public void AddRepository(string name, byte length, RepositoryRenderer renderer) => Repositories.Add(name, new InventoryRepository(this, length, renderer));
+    public InventoryRepository GetRepository(string repositoryName)
+    {
+        InventoryRepository repository = new InventoryRepository();
+        Repositories.TryGetValue(repositoryName, out repository);
+        return repository;
+    }
+    public bool ContainsRepository(string repositoryName) => Repositories.ContainsKey(repositoryName);
+    public bool AddItem(string repositoryName, Item item)
+    {
+        InventoryRepository repository = GetRepository(repositoryName);
+        
+        return repository.AddItem(item);
+    }
+    public void RemoveItem(string repositoryName, Item item)
+    {
+        InventoryRepository repository = GetRepository(repositoryName);
+
+        repository.RemoveItem(item);
     }
 }
