@@ -3,7 +3,6 @@ using System.Linq;
 
 public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable
 {
-    
     public int AttackDamage {get; set;} = 10;
     [Header("Player Entity")]
     [SerializeField] private GameObject EffectList;
