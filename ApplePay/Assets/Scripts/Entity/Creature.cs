@@ -9,8 +9,8 @@ public abstract class Creature : Entity
     [SerializeField] private Color32 startColor;
     [SerializeField] private Color32 takeDamageColor;
     [Header("After Take Damage Immortality")]
-    [SerializeField] internal float Duration;
-    private float curDuration;
+    [SerializeField] internal float ImmortalityDuration;
+    private float timeSinceImmortality;
     [HideInInspector] public bool isDead;
     [Header("Entity Settings")]
     public System.Collections.Generic.List<Creature> Hostiles = new System.Collections.Generic.List<Creature>();
@@ -31,9 +31,9 @@ public abstract class Creature : Entity
     }
     protected virtual void Invulnerability() 
     { 
-        if(curDuration < Duration) 
+        if(timeSinceImmortality < ImmortalityDuration) 
         {
-            curDuration += Time.deltaTime;
+            timeSinceImmortality += Time.deltaTime;
             Immortal = true;
         } else if(Immortal) Immortal = false;
 
@@ -47,12 +47,17 @@ public abstract class Creature : Entity
     protected override void ApplyDamage(Creature handler)
     {
         base.ApplyDamage(handler);
-        StartImmortality();
+        StartImmortality(ImmortalityDuration);
         SpriteRenderer.color = takeDamageColor;
         Invoke("StartColor", 0.2f);
         HealthBar?.Animator.SetTrigger("TakeDamage");
     }
-    protected void StartImmortality() => curDuration = 0;
+    protected override void OnEvasion()
+    {
+        base.OnEvasion();
+        StartImmortality(ImmortalityDuration/2);
+    }
+    protected void StartImmortality(float time) => timeSinceImmortality = ImmortalityDuration - time;
     protected override void Die(Creature killer)
     {
         DropTable?.DropLoot();

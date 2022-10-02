@@ -49,7 +49,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         if(Input.GetKeyDown(KeyCode.Space))
         {
             //PayWorld.EffectController.AddEffect(this, "decay", 3, 5f);
-            Damage(10, DamageType.Magical, null);
+            Damage(10, DamageType.Physical, null);
         }
 
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);

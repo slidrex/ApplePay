@@ -45,11 +45,8 @@ public abstract class Entity : MonoBehaviour
     public virtual void Damage(int amount, DamageType damageType, Creature handler)
     {
         bool evaded = Random.Range(0, 1f) < evasionRate && damageType == DamageType.Physical;
-        if(evaded)
-        {
-            Debug.Log("Evaded!");
-            PayWorld.Particles.InstantiateParticles(evasionEffect, transform.position, Quaternion.identity, 0.25f, transform);
-        }
+        if(evaded) OnEvasion();
+
         float fixedMagicalDamage = 1 - Mathf.Clamp(magicResistance, Mathf.NegativeInfinity, 1);
         if(damageType == DamageType.Magical) amount = (int)((float)amount * fixedMagicalDamage);
         if(Immortal == false && evaded == false)
@@ -58,6 +55,10 @@ public abstract class Entity : MonoBehaviour
             ApplyDamage(handler);
         }
         if(CurrentHealth <= 0) Die(handler);
+    }
+    protected virtual void OnEvasion()
+    {
+        PayWorld.Particles.InstantiateParticles(evasionEffect, transform.position, Quaternion.identity, 0.25f, transform);
     }
     public virtual void Heal(int amount, Creature handler)
     {
