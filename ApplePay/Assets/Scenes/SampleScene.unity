@@ -880,6 +880,206 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &446314026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 446314033}
+  - component: {fileID: 446314032}
+  - component: {fileID: 446314031}
+  - component: {fileID: 446314030}
+  - component: {fileID: 446314029}
+  - component: {fileID: 446314028}
+  - component: {fileID: 446314027}
+  m_Layer: 0
+  m_Name: ThiefGlove
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &446314027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446314026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03196795d23b2a438842976c2821a31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+  header: Thief's glove
+  description: Increases hacking and movement speed.
+--- !u!114 &446314028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446314026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616b9bd2fdcb20d4c89d0d9bafe05978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 446314032}
+  Immortal: 0
+  deathParticle: {fileID: 0}
+  takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
+  appearParticle: {fileID: 0}
+  MaxHealth: 50
+  CurrentHealth: 0
+  evasionRate: 0
+  magicResistance: 0
+  evasionEffect: {fileID: 0}
+  StoredHealth: 0
+  maxHealthColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  minHealthColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  constraintColor:
+    serializedVersion: 2
+    rgba: 0
+  ConstraintList: []
+  collectParticle: {fileID: 0}
+  amplitude: 0
+  speed: 0
+  rb: {fileID: 0}
+  TargetVelocity: {x: 0, y: 0}
+  damagePerForceUnit: 1
+  itemHoverableObject: {fileID: 446314027}
+  CharmItem:
+    Item: {fileID: 11400000, guid: 7e74c561f7468784ba88d782d4adac2f, type: 2}
+--- !u!50 &446314029
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446314026}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 5
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!95 &446314030
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446314026}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5d6e1b46d51f89146b72133e07aaf5ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &446314031
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446314026}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.02}
+  serializedVersion: 2
+  m_Radius: 0.0415875
+--- !u!212 &446314032
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446314026}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 1120820663
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 3f1fbd2c0686a634a9121c6447ffcf22, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.16, y: 0.16}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 2
+  m_SpriteSortPoint: 0
+--- !u!4 &446314033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446314026}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.21, y: 1.48, z: 1}
+  m_LocalScale: {x: 7.2, y: 7.2, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &463157121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
@@ -1469,6 +1669,7 @@ MonoBehaviour:
   MaxHealth: 100
   CurrentHealth: 0
   evasionRate: 0
+  magicResistance: 0
   evasionEffect: {fileID: 0}
   StoredHealth: 0
   maxHealthColor:
@@ -1576,7 +1777,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -222, y: 234}
-  m_SizeDelta: {x: 190.3125, y: 42.5875}
+  m_SizeDelta: {x: 190.3125, y: 44.1875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &931947518
 MonoBehaviour:
@@ -2005,6 +2206,7 @@ MonoBehaviour:
   MaxHealth: 100
   CurrentHealth: 0
   evasionRate: 0
+  magicResistance: 0
   evasionEffect: {fileID: 0}
   StoredHealth: 0
   maxHealthColor:
@@ -2150,7 +2352,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014642741}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.61, y: 0.24, z: 1}
+  m_LocalPosition: {x: -6.73, y: 4.1, z: 1}
   m_LocalScale: {x: 7.2, y: 7.2, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3222,7 +3424,7 @@ GameObject:
   - component: {fileID: 1595865737}
   - component: {fileID: 1595865736}
   m_Layer: 0
-  m_Name: Corrupt sword (1)
+  m_Name: Scissors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3241,8 +3443,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
-  header: Clew of Speed
-  description: Increases movement speed
+  header: Scissors of strength
+  description: Increases attack damage
 --- !u!114 &1595865737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3263,6 +3465,7 @@ MonoBehaviour:
   MaxHealth: 100
   CurrentHealth: 0
   evasionRate: 0
+  magicResistance: 0
   evasionEffect: {fileID: 0}
   StoredHealth: 0
   maxHealthColor:
@@ -3283,7 +3486,7 @@ MonoBehaviour:
   damagePerForceUnit: 0
   itemHoverableObject: {fileID: 1595865736}
   CharmItem:
-    Item: {fileID: 0}
+    Item: {fileID: 11400000, guid: 229b480149731d34d8aca467879d8659, type: 2}
 --- !u!50 &1595865738
 Rigidbody2D:
   serializedVersion: 4
@@ -3447,6 +3650,7 @@ MonoBehaviour:
   MaxHealth: 50
   CurrentHealth: 0
   evasionRate: 0
+  magicResistance: 0
   evasionEffect: {fileID: 0}
   StoredHealth: 0
   maxHealthColor:
@@ -3663,6 +3867,7 @@ MonoBehaviour:
   MaxHealth: 50
   CurrentHealth: 0
   evasionRate: 0
+  magicResistance: 0
   evasionEffect: {fileID: 0}
   StoredHealth: 0
   maxHealthColor:
@@ -4175,7 +4380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 95.15625, y: -42.5875}
+  m_AnchoredPosition: {x: 95.15625, y: -44.1875}
   m_SizeDelta: {x: 190.3125, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1861607799
@@ -4425,6 +4630,10 @@ PrefabInstance:
       propertyPath: holder
       value: 
       objectReference: {fileID: 1124329983}
+    - target: {fileID: 1849077798739181968, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: HackSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1849077798739181968, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: interactDistance
       value: 1
@@ -5170,7 +5379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8223013048784590205, guid: c048c8310ba5b334bafefef26d0050bc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -34.8875
+      value: -35.6875
       objectReference: {fileID: 0}
     - target: {fileID: 8223013048784590205, guid: c048c8310ba5b334bafefef26d0050bc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

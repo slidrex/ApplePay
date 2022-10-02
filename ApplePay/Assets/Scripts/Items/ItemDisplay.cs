@@ -11,6 +11,6 @@ public class WeaponDisplay : ItemDisplay
 public class ItemDescription
 {
     public string Name;
-    public string Description;
+    [UnityEngine.TextArea] public string Description;
 
 }
