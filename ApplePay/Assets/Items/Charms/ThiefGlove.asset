@@ -16,11 +16,18 @@ MonoBehaviour:
   - AttributeName: hackSpeed
     AdditionalAttributeValue: 0.5
     Type: 0
+  - AttributeName: movementSpeed
+    AdditionalAttributeValue: 0.1
+    Type: 0
   Display:
     InventorySprite: {fileID: 21300000, guid: 3f1fbd2c0686a634a9121c6447ffcf22, type: 3}
     Description:
-      Name: Glove of Nefor
-      Description: Increases speed of hack
+      Name: Thief's glove
+      Description: 'Increases hacking and
+
+        movement speed'
     AdditionalFields:
     - Color: {r: 0.6627451, g: 1, b: 0.654902, a: 1}
-      Text: +50% hack speed
+      Text: +50% hacking speed
+    - Color: {r: 0.6627451, g: 1, b: 0.654902, a: 1}
+      Text: +10% movement speed

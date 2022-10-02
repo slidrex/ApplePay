@@ -95,8 +95,8 @@ namespace PayWorld.Effect
             StateEffect stateEffect = CreateState(amount);
             TagAttribute tag = null;
             
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.GetComponent<InteractManager>().ChangeHackSpeed(stateEffect.GetValue());
-            StateEffect.EndActionHandler endAction = (Entity entity) => entity.GetComponent<InteractManager>().ChangeHackSpeed(-stateEffect.GetValue());
+            StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("hackSpeed")?.AddTaggedAttribute(stateEffect.GetValue(), AttributeType.Multiplier);
+            StateEffect.EndActionHandler endAction = (Entity entity) => tag?.Remove();
 
             return stateEffect.LinkActions(beginAction, endAction);
         }
@@ -105,7 +105,7 @@ namespace PayWorld.Effect
             StateEffect stateEffect = CreateState(amount);
             TagAttribute tag = null;
             StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("movementSpeed").AddTaggedAttribute(stateEffect.GetValue(), AttributeType.Multiplier);
-            StateEffect.EndActionHandler endAction = (Entity entity) => tag.Remove();
+            StateEffect.EndActionHandler endAction = (Entity entity) => tag?.Remove();
             
             return stateEffect.LinkActions(beginAction, endAction);
         }

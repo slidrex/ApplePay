@@ -14,6 +14,7 @@ public abstract class Entity : MonoBehaviour
     public int MaxHealth = 100;
     [ReadOnly] public int CurrentHealth;
     [ReadOnly, SerializeField] private float evasionRate;
+    [SerializeField] private float magicResistance;
     [SerializeField] private GameObject evasionEffect;
     public System.Collections.Generic.Dictionary<string, EntityAttribute> Attributes = new System.Collections.Generic.Dictionary<string, EntityAttribute>();
     protected virtual void Awake()
@@ -34,6 +35,10 @@ public abstract class Entity : MonoBehaviour
             () => evasionRate,
             val => evasionRate = val
         ), 0f);
+        GetComponent<Entity>().AddAttribute("magicResistance", new ReferencedAttribute(
+            () => magicResistance,
+            val => magicResistance = val
+        ), 0f);
     }
     protected virtual void Start() {}
     protected virtual void Update() => EffectsUpdate();
@@ -45,6 +50,8 @@ public abstract class Entity : MonoBehaviour
             Debug.Log("Evaded!");
             PayWorld.Particles.InstantiateParticles(evasionEffect, transform.position, Quaternion.identity, 0.25f, transform);
         }
+        float fixedMagicalDamage = 1 - Mathf.Clamp(magicResistance, Mathf.NegativeInfinity, 1);
+        if(damageType == DamageType.Magical) amount = (int)((float)amount * fixedMagicalDamage);
         if(Immortal == false && evaded == false)
         {
             ChangeHealth(-amount);
