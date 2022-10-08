@@ -4,10 +4,10 @@ public abstract class RepositoryRenderer : MonoBehaviour
 {
     public InventorySystem Inventory;
     [SerializeField] protected string RepositoryName;
-    private InventoryRepository repository;
+    protected InventoryRepository Repository;
     private void Start()
     {
-        repository = Inventory.GetRepository(RepositoryName);
+        Repository = Inventory.GetRepository(RepositoryName);
         SetSlotsRenderer();
     }
     public InventoryDisplaySlot[] Slots
@@ -23,14 +23,6 @@ public abstract class RepositoryRenderer : MonoBehaviour
         }
     }
     public virtual void OnRepositoryUpdate() { }
-    public void SetupItems(ItemDisplay[] displayItems)
-    {
-        for(int i = 0; i < displayItems.Length; i++)
-        {
-            Slots[i].LinkDisplay(displayItems[i]);
-            Slots[i].SetItem(displayItems[i]?.InventorySprite);
-        }
-    }
     private void SetSlotsRenderer()
     {
         foreach(InventoryDisplaySlot slot in Slots) slot.LinkRender(this);

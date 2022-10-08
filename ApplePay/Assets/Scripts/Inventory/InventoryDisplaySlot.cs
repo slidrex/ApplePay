@@ -6,9 +6,12 @@ public class InventoryDisplaySlot : HoverableObject
     protected RepositoryRenderer attachedRenderer;
     [SerializeField] private UnityEngine.UI.Image Slot;
     [HideInInspector] public ItemDisplay Display;
-    public void SetItem(Sprite display) => RenderItem(display);
-    public void LinkDisplay(ItemDisplay display) => Display = display;
     public void LinkRender(RepositoryRenderer renderer) => attachedRenderer = renderer;
+    public void RenderItem(CharmDisplay display)
+    {
+        Display = display;
+        RenderItem(display?.InventorySprite);
+    }
     public void RenderItem(Sprite sprite)
     {
         if(sprite == null)

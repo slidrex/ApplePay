@@ -1,5 +1,6 @@
 [UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Attribute Charm", fileName = "new charm")]
-public class Charm : UnityEngine.ScriptableObject
+
+public class Charm : CharmObject
 {
     public AdditionalItemAttributes[] Attributes;
     public CharmDisplay Display;

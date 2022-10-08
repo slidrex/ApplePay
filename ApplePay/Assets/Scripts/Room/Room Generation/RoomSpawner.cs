@@ -20,9 +20,9 @@ public class RoomSpawner : MonoBehaviour
             lastDirection = direction;
         }
     }
+    private Vector2 zeroRoomPos;
     [SerializeField] private RandRoom[] spawnRooms;
     private List<walker> walkers = new List<walker>();
-    private Vector2 zeroRoomPos;
     public int RoomCount = 1;
     [Header("Grid generation settings")]
     private Dictionary<Vector2, Room> FilledCells = new Dictionary<Vector2, Room>();
@@ -31,7 +31,8 @@ public class RoomSpawner : MonoBehaviour
     [SerializeField, Range(0, 1f)] private float GridComplexityIncreaseRate;
     [Range(0, 1)] public float chanceToChangeDirection;
     [Header("Spawn Setup")]
-    [SerializeField, Tooltip("Objects that can be spawned in the first room.")] private List<GameObject> setupObjects = new List<GameObject>();
+    [SerializeField, Tooltip("Objects that can be spawned in the first room.")] 
+    private List<GameObject> setupObjects = new List<GameObject>();
     [Header("Contracts")]
     [SerializeField] private RoomContract[] ContractRooms;
     private Dictionary<int, SpawnerRoom> contractedRooms = new Dictionary<int, SpawnerRoom>();

@@ -32,7 +32,7 @@ public class Room : MonoBehaviour
     public void DefineRoom()
     {
         isActive = true;
-        FindObjectOfType<RoomDefiner>().RoomDefine(this);
+        RoomDefiner.ActivateRoomMarks(this);
     }
     public bool IsInsideRoom(Vector2 position) =>  RoomConfiners.IsInsideBound(position);
     public Vector2 GetRandomRoomSpace() => FreeRoomSpace[Random.Range(0, FreeRoomSpace.Length)].GetRandomSpace();

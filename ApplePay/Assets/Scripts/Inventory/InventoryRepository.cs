@@ -11,7 +11,6 @@ public struct InventoryRepository
         System = owner;
         Renderer = renderer;
     }
-    
 }
 public static class InventoryRepositoryExtension
 {

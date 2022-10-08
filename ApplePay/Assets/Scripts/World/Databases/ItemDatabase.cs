@@ -34,10 +34,62 @@ public struct WeaponAnimationInfo
 [System.Serializable]
 public class CharmItem : Item
 {
-    public Charm Item;
-    public override void OnRepositoryAdded(InventorySystem system) => Item.BeginFunction(system.InventoryOwner);
-    public override void OnRepositoryRemoved(InventorySystem system) => Item.EndFunction(system.InventoryOwner);
-    public override void OnRepositoryUpdate(InventorySystem system) => Item.UpdateFunction(system.InventoryOwner);
+    public CharmObject Item;
+    public CharmType Type {get 
+    {
+        return Item.GetType() == typeof(Charm) ? CharmType.Base : CharmType.Switchable;
+    }
+    }
+    public byte ActiveIndex;
+    public Charm GetActiveCharm()
+    {
+        if(Type == CharmType.Base) return (Charm)Item;
+        else 
+        {
+            MixedCharm charm = (MixedCharm)Item;
+            return charm.Charms[ActiveIndex];
+        }  
+    }
+    public override void OnRepositoryAdded(InventorySystem system) 
+    {
+        if(Type == CharmType.Base)
+        {
+            Charm charm = (Charm)Item;
+            charm.BeginFunction(system.InventoryOwner);
+        }
+        else
+        {
+            MixedCharm charm = (MixedCharm)Item;
+            charm.Charms[ActiveIndex].BeginFunction(system.InventoryOwner);
+        }
+    }
+    public override void OnRepositoryRemoved(InventorySystem system) 
+    {
+        if(Type == CharmType.Base)
+        {
+            Charm charm = (Charm)Item;
+            charm.EndFunction(system.InventoryOwner);
+        }
+        else
+        {
+            MixedCharm charm = (MixedCharm)Item;
+            charm.Charms[ActiveIndex].EndFunction(system.InventoryOwner);
+        }
+
+    }
+    public override void OnRepositoryUpdate(InventorySystem system)
+    {
+        if(Type == CharmType.Base)
+        {
+            Charm charm = (Charm)Item;
+            charm.UpdateFunction(system.InventoryOwner);
+        }
+        else
+        {
+            MixedCharm charm = (MixedCharm)Item;
+            charm.Charms[ActiveIndex].UpdateFunction(system.InventoryOwner);
+        }
+    }
 }
 [System.Serializable]
 public class WeaponAnimationSettings
