@@ -1,7 +1,6 @@
 using UnityEngine;
 public class WaveController : MonoBehaviour
 {
-    private void Awake() => DontDestroyOnLoad(gameObject);
     [SerializeField] private MarkDatabase markDatabase;
     internal struct BindedWaveStatus
     {

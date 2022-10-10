@@ -51,6 +51,8 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
             //PayWorld.EffectController.AddEffect(this, "decay", 3, 5f);
             //Damage(10, DamageType.Physical, null);
             
+            FindObjectOfType<ScenarioLoader>().LoadNext();
+            
         }
 
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);

@@ -20,24 +20,18 @@ public class RoomSpawner : MonoBehaviour
             lastDirection = direction;
         }
     }
+    public FloorLevelScenario Scenario;
     private Vector2 zeroRoomPos;
-    [SerializeField] private RandRoom[] spawnRooms;
-    private List<walker> walkers = new List<walker>();
-    public int RoomCount = 1;
+    private List<walker> walkers;
     [Header("Grid generation settings")]
-    private Dictionary<Vector2, Room> FilledCells = new Dictionary<Vector2, Room>();
-    [SerializeField] private float cellSize = 50f;
-    [SerializeField] private byte StartGridComplexity = 1, GridComplexityLimit = 1;
-    [SerializeField, Range(0, 1f)] private float GridComplexityIncreaseRate;
-    [Range(0, 1)] public float chanceToChangeDirection;
-    [Header("Spawn Setup")]
-    [SerializeField, Tooltip("Objects that can be spawned in the first room.")] 
-    private List<GameObject> setupObjects = new List<GameObject>();
+    private Dictionary<Vector2, Room> FilledCells;
+
     [Header("Contracts")]
-    [SerializeField] private RoomContract[] ContractRooms;
-    private Dictionary<int, SpawnerRoom> contractedRooms = new Dictionary<int, SpawnerRoom>();
+    private Dictionary<int, SpawnerRoom> contractedRooms;
+    [HideInInspector] public System.Collections.Generic.List<Transform> StartObjects;
     private int spawnedRoomCount;
-    private void Start()
+    [HideInInspector] public Transform RoomContainer;
+    public void GenerateLevel()
     {
         Setup();
         GridGeneration();
@@ -47,9 +41,17 @@ public class RoomSpawner : MonoBehaviour
     }
     private void Setup() 
     {
+        spawnedRoomCount = 0;
+        walkers = new List<walker>();
+        StartObjects = new List<Transform>();
+        FilledCells = new Dictionary<Vector2, Room>();
+        contractedRooms = new Dictionary<int, SpawnerRoom>();
+        RoomContainer = new GameObject("Room container").transform;
+
+        if(Scenario == null) throw new System.NullReferenceException("Scenario hasn't been specified!");
         FillContracts();
-        if(spawnedRoomCount < RoomCount) SpawnRoom(Vector2.zero, 0);
-        for(int i = 0; i < StartGridComplexity; i++) SpawnWalker();
+        if(spawnedRoomCount < Scenario.RoomCount) SpawnRoom(Vector2.zero, 0);
+        for(int i = 0; i < Scenario.StartGridComplexity; i++) SpawnWalker();
     }
     private void FillMarks()
     {
@@ -58,7 +60,7 @@ public class RoomSpawner : MonoBehaviour
     private void SpawnWalker() => walkers.Add(new walker(Vector2.zero));
     private void GridGeneration() 
     {
-        while(spawnedRoomCount < RoomCount)
+        while(spawnedRoomCount < Scenario.RoomCount)
         {
             for(int j = 0; j < walkers.Count; j++)
             {
@@ -66,7 +68,7 @@ public class RoomSpawner : MonoBehaviour
                 bool isMoved = false;
                 while(isMoved == false)
                 {
-                    Vector2 moveVector = Random.Range(0f, 1f) < chanceToChangeDirection ? Pay.Functions.Math.GetRandomCrossVector() : thiswalker.lastDirection;;
+                    Vector2 moveVector = Random.Range(0f, 1f) < Scenario.ChangeDirectionRate ? Pay.Functions.Math.GetRandomCrossVector() : thiswalker.lastDirection;;
                     thiswalker.Move(moveVector);
                     
                     if(FilledCells.ContainsKey(thiswalker.position) == false)
@@ -78,32 +80,32 @@ public class RoomSpawner : MonoBehaviour
             for(int i = 0; i < walkers.Count; i++) 
             {
                 walker thisWalker = walkers[i];
-                if(spawnedRoomCount >= RoomCount) break;
+                if(spawnedRoomCount >= Scenario.RoomCount) break;
                 if(FilledCells.ContainsKey(thisWalker.position) == false)
                 {
                     SpawnRoom(thisWalker.position, spawnedRoomCount);
                     walkers[i] = thisWalker;
                 }
             }
-            if(Random.Range(0f, 1f) < GridComplexityIncreaseRate && walkers.Count < GridComplexityLimit) SpawnWalker();
+            if(Random.Range(0f, 1f) < Scenario.GridComplexityIncreaseRate && walkers.Count < Scenario.GridComplexityLimit) SpawnWalker();
         }
     }
     private void FillContracts()
     {
-        for(int i = 0; i < ContractRooms.Length; i++)
+        for(int i = 0; i < Scenario.ContractRooms.Length; i++)
         {
-            contractedRooms.Add((byte)Random.Range(ContractRooms[i].MinRoom, ContractRooms[i].MaxRoom), ContractRooms[i].SpawnerRoom);
+            contractedRooms.Add((byte)Random.Range(Scenario.ContractRooms[i].MinRoom, Scenario.ContractRooms[i].MaxRoom), Scenario.ContractRooms[i].SpawnerRoom);
         }
     }
     private Room SpawnRoom(Vector2 walkerPosition, int spawnedRoomIndex)
     {
-        if(spawnRooms.Length == 0) throw new System.Exception("No rooms is specified.");
-        byte[] roomChances = spawnRooms.Select(x => x.spawnRate).ToArray();
+        if(Scenario.SpawnRooms.Length == 0) throw new System.Exception("No rooms is specified.");
+        byte[] roomChances = Scenario.SpawnRooms.Select(x => x.spawnRate).ToArray();
         Pay.Functions.Generic.BubbleSort(false, ref roomChances);
         byte min = roomChances[0];
         byte max = roomChances[roomChances.Length - 1];
         bool spawned = false;
-        Vector2 spawnPosition = zeroRoomPos + walkerPosition  * cellSize;
+        Vector2 spawnPosition = zeroRoomPos + walkerPosition  * Scenario.CellSize;
         while(spawned == false)
         {
             byte rotation = 0;
@@ -116,12 +118,12 @@ public class RoomSpawner : MonoBehaviour
             }
             
             byte random = (byte)Random.Range(min, max + 1);
-            byte index = (byte)Random.Range(0, spawnRooms.Length);
-            if(spawnRooms[index].spawnRate >= random)
+            byte index = (byte)Random.Range(0, Scenario.SpawnRooms.Length);
+            if(Scenario.SpawnRooms[index].spawnRate >= random)
             {
                 spawned = true;
-                if(spawnRooms[index].SpawnerRoom.availableRotations.Length != 0) rotation = spawnRooms[index].SpawnerRoom.availableRotations[Random.Range(0, spawnRooms[index].SpawnerRoom.availableRotations.Length)];
-                return InstantiateRoom(spawnRooms[index].SpawnerRoom.room, rotation, spawnPosition, walkerPosition);
+                if(Scenario.SpawnRooms[index].SpawnerRoom.availableRotations.Length != 0) rotation = Scenario.SpawnRooms[index].SpawnerRoom.availableRotations[Random.Range(0, Scenario.SpawnRooms[index].SpawnerRoom.availableRotations.Length)];
+                return InstantiateRoom(Scenario.SpawnRooms[index].SpawnerRoom.room, rotation, spawnPosition, walkerPosition);
             }
         }
         return null;
@@ -129,8 +131,8 @@ public class RoomSpawner : MonoBehaviour
     private Room InstantiateRoom(Room room, byte rotations, Vector2 spawnPosition, Vector2 walkerPosition)
     {
         Room obj = Instantiate(room.gameObject, spawnPosition, Quaternion.identity).GetComponent<Room>();
+        obj.gameObject.transform.SetParent(RoomContainer.transform);
         FilledCells.Add(walkerPosition, obj);
-        obj.transform.SetParent(transform);
         obj.transform.eulerAngles = obj.transform.eulerAngles - Vector3.forward * rotations * 90f;
         DoorBehaviour[] doors = obj.GetComponentsInChildren<DoorBehaviour>();
         foreach(DoorBehaviour door in doors) door.SwapDirection(rotations);
@@ -181,20 +183,26 @@ public class RoomSpawner : MonoBehaviour
     }
     private void SetupObjects()
     {
-        for(int i = 0; i < setupObjects.Count; i++) setupObjects[i].transform.position = FilledCells.ElementAt(0).Value.gameObject.transform.position;
+        foreach(Transform gameObject in StartObjects) 
+        {
+            gameObject.position = FilledCells.ElementAt(0).Value.gameObject.transform.position;
+        }
     }
     [System.Serializable]
+
     public struct RandRoom
     {
         public SpawnerRoom SpawnerRoom;
         [Range(0, 100)] public byte spawnRate;
     }
+
     [System.Serializable]
     public struct SpawnerRoom
     {
         public Room room;
         [Tooltip("1 turn = rotate 90 degrees clockwise"), Range(0, 3)] public byte[] availableRotations;
     }
+
     [System.Serializable]
     public struct RoomContract
     {

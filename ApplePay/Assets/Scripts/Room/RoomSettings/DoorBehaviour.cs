@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class DoorBehaviour : KeyHoldingHack
 {
     [ReadOnly] public Room AttachedRoom;
