@@ -85,27 +85,33 @@ namespace PayWorld.Effect
         public static StateEffect Strength(float amount)
         {
             StateEffect effect = CreateState(amount);
-            StateEffect.BeginActionHandler beginAction = (Entity entity)  => entity.FindAttribute("attack_damage")?.AddMultiplier(effect.GetValue());
-            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("attack_damage")?.AddMultiplier(-effect.GetValue());
+            StateEffect.BeginActionHandler beginAction = (Entity entity)  => entity.FindAttribute("attack_damage")?.AddAttributeValue(effect.GetValue(), AttributeType.Multiplier);
+            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("attack_damage")?.AddAttributeValue(-effect.GetValue(), AttributeType.Multiplier);
 
             return effect.LinkActions(beginAction, endAction);
         }
         public static StateEffect HoldingHackSpeedChanger(float amount)
         {
             StateEffect stateEffect = CreateState(amount);
-            TagAttribute tag = null;
+            TagAttribute tag = new TagAttribute();
             
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("hackSpeed")?.AddTaggedAttribute(stateEffect.GetValue(), AttributeType.Multiplier);
-            StateEffect.EndActionHandler endAction = (Entity entity) => tag?.Remove();
+            StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("hackSpeed").AddAttributeValue(stateEffect.GetValue(), AttributeType.Multiplier, null);
+            StateEffect.EndActionHandler endAction = delegate(Entity entity) 
+            {
+                if(tag.Equals(new TagAttribute()) == false) tag.Remove();
+            };
 
             return stateEffect.LinkActions(beginAction, endAction);
         }
         public static StateEffect VelocityChanger(float amount)
         {
             StateEffect stateEffect = CreateState(amount);
-            TagAttribute tag = null;
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("movementSpeed").AddTaggedAttribute(stateEffect.GetValue(), AttributeType.Multiplier);
-            StateEffect.EndActionHandler endAction = (Entity entity) => tag?.Remove();
+            TagAttribute tag = new TagAttribute();
+            StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("movementSpeed").AddAttributeValue(stateEffect.GetValue(), AttributeType.Multiplier, null);
+            StateEffect.EndActionHandler endAction = delegate(Entity entity) 
+            {
+                if(tag.Equals(new TagAttribute()) == false) tag.Remove();
+            };
             
             return stateEffect.LinkActions(beginAction, endAction);
         }
@@ -120,23 +126,14 @@ namespace PayWorld.Effect
         public static StateEffect MoveConstraint()
         {
             StateEffect stateEffect = CreateState();
-            
+            AttributeMask mask = new AttributeMask();
             StateEffect.BeginActionHandler action = delegate(Entity entity) 
             {
                 EntityAttribute attribute = entity.FindAttribute("movementSpeed");
-                if(attribute.ContainsTaggedAttribute("effectMovementConstrinaint") == false)
-                    attribute.SetTaggedAttribute(0f, AttributeType.Multiplier, "effectMovementConstrinaint");
-                
-                attribute.GetTagAttributes("effectMovementConstrinaint")[0].Count ++;
+                mask = attribute.AddGlobalMultiplierAttributeMask(0, AttributeOperation.Multiply);
             };
             
-            StateEffect.EndActionHandler endAction = delegate(Entity entity) 
-            {
-                EntityAttribute attribute = entity.FindAttribute("movementSpeed");
-                attribute.GetTagAttributes("effectMovementConstrinaint")[0].Count--;
-                if(attribute.GetTagAttributes("effectMovementConstrinaint")[0].Count == 0)
-                    attribute.GetTagAttributes("effectMovementConstrinaint")[0].Remove();
-            };
+            StateEffect.EndActionHandler endAction = (Entity entity) => mask.Remove();
             
             return stateEffect.LinkActions(action, endAction);
         }

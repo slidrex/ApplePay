@@ -4265,7 +4265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2b83533e71d42a4daa2ee03ca1628f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scenario: {fileID: 0}
+  Scenario: {fileID: 11400000, guid: 425929747d12dd440ab89e70cff7b5ac, type: 2}
   StartObjects: []
   RoomContainer: {fileID: 0}
 --- !u!4 &1753619839
@@ -4289,7 +4289,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753619837}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5adf920fc65ccf4c9f60f658700bf4a, type: 3}
   m_Name: 
@@ -4301,6 +4301,7 @@ MonoBehaviour:
   - {fileID: 892326711}
   - {fileID: 572908191}
   - {fileID: 35276183}
+  - {fileID: 375027051}
   IsRandom: 1
   minScenarios: 1
   maxScenarios: 3

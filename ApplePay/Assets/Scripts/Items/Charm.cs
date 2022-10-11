@@ -15,7 +15,7 @@ public class Charm : CharmObject
         {
             AdditionalItemAttributes current = Attributes[i];
             
-            TagAttribute taggedAttrib = entity.FindAttribute(current.AttributeName).AddTaggedAttribute(current.AdditionalAttributeValue, current.Type, "charmStats");
+            TagAttribute taggedAttrib = entity.FindAttribute(current.AttributeName).AddAttributeValue(current.AdditionalAttributeValue, current.Type, "charmStats");
             TaggedAttributes[i] = taggedAttrib;
         }
     }

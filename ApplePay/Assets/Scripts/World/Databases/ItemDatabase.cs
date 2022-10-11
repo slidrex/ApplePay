@@ -37,7 +37,9 @@ public class CharmItem : Item
     public CharmObject Item;
     public CharmType Type {get 
     {
-        return Item.GetType() == typeof(Charm) ? CharmType.Base : CharmType.Switchable;
+        try { CharmObject charm = (Charm)Item; }
+        catch { return CharmType.Switchable;}
+        return CharmType.Base;
     }
     }
     public byte ActiveIndex;
@@ -52,15 +54,15 @@ public class CharmItem : Item
     }
     public override void OnRepositoryAdded(InventorySystem system) 
     {
-        if(Type == CharmType.Base)
-        {
-            Charm charm = (Charm)Item;
-            charm.BeginFunction(system.InventoryOwner);
-        }
-        else
+        if(Type == CharmType.Switchable)
         {
             MixedCharm charm = (MixedCharm)Item;
             charm.Charms[ActiveIndex].BeginFunction(system.InventoryOwner);
+        }
+        else
+        {
+            Charm charm = (Charm)Item;
+            charm.BeginFunction(system.InventoryOwner);
         }
     }
     public override void OnRepositoryRemoved(InventorySystem system) 

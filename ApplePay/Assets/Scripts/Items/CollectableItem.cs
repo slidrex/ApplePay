@@ -8,16 +8,20 @@ public abstract class CollectableItem : CollectableObject
 
     public override void Collect(Collider2D collision, ref bool collectStatus)
     {
-        base.Collect(collision, ref collectStatus);
-        OnCollect(collision, CollectableObject, out collectStatus);
-        GameObject obj = null;
-        if(itemHoverableObject != null && itemHoverableObject.GetCurrentPanel() != null)
+        OnCollectItem(collision, CollectableObject, out collectStatus);
+        if(collectStatus == true)
         {
-            obj = itemHoverableObject.GetCurrentPanel().gameObject;;
+            OnCollect();
+            GameObject obj = null;
+            if(itemHoverableObject != null && itemHoverableObject.GetCurrentPanel() != null)
+            {
+                obj = itemHoverableObject.GetCurrentPanel().gameObject;;
+            }
+            if(obj != null) Destroy(obj);
         }
-        if(obj != null) Destroy(obj);
+
     }
-    protected virtual void OnCollect(Collider2D collectorCollider, Item item, out bool pickStatus)
+    protected virtual void OnCollectItem(Collider2D collectorCollider, Item item, out bool pickStatus)
     {
         pickStatus = false;
         InventorySystem inventorySystem = collectorCollider.GetComponent<InventorySystem>();
@@ -29,7 +33,12 @@ public abstract class CollectableItem : CollectableObject
             Debug.LogWarning(inventorySystem + " system doesn't contain \"" +  TargetRepository + "\" repository");
             return;
         }
-        InventoryRepository repository = inventorySystem.GetRepository(TargetRepository);
-        pickStatus = repository.AddItem(item);
+        pickStatus = AddItem(collectorCollider.GetComponent<InventorySystem>(), TargetRepository, CollectableObject);
+        
+    }
+    protected bool AddItem(InventorySystem system, string repository, Item item)
+    {
+        if(system != null) return system.GetRepository(repository).AddItem(item);
+        return false;
     }
 }

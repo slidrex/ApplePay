@@ -112,7 +112,7 @@ public abstract class CollectableObject : ItemEntity
     {
         if(collectStatus) OnCollect();
     }
-    public virtual void OnCollect()
+    protected virtual void OnCollect()
     {
         PayWorld.Particles.InstantiateParticles(collectParticle, transform.position, Quaternion.identity, 2);
         Destroy(gameObject);

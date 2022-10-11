@@ -46,12 +46,11 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Update()
     {
         base.Update();
+        
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            //PayWorld.EffectController.AddEffect(this, "decay", 3, 5f);
+            PayWorld.EffectController.AddEffect(this, "speed", 3, 5f);
             //Damage(10, DamageType.Physical, null);
-            
-            FindObjectOfType<ScenarioLoader>().LoadNext();
             
         }
 
