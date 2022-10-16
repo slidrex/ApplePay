@@ -293,13 +293,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18545a1fb1b7125419f7df3658cf559b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteRenderer: {fileID: 0}
   Immortal: 0
   deathParticle: {fileID: 7834434809057065935, guid: 14b5311582f928344badf0bca72ceb56, type: 3}
   takeDamageParticle: {fileID: 4133290780092584788, guid: f14308dd6bb0a294f8565dbeacf18395, type: 3}
   appearParticle: {fileID: 4133290780092584788, guid: f14308dd6bb0a294f8565dbeacf18395, type: 3}
   MaxHealth: 100
   CurrentHealth: 0
+  evasionRate: 0
+  magicResistance: 0
+  evasionEffect: {fileID: 0}
+  InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
   CurrentRoom: {fileID: 0}
@@ -309,7 +312,7 @@ MonoBehaviour:
   takeDamageColor:
     serializedVersion: 2
     rgba: 3869747156
-  Duration: 0.42
+  Duration: 0.1
   isDead: 0
   Hostiles: []
   DamageField: 0
