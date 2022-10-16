@@ -1,6 +1,7 @@
 using UnityEngine;
 [System.Serializable]
-public abstract class RepositoryRenderer : MonoBehaviour
+
+public abstract class RepositoryRenderer : MonoBehaviour, IRepositoryUpdateHandler
 {
     public InventorySystem Inventory;
     [SerializeField] protected string RepositoryName;
@@ -22,7 +23,8 @@ public abstract class RepositoryRenderer : MonoBehaviour
             return slotList.ToArray();
         }
     }
-    public virtual void OnRepositoryUpdate() { }
+    public void OnRepositoryUpdated(Item item, byte index, RepositoryChangeFeedback feedback) => OnRepositoryUpdated(index);
+    protected virtual void OnRepositoryUpdated(byte index) {}
     private void SetSlotsRenderer()
     {
         foreach(InventoryDisplaySlot slot in Slots) slot.LinkRender(this);

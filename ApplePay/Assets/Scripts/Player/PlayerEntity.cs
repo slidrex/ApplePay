@@ -51,7 +51,6 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         {
             PayWorld.EffectController.AddEffect(this, "speed", 3, 5f);
             //Damage(10, DamageType.Physical, null);
-            
         }
 
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);

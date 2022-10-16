@@ -26,6 +26,7 @@ public class Charm : CharmObject
     }
 }
 [System.Serializable]
+
 public class CharmDisplay : ItemDisplay
 {
     public ItemDescription Description;

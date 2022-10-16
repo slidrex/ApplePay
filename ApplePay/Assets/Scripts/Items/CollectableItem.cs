@@ -21,6 +21,7 @@ public abstract class CollectableItem : CollectableObject
         }
 
     }
+    
     protected virtual void OnCollectItem(Collider2D collectorCollider, Item item, out bool pickStatus)
     {
         pickStatus = false;

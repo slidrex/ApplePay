@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 [System.Serializable]
+
 public struct InventoryRepositoryObject
 {
     public byte RepositoryLength;
     public string Name;
-    public RepositoryRenderer Renderer;
+    [UnityEngine.Tooltip("Accessor is a component that has a repository access interface."), UnityEngine.SerializeField] internal UnityEngine.MonoBehaviour[] _hanlders;
 }
 
 public class InventorySystem : MonoBehaviour
@@ -31,9 +33,19 @@ public class InventorySystem : MonoBehaviour
     }
     private void FillSetupRepositories()
     {
-        foreach(InventoryRepositoryObject repository in StartRepositories) AddRepository(repository.Name, repository.RepositoryLength, repository.Renderer);
+        for(int i = 0; i < StartRepositories.Length; i++)
+        {
+            for(int j = 0; j < StartRepositories[i]._hanlders.Length; j++)
+            {
+                if(StartRepositories[i]._hanlders[j] == null) Debug.LogWarning("The script " + StartRepositories[i]._hanlders[j].name + " in" + StartRepositories[i].Name + "repository has no handlers specified.");
+
+            }
+            AddRepository(StartRepositories[i].Name, StartRepositories[i].RepositoryLength, StartRepositories[i]._hanlders.Select(x => x.GetComponent<IRepositoryUpdateHandler>()).ToArray());
+
+        }
+        
     }
-    public void AddRepository(string name, byte length, RepositoryRenderer renderer) => Repositories.Add(name, new InventoryRepository(this, length, renderer));
+    public void AddRepository(string name, byte length, params IRepositoryUpdateHandler[] handlers) => Repositories.Add(name, new InventoryRepository(this, length, handlers));
     public InventoryRepository GetRepository(string repositoryName)
     {
         InventoryRepository repository = new InventoryRepository();

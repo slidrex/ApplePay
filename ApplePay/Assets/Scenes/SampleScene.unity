@@ -384,7 +384,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
   m_PrefabInstance: {fileID: 1849077798889129510}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1849077798889129511}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f5a042eb6aeb9d43b77abba143a14e3, type: 3}
@@ -2297,7 +2297,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014642741}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.73, y: 4.1, z: 1}
+  m_LocalPosition: {x: -4.24, y: 0.98, z: 1}
   m_LocalScale: {x: 7.2, y: 7.2, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3205,7 +3205,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
   m_PrefabInstance: {fileID: 1849077798889129510}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1849077798889129511}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff64b7b98b0b5704a93d49556531ffff, type: 3}
@@ -4246,8 +4246,9 @@ GameObject:
   - component: {fileID: 1753619841}
   - component: {fileID: 1753619838}
   - component: {fileID: 1753619840}
+  - component: {fileID: 1753619842}
   m_Layer: 0
-  m_Name: RoomController
+  m_Name: LevelController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4332,6 +4333,25 @@ MonoBehaviour:
   markDatabase: {fileID: 11400000, guid: 292c8e31858dd3a4893a4fdcebbc72bb, type: 2}
   WrappedCreature: {fileID: 1463861386}
   wrappedEntityWaveStatus: 0
+--- !u!114 &1753619842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753619837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab9eb929995b60a4c833ad3aab9d6f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReturnKey: 13
+  ConsoleToggleKey: 96
+  IsActive: 0
+  defaultExecuter: {fileID: 1463861386}
+  CloseAfterExecute: 0
+  ConsoleList: []
+  MaxConsoleSize: 30
 --- !u!1 &1756034047
 GameObject:
   m_ObjectHideFlags: 0
@@ -4500,6 +4520,11 @@ MonoBehaviour:
   Inventory: {fileID: 238755350}
   RepositoryName: charms
   hoverboard: {fileID: 931947518}
+--- !u!4 &1841673507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1334837816, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+  m_PrefabInstance: {fileID: 1849077798889129510}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1861607797
 GameObject:
   m_ObjectHideFlags: 0
@@ -4791,62 +4816,6 @@ PrefabInstance:
       propertyPath: interactDistance
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: font
-      value: 
-      objectReference: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: holder
-      value: 
-      objectReference: {fileID: 1124329983}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: maxForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: minForce
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: indicator
-      value: 
-      objectReference: {fileID: 11400000, guid: 44a602ae3b6f9624987185df3cc685c7, type: 2}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: Repository
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: WeaponPlace
-      value: 
-      objectReference: {fileID: 1796417534}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: lineSpacing
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: forceAddSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: weaponPlaceSlot
-      value: 
-      objectReference: {fileID: 937445612}
     - target: {fileID: 1849077798889129519, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: m_Size.y
       value: 0.195
@@ -4981,7 +4950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: StartRepositories.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: StartRepositories.Array.data[0].Name
@@ -4989,24 +4958,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: StartRepositories.Array.data[1].Name
-      value: charms
+      value: weapons
       objectReference: {fileID: 0}
     - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: StartRepositories.Array.data[0].Length
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[0].Handler
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: StartRepositories.Array.data[0].Renderer
       value: 
       objectReference: {fileID: 1809698072}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[0]._hanlder
+      value: 
+      objectReference: {fileID: 1809698072}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[1].Renderer
+      value: 
+      objectReference: {fileID: 1809698072}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[1]._hanlder
+      value: 
+      objectReference: {fileID: 1849077798889129512}
     - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: StartRepositories.Array.data[0].RepositoryLength
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: StartRepositories.Array.data[1].RepositoryLength
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[0]._hanlders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[1]._hanlders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[0]._hanlders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1809698072}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[1]._hanlders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1849077798889129512}
     - target: {fileID: 4452132853288108545, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: Radius
       value: 0.7
@@ -5062,6 +5063,10 @@ PrefabInstance:
     - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: command
+      value: '   /summon     zombie ~ ~3 ~'
       objectReference: {fileID: 0}
     - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: testFont
@@ -5239,9 +5244,43 @@ PrefabInstance:
       propertyPath: toggleActiveElements.Array.data[0]
       value: 
       objectReference: {fileID: 2140621628}
-    m_RemovedComponents:
-    - {fileID: 1849077798889129512, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+--- !u!1 &1849077798889129511 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2788200553323671107, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+  m_PrefabInstance: {fileID: 1849077798889129510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1849077798889129512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849077798889129511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e260ef1e67a9f48a10ce3e9ea9df68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponPlace: {fileID: 1796417534}
+  Disable: 0
+  weaponList: {fileID: 1841673507}
+  InventorySystem: {fileID: 238755350}
+  repositoryName: weapons
+  ActiveWeaponIndex: 0
+  targetForce: 0
+  minForce: 3
+  maxForce: 10
+  forceAddSpeed: 1
+  dropOffset: 3
+  holder: {fileID: 1124329983}
+  indicator: {fileID: 0}
+  droppedItemBlockTime: 0
+  switchKey: 113
+  dropKey: 9
+  activateKey: 323
+  weaponPlaceSlot: {fileID: 0}
 --- !u!1001 &2273568673703890235
 PrefabInstance:
   m_ObjectHideFlags: 0

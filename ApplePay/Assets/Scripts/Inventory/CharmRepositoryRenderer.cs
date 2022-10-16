@@ -4,7 +4,7 @@ public class CharmRepositoryRenderer : RepositoryRenderer
 {
     [SerializeField] private Hoverboard hoverboard;
     private void OnEnable() => Render();
-    public override void OnRepositoryUpdate() => Render();
+    protected override void OnRepositoryUpdated(byte index) => Render();
     public override void OnCellTriggerEnter(ItemDisplay display, InventoryDisplaySlot slot)
     {
         CharmDisplay charmDisplay = (CharmDisplay)display;
@@ -45,7 +45,7 @@ public class CharmRepositoryRenderer : RepositoryRenderer
                 item.GetActiveCharm().BeginFunction(Inventory.InventoryOwner);
                 Repository.Items[i] = item;
                 UpdateHoverboard(item.GetActiveCharm().Display);
-                OnRepositoryUpdate(); //Performance issue.
+                OnRepositoryUpdated((byte)i); //Performance issue.
             }
         }
     }
