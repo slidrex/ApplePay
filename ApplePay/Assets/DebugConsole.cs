@@ -9,6 +9,7 @@ namespace Pay.Debug
         [HideInInspector] public bool IsActive;
         [SerializeField] private Entity defaultExecuter;
         public bool CloseAfterExecute;
+        public bool SaveReturn;
         string input = "/";
         private Vector2 scrollPosition;
         [SerializeField] private System.Collections.Generic.List<string> ConsoleList = new System.Collections.Generic.List<string>();
@@ -57,7 +58,7 @@ namespace Pay.Debug
             {
                 ConsoleList.Add(input);
             }
-            input = "/";
+            if(SaveReturn == false) input = "/";
         }
     }
 }
