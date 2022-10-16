@@ -5,7 +5,7 @@ using System.Linq;
 
 public abstract class Entity : MonoBehaviour
 {
-    [SerializeField] protected SpriteRenderer SpriteRenderer;
+    protected SpriteRenderer SpriteRenderer;
     public Dictionary<byte, byte[]> EffectBundleBuffer = new Dictionary<byte, byte[]>();
     public Dictionary<byte, EffectController.ActiveEffect> ActiveEffects = new Dictionary<byte, EffectController.ActiveEffect>(); 
     public bool Immortal;

@@ -15,5 +15,19 @@ public class CrossMovement : MovePatterns
             currentDirectionChangeFrequency = 0;
         }
     }
+    protected override void UpdateMovementAnimator()
+    {
+        Movement.animator.SetInteger("Vertical", (int)MovementVector.y);
+        if(transform.position.x < Target.position.x)
+        {
+            transform.eulerAngles = new Vector2(0, 0);
+            Movement.animator.SetInteger("Horizontal", (int)MovementVector.x);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector2(0, 180);
+            Movement.animator.SetInteger("Horizontal", (int)MovementVector.x);
+        }
+    }
     public override void OnSpeedUpdate() => UpdateRigidbodyVector();
 }
