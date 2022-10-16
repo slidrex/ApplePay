@@ -21,10 +21,19 @@ public abstract class MovePatterns : MonoBehaviour
         UpdateMovementAnimator();
     }
     protected void UpdateTargetDistance() => TargetDistance = Target.transform.position - CurrentTransform.position;
-    protected void UpdateMovementAnimator()
+    protected virtual void UpdateMovementAnimator()
     {
         Movement.animator.SetInteger("Vertical", (int)TargetDistance.y);
-        Movement.animator.SetInteger("Horizontal", (int)TargetDistance.x);
+        if(transform.position.x < Target.position.x)
+        {
+            transform.eulerAngles = new Vector2(0, 0);
+            Movement.animator.SetInteger("Horizontal", (int)TargetDistance.x);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector2(0, 180);
+            Movement.animator.SetInteger("Horizontal", (int)TargetDistance.x);
+        }
     }
     protected void UpdateRigidbodyVector() => SetRigidbodyVelocity(MovementVector * Movement.CurrentSpeed);
     protected void SetRigidbodyVelocity(Vector2 velocity) => Movement.Rigidbody.velocity = velocity;

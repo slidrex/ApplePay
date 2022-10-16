@@ -46,11 +46,10 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Update()
     {
         base.Update();
-        
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            PayWorld.EffectController.AddEffect(this, "speed", 3, 5f);
-            //Damage(10, DamageType.Physical, null);
+            //PayWorld.EffectController.AddEffect(this, "decay", 3, 5f);
+            Damage(10, DamageType.Physical, null);
         }
 
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);
@@ -66,4 +65,11 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         base.Die(killer);
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
+    protected override void OnInvulnerability()
+    {
+        Color32 tempColor = SpriteRenderer.color;
+        tempColor.a = (byte)(Mathf.Abs(Mathf.Sin(TimeSinceInvulnerability)) * 255);
+        SpriteRenderer.color = tempColor;
+    }
+    protected override void OnInvulnerabilityEnd() => SpriteRenderer.color = new Color32(255, 255, 255, 255);
 }
