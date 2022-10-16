@@ -108,7 +108,7 @@ public class WaveController : MonoBehaviour
         {
             if(wrappedRoomStages[i] == null) continue;
 
-            FindObjectOfType<RoomDefiner>().ApplyMark(wrappedRoomStages[i], WrappedCreature.CurrentRoom);
+            wrappedRoom.ApplyMark(wrappedRoomStages[i]);
             wrappedRoomStages[i] = null;
             released = true;
             return;

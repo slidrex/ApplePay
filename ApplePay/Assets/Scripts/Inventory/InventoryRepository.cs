@@ -2,16 +2,15 @@
 
 public struct InventoryRepository
 {
-    public RepositoryRenderer Renderer;
+    public IRepositoryUpdateHandler[] Handlers;
     public InventorySystem System;
     public Item[] Items;
-    public InventoryRepository(InventorySystem owner, byte capacity, RepositoryRenderer renderer)
+    public InventoryRepository(InventorySystem owner, byte capacity, params IRepositoryUpdateHandler[] handlers)
     {
         Items = new Item[capacity];
         System = owner;
-        Renderer = renderer;
+        Handlers = handlers;
     }
-    
 }
 public static class InventoryRepositoryExtension
 {
@@ -23,13 +22,24 @@ public static class InventoryRepositoryExtension
             {
                 repository.Items[i] = item;
                 repository.Items[i].OnRepositoryAdded(repository.System);
-                repository.Renderer.OnRepositoryUpdate();
+                foreach(IRepositoryUpdateHandler handler in repository.Handlers)
+                {
+                    handler.OnRepositoryUpdated(item, (byte)i, RepositoryChangeFeedback.Added);
+                }
                 return true;
             } else
             if(i == repository.Items.Length - 1) UnityEngine.Debug.LogWarning("Repository you are trying to add item to is full!");
         }
         UnityEngine.Debug.LogWarning("Item hasn't been added!");
         return false;
+    }
+    public static bool IsRepositoryFull(this InventoryRepository repository)
+    {
+        foreach(Item item in repository.Items)
+        {
+            if(item == null) return false;
+        }
+        return true;
     }
     public static bool RemoveItem(this InventoryRepository repository, Item item)
     {
@@ -38,7 +48,10 @@ public static class InventoryRepositoryExtension
             if(repository.Items[i] == item) 
             {
                 repository.Items[i].OnRepositoryRemoved(repository.System);
-                repository.Renderer?.OnRepositoryUpdate();
+                foreach(IRepositoryUpdateHandler handler in repository.Handlers)
+                {
+                    handler.OnRepositoryUpdated(item, (byte)i, RepositoryChangeFeedback.Removed);
+                }
                 repository.Items[i] = null;
                 return true;
             }

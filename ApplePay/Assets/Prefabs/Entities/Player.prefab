@@ -118,7 +118,6 @@ GameObject:
   - component: {fileID: 5767637346845011317}
   - component: {fileID: 1849077798739181968}
   - component: {fileID: 8189285200546192267}
-  - component: {fileID: 1849077798889129512}
   - component: {fileID: 1463861389}
   - component: {fileID: 3917139913567164824}
   m_Layer: 7
@@ -193,7 +192,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!70 &1849077798889129519
@@ -271,6 +270,10 @@ MonoBehaviour:
   appearParticle: {fileID: 0}
   MaxHealth: 100
   CurrentHealth: 0
+  evasionRate: 0
+  magicResistance: 0
+  evasionEffect: {fileID: 0}
+  InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
   CurrentRoom: {fileID: 0}
@@ -280,7 +283,7 @@ MonoBehaviour:
   takeDamageColor:
     serializedVersion: 2
     rgba: 2865219583
-  Duration: 2
+  ImmortalityDuration: 0
   isDead: 0
   Hostiles: []
   EffectList: {fileID: 0}
@@ -301,6 +304,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactKey: 101
   interactDistance: 4
+  InInteract: 0
+  HackSpeed: 1
   holder: {fileID: 0}
   indicator: {fileID: 11400000, guid: 5282dbe45d1ccee4283598cedb4009ae, type: 2}
 --- !u!114 &8189285200546192267
@@ -319,39 +324,6 @@ MonoBehaviour:
   toggleActiveElements:
   - {fileID: 0}
   activateKey: 102
---- !u!114 &1849077798889129512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2788200553323671107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e260ef1e67a9f48a10ce3e9ea9df68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WeaponPlace: {fileID: 0}
-  Disable: 0
-  weaponList: {fileID: 1334837816}
-  Repository: {fileID: 0}
-  ActiveWeaponIndex: 0
-  targetForce: 0
-  minForce: 100
-  maxForce: 300
-  forceAddSpeed: 300
-  dropOffset: 0.5
-  holder: {fileID: 0}
-  indicator: {fileID: 0}
-  droppedItemBlockTime: 1
-  switchKey: 113
-  dropKey: 9
-  activateKey: 323
-  weaponPlaceSlot: {fileID: 0}
-  textConfiguration:
-    Font: {fileID: 0}
-    Color: {r: 0, g: 0, b: 0, a: 0}
-    LineSpacing: 0
 --- !u!114 &1463861389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,10 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff2f06684b5e71408d04275bb14a3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseSpeed: 3.1415925
-  AdditionalSpeed: 0
-  MoveDisable: 0
-  OnlyPositive: 1
+  CurrentSpeed: 3.1415927
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
@@ -383,10 +352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a042eb6aeb9d43b77abba143a14e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartRepositories: []
   InventoryOwner: {fileID: 5767637346845011317}
-  Repositories:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &4454439995575299210
 GameObject:
   m_ObjectHideFlags: 0

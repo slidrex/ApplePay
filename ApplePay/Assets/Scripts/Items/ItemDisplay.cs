@@ -1,4 +1,5 @@
 [System.Serializable]
+
 public class ItemDisplay
 {
     public UnityEngine.Sprite InventorySprite;

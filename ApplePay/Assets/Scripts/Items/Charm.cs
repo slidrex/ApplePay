@@ -1,5 +1,6 @@
 [UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Attribute Charm", fileName = "new charm")]
-public class Charm : UnityEngine.ScriptableObject
+
+public class Charm : CharmObject
 {
     public AdditionalItemAttributes[] Attributes;
     public CharmDisplay Display;
@@ -14,7 +15,7 @@ public class Charm : UnityEngine.ScriptableObject
         {
             AdditionalItemAttributes current = Attributes[i];
             
-            TagAttribute taggedAttrib = entity.FindAttribute(current.AttributeName).AddTaggedAttribute(current.AdditionalAttributeValue, current.Type, "charmStats");
+            TagAttribute taggedAttrib = entity.FindAttribute(current.AttributeName).AddAttributeValue(current.AdditionalAttributeValue, current.Type, "charmStats");
             TaggedAttributes[i] = taggedAttrib;
         }
     }
@@ -25,6 +26,7 @@ public class Charm : UnityEngine.ScriptableObject
     }
 }
 [System.Serializable]
+
 public class CharmDisplay : ItemDisplay
 {
     public ItemDescription Description;
