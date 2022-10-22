@@ -1,61 +1,61 @@
 fileFormatVersion: 2
-guid: 0a9f7f8811cdb2446b1412d3b964772c
+guid: 14b25a018152e8b43a4dfaaa281f4e9f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4172804391381690933
-    second: ChainsAttackDown_0
+      213: -8792918804881135770
+    second: ChainTopAttack_0
   - first:
-      213: -3496600426091436973
-    second: ChainsAttackDown_1
+      213: -7482678267836882528
+    second: ChainTopAttack_1
   - first:
-      213: -763330466382951753
-    second: ChainsAttackDown_2
+      213: -1004300155918123077
+    second: ChainTopAttack_2
   - first:
-      213: 5613467141206575707
-    second: ChainsAttackDown_3
+      213: 4173534350921925988
+    second: ChainTopAttack_3
   - first:
-      213: -7042745964483926004
-    second: ChainsAttackDown_4
+      213: 1839401701003271075
+    second: ChainTopAttack_4
   - first:
-      213: 7565471435816522728
-    second: ChainsAttackDown_5
+      213: -2985611797853163578
+    second: ChainTopAttack_5
   - first:
-      213: -8435178787015679434
-    second: ChainsAttackDown_6
+      213: 5741294815145531173
+    second: ChainTopAttack_6
   - first:
-      213: -1402553266912188790
-    second: ChainsAttackDown_7
+      213: -4109312520942428521
+    second: ChainTopAttack_7
   - first:
-      213: -913514755593768792
-    second: ChainsAttackDown_8
+      213: 4364515329167700411
+    second: ChainTopAttack_8
   - first:
-      213: -7404639178732633721
-    second: ChainsAttackDown_9
+      213: 1120311080670628786
+    second: ChainTopAttack_9
   - first:
-      213: 29651277116784929
-    second: ChainsAttackDown_10
+      213: -48868815244115850
+    second: ChainTopAttack_10
   - first:
-      213: -923338105393122884
-    second: ChainsAttackDown_11
+      213: 5278498112037427837
+    second: ChainTopAttack_11
   - first:
-      213: 6296456134957757401
-    second: ChainsAttackDown_12
+      213: 2334564255532143816
+    second: ChainTopAttack_12
   - first:
-      213: 3193645289448530905
-    second: ChainsAttackDown_13
+      213: -7319021831805506460
+    second: ChainTopAttack_13
   - first:
-      213: 6846407186214525788
-    second: ChainsAttackDown_14
+      213: 2513389848024705855
+    second: ChainTopAttack_14
   - first:
-      213: 1314738073930663664
-    second: ChainsAttackDown_15
+      213: 4355327452321463689
+    second: ChainTopAttack_15
   - first:
-      213: 3492358635324079703
-    second: ChainsAttackDown_16
+      213: 2433229376998563137
+    second: ChainTopAttack_16
   - first:
-      213: 3193517368094249328
-    second: ChainsAttackDown_17
+      213: 3912906641426300223
+    second: ChainTopAttack_17
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -145,7 +145,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ChainsAttackDown_0
+      name: ChainTopAttack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -159,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc51186b3883716c0800000000000000
-      internalID: -4172804391381690933
+      spriteID: 66725301fe649f580800000000000000
+      internalID: -8792918804881135770
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_1
+      name: ChainTopAttack_1
       rect:
         serializedVersion: 2
         x: 40
@@ -180,14 +180,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35427513074997fc0800000000000000
-      internalID: -3496600426091436973
+      spriteID: 0a12c05a2cf282890800000000000000
+      internalID: -7482678267836882528
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_2
+      name: ChainTopAttack_2
       rect:
         serializedVersion: 2
         x: 80
@@ -201,14 +201,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bac2013cfa1865f0800000000000000
-      internalID: -763330466382951753
+      spriteID: bbf71a644520012f0800000000000000
+      internalID: -1004300155918123077
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_3
+      name: ChainTopAttack_3
       rect:
         serializedVersion: 2
         x: 120
@@ -222,14 +222,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5a02fd9f9a07ed40800000000000000
-      internalID: 5613467141206575707
+      spriteID: 465879c316f5be930800000000000000
+      internalID: 4173534350921925988
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_4
+      name: ChainTopAttack_4
       rect:
         serializedVersion: 2
         x: 160
@@ -243,14 +243,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c08ae9ffbd3234e90800000000000000
-      internalID: -7042745964483926004
+      spriteID: 3ab9c8bf91ed68910800000000000000
+      internalID: 1839401701003271075
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_5
+      name: ChainTopAttack_5
       rect:
         serializedVersion: 2
         x: 200
@@ -264,14 +264,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e35532ff24fdf860800000000000000
-      internalID: 7565471435816522728
+      spriteID: 6cf2fb763e9f096d0800000000000000
+      internalID: -2985611797853163578
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_6
+      name: ChainTopAttack_6
       rect:
         serializedVersion: 2
         x: 240
@@ -285,14 +285,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 632250fa59930fa80800000000000000
-      internalID: -8435178787015679434
+      spriteID: 5279a87373d2daf40800000000000000
+      internalID: 5741294815145531173
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_7
+      name: ChainTopAttack_7
       rect:
         serializedVersion: 2
         x: 280
@@ -306,14 +306,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a86a22b1c31298ce0800000000000000
-      internalID: -1402553266912188790
+      spriteID: 79e5926c80ac8f6c0800000000000000
+      internalID: -4109312520942428521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_8
+      name: ChainTopAttack_8
       rect:
         serializedVersion: 2
         x: 320
@@ -327,14 +327,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a071c77b2b8253f0800000000000000
-      internalID: -913514755593768792
+      spriteID: bb1b9c3519fd19c30800000000000000
+      internalID: 4364515329167700411
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_9
+      name: ChainTopAttack_9
       rect:
         serializedVersion: 2
         x: 360
@@ -348,14 +348,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78183bdf5ef6d3990800000000000000
-      internalID: -7404639178732633721
+      spriteID: 2bb8e410ef42c8f00800000000000000
+      internalID: 1120311080670628786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_10
+      name: ChainTopAttack_10
       rect:
         serializedVersion: 2
         x: 400
@@ -369,14 +369,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 121ceafeda7596000800000000000000
-      internalID: 29651277116784929
+      spriteID: 670c7ca4212625ff0800000000000000
+      internalID: -48868815244115850
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_11
+      name: ChainTopAttack_11
       rect:
         serializedVersion: 2
         x: 440
@@ -390,14 +390,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb1f57c92e4af23f0800000000000000
-      internalID: -923338105393122884
+      spriteID: d7a9f83f01ef04940800000000000000
+      internalID: 5278498112037427837
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_12
+      name: ChainTopAttack_12
       rect:
         serializedVersion: 2
         x: 480
@@ -411,14 +411,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d37cf3ae71816750800000000000000
-      internalID: 6296456134957757401
+      spriteID: 8c4515442d9066020800000000000000
+      internalID: 2334564255532143816
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_13
+      name: ChainTopAttack_13
       rect:
         serializedVersion: 2
         x: 520
@@ -432,14 +432,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d3ed28587b125c20800000000000000
-      internalID: 3193645289448530905
+      spriteID: 46c67ebfb6c9d6a90800000000000000
+      internalID: -7319021831805506460
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_14
+      name: ChainTopAttack_14
       rect:
         serializedVersion: 2
         x: 560
@@ -453,14 +453,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5b9ff1ef03530f50800000000000000
-      internalID: 6846407186214525788
+      spriteID: f3be59110ca51e220800000000000000
+      internalID: 2513389848024705855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_15
+      name: ChainTopAttack_15
       rect:
         serializedVersion: 2
         x: 600
@@ -474,14 +474,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f6815dff43ee3210800000000000000
-      internalID: 1314738073930663664
+      spriteID: 98db02c0e3b317c30800000000000000
+      internalID: 4355327452321463689
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_16
+      name: ChainTopAttack_16
       rect:
         serializedVersion: 2
         x: 640
@@ -495,14 +495,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75e72ceeca9577030800000000000000
-      internalID: 3492358635324079703
+      spriteID: 14d5b010a3194c120800000000000000
+      internalID: 2433229376998563137
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ChainsAttackDown_17
+      name: ChainTopAttack_17
       rect:
         serializedVersion: 2
         x: 680
@@ -516,8 +516,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0715c455027a15c20800000000000000
-      internalID: 3193517368094249328
+      spriteID: f3d3b71ebdf6d4630800000000000000
+      internalID: 3912906641426300223
       vertices: []
       indices: 
       edges: []

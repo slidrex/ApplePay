@@ -68,7 +68,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void OnInvulnerability()
     {
         Color32 tempColor = SpriteRenderer.color;
-        tempColor.a = (byte)(Mathf.Abs(Mathf.Sin(TimeSinceInvulnerability)) * 255);
+        tempColor.a = (byte)(Mathf.Abs(Mathf.Sin(TimeSinceInvulnerability * 7)) * 160);
         SpriteRenderer.color = tempColor;
     }
     protected override void OnInvulnerabilityEnd() => SpriteRenderer.color = new Color32(255, 255, 255, 255);
