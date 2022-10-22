@@ -4975,13 +4975,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0781318f16cf5344496a45ffbdaef4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteRenderer: {fileID: 0}
   Immortal: 0
   deathParticle: {fileID: 0}
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
   CurrentHealth: 0
+  evasionRate: 0
+  magicResistance: 0
+  evasionEffect: {fileID: 0}
+  InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
   CurrentRoom: {fileID: 0}
@@ -4991,7 +4994,7 @@ MonoBehaviour:
   takeDamageColor:
     serializedVersion: 2
     rgba: 3314322629
-  Duration: 0.1
+  DamageInvulnerabilityDuration: 0.1
   isDead: 0
   Hostiles: []
   DamageField: 20
@@ -5023,9 +5026,6 @@ MonoBehaviour:
         AngularVelocityMultiplier: 1
       Display:
         InventorySprite: {fileID: 0}
-        Description:
-          Name: 
-          Description: 
 --- !u!50 &7227759541157514714
 Rigidbody2D:
   serializedVersion: 4
@@ -5059,14 +5059,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0bfcc93cc1ce744859610b7f249ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseSpeed: 6
-  AdditionalSpeed: 0
-  MoveDisable: 0
-  OnlyPositive: 0
+  CurrentSpeed: 3.1415927
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
   target: {fileID: 0}
+  isDisabled: 0
   Patterns:
   - {fileID: 8115246995756994378}
   activePatterns: 00

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 1064510856}
   - component: {fileID: 1064510863}
   m_Layer: 0
-  m_Name: reaper
+  m_Name: Reaper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,13 +197,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b3e5d6c86a51a04085159c53e901deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteRenderer: {fileID: 0}
   Immortal: 0
   deathParticle: {fileID: 0}
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
   CurrentHealth: 0
+  evasionRate: 0
+  magicResistance: 0
+  evasionEffect: {fileID: 0}
+  InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 377455623169758768}
   CurrentRoom: {fileID: 0}
@@ -213,7 +216,7 @@ MonoBehaviour:
   takeDamageColor:
     serializedVersion: 2
     rgba: 3080165321
-  Duration: 0.1
+  DamageInvulnerabilityDuration: 0.1
   isDead: 0
   Hostiles: []
   DamageField: 0
@@ -232,14 +235,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0bfcc93cc1ce744859610b7f249ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseSpeed: 6
-  AdditionalSpeed: 0
-  MoveDisable: 0
-  OnlyPositive: 0
+  CurrentSpeed: 3.1415927
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
   target: {fileID: 0}
+  isDisabled: 0
   Patterns:
   - {fileID: 377455623169758770}
   activePatterns: 00
