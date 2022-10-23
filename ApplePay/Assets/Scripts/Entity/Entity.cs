@@ -17,6 +17,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private float magicResistance;
     [SerializeField] private GameObject evasionEffect;
     public System.Collections.Generic.Dictionary<string, EntityAttribute> Attributes = new System.Collections.Generic.Dictionary<string, EntityAttribute>();
+    public PayCollisionHandler CollisionHandler;
     protected virtual void Awake()
     {
         AttributesSetup();
@@ -40,7 +41,10 @@ public abstract class Entity : MonoBehaviour
             val => magicResistance = val
         ), 0f);
     }
-    protected virtual void Start() {}
+    protected virtual void Start() 
+    {
+        if(CollisionHandler.rb == null) throw new System.Exception("Rigid body is not specified!");
+    }
     protected virtual void Update() => EffectsUpdate();
     public virtual void Damage(int amount, DamageType damageType, Creature handler)
     {

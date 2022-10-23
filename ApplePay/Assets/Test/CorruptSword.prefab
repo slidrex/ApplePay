@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7421337933622104197}
   - component: {fileID: 7421337933622104218}
   - component: {fileID: 7421337933622104219}
-  - component: {fileID: 7421337933622104196}
+  - component: {fileID: 5530288408314064570}
   m_Layer: 0
   m_Name: CorruptSword
   m_TagString: Untagged
@@ -138,13 +138,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6689c72227683d64687b847a76586c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteRenderer: {fileID: 0}
   Immortal: 0
   deathParticle: {fileID: 0}
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 200
   CurrentHealth: 0
+  evasionRate: 0
+  magicResistance: 0
+  evasionEffect: {fileID: 0}
   StoredHealth: 0
   maxHealthColor:
     serializedVersion: 2
@@ -159,19 +161,22 @@ MonoBehaviour:
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
-  rb: {fileID: 0}
+  rb: {fileID: 7421337933622104218}
   TargetVelocity: {x: 0, y: 0}
   damagePerForceUnit: 0
+  itemHoverableObject: {fileID: 0}
   WeaponItem:
     Weapon: {fileID: 11400000, guid: ed996c9aac2479c4083a269def560f4b, type: 2}
     DropPrefab: {fileID: 7421337933622104219}
     WeaponInfo:
+      AnimationParameters:
+        AttackInterval: 0.5
+        AnimationTime: 1
+        VelocityMultiplier: 1
+        AngularVelocityMultiplier: 1
       Display:
         InventorySprite: {fileID: 21300000, guid: 5fdeaafa4d566eb4bac87952d9290b3a, type: 3}
-        Description:
-          Name: Corrupt sword
-          Description: Bool int
---- !u!61 &7421337933622104196
+--- !u!61 &5530288408314064570
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,10 +186,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.003741905, y: -0.014606385}
+  m_Offset: {x: 0.004471965, y: -0.008599944}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -195,5 +200,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.06936269, y: 0.13078722}
+  m_Size: {x: 0.07124853, y: 0.14280011}
   m_EdgeRadius: 0

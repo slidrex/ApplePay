@@ -112,7 +112,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2788200553323671118}
   - component: {fileID: 2788200553323671117}
-  - component: {fileID: 1849077798889129519}
   - component: {fileID: 2788200553323671119}
   - component: {fileID: 2788200553323671116}
   - component: {fileID: 5767637346845011317}
@@ -195,22 +194,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &1849077798889129519
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2788200553323671107}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05}
-  m_Size: {x: 0.12, y: 0.22}
-  m_Direction: 0
 --- !u!50 &2788200553323671119
 Rigidbody2D:
   serializedVersion: 4
@@ -263,7 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff64b7b98b0b5704a93d49556531ffff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteRenderer: {fileID: 2788200553323671117}
   Immortal: 0
   deathParticle: {fileID: 6564686968060823052, guid: a2133f345eab0d247938017a7176b57b, type: 3}
   takeDamageParticle: {fileID: 6564686968060823052, guid: a2133f345eab0d247938017a7176b57b, type: 3}
@@ -283,9 +265,10 @@ MonoBehaviour:
   takeDamageColor:
     serializedVersion: 2
     rgba: 2865219583
-  ImmortalityDuration: 0
+  DamageInvulnerabilityDuration: 0
   isDead: 0
   Hostiles: []
+  Hitbox: {fileID: 0}
   EffectList: {fileID: 0}
   ChangeAmount: -1
   ChangeHealthKey: 103

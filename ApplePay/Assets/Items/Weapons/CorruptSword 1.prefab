@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 110667411562124963}
   - component: {fileID: 7892664446570645795}
-  - component: {fileID: 6966709202733622617}
+  - component: {fileID: 1557959922151716276}
   - component: {fileID: 9148067209800773098}
   m_Layer: 0
   m_Name: CorruptSword 1
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6966709202733622617
+--- !u!61 &1557959922151716276
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +97,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0016444549, y: -0.015862096}
+  m_Offset: {x: 0.002665408, y: -0.012946319}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -108,7 +108,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.064260796, y: 0.12827581}
+  m_Size: {x: 0.093745366, y: 0.16609234}
   m_EdgeRadius: 0
 --- !u!114 &9148067209800773098
 MonoBehaviour:
@@ -123,5 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collideDamage: 5
-  Knockback: 5
+  Knockback: 40
+  DamageType: 0
   selfKnockback: 5

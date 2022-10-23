@@ -19,7 +19,6 @@ public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer
     }
     private void OnTriggerStay2D(Collider2D collider)
     {
-        if(collider.gameObject.GetComponent<Rigidbody2D>() != null) collider.gameObject.GetComponent<Rigidbody2D>()?.AddForce(GetCollisionNormal(collider) * Knockback);
         if(collider.gameObject.GetComponent<Entity>() != null) OnEntityHitStay(collider, collider.gameObject.GetComponent<Entity>());
     }
     protected virtual Vector2 GetCollisionNormal(Collider2D collider) => collider.ClosestPoint(transform.position) - (Vector2)transform.position;

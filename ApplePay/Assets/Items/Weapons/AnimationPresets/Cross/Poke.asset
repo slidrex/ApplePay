@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9ce6b62a1a834458e535fb4b8c740a, type: 3}
   m_Name: Poke
   m_EditorClassIdentifier: 
-  AttackType: 1
+  AttackType: 0
   VelocityPattern:
     serializedVersion: 2
     m_Curve:

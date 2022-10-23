@@ -4984,6 +4984,9 @@ MonoBehaviour:
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
+  CollisionHandler:
+    rb: {fileID: 7227759541157514714}
+    resistance: 0.5
   InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}

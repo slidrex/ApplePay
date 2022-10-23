@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 301540277}
   - component: {fileID: 301540276}
   m_Layer: 0
-  m_Name: slime
+  m_Name: Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -302,6 +302,9 @@ MonoBehaviour:
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
+  CollisionHandler:
+    rb: {fileID: 761386401692117043}
+    resistance: 0.5
   InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
@@ -312,7 +315,7 @@ MonoBehaviour:
   takeDamageColor:
     serializedVersion: 2
     rgba: 3869747156
-  Duration: 0.1
+  DamageInvulnerabilityDuration: 0
   isDead: 0
   Hostiles: []
   DamageField: 0
