@@ -123,6 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collideDamage: 5
-  Knockback: 40
+  Knockback: 5
   DamageType: 0
   selfKnockback: 5

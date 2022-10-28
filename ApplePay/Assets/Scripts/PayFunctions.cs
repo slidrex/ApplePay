@@ -82,12 +82,6 @@ namespace Pay.Functions
     }
     public static class Generic
     {
-        public enum FadeStatus
-        {
-            In,
-            Const,
-            Out
-        }
         ///<summary>Sorts elements of specified array either from min to max value or from max to min.</summary>
         public static void BubbleSort(bool minToMax, ref float[] array) => array = BubbleSort(minToMax, array.Select(x => (double)x).ToArray()).Select(x => (float)x).ToArray();
         ///<summary>Sorts elements of specified array either from min to max value or from max to min.</summary>
@@ -216,4 +210,26 @@ namespace Pay.Functions
         public static string SetRichTextTag(string text, string tagName, string tagContent) => "<" + tagName + "=" + tagContent + ">" + text + "</" + tagName +">";
         public static string SetRichTextTag(string text, string tagName) => "<" + tagName + ">" + text + "</" + tagName +">";
     }
+public class Physics
+{
+    public static void IgnoreCollision(float time, params UnityEngine.Collider2D[] colliders) => StaticCoroutine.BeginCoroutine(HandleIgnoreCollision(time, true, colliders));
+    private static void IgnoreCollision(bool ignore, UnityEngine.Collider2D[] colliders)
+    {
+        for(int i = 0; i < colliders.Length; i++)
+        {
+            for(int j = i + 1; j < colliders.Length; j++)
+            {
+                Physics2D.IgnoreCollision(colliders[i], colliders[j], ignore);
+            }
+        }
+    }
+    
+    private static System.Collections.IEnumerator HandleIgnoreCollision(float time, bool ignore, UnityEngine.Collider2D[] colliders)
+    {
+        IgnoreCollision(ignore, colliders);
+        yield return new WaitForSecondsRealtime(time);
+        IgnoreCollision(!ignore, colliders);
+    }
+}
+
 }

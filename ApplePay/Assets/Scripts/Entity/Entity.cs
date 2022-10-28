@@ -43,9 +43,13 @@ public abstract class Entity : MonoBehaviour
     }
     protected virtual void Start() 
     {
-        if(CollisionHandler.rb == null) throw new System.Exception("Rigid body is not specified!");
+        if(CollisionHandler.rb == null) throw new System.Exception("Rigidbody is not specified!");
     }
-    protected virtual void Update() => EffectsUpdate();
+    protected virtual void Update()
+    {
+        CollisionHandler.OnUpdate();
+        EffectsUpdate();
+    }
     public virtual void Damage(int amount, DamageType damageType, Creature handler)
     {
         bool evaded = Random.Range(0, 1f) < evasionRate && damageType == DamageType.Physical;

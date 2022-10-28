@@ -11,6 +11,6 @@ public class MeleeWeapon : WeaponObject
     protected override void OnEntityHitEnter(Collider2D collision, Entity hitEntity)
     {
         base.OnEntityHitEnter(collision, hitEntity);
-        hitEntity.CollisionHandler?.AddForce(transform.up.normalized * Knockback);
+        hitEntity.CollisionHandler?.Knock(transform.up.normalized * Knockback, Knockback, Knockback);
     }
 }

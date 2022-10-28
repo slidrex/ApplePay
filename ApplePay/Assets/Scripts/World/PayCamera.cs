@@ -6,34 +6,27 @@ namespace Pay.Camera
 {
     public static class CameraShake
     {
-        public static IEnumerator FlatShake(float delay, float force, float shakeTime)
+        private static IEnumerator HanleFlatShake(float delay, float force, float shakeTime)
         {
             CinemachineBasicMultiChannelPerlin cam = MonoBehaviour.FindObjectOfType<CinemachineBasicMultiChannelPerlin>();
-            float curTime = delay + shakeTime;
 
-            while(curTime > 0)
-            {
-                curTime -= Time.deltaTime;
-                yield return new WaitForEndOfFrame();
-                if(curTime > delay)
-                {
-                    cam.m_AmplitudeGain = force;
-                    cam.m_FrequencyGain = force;
-                }
-            }
+            yield return new WaitForSecondsRealtime(delay);
+            
+            cam.m_AmplitudeGain = force;
+            cam.m_FrequencyGain = force;
+            
+            yield return new WaitForSecondsRealtime(shakeTime);
+
             DisableShake(cam);
         }
-        public static IEnumerator SmoothShake(float delay, float beginForce, float endForce,
+        private static IEnumerator HandleSmoothShake(float delay, float beginForce, float endForce,
             float addingForceOverTime, float decreasingForceOverTime)
         {
             CinemachineBasicMultiChannelPerlin cam = MonoBehaviour.FindObjectOfType<CinemachineBasicMultiChannelPerlin>();
-            float curTime = 0;
+            
 
-            while(curTime < delay)
-            {
-                curTime += Time.deltaTime;
-                yield return new WaitForEndOfFrame();
-            }
+            yield return new WaitForSecondsRealtime(delay);
+            
 
             for (float i = beginForce; i < endForce; i+= Time.deltaTime * addingForceOverTime)
             {
@@ -48,16 +41,12 @@ namespace Pay.Camera
             DisableShake(cam);
         }
 
-        public static IEnumerator ChaoticShake(float delay, float minForce, float maxForce,
+        private static IEnumerator HandleChaoticShake(float delay, float minForce, float maxForce,
             float forcesInterval, float forceCount)
         {
             CinemachineBasicMultiChannelPerlin cam = MonoBehaviour.FindObjectOfType<CinemachineBasicMultiChannelPerlin>();
-            float curTime = 0;
-            while(curTime < delay)
-            {
-                curTime += Time.deltaTime;
-                yield return new WaitForEndOfFrame();
-            }
+            
+            yield return new WaitForSecondsRealtime(delay);
         
             for (int i = 0; i < forceCount; i++)
             {
@@ -70,10 +59,13 @@ namespace Pay.Camera
             }
             DisableShake(cam);
         }
-        public static void DisableShake(CinemachineBasicMultiChannelPerlin camera)
+        private static void DisableShake(CinemachineBasicMultiChannelPerlin camera)
         {
             camera.m_AmplitudeGain = 0;
             camera.m_FrequencyGain = 0;
         }
+        public static void FlatShake(float delay, float force, float shakeTime) => StaticCoroutine.BeginCoroutine(HanleFlatShake(delay, force, shakeTime));
+        public static void ChaoticShake(float delay, float minForce, float maxForce, float forcesInterval, float forceCount) => StaticCoroutine.BeginCoroutine(HandleChaoticShake(delay, minForce, maxForce, forcesInterval, forceCount));
+        public static void SmoothShake(float delay, float beginForce, float endForce, float addingForceOverTime, float decreasingForceOverTime) => StaticCoroutine.BeginCoroutine(HandleSmoothShake(delay, beginForce, endForce, addingForceOverTime, decreasingForceOverTime));
     }
 }

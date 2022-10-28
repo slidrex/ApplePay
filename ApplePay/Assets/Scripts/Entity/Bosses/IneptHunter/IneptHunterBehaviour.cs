@@ -146,7 +146,7 @@ public class IneptHunterBehaviour : AttackingMob
         animator.SetTrigger("Collision");
         rb.velocity = Vector3.zero;
         PayWorld.Particles.InstantiateParticles(shockWave, new Vector2(transform.position.x, transform.position.y - 0.6f), Quaternion.identity, 0.9f);
-        StartCoroutine(CameraShake.SmoothShake(0, 6, 6, 0, 6));
+        CameraShake.SmoothShake(0, 6, 6, 0, 6);
         GetComponent<Collider2D>().enabled = true;
         curAttackState = AttackStates.Nothing;
     }
@@ -171,7 +171,7 @@ public class IneptHunterBehaviour : AttackingMob
             PayWorld.Particles.InstantiateParticles(obstacleCollisionParticles, other.contacts[0].point,
                  Quaternion.Euler(new Vector3(0, 0, Pay.Functions.Math.Atan3(dist.y, dist.x))), 0.35f);
             rb.velocity = Vector2.zero;
-            StartCoroutine(CameraShake.SmoothShake(0, 3.5f, 3.5f, 0, 6));
+            CameraShake.SmoothShake(0, 3.5f, 3.5f, 0, 6);
             animator.SetTrigger("HA2Collision");
             curAttackState = AttackStates.Nothing;
         }
