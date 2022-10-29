@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0b44f26e799494bbe4569878ace53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 1557959922151716276}
   collideDamage: 5
   Knockback: 5
   DamageType: 0

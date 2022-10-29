@@ -48,6 +48,9 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Update()
     {
         CollisionHandler.OnUpdate();
+        if(CollisionHandler.disabled && GetComponent<MobMovement>() != null) GetComponent<MobMovement>().isDisabled = true;
+        else if(GetComponent<MobMovement>() != null) GetComponent<MobMovement>().isDisabled = false;
+        int пофикситьхуйню = -1;
         EffectsUpdate();
     }
     public virtual void Damage(int amount, DamageType damageType, Creature handler)

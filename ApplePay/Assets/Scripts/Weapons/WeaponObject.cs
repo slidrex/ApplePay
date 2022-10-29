@@ -1,6 +1,7 @@
 using UnityEngine;
 public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer
 {
+    public Collider2D Collider;
     protected Creature Owner;
     [SerializeField] private int collideDamage;
     public int CollideDamage {get => collideDamage; set => collideDamage = value;}

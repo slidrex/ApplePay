@@ -219,7 +219,8 @@ public class Physics
         {
             for(int j = i + 1; j < colliders.Length; j++)
             {
-                Physics2D.IgnoreCollision(colliders[i], colliders[j], ignore);
+                if(colliders[i] != null && colliders[j] != null)
+                    Physics2D.IgnoreCollision(colliders[i], colliders[j], ignore);
             }
         }
     }
