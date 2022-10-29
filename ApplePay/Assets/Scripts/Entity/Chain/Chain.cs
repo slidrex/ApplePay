@@ -20,9 +20,9 @@ public class Chain : AttackingMob
     protected override void Update()
     {
         base.Update();
-        Timer();
-        AttackStates();
-        if(Input.GetKeyDown(KeyCode.P)) GetComponent<Animator>().SetTrigger("DoubleAttack");
+        /*Timer();
+        AttackStates();*/
+        if(Input.GetKeyDown(KeyCode.P)) GetComponent<Animator>().SetTrigger("TripleAttack");
     }
     private void RandomizationAttack()
     {
@@ -43,7 +43,7 @@ public class Chain : AttackingMob
             }
         }
     }
-    private void AttackStates()
+    /*private void AttackStates()
     {
         switch(states)
         {
@@ -53,7 +53,7 @@ public class Chain : AttackingMob
                 break;
             }
         }
-    }
+    }*/
     private void AttackChain()
     {
         Collider2D[] col = Physics2D.OverlapCircleAll(attackPoint.position, radius);

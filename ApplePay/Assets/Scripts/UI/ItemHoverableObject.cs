@@ -19,8 +19,9 @@ public class ItemHoverableObject : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        tempPanel.GetAnimator().SetTrigger("CloseImage");
+        TerminatePanel();
     }
+    public void TerminatePanel() => tempPanel.GetAnimator().SetTrigger("CloseImage");
     private void PositionUpdate()
     {
         Vector2 sourcePosition = (Vector2)transform.position + sourceOffset;

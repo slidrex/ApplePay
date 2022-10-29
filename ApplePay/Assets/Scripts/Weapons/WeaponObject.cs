@@ -30,7 +30,7 @@ public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer
         if(hitEntity != Owner) DealCollideDamage(hitEntity, CollideDamage, Owner);
     }
     protected virtual void OnEntityHitStay(Collider2D collider, Entity entity) {}
-    public void DealCollideDamage(Entity entity, int damage, Creature dealer) => entity?.Damage(-damage, DamageType, dealer);
+    public void DealCollideDamage(Entity entity, int damage, Creature dealer) => entity?.Damage(damage, DamageType, dealer);
     public void LinkAttacker(Creature attacker) => Owner = attacker;
     public virtual void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out Projectile projectile) => projectile = null;
 }

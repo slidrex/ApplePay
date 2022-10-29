@@ -42,4 +42,9 @@ public abstract class CollectableItem : CollectableObject
         if(system != null) return system.GetRepository(repository).AddItem(item);
         return false;
     }
+
+    private void OnDestroy()
+    {
+        itemHoverableObject?.TerminatePanel();
+    }
 }
