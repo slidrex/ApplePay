@@ -18,6 +18,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private GameObject evasionEffect;
     public System.Collections.Generic.Dictionary<string, EntityAttribute> Attributes = new System.Collections.Generic.Dictionary<string, EntityAttribute>();
     public PayCollisionHandler CollisionHandler;
+    private byte disableID;
     protected virtual void Awake()
     {
         AttributesSetup();
@@ -48,9 +49,7 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Update()
     {
         CollisionHandler.OnUpdate();
-        if(CollisionHandler.disabled && GetComponent<MobMovement>() != null) GetComponent<MobMovement>().isDisabled = true;
-        else if(GetComponent<MobMovement>() != null) GetComponent<MobMovement>().isDisabled = false;
-        int пофикситьхуйню = -1;
+        int doooo;
         EffectsUpdate();
     }
     public virtual void Damage(int amount, DamageType damageType, Creature handler)

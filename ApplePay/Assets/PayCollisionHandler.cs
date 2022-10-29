@@ -6,7 +6,7 @@ public class PayCollisionHandler
 {
     public Rigidbody2D rb;
     [Range(0f, 1f)] public float resistance;
-    public float AddDrag = 1f;
+    public float DragIntensity = 1f;
     [ReadOnly] public bool disabled;
     public System.Collections.Generic.List<PayKnock> Forces = new System.Collections.Generic.List<PayKnock>();
     public bool Knockbacked {get => Forces.Count != 0;}
@@ -16,7 +16,7 @@ public class PayCollisionHandler
         Vector2 resultSpeed = Vector2.zero;
         resultSpeed = rb.velocity;
         resultSpeed += startSpeed * (1 - resistance);
-        Forces.Add(new PayKnock(startSpeed, disableTime, drag * AddDrag));
+        Forces.Add(new PayKnock(startSpeed, disableTime, drag * DragIntensity));
     }
     public void OnUpdate()
     {

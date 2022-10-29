@@ -3,7 +3,6 @@ using UnityEngine;
 public class MobMovement : EntityMovement
 {
     [SerializeField] private Transform target;
-    [HideInInspector] public bool isDisabled;
     [Header("Movement Patterns")]
     public System.Collections.Generic.List<MovePatterns> Patterns = new System.Collections.Generic.List<MovePatterns>();
     [SerializeField] private byte[] activePatterns = new byte[1];
@@ -29,12 +28,6 @@ public class MobMovement : EntityMovement
     {
         foreach(MovePatterns movePattern in Patterns) movePattern.Init(this, transform, target);
     }
-    public void SetActivePatterns(params byte[] indexes)
-    {
-        isDisabled = false;
-        activePatterns = indexes;
-    }
-    public void DisablePatterns() => isDisabled = true;
     protected override void Update()
     {
         if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnUpdate();

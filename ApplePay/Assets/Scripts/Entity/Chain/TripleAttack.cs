@@ -2,14 +2,24 @@ using UnityEngine;
 
 public class TripleAttack : StateMachineBehaviour
 {
+    private MobMovement mobMovement;
+    private Chain chain;
+    private bool awaken;
+    private byte disableID;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<MobMovement>().isDisabled = true;
-        animator.GetComponent<Chain>().CalcDist();
+        if(awaken == false)
+        {
+            if(mobMovement == null) mobMovement = animator.GetComponent<MobMovement>();
+            if(chain == null) chain = animator.GetComponent<Chain>();
+            awaken = true;
+        }
+        disableID = mobMovement.AddDisable();
+        chain.CalcDist();
     }
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<MobMovement>().isDisabled = false;
-        animator.GetComponent<Chain>().AttackEnd();
+        mobMovement.RemoveDisable(disableID);
+        chain.AttackEnd();
     }
 }

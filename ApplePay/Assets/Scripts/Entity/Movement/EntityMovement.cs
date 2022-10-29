@@ -1,6 +1,10 @@
 using UnityEngine;
+using System.Linq;
+
 abstract public class EntityMovement : MonoBehaviour
 {
+    public System.Collections.Generic.Dictionary<byte, PayDisable> Disables = new System.Collections.Generic.Dictionary<byte, PayDisable>();
+    public bool isDisabled {get; private set;}
     public Animator animator {get; private set;}
     [Header("Entity Movement")]
     public float CurrentSpeed = Mathf.PI;
@@ -21,9 +25,38 @@ abstract public class EntityMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
     }
-    protected virtual void Update() => RotationConstraintHandler();
+    public bool ContainsDisable(byte id) => Disables.ContainsKey(id);
+    public bool RemoveDisable(byte id) => Disables.Remove(id);
+    public byte AddDisable(float time) => AddDisable(0, false);
+    public byte AddDisable() => AddDisable(0, true);
+    private byte AddDisable(float time, bool everlasting)
+    {
+        byte id = Pay.Functions.Math.GetUniqueByte(Disables.Keys.ToArray());
+        Disables.Add(id, new PayDisable(everlasting, time));
+        return id;
+    }
+    protected virtual void Update() 
+    {
+        RotationConstraintHandler();
+        DisableHandler();
+    }
     protected virtual void FixedUpdate() => OnSpeedUpdate();
     virtual protected void OnSpeedUpdate() {}
+    private void DisableHandler()
+    {
+        if(Disables.Count == 0 && isDisabled) isDisabled = false;
+        for(int i = 0; i < Disables.Count; i++)
+        {
+            isDisabled = true;
+            PayDisable current = Disables.ElementAt(i).Value;
+            if(current.Everlasting == false) 
+            {
+                current.RemainingTime -= Time.deltaTime;
+                if(current.RemainingTime <= 0) Disables.Remove(Disables.ElementAt(i).Key);   
+            }
+            
+        }
+    }
     protected void RotationConstraintHandler()
     {
         if(curConstraintDuration >= 0)
@@ -58,4 +91,14 @@ public enum StateParameter
 {
     MirrorHorizontal,
     MirrorVertical
+}
+public struct PayDisable
+{
+    public bool Everlasting;
+    public float RemainingTime;
+    public PayDisable(bool everlasting, float time)
+    {
+        RemainingTime = time;
+        Everlasting = everlasting;
+    }
 }
