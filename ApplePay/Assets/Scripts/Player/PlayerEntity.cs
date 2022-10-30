@@ -14,7 +14,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     private UnityEngine.Rendering.Universal.Vignette vignette;
     public void AddDamageAttribute()
     {
-        GetComponent<Entity>().AddAttribute("attackDamage", new ReferencedAttribute(
+        this.AddAttribute("attackDamage", new ReferencedAttribute(
             () => AttackDamage,
             val => AttackDamage = (int)val
         ), AttackDamage);
@@ -46,12 +46,6 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Update()
     {
         base.Update();
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            //PayWorld.EffectController.AddEffect(this, "decay", 3, 5f);
-            Damage(10, DamageType.Physical, null);
-        }
-
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);
     }
     public override void ChangeHealth(int changeAmount)

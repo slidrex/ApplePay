@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : EntityMovement
 {
+    
     protected override void Update()
     {
         base.Update();
@@ -28,6 +29,7 @@ public class PlayerMovement : EntityMovement
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        if(MoveVector != Vector2.zero && isDisabled) MoveVector = Vector2.zero;
         Rigidbody.velocity = MoveVector * CurrentSpeed;
     }
 }

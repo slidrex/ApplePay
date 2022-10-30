@@ -30,6 +30,7 @@ public class MobMovement : EntityMovement
     }
     protected override void Update()
     {
+        base.Update();
         if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnUpdate();
     }
     protected override void OnSpeedUpdate()

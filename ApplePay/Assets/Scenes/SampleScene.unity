@@ -1409,10 +1409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d19afe7eb8bdf442967800655ce7933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliders:
-  - {fileID: 698062066}
-  - {fileID: 2117038651}
-  time: 5
 --- !u!61 &698062066
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2376,8 +2372,8 @@ MonoBehaviour:
   magicResistance: 0
   evasionEffect: {fileID: 0}
   CollisionHandler:
-    rb: {fileID: 1014642743}
-    resistance: 0.5
+    rb: {fileID: 0}
+    resistance: 0
     DragIntensity: 1
     disabled: 0
     Forces: []
@@ -2937,7 +2933,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3543742601618322551, guid: 71623b963fc6f074ca47f2642eb3a304, type: 3}
       propertyPath: CollisionHandler.resistance
-      value: 0.5
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3543742601618322551, guid: 71623b963fc6f074ca47f2642eb3a304, type: 3}
+      propertyPath: CollisionHandler.DragIntensity
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3543742601618322551, guid: 71623b963fc6f074ca47f2642eb3a304, type: 3}
+      propertyPath: CollisionHandler.Forces.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 932523071, guid: 71623b963fc6f074ca47f2642eb3a304, type: 3}
       propertyPath: target
@@ -3713,8 +3717,8 @@ MonoBehaviour:
   magicResistance: 0
   evasionEffect: {fileID: 0}
   CollisionHandler:
-    rb: {fileID: 1595865738}
-    resistance: 0.4
+    rb: {fileID: 0}
+    resistance: 0
     DragIntensity: 1
     disabled: 0
     Forces: []
@@ -3904,8 +3908,8 @@ MonoBehaviour:
   magicResistance: 0
   evasionEffect: {fileID: 0}
   CollisionHandler:
-    rb: {fileID: 1619376350}
-    resistance: 0.2
+    rb: {fileID: 0}
+    resistance: 0
     DragIntensity: 1
     disabled: 0
     Forces: []
@@ -4957,6 +4961,10 @@ PrefabInstance:
     - target: {fileID: 1463861389, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: CurrentSpeed
       value: 3.1415925
+      objectReference: {fileID: 0}
+    - target: {fileID: 1463861389, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: CollisionHandler.Forces.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1849077798739181968, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: holder

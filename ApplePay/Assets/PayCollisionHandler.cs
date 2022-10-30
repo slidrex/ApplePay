@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class PayCollisionHandler
 {
-    public Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     [Range(0f, 1f)] public float resistance;
     public float DragIntensity = 1f;
     [ReadOnly] public bool disabled;
     public System.Collections.Generic.List<PayKnock> Forces = new System.Collections.Generic.List<PayKnock>();
-    public bool Knockbacked {get => Forces.Count != 0;}
-    public void Knock(Vector2 startSpeed, float drag) => Knock(startSpeed, 0, drag);
-    public void Knock(Vector2 startSpeed, float disableTime, float drag)
+    public bool Knockbacked { get => Forces.Count != 0; }
+    public void Knock(Vector2 startSpeed, float decceleration)
     {
-        Vector2 resultSpeed = Vector2.zero;
-        resultSpeed = rb.velocity;
-        resultSpeed += startSpeed * (1 - resistance);
-        Forces.Add(new PayKnock(startSpeed, disableTime, drag * DragIntensity));
+        Vector2 resultSpeed = rb.velocity + startSpeed * (1 - resistance);
+        Forces.Add(new PayKnock(startSpeed, decceleration * DragIntensity));
     }
     public void OnUpdate()
     {
@@ -25,18 +22,16 @@ public class PayCollisionHandler
     }
     private void HandleKnockback()
     {
-        disabled = false;
+        if(disabled == true && Knockbacked == false) disabled = false;
         for(int i = 0; i < Forces.Count; i++)
         {
+            disabled = true;
             PayKnock force = Forces[i];
-            if(force.RemainingDisableTime > 0) 
-            {
-                force.RemainingDisableTime -= Time.deltaTime;
-                disabled = true;
-            }
             force.CurrentSpeed = Vector2.MoveTowards(force.CurrentSpeed, Vector2.zero, force.Drag * Time.deltaTime);
-            if(force.CurrentSpeed != Vector2.zero || force.RemainingDisableTime != 0f)
+            if(force.CurrentSpeed != Vector2.zero)
+            {
                 Forces[i] = force;
+            }
             else Forces.RemoveAt(i);
         }
 
@@ -55,12 +50,10 @@ public class PayCollisionHandler
 public struct PayKnock
 {
     public Vector2 CurrentSpeed;
-    public float RemainingDisableTime;
     public float Drag;
-    public PayKnock(Vector2 speed, float disableTime, float drag) 
+    public PayKnock(Vector2 speed, float drag) 
     {
         CurrentSpeed = speed;
-        RemainingDisableTime = disableTime;
         Drag = drag;
     }
 }

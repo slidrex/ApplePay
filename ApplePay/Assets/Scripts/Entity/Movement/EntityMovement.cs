@@ -9,29 +9,21 @@ abstract public class EntityMovement : MonoBehaviour
     [Header("Entity Movement")]
     public float CurrentSpeed = Mathf.PI;
     [ReadOnly] public Vector2 MoveVector;
-    [ReadOnly] public Rigidbody2D Rigidbody;
+    public Rigidbody2D Rigidbody;
     [HideInInspector] public bool ConstraintRotation;
     private float curConstraintDuration;
-    private void Awake() => GetComponent<Entity>().AddAttribute(
-        "movementSpeed",
-        new ReferencedAttribute(
-        () => CurrentSpeed,
-        val => CurrentSpeed = val
-        ),
-        CurrentSpeed
-    );
     protected virtual void Start()
     {
+        if(Rigidbody == null) Rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        Rigidbody = GetComponent<Rigidbody2D>();
     }
     public bool ContainsDisable(byte id) => Disables.ContainsKey(id);
     public bool RemoveDisable(byte id) => Disables.Remove(id);
-    public byte AddDisable(float time) => AddDisable(0, false);
+    public byte AddDisable(float time) => AddDisable(time, false);
     public byte AddDisable() => AddDisable(0, true);
     private byte AddDisable(float time, bool everlasting)
     {
-        byte id = Pay.Functions.Math.GetUniqueByte(Disables.Keys.ToArray());
+        byte id = Pay.Functions.Math.GetUniqueByte(Disables.Keys.ToArray(), 0);
         Disables.Add(id, new PayDisable(everlasting, time));
         return id;
     }
@@ -52,9 +44,10 @@ abstract public class EntityMovement : MonoBehaviour
             if(current.Everlasting == false) 
             {
                 current.RemainingTime -= Time.deltaTime;
+                
+                Disables[Disables.ElementAt(i).Key] = current;
                 if(current.RemainingTime <= 0) Disables.Remove(Disables.ElementAt(i).Key);   
             }
-            
         }
     }
     protected void RotationConstraintHandler()

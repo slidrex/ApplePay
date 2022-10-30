@@ -5,6 +5,7 @@ using System.Linq;
 
 public abstract class Entity : MonoBehaviour
 {
+    public EntityMovement Movement { get; set; }
     protected SpriteRenderer SpriteRenderer;
     public Dictionary<byte, byte[]> EffectBundleBuffer = new Dictionary<byte, byte[]>();
     public Dictionary<byte, EffectController.ActiveEffect> ActiveEffects = new Dictionary<byte, EffectController.ActiveEffect>(); 
@@ -22,35 +23,56 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Awake()
     {
         AttributesSetup();
-        
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        CollisionHandler.rb = rb;
+        if(Movement == null) Movement = GetComponent<EntityMovement>();
+        if(Movement != null) Movement.Rigidbody = rb;
         if(SpriteRenderer == null) SpriteRenderer = GetComponent<SpriteRenderer>();
         Particles.InstantiateParticles(appearParticle, transform.position, Quaternion.identity, 2);
         CurrentHealth = MaxHealth;
     }
+    protected virtual void Start() { }
     private void AttributesSetup()
     {
-        GetComponent<Entity>().AddAttribute("maxHealth", new ReferencedAttribute(
+        this.AddAttribute("maxHealth", new ReferencedAttribute(
             () => MaxHealth,
             val => MaxHealth = (int)val
         ), MaxHealth);
-        GetComponent<Entity>().AddAttribute("evasion", new ReferencedAttribute(
+        this.AddAttribute("evasion", new ReferencedAttribute(
             () => evasionRate,
             val => evasionRate = val
         ), 0f);
-        GetComponent<Entity>().AddAttribute("magicResistance", new ReferencedAttribute(
+        this.AddAttribute("magicResistance", new ReferencedAttribute(
             () => magicResistance,
             val => magicResistance = val
         ), 0f);
-    }
-    protected virtual void Start() 
-    {
-        if(CollisionHandler.rb == null) throw new System.Exception("Rigidbody is not specified!");
+        if(Movement != null)
+            this.AddAttribute(
+            "movementSpeed",
+            new ReferencedAttribute(
+            () => Movement.CurrentSpeed,
+            val => Movement.CurrentSpeed = val
+            ),
+            Movement.CurrentSpeed);
     }
     protected virtual void Update()
     {
         CollisionHandler.OnUpdate();
-        int doooo;
+        CollisionUpdate();
         EffectsUpdate();
+    }
+    private void CollisionUpdate()
+    {
+        if(Movement != null)
+            if(CollisionHandler.disabled && disableID == 0)
+            {
+                disableID = Movement.AddDisable();
+            }
+            else if(CollisionHandler.disabled == false && disableID != 0)
+            {
+                Movement.RemoveDisable(disableID);
+                disableID = 0;
+            }
     }
     public virtual void Damage(int amount, DamageType damageType, Creature handler)
     {
