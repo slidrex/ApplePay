@@ -10,6 +10,7 @@ public abstract class Entity : MonoBehaviour
     public Dictionary<byte, byte[]> EffectBundleBuffer = new Dictionary<byte, byte[]>();
     public Dictionary<byte, EffectController.ActiveEffect> ActiveEffects = new Dictionary<byte, EffectController.ActiveEffect>(); 
     public bool Immortal;
+    public bool isKnockable {get => !Immortal;}
     [SerializeField] private GameObject deathParticle, takeDamageParticle, appearParticle;
     [Header("Health")]
     public int MaxHealth = 100;
@@ -22,7 +23,6 @@ public abstract class Entity : MonoBehaviour
     private byte disableID;
     protected virtual void Awake()
     {
-        AttributesSetup();
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         CollisionHandler.rb = rb;
         if(Movement == null) Movement = GetComponent<EntityMovement>();
@@ -30,6 +30,7 @@ public abstract class Entity : MonoBehaviour
         if(SpriteRenderer == null) SpriteRenderer = GetComponent<SpriteRenderer>();
         Particles.InstantiateParticles(appearParticle, transform.position, Quaternion.identity, 2);
         CurrentHealth = MaxHealth;
+        AttributesSetup();
     }
     protected virtual void Start() { }
     private void AttributesSetup()
@@ -83,7 +84,7 @@ public abstract class Entity : MonoBehaviour
         if(damageType == DamageType.Magical) amount = (int)((float)amount * fixedMagicalDamage);
         if(Immortal == false && evaded == false)
         {
-            ChangeHealth(-amount);
+            CurrentHealth = Mathf.Clamp(CurrentHealth -amount, 0, MaxHealth);
             ApplyDamage(handler);
         }
         if(CurrentHealth <= 0) Die(handler);

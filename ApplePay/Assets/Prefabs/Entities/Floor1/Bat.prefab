@@ -5037,7 +5037,10 @@ MonoBehaviour:
   evasionEffect: {fileID: 0}
   CollisionHandler:
     rb: {fileID: 242449599305595777}
-    resistance: 0.4
+    resistance: 0.2
+    DragIntensity: 10
+    disabled: 0
+    Forces: []
   InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 5788186651065888758}
@@ -5110,7 +5113,6 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
   target: {fileID: 0}
-  isDisabled: 0
   Patterns:
   - {fileID: 27071561}
   activePatterns: 00

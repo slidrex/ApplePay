@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 110667411562124963}
   - component: {fileID: 7892664446570645795}
   - component: {fileID: 1557959922151716276}
-  - component: {fileID: 9148067209800773098}
+  - component: {fileID: 1475277216267289295}
   m_Layer: 0
   m_Name: CorruptSword 1
   m_TagString: Untagged
@@ -110,7 +110,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.093745366, y: 0.16609234}
   m_EdgeRadius: 0
---- !u!114 &9148067209800773098
+--- !u!114 &1475277216267289295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,11 +119,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3219820890450592181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e0b44f26e799494bbe4569878ace53e, type: 3}
+  m_Script: {fileID: 11500000, guid: 295bb0167d588df4d8aea81b647823e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Collider: {fileID: 1557959922151716276}
-  collideDamage: 1
-  Knockback: 5
+  collideDamage: 4
+  Knockback: 3
   DamageType: 0
-  selfKnockback: 5
+  corruptionTime: 3
+  level: 2

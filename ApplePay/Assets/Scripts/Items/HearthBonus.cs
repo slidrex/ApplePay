@@ -7,13 +7,15 @@ public class HearthBonus : CollectableBonus
     public int HealAmount;
     public override void Collect(Collider2D collision, ref bool picked)
     {
+        Creature picker = collision.GetComponent<Creature>();
+        if(picker == null) return;
         picked = true;
         Transform magnitizeObj = null;
         Animator hbAnim = null;
-        if(collision.GetComponent<Creature>().HealthBar != null)
+        if(picker.HealthBar != null)
         {
-            magnitizeObj = collision.GetComponent<Creature>().HealthBar.MagnitizedObj;
-            hbAnim = collision.GetComponent<Creature>().HealthBar.Animator;
+            magnitizeObj = picker.HealthBar.MagnitizedObj;
+            hbAnim = picker.HealthBar.Animator;
         }
         if(magnitizeObj != null) 
         {
@@ -21,7 +23,7 @@ public class HearthBonus : CollectableBonus
             HeartAnim ha = obj.GetComponent<HeartAnim>();
             ha.DestinationPoint = magnitizeObj;
             ha.HealthBarAnim = hbAnim;
-            ha.EntityApply = collision.GetComponent<Creature>();
+            ha.EntityApply = picker;
             ha.HealAmount = HealAmount;
         }
         else

@@ -52,17 +52,24 @@ public struct TagAttribute
 {
     public EntityAttribute AttachedAttribute;
     public string[] Tags;
+    internal TagAttributeClock Clock;
     public float Value;
     public AttributeType Type;
     public byte Count;
     public TagAttribute(EntityAttribute attachedAttribute, float value, AttributeType attributeType, string[] tags)
     {
+        Clock = null;
         AttachedAttribute = attachedAttribute;
         Type = attributeType;
         Count = 0;
         Tags = tags;
         Value = value;
     }
+}
+internal class TagAttributeClock
+{
+    internal float RemainTime;
+    internal TagAttributeClock(float time) => RemainTime = time;
 }
 public struct AttributeSummary
 {
@@ -77,6 +84,19 @@ public struct AttributeSummary
 }
 public static class EntityAttributeExtension
 {
+    ///<summary> Sets the tagged attribute termination time.
+    public static TagAttribute SetDestroyClock(this TagAttribute attribute, float time) 
+    {
+
+        attribute.Clock = new TagAttributeClock(time);
+        StaticCoroutine.BeginCoroutine(DestroyClock(attribute, time));
+        return attribute;
+    }
+    private static System.Collections.IEnumerator DestroyClock(TagAttribute attribute, float time)
+    {
+        yield return new UnityEngine.WaitForSecondsRealtime(time);
+        if(attribute.AttachedAttribute != null) attribute.Remove();
+    }
     ///<summary> Adds a mask that add change applies for each tagged attribute with the specified tag. </summry>
     public static AttributeMask AddTaggedMultiplierAttributeMask(this EntityAttribute attribute, float value, AttributeOperation operation, string maskedTag) 
     {

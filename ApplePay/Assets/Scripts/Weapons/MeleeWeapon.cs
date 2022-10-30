@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class MeleeWeapon : WeaponObject
 {
-    [SerializeField] private float selfKnockback;
     public override void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out Projectile projectile)
     {
         LinkAttacker(attacker);
@@ -11,8 +10,11 @@ public class MeleeWeapon : WeaponObject
     protected override void OnEntityHitEnter(Collider2D collision, Entity hitEntity)
     {
         base.OnEntityHitEnter(collision, hitEntity);
-        hitEntity.CollisionHandler?.Knock(transform.up.normalized * Knockback, Knockback);
-        
-        Pay.Functions.Physics.IgnoreCollision(1f, Collider, collision);
+        if(hitEntity.isKnockable == true)
+        {
+            hitEntity.CollisionHandler?.Knock(transform.up.normalized * Knockback, Knockback);
+            
+            Pay.Functions.Physics.IgnoreCollision(1f, Collider, collision);
+        }
     }
 }
