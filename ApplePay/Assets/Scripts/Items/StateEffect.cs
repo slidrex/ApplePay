@@ -93,12 +93,12 @@ namespace PayWorld.Effect
         public static StateEffect HoldingHackSpeedChanger(float amount)
         {
             StateEffect stateEffect = CreateState(amount);
-            TagAttribute tag = new TagAttribute();
+            TagAttribute tag =  null;
             
             StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("hackSpeed").AddAttributeValue(stateEffect.GetValue(), AttributeType.Multiplier, null);
             StateEffect.EndActionHandler endAction = delegate(Entity entity) 
             {
-                if(tag.Equals(new TagAttribute()) == false) tag.Remove();
+                if(tag != null) tag.Remove();
             };
 
             return stateEffect.LinkActions(beginAction, endAction);
@@ -106,11 +106,11 @@ namespace PayWorld.Effect
         public static StateEffect VelocityChanger(float amount)
         {
             StateEffect stateEffect = CreateState(amount);
-            TagAttribute tag = new TagAttribute();
+            TagAttribute tag = null;
             StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("movementSpeed").AddAttributeValue(stateEffect.GetValue(), AttributeType.Multiplier, null);
             StateEffect.EndActionHandler endAction = delegate(Entity entity) 
             {
-                if(tag.Equals(new TagAttribute()) == false) tag.Remove();
+                if(tag != null) tag.Remove();
             };
             
             return stateEffect.LinkActions(beginAction, endAction);

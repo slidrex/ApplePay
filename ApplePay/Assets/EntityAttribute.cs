@@ -10,23 +10,42 @@ public struct ReferencedAttribute
         Set = setter;
     }
 }
-
+[System.Serializable]
 public class EntityAttribute
 {
     internal ReferencedAttribute ReferencedAttribute;
     public System.Collections.Generic.List<TagAttribute> TaggedAttributes;
     public System.Collections.Generic.Dictionary<string, AttributeMask> TaggedAttributeMasks;
+    public System.Collections.Generic.List<TagAttributeClock> ClockedTagAttributes;
     public System.Collections.Generic.List<AttributeMask> GlobalMasks;
     internal float BaseAttributevalue;
     internal float ValueMultiplier;
     public EntityAttribute(ReferencedAttribute attribute, float baseAttributeValue)
     {
+        ClockedTagAttributes = new System.Collections.Generic.List<TagAttributeClock>();
         ReferencedAttribute = attribute;
         BaseAttributevalue = baseAttributeValue;
         TaggedAttributes = new System.Collections.Generic.List<TagAttribute>();
         GlobalMasks = new System.Collections.Generic.List<AttributeMask>();
         TaggedAttributeMasks = new System.Collections.Generic.Dictionary<string, AttributeMask>();
         ValueMultiplier = 1f;
+    }
+    public void HandleClockedAttributes()
+    {
+        for(int i = 0; i < ClockedTagAttributes.Count; i++)
+        {
+            if(ClockedTagAttributes[i].RemainTime <= 0)
+            {
+                ClockedTagAttributes[i].TagAttribute.Remove();
+                ClockedTagAttributes.RemoveAt(i);
+            }
+            else
+            {
+                TagAttributeClock attribute = ClockedTagAttributes[i];
+                attribute.RemainTime -= UnityEngine.Time.deltaTime;
+                ClockedTagAttributes[i] = attribute;
+            }
+        }
     }
 }
 
@@ -48,28 +67,30 @@ public struct AttributeMask
         TaggedValue = tagged;
     }
 }
-public struct TagAttribute
+public class TagAttribute
 {
     public EntityAttribute AttachedAttribute;
     public string[] Tags;
-    internal TagAttributeClock Clock;
     public float Value;
     public AttributeType Type;
-    public byte Count;
+    public byte Count { get; set; }
     public TagAttribute(EntityAttribute attachedAttribute, float value, AttributeType attributeType, string[] tags)
     {
-        Clock = null;
         AttachedAttribute = attachedAttribute;
         Type = attributeType;
-        Count = 0;
         Tags = tags;
         Value = value;
     }
 }
-internal class TagAttributeClock
+public struct TagAttributeClock
 {
-    internal float RemainTime;
-    internal TagAttributeClock(float time) => RemainTime = time;
+    [UnityEngine.SerializeField] internal float RemainTime;
+    [UnityEngine.SerializeField] internal TagAttribute TagAttribute;
+    internal TagAttributeClock(TagAttribute tagAttribute, float time)
+    {
+        RemainTime = time;
+        TagAttribute = tagAttribute;
+    }
 }
 public struct AttributeSummary
 {
@@ -85,16 +106,22 @@ public struct AttributeSummary
 public static class EntityAttributeExtension
 {
     ///<summary> Sets the tagged attribute termination time.
-    public static TagAttribute SetDestroyClock(this TagAttribute attribute, float time) 
+    public static void SetDestroyClock(this TagAttribute attribute, float time)  => attribute.AttachedAttribute.ClockedTagAttributes.Add(new TagAttributeClock(attribute, time));
+    public static void RemoveDestroyClock(this TagAttribute attribute)
     {
-
-        attribute.Clock = new TagAttributeClock(time);
-        StaticCoroutine.BeginCoroutine(DestroyClock(attribute, time));
-        return attribute;
+        EntityAttribute attrib = attribute.AttachedAttribute;
+        for(int i = 0; i < attrib.ClockedTagAttributes.Count; i++)
+        {
+            if(attrib.ClockedTagAttributes[i].TagAttribute == attribute)
+            {
+                attrib.ClockedTagAttributes.RemoveAt(i);
+            }
+        }
     }
     private static System.Collections.IEnumerator DestroyClock(TagAttribute attribute, float time)
     {
         yield return new UnityEngine.WaitForSecondsRealtime(time);
+        UnityEngine.Debug.Log("Removed!");
         if(attribute.AttachedAttribute != null) attribute.Remove();
     }
     ///<summary> Adds a mask that add change applies for each tagged attribute with the specified tag. </summry>

@@ -59,6 +59,7 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Update()
     {
         CollisionHandler.OnUpdate();
+        foreach(EntityAttribute attribute in Attributes.Values) attribute.HandleClockedAttributes();
         CollisionUpdate();
         EffectsUpdate();
     }

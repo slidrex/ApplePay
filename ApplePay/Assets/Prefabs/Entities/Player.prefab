@@ -114,12 +114,14 @@ GameObject:
   - component: {fileID: 2788200553323671117}
   - component: {fileID: 2788200553323671119}
   - component: {fileID: 2788200553323671116}
+  - component: {fileID: 2117038651}
   - component: {fileID: 5767637346845011317}
   - component: {fileID: 1849077798739181968}
   - component: {fileID: 8189285200546192267}
   - component: {fileID: 1463861389}
   - component: {fileID: 3917139913567164824}
-  m_Layer: 7
+  - component: {fileID: 2117038652}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -135,7 +137,7 @@ Transform:
   m_GameObject: {fileID: 2788200553323671107}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -26.1, y: -4.07, z: 1}
-  m_LocalScale: {x: 7.1, y: 7.1, z: 0}
+  m_LocalScale: {x: 4.5, y: 4.5, z: 0}
   m_Children:
   - {fileID: 6032245267409681821}
   - {fileID: 6376239100098354407}
@@ -183,15 +185,15 @@ SpriteRenderer:
   m_SortingLayerID: 1120820663
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 88fe004215515154d9095cbfa7366778, type: 3}
-  m_Color: {r: 0.9, g: 0.9, b: 0.9, a: 1}
+  m_Sprite: {fileID: 5418130786354320263, guid: e1f40ab40949ac94db80429316c7cfe7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.36, y: 0.36}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &2788200553323671119
@@ -208,7 +210,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 10
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -234,6 +236,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &2117038651
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.003472373, y: -0.11907742}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.36, y: 0.36}
+    newSize: {x: 0.36, y: 0.36}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.07475549, y: 0.09036325}
+  m_EdgeRadius: 0
 --- !u!114 &5767637346845011317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,14 +275,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Immortal: 0
-  deathParticle: {fileID: 6564686968060823052, guid: a2133f345eab0d247938017a7176b57b, type: 3}
-  takeDamageParticle: {fileID: 6564686968060823052, guid: a2133f345eab0d247938017a7176b57b, type: 3}
+  deathParticle: {fileID: 0}
+  takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
   CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
-  evasionEffect: {fileID: 0}
+  evasionEffect: {fileID: 2891188614314171647, guid: 954f520504525bf43b6bb04b77b565a9, type: 3}
+  CollisionHandler:
+    rb: {fileID: 2788200553323671119}
+    resistance: 0
+    DragIntensity: 1
+    disabled: 0
+    Forces: []
   InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
@@ -265,14 +299,14 @@ MonoBehaviour:
   takeDamageColor:
     serializedVersion: 2
     rgba: 2865219583
-  DamageInvulnerabilityDuration: 0
+  DamageInvulnerabilityDuration: 1
   isDead: 0
   Hostiles: []
-  Hitbox: {fileID: 0}
   EffectList: {fileID: 0}
-  ChangeAmount: -1
+  ChangeAmount: -10
   ChangeHealthKey: 103
   effectCell: {fileID: 5231069705747123276, guid: 0e846913c595c3c44a676e3ea63f75d4, type: 3}
+  attributes: []
 --- !u!114 &1849077798739181968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,9 +320,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactKey: 101
-  interactDistance: 4
+  interactDistance: 1
   InInteract: 0
-  HackSpeed: 1
+  HackSpeed: 2
   holder: {fileID: 0}
   indicator: {fileID: 11400000, guid: 5282dbe45d1ccee4283598cedb4009ae, type: 2}
 --- !u!114 &8189285200546192267
@@ -319,7 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff2f06684b5e71408d04275bb14a3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentSpeed: 3.1415927
+  CurrentSpeed: 3.1415925
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
@@ -335,8 +369,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a042eb6aeb9d43b77abba143a14e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartRepositories: []
+  StartRepositories:
+  - RepositoryLength: 9
+    Name: charms
+    _hanlders: []
+  - RepositoryLength: 3
+    Name: weapons
+    _hanlders: []
   InventoryOwner: {fileID: 5767637346845011317}
+--- !u!114 &2117038652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e260ef1e67a9f48a10ce3e9ea9df68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponPlace: {fileID: 4452132853288108545}
+  Disable: 0
+  weaponList: {fileID: 1334837816}
+  InventorySystem: {fileID: 3917139913567164824}
+  repositoryName: weapons
+  ActiveWeaponIndex: 0
+  targetForce: 0
+  minForce: 0
+  maxForce: 0
+  forceAddSpeed: 0
+  dropOffset: 0
+  holder: {fileID: 0}
+  indicator: {fileID: 0}
+  droppedItemBlockTime: 0
+  switchKey: 113
+  dropKey: 9
+  activateKey: 323
+  weaponPlaceSlot: {fileID: 0}
 --- !u!1 &4454439995575299210
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,9 +431,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4454439995575299210}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.075, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0809, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2788200553323671118}
   m_RootOrder: 1
@@ -380,12 +450,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edaa6bb40f56e374091b8e99e9dc6bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HorizontalOffset: {x: 0.3, y: 0}
-  VerticalOffset: {x: 0, y: 0.3}
+  HorizontalOffset: {x: 1, y: 0}
+  VerticalOffset: {x: 0, y: 1}
   FreezeHorizontal: 0
   FreezeVertical: 0
-  Radius: 1
-  WeaponScale: 1
+  Radius: 0.7
+  WeaponScale: 8
 --- !u!1 &4742114318141897310
 GameObject:
   m_ObjectHideFlags: 0

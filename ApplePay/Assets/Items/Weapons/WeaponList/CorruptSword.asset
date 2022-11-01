@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e95284b4214d03749b76c3f4b5ea9291, type: 3}
   m_Name: CorruptSword
   m_EditorClassIdentifier: 
-  WeaponObject: {fileID: 1475277216267289295, guid: 6eb2f77e3cb4946478dd468ae44534c8, type: 3}
+  WeaponObject: {fileID: 2033671792662052622, guid: 6eb2f77e3cb4946478dd468ae44534c8, type: 3}
   AttackAnimationSettings: {fileID: 11400000, guid: 7d20b2e1da6a6f1409451a1223c84aaa, type: 2}
