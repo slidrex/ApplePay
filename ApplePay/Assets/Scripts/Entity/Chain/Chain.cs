@@ -20,9 +20,7 @@ public class Chain : AttackingMob
     protected override void Update()
     {
         base.Update();
-        /*Timer();
-        AttackStates();*/
-        if(Input.GetKeyDown(KeyCode.P)) GetComponent<Animator>().SetTrigger("TripleAttack");
+        Timer();
     }
     private void RandomizationAttack()
     {
@@ -38,22 +36,32 @@ public class Chain : AttackingMob
             if(curTime > maxTime)
             {
                 RandomizationAttack();
-                maxTime = Random.Range(3f, 3.5f);
+                AttackStates();
+                maxTime = Random.Range(2.7f, 3f);
                 curTime = 0;
             }
         }
     }
-    /*private void AttackStates()
+    private void AttackStates()
     {
         switch(states)
         {
-            case ChainStates.DoubleAttack:
+            /*case ChainStates.DoubleAttack:
             {
                 movement.animator.SetTrigger("DoubleAttack");
                 break;
+            }*/
+            case ChainStates.TripleAttack:
+            {
+                movement.animator.SetTrigger("TripleAttack");
+                break;
+            }
+            case ChainStates.Idle:
+            {
+                break;
             }
         }
-    }*/
+    }
     private void AttackChain()
     {
         Collider2D[] col = Physics2D.OverlapCircleAll(attackPoint.position, radius);
@@ -70,12 +78,20 @@ public class Chain : AttackingMob
     }
     public void AttackEnd()
     {
+        GetComponent<CrossMovement>().enabled = true;
         states = ChainStates.Idle;
     }
-    public void CalcDist() => dist = Target.transform.position - transform.position;
+    public Vector2 CalcDist() => dist = Target.transform.position - transform.position;
+    public void UpdateAnimatorParameters()
+    {
+        movement.animator.SetInteger("Horizontal", (int)CalcDist().x);
+        movement.animator.SetInteger("Vertical", (int)CalcDist().y);
+    }
+    private void ThirdAttack() => movement.animator.SetTrigger("ThirdAttack");
     private void OnDrawGizmosSelected() => Gizmos.DrawWireSphere(attackPoint.position, radius);
 }
 enum ChainStates
 {
-    DoubleAttack, Idle
+    //DoubleAttack
+    TripleAttack, Idle
 }

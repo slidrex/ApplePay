@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5602800900381002125}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &168138633
 SpriteRenderer:
@@ -112,36 +112,6 @@ Transform:
   m_Father: {fileID: 5602800900381002125}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &469971752305153514
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 124154221222165870}
-  m_Layer: 0
-  m_Name: AttackPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &124154221222165870
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469971752305153514}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0013, y: -0.0225, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5602800900381002125}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3041076936036105730
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +147,6 @@ Transform:
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children:
   - {fileID: 1970636236}
-  - {fileID: 124154221222165870}
   - {fileID: 168138632}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -316,7 +285,6 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
   target: {fileID: 0}
-  isDisabled: 0
   Patterns:
   - {fileID: 1821789805}
   activePatterns: 00
@@ -357,6 +325,9 @@ MonoBehaviour:
   CollisionHandler:
     rb: {fileID: 5111808536178740533}
     resistance: 0.6
+    DragIntensity: 1
+    disabled: 0
+    Forces: []
   InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
@@ -372,5 +343,5 @@ MonoBehaviour:
   Hostiles: []
   DamageField: 15
   dust: {fileID: 0}
-  attackPoint: {fileID: 124154221222165870}
+  attackPoint: {fileID: 0}
   radius: 0.35

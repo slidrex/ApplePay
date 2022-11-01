@@ -21,6 +21,7 @@ public abstract class MovePatterns : MonoBehaviour
         UpdateMovementAnimator();
     }
     protected void UpdateTargetDistance() => TargetDistance = Target.transform.position - CurrentTransform.position;
+    public Transform GetTarget() => Target;
     protected virtual void UpdateMovementAnimator()
     {
         Movement.animator.SetInteger("Vertical", (int)TargetDistance.y);

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ChainTopAttack
+  m_Name: ChainInterTop
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -56,6 +56,8 @@ AnimationClip:
     - time: 1.0666667
       value: {fileID: 5929544438084893649, guid: 280bf32fb1ce2264b8d34bc1dffe0ae1, type: 3}
     - time: 1.1333333
+      value: {fileID: 5929544438084893649, guid: 280bf32fb1ce2264b8d34bc1dffe0ae1, type: 3}
+    - time: 1.1833333
       value: {fileID: -77978539975694873, guid: 280bf32fb1ce2264b8d34bc1dffe0ae1, type: 3}
     attribute: m_Sprite
     path: 
@@ -94,13 +96,14 @@ AnimationClip:
     - {fileID: -1641748651548881663, guid: 280bf32fb1ce2264b8d34bc1dffe0ae1, type: 3}
     - {fileID: -4376904943188015464, guid: 280bf32fb1ce2264b8d34bc1dffe0ae1, type: 3}
     - {fileID: 5929544438084893649, guid: 280bf32fb1ce2264b8d34bc1dffe0ae1, type: 3}
+    - {fileID: 5929544438084893649, guid: 280bf32fb1ce2264b8d34bc1dffe0ae1, type: 3}
     - {fileID: -77978539975694873, guid: 280bf32fb1ce2264b8d34bc1dffe0ae1, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.15
+    m_StopTime: 1.1999999
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -122,6 +125,13 @@ AnimationClip:
   m_Events:
   - time: 0.73333335
     functionName: Dash
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.1666666
+    functionName: ThirdAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

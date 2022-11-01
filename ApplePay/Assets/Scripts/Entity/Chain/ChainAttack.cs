@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DoubleAttack : StateMachineBehaviour
+public class ChainAttack : StateMachineBehaviour
 {
     private MobMovement mobMovement;
     private Chain chain;
