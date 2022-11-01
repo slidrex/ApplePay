@@ -6,7 +6,7 @@ public class IntermediateAttack : StateMachineBehaviour
     private Chain chain;
     private bool awaken;
     private byte disableID;
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if(awaken == false)
         {
@@ -15,14 +15,13 @@ public class IntermediateAttack : StateMachineBehaviour
             awaken = true;
         }
         disableID = mobMovement.AddDisable();
-        chain.CalcDist();
         animator.GetComponent<CrossMovement>().enabled = false;
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Vector2 dist = animator.GetComponent<MovePatterns>().GetTarget().position - animator.transform.position;
+        Vector2 targetPos = animator.GetComponent<MovePatterns>().GetTarget().position;
         chain.UpdateAnimatorParameters();
-        if(animator.transform.position.x < dist.x)
+        if(animator.transform.position.x < targetPos.x)
         {
             animator.transform.eulerAngles = new Vector2(0, 0);
         }

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ChainAttack : StateMachineBehaviour
 {
-    private MobMovement mobMovement;
     private Chain chain;
     private bool awaken;
     private byte disableID;
@@ -10,16 +9,14 @@ public class ChainAttack : StateMachineBehaviour
     {
         if(awaken == false)
         {
-            if(mobMovement == null) mobMovement = animator.GetComponent<MobMovement>();
             if(chain == null) chain = animator.GetComponent<Chain>();
             awaken = true;
         }
-        disableID = mobMovement.AddDisable();
-        chain.CalcDist();
+        disableID = chain.Movement.AddDisable();
     }
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        mobMovement.RemoveDisable(disableID);
+        chain.Movement.RemoveDisable(disableID);
         chain.AttackEnd();
     }
 }

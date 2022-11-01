@@ -6,7 +6,8 @@ public class Chain : AttackingMob
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float radius;
     private MobMovement movement;
-    private Vector2 dist;
+    private Vector2 dist => Target.transform.position - transform.position;
+    private Vector2 fixedDist;
     private ChainStates states;
     private float maxTime = 2.5f, curTime = 0;
 
@@ -20,14 +21,10 @@ public class Chain : AttackingMob
     protected override void Update()
     {
         base.Update();
+        if(dist != Vector2.zero) fixedDist = dist;
         Timer();
     }
-    private void RandomizationAttack()
-    {
-        System.Array arr = System.Enum.GetValues(typeof(ChainStates));
-        System.Random rand = new System.Random();
-        states = (ChainStates)arr.GetValue(rand.Next(arr.Length - 1));
-    }
+    private void RandomizeAttack() => states = (ChainStates)Pay.Functions.Generic.GetRandomizedEnum(states, 1, System.Enum.GetValues(states.GetType()).Length);
     private void Timer()
     {
         if(curTime < maxTime)
@@ -35,7 +32,7 @@ public class Chain : AttackingMob
             curTime += Time.deltaTime;
             if(curTime > maxTime)
             {
-                RandomizationAttack();
+                RandomizeAttack();
                 AttackStates();
                 maxTime = Random.Range(2.7f, 3f);
                 curTime = 0;
@@ -46,18 +43,14 @@ public class Chain : AttackingMob
     {
         switch(states)
         {
-            /*case ChainStates.DoubleAttack:
+            case ChainStates.DoubleAttack:
             {
                 movement.animator.SetTrigger("DoubleAttack");
                 break;
-            }*/
+            }
             case ChainStates.TripleAttack:
             {
                 movement.animator.SetTrigger("TripleAttack");
-                break;
-            }
-            case ChainStates.Idle:
-            {
                 break;
             }
         }
@@ -81,17 +74,19 @@ public class Chain : AttackingMob
         GetComponent<CrossMovement>().enabled = true;
         states = ChainStates.Idle;
     }
-    public Vector2 CalcDist() => dist = Target.transform.position - transform.position;
     public void UpdateAnimatorParameters()
     {
-        movement.animator.SetInteger("Horizontal", (int)CalcDist().x);
-        movement.animator.SetInteger("Vertical", (int)CalcDist().y);
+        fixedDist.x = fixedDist.x < 0 ? -1 : 1;
+        fixedDist.y = fixedDist.y < 0 ? -1 : 1;
+        movement.animator.SetInteger("Horizontal", (int)fixedDist.x);
+        movement.animator.SetInteger("Vertical", (int)fixedDist.y);
     }
     private void ThirdAttack() => movement.animator.SetTrigger("ThirdAttack");
     private void OnDrawGizmosSelected() => Gizmos.DrawWireSphere(attackPoint.position, radius);
 }
 enum ChainStates
 {
-    //DoubleAttack
-    TripleAttack, Idle
+    Idle,
+    DoubleAttack,
+    TripleAttack
 }

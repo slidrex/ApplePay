@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class AttributeMeleeWeapon : MeleeWeapon
 {
     protected abstract string attributeTag {get;}
+    [Header("Attriubre melee settings")]
     [SerializeField] private MeleeWeapon.AttackSide side;
     [SerializeField] private bool passImmortal;
     [SerializeField] private string attribute;

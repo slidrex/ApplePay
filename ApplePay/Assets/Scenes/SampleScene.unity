@@ -3727,6 +3727,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1821789806, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
+      propertyPath: CollisionHandler.resistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821789806, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
+      propertyPath: CollisionHandler.DragIntensity
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1821789812, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
       propertyPath: target
       value: 
@@ -3734,6 +3742,10 @@ PrefabInstance:
     - target: {fileID: 3041076936036105730, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
       propertyPath: m_Name
       value: Chains
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041076936036105730, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5602800900381002125, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
       propertyPath: m_RootOrder

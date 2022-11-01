@@ -133,6 +133,18 @@ namespace Pay.Functions
             return array;
         }
         ///<summary>
+        ///Gets a random enumeration value (Needs to be parsed to the specified enum type).
+        ///</summary>
+        public static System.Enum GetRandomizedEnum(System.Enum enumeration) => RandomizeEnum(enumeration, 0, System.Enum.GetValues(enumeration.GetType()).Length);
+        public static System.Enum GetRandomizedEnum(System.Enum enumeration, int from, int to) => RandomizeEnum(enumeration, from, to);
+        private static System.Enum RandomizeEnum(System.Enum enumeration, int from, int to)
+        {
+            System.Array arr = System.Enum.GetValues(enumeration.GetType());
+            System.Random rand = new System.Random();
+            enumeration = (System.Enum)arr.GetValue(rand.Next(from, to));
+            return enumeration;
+        }
+        ///<summary>
         ///Combines specified array to one.
         ///</summary>
         public static byte[] CombineArrays(params byte[][] arraysToMerge)

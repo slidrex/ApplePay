@@ -126,7 +126,7 @@ MonoBehaviour:
   collideDamage: 3
   Knockback: 2
   DamageType: 1
-  side: 0
+  side: 1
   passImmortal: 1
   attribute: movementSpeed
   value: 0.4
