@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e972112e747d7d14caa4aa6d85c67f23, type: 3}
-  m_Name: Treasure
+  m_Script: {fileID: 11500000, guid: e95284b4214d03749b76c3f4b5ea9291, type: 3}
+  m_Name: HolySpear
   m_EditorClassIdentifier: 
-  MarkType: 3
+  WeaponObject: {fileID: 7876552633506993754, guid: e59ed223148030946bf8b43c01de7c2d, type: 3}
+  AttackAnimationSettings: {fileID: 11400000, guid: 7d20b2e1da6a6f1409451a1223c84aaa, type: 2}

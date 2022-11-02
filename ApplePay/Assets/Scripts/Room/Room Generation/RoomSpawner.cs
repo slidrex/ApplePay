@@ -31,6 +31,10 @@ public class RoomSpawner : MonoBehaviour
     [HideInInspector] public System.Collections.Generic.List<Transform> StartObjects;
     private int spawnedRoomCount;
     [HideInInspector] public Transform RoomContainer;
+    private void Start()
+    {
+        GenerateLevel();
+    }
     public void GenerateLevel()
     {
         Setup();
@@ -147,7 +151,7 @@ public class RoomSpawner : MonoBehaviour
             while(room.MarkList[i] == null)
             {
                 int index = Random.Range(0, markDatabase.MarkList.Length);
-                if(markDatabase.MarkList[index].SpawnChance >= Random.Range(1, 101))
+                if(markDatabase.MarkList[index].SpawnChance > Random.Range(0, 1f))
                 {
                     room.MarkList[i] = markDatabase.MarkList[index].Mark;
                     break;

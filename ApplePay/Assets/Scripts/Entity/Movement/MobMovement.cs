@@ -5,6 +5,7 @@ public class MobMovement : EntityMovement
     [SerializeField] private Transform target;
     [Header("Movement Patterns")]
     public System.Collections.Generic.List<MovePatterns> Patterns = new System.Collections.Generic.List<MovePatterns>();
+    private bool disablePatterns;
     [SerializeField] private byte[] activePatterns = new byte[1];
     private MovePatterns[] GetActivePatterns()
     {
@@ -18,6 +19,7 @@ public class MobMovement : EntityMovement
         }
         return patterns;
     }
+    public void DisablePatterns(bool disable) => disablePatterns = disable;
     protected void SetTarget(Transform target) => this.target = target;
     protected override void Start()
     {
@@ -31,14 +33,14 @@ public class MobMovement : EntityMovement
     protected override void Update()
     {
         base.Update();
-        if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnUpdate();
+        if(!isDisabled && !disablePatterns) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnUpdate();
     }
     protected override void OnSpeedUpdate()
     {
-        if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnSpeedUpdate();
+        if(!isDisabled && !disablePatterns) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnSpeedUpdate();
     }
     private void OnCollisionEnter2D(Collision2D collision) 
     {
-        if(!isDisabled) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnCollision(collision);
+        if(!isDisabled && !disablePatterns) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnCollision(collision);
     }
 }

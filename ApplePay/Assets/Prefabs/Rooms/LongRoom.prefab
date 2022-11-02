@@ -381,7 +381,8 @@ MonoBehaviour:
     offset: {x: 0, y: 0}
     RelatedTransform: {fileID: 3740072970622133676}
   EntityList: []
-  MarkList: []
+  MarkList:
+  - {fileID: 0}
   EnvironmentObjectList: []
   MinObjectsCount: 0
   MaxObjectsCount: 0

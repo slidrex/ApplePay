@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RoomMark : ScriptableObject
+public abstract class RoomMark : ScriptableObject
 {
-    public MarkDatabase.MarkType MarkType;
+    public abstract void ApplyMark(Room room);
 }

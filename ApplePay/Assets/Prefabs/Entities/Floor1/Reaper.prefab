@@ -209,6 +209,9 @@ MonoBehaviour:
   CollisionHandler:
     rb: {fileID: 377455623169758731}
     resistance: 0.5
+    DragIntensity: 1
+    disabled: 0
+    Forces: []
   InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 377455623169758768}
@@ -242,8 +245,7 @@ MonoBehaviour:
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
-  target: {fileID: 0}
-  isDisabled: 0
+  target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
   Patterns:
   - {fileID: 377455623169758770}
   activePatterns: 00

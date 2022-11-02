@@ -5,7 +5,6 @@ public class Chain : AttackingMob
     [SerializeField] private GameObject dust;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float radius;
-    private MobMovement movement;
     private Vector2 dist => Target.transform.position - transform.position;
     private Vector2 fixedDist;
     private ChainStates states;
@@ -15,7 +14,6 @@ public class Chain : AttackingMob
     {
         base.Start();
         states = ChainStates.Idle;
-        movement = GetComponent<MobMovement>();
         SetTarget(FindObjectOfType<PlayerEntity>());
     }
     protected override void Update()
@@ -45,12 +43,12 @@ public class Chain : AttackingMob
         {
             case ChainStates.DoubleAttack:
             {
-                movement.animator.SetTrigger("DoubleAttack");
+                Movement.animator.SetTrigger("DoubleAttack");
                 break;
             }
             case ChainStates.TripleAttack:
             {
-                movement.animator.SetTrigger("TripleAttack");
+                Movement.animator.SetTrigger("TripleAttack");
                 break;
             }
         }
@@ -67,21 +65,21 @@ public class Chain : AttackingMob
     private void Dash()
     {
         //PayWorld.Particles.InstantiateParticles(dust, transform.position, Quaternion.identity, 2);
-        movement.Rigidbody.velocity = dist.normalized * Pay.Functions.Math.ClampVectorComponents(dist, 35, 45);
+        Movement.Rigidbody.velocity = dist.normalized * Pay.Functions.Math.ClampVectorComponents(dist, 35, 45);
     }
     public void AttackEnd()
     {
-        GetComponent<CrossMovement>().enabled = true;
+        Movement.DisablePatterns(false);
         states = ChainStates.Idle;
     }
     public void UpdateAnimatorParameters()
     {
         fixedDist.x = fixedDist.x < 0 ? -1 : 1;
         fixedDist.y = fixedDist.y < 0 ? -1 : 1;
-        movement.animator.SetInteger("Horizontal", (int)fixedDist.x);
-        movement.animator.SetInteger("Vertical", (int)fixedDist.y);
+        Movement.animator.SetInteger("Horizontal", (int)fixedDist.x);
+        Movement.animator.SetInteger("Vertical", (int)fixedDist.y);
     }
-    private void ThirdAttack() => movement.animator.SetTrigger("ThirdAttack");
+    private void ThirdAttack() => Movement.animator.SetTrigger("ThirdAttack");
     private void OnDrawGizmosSelected() => Gizmos.DrawWireSphere(attackPoint.position, radius);
 }
 enum ChainStates

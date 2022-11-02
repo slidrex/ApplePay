@@ -1,11 +1,13 @@
 using UnityEngine;
 public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer
 {
+    [Header("Collide settings")]
     public Collider2D Collider;
-    protected Creature Owner;
     [SerializeField] private int collideDamage;
     public int CollideDamage {get => collideDamage; set => collideDamage = value;}
     public float Knockback;
+    [Header("Weapon settings")]
+    protected Creature Owner;
     public DamageType DamageType;
     private void OnTriggerEnter2D(Collider2D collider)
     {

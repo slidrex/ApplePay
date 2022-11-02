@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
         Physics2D.IgnoreLayerCollision(12, 12);
         for(int i = 0; i < ignoreCollision.Count; i++)
             Physics2D.IgnoreCollision(ignoreCollision[i], GetComponent<Collider2D>());
-        
+            
         if(SetMoveRotation) Pay.Functions.Math.Atan3(MoveVector.y, MoveVector.x);
     }
     protected virtual void Update() => HandleLifeTime();
@@ -55,6 +55,7 @@ public class Projectile : MonoBehaviour
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        print("collided!" + "(" + " " + collision.collider + " " + GetComponent<Collider2D>() + ")");
         if(collision.gameObject.GetComponent<Entity>() != null)
             collision.gameObject.GetComponent<Entity>().Damage(Damage, damageType, ProjectileOwner);
         Destroy(gameObject);

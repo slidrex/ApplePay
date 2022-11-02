@@ -43,7 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33ef46d2b62a0346927dd169549cf88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Collider: {fileID: 0}
   collideDamage: 0
   Knockback: 0
+  DamageType: 0
   FirePoint: {fileID: 2937875184297961134}
   FireObject: {fileID: -3869696613368500709, guid: 85dec86b4f1c75e4486d3d0abb2abc1b, type: 3}

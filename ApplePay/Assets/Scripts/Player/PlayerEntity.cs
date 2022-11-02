@@ -2,13 +2,7 @@ using UnityEngine;
 using System.Linq;
 public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable
 {
-    public enum ENUMe
-    {
-        First,
-        Second,
-        Einstein,
-        Pease_duke
-    }
+    public new PlayerMovement Movement => (PlayerMovement)Movement;
     public int AttackDamage {get; set;} = 10;
     [Header("Player Entity")]
     [SerializeField] private GameObject EffectList;

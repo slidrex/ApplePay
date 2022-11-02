@@ -19,6 +19,7 @@ public class Room : MonoBehaviour
         SetupBounds();
         LinkDoors();
     }
+    private void Start() => DefineRoom();
     private void SetupBounds()
     {
         for(int i = 0; i < FreeRoomSpace.Length; i++) FreeRoomSpace[i].RelatedTransform = transform;

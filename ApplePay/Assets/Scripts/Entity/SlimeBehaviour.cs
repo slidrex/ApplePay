@@ -5,7 +5,7 @@ public class SlimeBehaviour : AttackingMob
     [SerializeField] private GameObject explosion;
     private Rigidbody2D rb;
     private Animator anim;
-    private Vector3 dist;
+    private Vector3 dist {get =>Target.transform.position - transform.position; }
     public bool isJumping;
     protected override void Start()
     {
@@ -22,11 +22,9 @@ public class SlimeBehaviour : AttackingMob
     }
     private void RotateEulerAngles()
     {
-        dist = Target.transform.position - transform.position;
         if(dist.x < 0) transform.eulerAngles = new Vector2(0, 180);
         else transform.eulerAngles = new Vector2(0, 0);
     }
-    private Vector2 CalcDist() => dist = Target.transform.position - transform.position;
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(isJumping)

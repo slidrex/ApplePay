@@ -17,7 +17,7 @@ MonoBehaviour:
       room: {fileID: 2949683388831534208, guid: c2275ca7af267734dbec0e049e134086, type: 3}
       availableRotations: 0100
     spawnRate: 100
-  RoomCount: 10
+  RoomCount: 1
   CellSize: 50
   StartGridComplexity: 1
   GridComplexityLimit: 1

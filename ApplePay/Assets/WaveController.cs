@@ -39,7 +39,7 @@ public class WaveController : MonoBehaviour
         StageMarkAssign(wrappedRoomStages);
         foreach(RoomMark roomMark in WrappedCreature.CurrentRoom.MarkList)
         {
-            if(roomMark.MarkType == MarkDatabase.MarkType.Mob)
+            /*if(roomMark.MarkType == MarkDatabase.MarkType.Mob)
             {
                 MobMark curMark = (MobMark)roomMark;
                 if(curMark.SpawnDelay > bindedStatus.bindTime)
@@ -48,6 +48,7 @@ public class WaveController : MonoBehaviour
                     bindedStatus.bindTime = curMark.SpawnDelay + curMark.MaxSpawnInterval * (curMark.MinMobCount + curMark.MaxMobCount)/2;
                 }
             }
+            */
         }
         
     }
@@ -59,11 +60,12 @@ public class WaveController : MonoBehaviour
             {
                 int rand = Random.Range(0, 100);
                 MarkDatabase.MarkSlot currentRoomMark = markDatabase.MarkList[Random.Range(0, markDatabase.MarkList.Length)];
-                if(currentRoomMark.SpawnChance >= rand && currentRoomMark.Mark.MarkType == MarkDatabase.MarkType.Mob)
+                /*if(currentRoomMark.SpawnChance >= rand && currentRoomMark.Mark.MarkType == MarkDatabase.MarkType.Mob)
                 {
                     markArray[i] = currentRoomMark.Mark;
                     break;
                 }
+                */
             }
         }
     }
