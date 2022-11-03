@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PointMovement : MovePatterns
+public class PointMovement : MovementPattern
 {
     protected Vector2 MovePoint;
     public override void OnUpdate() => MoveTowardsPoint();

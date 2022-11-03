@@ -1,5 +1,5 @@
 using UnityEngine;
-public class ReflectMovement : MovePatterns
+public class ReflectMovement : MovementPattern
 {
     [SerializeField] private GameObject collisionEffect;
     [SerializeField] private float collisionEffectDuration;

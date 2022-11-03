@@ -18,7 +18,7 @@ public class IntermediateAttack : StateMachineBehaviour
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Vector2 targetPos = animator.GetComponent<MovePatterns>().GetTarget().position;
+        Vector2 targetPos = animator.GetComponent<MovementPattern>().Target.position;
         chain.UpdateAnimatorParameters();
         if(animator.transform.position.x < targetPos.x)
         {

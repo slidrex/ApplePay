@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CrossMovement : MovePatterns
+public class CrossMovement : MovementPattern
 {
     [SerializeField] private float directionChangeFrequency;
     private float currentDirectionChangeFrequency;

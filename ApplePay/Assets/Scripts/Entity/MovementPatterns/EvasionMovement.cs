@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EvasionMovement : MovePatterns
+public class EvasionMovement : MovementPattern
 {
     public float SaveDistance;
     public float MinObstacleDist;

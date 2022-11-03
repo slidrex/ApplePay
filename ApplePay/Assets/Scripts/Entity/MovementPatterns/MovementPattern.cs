@@ -1,27 +1,23 @@
 using UnityEngine;
 
-public abstract class MovePatterns : MonoBehaviour
+public abstract class MovementPattern : MonoBehaviour
 {
+    public Transform Target => Movement.Target;
     protected Transform CurrentTransform;
     protected MobMovement Movement;
-    protected Transform Target;
-    protected Vector2 TargetDistance;
+    protected Vector2 TargetDistance => Target.transform.position - CurrentTransform.position;
     public Vector2 MovementVector {get => Movement.MoveVector; protected set => Movement.MoveVector = value; }
-    public void Init(MobMovement movement, Transform current, Transform target)
+    public void Init(MobMovement movement, Transform current)
     {
         Movement = movement;
-        Target = target;
         CurrentTransform = current;
         OnStart();
     }
     private void Update()
     {
         if(Target == null) return;
-        UpdateTargetDistance();
         UpdateMovementAnimator();
     }
-    protected void UpdateTargetDistance() => TargetDistance = Target.transform.position - CurrentTransform.position;
-    public Transform GetTarget() => Target;
     protected virtual void UpdateMovementAnimator()
     {
         Movement.animator.SetInteger("Vertical", (int)TargetDistance.y);

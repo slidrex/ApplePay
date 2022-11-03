@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class MobMovement : EntityMovement
 {
-    [SerializeField] private Transform target;
+    public Transform Target;
     [Header("Movement Patterns")]
-    public System.Collections.Generic.List<MovePatterns> Patterns = new System.Collections.Generic.List<MovePatterns>();
+    public System.Collections.Generic.List<MovementPattern> Patterns = new System.Collections.Generic.List<MovementPattern>();
     private bool disablePatterns;
     [SerializeField] private byte[] activePatterns = new byte[1];
-    private MovePatterns[] GetActivePatterns()
+    private MovementPattern[] GetActivePatterns()
     {
-        MovePatterns[] patterns = new MovePatterns[activePatterns.Length];
+        MovementPattern[] patterns = new MovementPattern[activePatterns.Length];
         for(int i = 0; i < activePatterns.Length; i++)
         {
             byte index = activePatterns[i];
@@ -25,7 +25,6 @@ public class MobMovement : EntityMovement
         disablePatterns = disable;
         if(disable) MoveVector = Vector2.zero;
     }
-    protected void SetTarget(Transform target) => this.target = target;
     protected override void Start()
     {
         base.Start();
@@ -33,19 +32,19 @@ public class MobMovement : EntityMovement
     }
     protected void InitPatterns()
     {
-        foreach(MovePatterns movePattern in Patterns) movePattern.Init(this, transform, target);
+        foreach(MovementPattern movePattern in Patterns) movePattern.Init(this, transform);
     }
     protected override void Update()
     {
         base.Update();
-        if(!isDisabled && !disablePatterns) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnUpdate();
+        if(!isDisabled && !disablePatterns) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.OnUpdate();
     }
     protected override void OnSpeedUpdate()
     {
-        if(!isDisabled && !disablePatterns) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnSpeedUpdate();
+        if(!isDisabled && !disablePatterns) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.OnSpeedUpdate();
     }
     private void OnCollisionEnter2D(Collision2D collision) 
     {
-        if(!isDisabled && !disablePatterns) foreach(MovePatterns movePattern in GetActivePatterns()) movePattern.OnCollision(collision);
+        if(!isDisabled && !disablePatterns) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.OnCollision(collision);
     }
 }
