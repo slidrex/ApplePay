@@ -9,7 +9,7 @@ abstract public class EntityMovement : MonoBehaviour
     [Header("Entity Movement")]
     public float CurrentSpeed = Mathf.PI;
     [ReadOnly] public Vector2 MoveVector;
-    public Rigidbody2D Rigidbody;
+    [HideInInspector] public Rigidbody2D Rigidbody;
     [HideInInspector] public bool ConstraintRotation;
     private float curConstraintDuration;
     protected virtual void Start()

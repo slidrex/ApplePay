@@ -16,7 +16,6 @@ public abstract class MovementPattern : MonoBehaviour
     private void Update()
     {
         if(Target == null) return;
-        UpdateMovementAnimator();
     }
     protected virtual void UpdateMovementAnimator()
     {
@@ -34,7 +33,7 @@ public abstract class MovementPattern : MonoBehaviour
     }
     protected void UpdateRigidbodyVector() => SetRigidbodyVelocity(MovementVector * Movement.CurrentSpeed);
     protected void SetRigidbodyVelocity(Vector2 velocity) => Movement.Rigidbody.velocity = velocity;
-    public virtual void OnUpdate() { }
+    public virtual void OnUpdate() {UpdateMovementAnimator(); }
     public virtual void OnStart() { }
     public virtual void OnSpeedUpdate() { }
     public virtual void OnCollision(Collision2D collision) { }

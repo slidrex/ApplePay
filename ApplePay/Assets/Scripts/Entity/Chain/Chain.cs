@@ -4,6 +4,7 @@ public class Chain : AttackingMob
 {
 
     [SerializeField] private GameObject dust;
+    public GameObject UltimateTrail;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float radius;
     private Vector2 dist => Target.transform.position - transform.position;
@@ -26,14 +27,14 @@ public class Chain : AttackingMob
     private void RandomizeAttack() => states = (ChainStates)Pay.Functions.Generic.GetRandomizedEnum(states, 1, System.Enum.GetValues(states.GetType()).Length);
     private void Timer()
     {
-        if(curTime < maxTime)
+        if(curTime < maxTime && states == ChainStates.Idle)
         {
             curTime += Time.deltaTime;
             if(curTime > maxTime)
             {
                 RandomizeAttack();
                 AttackStates();
-                maxTime = Random.Range(2.7f, 3f);
+                maxTime = Random.Range(1.25f, 1.4f);
                 curTime = 0;
             }
         }
