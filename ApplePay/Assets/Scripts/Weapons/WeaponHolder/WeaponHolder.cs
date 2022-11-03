@@ -12,8 +12,7 @@ public abstract class WeaponHolder : MonoBehaviour
     protected virtual void UpdateWeaponList() { }
     public virtual void Activate(Creature attacker, ref WeaponItem activeWeapon, Vector2 endTrajectory, Transform target, out Projectile projectile)
     {
-        ActivateHandler(attacker, transform.position, endTrajectory, ref activeWeapon, target, out Projectile sentProjectile);
-        projectile = sentProjectile;
+        ActivateHandler(attacker, transform.position, endTrajectory, ref activeWeapon, target, out projectile);
     }
     public virtual void Activate(Creature attacker, ref WeaponItem activeWeapon, Vector2 endTrajectory, Transform target) => ActivateHandler(attacker, transform.position, endTrajectory, ref activeWeapon, target, out Projectile projectile);
     public virtual void Activate(Creature attacker, ref WeaponItem activeWeapon, Vector2 beginTrajectory, Vector2 endTrajectory, Transform target) => ActivateHandler(attacker, beginTrajectory, endTrajectory, ref activeWeapon, target, out Projectile projectile);
@@ -28,10 +27,8 @@ public abstract class WeaponHolder : MonoBehaviour
         activeWeapon.WeaponInfo.AnimationInfo.timeSinceUse = 0;
 
         SetFacing(beginTrajectory, endTrajectory, WeaponPlace.FreezeHorizontal, WeaponPlace.FreezeVertical);
-        WeaponPlace.WeaponActivate(attacker, beginTrajectory, endTrajectory, activeWeapon, target, out Projectile _projectile);
+        WeaponPlace.WeaponActivate(attacker, beginTrajectory, endTrajectory, activeWeapon, target, out projectile);
         OnWeaponActivate(activeWeapon, true);
-        
-        projectile = _projectile;
     }
     public virtual void OnWeaponActivate(WeaponItem weapon, bool status) {}
     private void SetFacing(Vector2 beginPosition, Vector2 endPosition, bool freezeHorizontal, bool freezeVertical)

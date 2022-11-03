@@ -7,7 +7,7 @@ public class RandPointMove : PointMovement
     private Vector2 GetRandCoord()
     {
         if(CurrentTransform.GetComponent<Creature>().CurrentRoom != null)
-            return CurrentTransform.GetComponent<Creature>().CurrentRoom.GetRandomRoomSpace();
+            return CurrentTransform.GetComponent<Creature>().CurrentRoom.GetRandomFreeRoomSpace();
         return CurrentTransform.position;
     }
 }

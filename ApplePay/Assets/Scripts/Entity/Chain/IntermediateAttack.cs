@@ -15,7 +15,6 @@ public class IntermediateAttack : StateMachineBehaviour
             awaken = true;
         }
         disableID = mobMovement.AddDisable();
-        animator.GetComponent<CrossMovement>().enabled = false;
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

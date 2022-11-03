@@ -42,7 +42,7 @@ public static class RoomDefiner
                 int rand = Random.Range(0, room.EnvironmentObjectList.Count);
                 if(room.EnvironmentObjectList[rand].SpawnChance > Random.Range(0f, 1f))
                 {
-                    MonoBehaviour.Instantiate(room.EnvironmentObjectList[rand].Object, room.GetRandomRoomSpace(), Quaternion.identity);
+                    MonoBehaviour.Instantiate(room.EnvironmentObjectList[rand].Object, room.GetRandomFreeRoomSpace(), Quaternion.identity);
                     instantiated = true;
                 }
             }

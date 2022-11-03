@@ -7,9 +7,9 @@ public class StraightProjectileWeapon : RangeWeapon
     {
         LinkAttacker(attacker);
         projectile = Instantiate(FireObject.gameObject, GetFirePointPos(), Quaternion.Euler(0, 0, Vector2.Angle(originPosition, attackPosition))).GetComponent<Projectile>();
-        
-        Physics2D.IgnoreCollision(attacker.gameObject.GetComponent<Collider2D>(), projectile.gameObject.GetComponent<Collider2D>());
-        print("collision ignored!" + "(" + " " + attacker.gameObject.GetComponent<Collider2D>() + " " + projectile.gameObject.GetComponent<Collider2D>() + ")");
         projectile.Setup((attackPosition - originPosition).normalized, attacker, target);
+        
+        Physics2D.IgnoreCollision(Owner.gameObject.GetComponent<Collider2D>(), projectile.gameObject.GetComponent<Collider2D>());
+        
     }
 }

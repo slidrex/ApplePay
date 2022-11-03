@@ -20,7 +20,7 @@ public class ContractMark : RoomMark
                 if(curObject.SpawnChance > Random.Range(0, 1f))
                 {
                     yield return new WaitForSecondsRealtime(Random.Range(curObject.MinSpawnInterval, curObject.MaxSpawnInterval));
-                    Instantiate(curObject.Object, room.GetRandomRoomSpace(), Quaternion.identity);
+                    Instantiate(curObject.Object, room.GetRandomFreeRoomSpace(), Quaternion.identity);
                 }
             }
         }

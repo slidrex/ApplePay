@@ -5065,7 +5065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0bfcc93cc1ce744859610b7f249ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentSpeed: 3.1415927
+  CurrentSpeed: 3.8
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0

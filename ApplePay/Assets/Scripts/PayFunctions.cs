@@ -66,7 +66,7 @@ namespace Pay.Functions
         ///<summary>Clamps length of the compenents of specified vector.</summary>
         public static Vector2 ClampVectorComponents(Vector2 vector, float min, float max) => new Vector2(Mathf.Clamp(Mathf.Abs(vector.x), min, max), Mathf.Clamp(Mathf.Abs(vector.y), min, max));
     ///<summary>
-    ///Rotates vector along Z axis.
+    ///Rotates vector along Z axis clockwise.
     ///</summary>
     public static Vector2 RotateVector(Vector2 vector, float angle) => Quaternion.AngleAxis(angle, Vector3.forward) * vector;
     public enum VectorComponent2D

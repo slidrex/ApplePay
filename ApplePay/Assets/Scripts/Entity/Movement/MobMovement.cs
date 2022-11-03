@@ -19,7 +19,12 @@ public class MobMovement : EntityMovement
         }
         return patterns;
     }
-    public void DisablePatterns(bool disable) => disablePatterns = disable;
+    public void SetActivePatterns(params byte[] patterns) => activePatterns = patterns;
+    public void DisablePatterns(bool disable)
+    {
+        disablePatterns = disable;
+        if(disable) MoveVector = Vector2.zero;
+    }
     protected void SetTarget(Transform target) => this.target = target;
     protected override void Start()
     {

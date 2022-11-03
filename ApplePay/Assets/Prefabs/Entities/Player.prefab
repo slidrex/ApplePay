@@ -114,13 +114,14 @@ GameObject:
   - component: {fileID: 2788200553323671117}
   - component: {fileID: 2788200553323671119}
   - component: {fileID: 2788200553323671116}
-  - component: {fileID: 2117038651}
   - component: {fileID: 5767637346845011317}
   - component: {fileID: 1849077798739181968}
   - component: {fileID: 8189285200546192267}
   - component: {fileID: 1463861389}
   - component: {fileID: 3917139913567164824}
   - component: {fileID: 2117038652}
+  - component: {fileID: 2117038651}
+  - component: {fileID: 6659970789127294732}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -236,32 +237,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!61 &2117038651
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2788200553323671107}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.003472373, y: -0.11907742}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.36, y: 0.36}
-    newSize: {x: 0.36, y: 0.36}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.07475549, y: 0.09036325}
-  m_EdgeRadius: 0
 --- !u!114 &5767637346845011317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,7 +253,7 @@ MonoBehaviour:
   deathParticle: {fileID: 0}
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
-  MaxHealth: 100
+  MaxHealth: 1000
   CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
@@ -306,7 +281,6 @@ MonoBehaviour:
   ChangeAmount: -10
   ChangeHealthKey: 103
   effectCell: {fileID: 5231069705747123276, guid: 0e846913c595c3c44a676e3ea63f75d4, type: 3}
-  attributes: []
 --- !u!114 &1849077798739181968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +352,62 @@ MonoBehaviour:
     _hanlders: []
   InventoryOwner: {fileID: 5767637346845011317}
 --- !u!114 &2117038652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e260ef1e67a9f48a10ce3e9ea9df68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponPlace: {fileID: 4452132853288108545}
+  Disable: 0
+  weaponList: {fileID: 1334837816}
+  InventorySystem: {fileID: 3917139913567164824}
+  repositoryName: weapons
+  ActiveWeaponIndex: 0
+  targetForce: 0
+  minForce: 0
+  maxForce: 0
+  forceAddSpeed: 0
+  dropOffset: 0
+  holder: {fileID: 0}
+  indicator: {fileID: 0}
+  droppedItemBlockTime: 0
+  switchKey: 113
+  dropKey: 9
+  activateKey: 323
+  weaponPlaceSlot: {fileID: 0}
+--- !u!61 &2117038651
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0018694196, y: -0.075580135}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.36, y: 0.36}
+    newSize: {x: 0.36, y: 0.36}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.083029136, y: 0.16530868}
+  m_EdgeRadius: 0
+--- !u!114 &6659970789127294732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

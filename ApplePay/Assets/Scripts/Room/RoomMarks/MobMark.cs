@@ -23,7 +23,8 @@ public class MobMark : RoomMark
                 int index = Random.Range(0, room.MobList.Length);
                 if(room.MobList[index].SpawnChance >= rand)
                 {
-                    MonoBehaviour.Instantiate(room.MobList[index].Mob, room.GetRandomRoomSpace(), Quaternion.identity);
+                    Debug.Log(room.GetRandomFreeRoomSpace());
+                    MonoBehaviour.Instantiate(room.MobList[index].Mob, room.GetRandomFreeRoomSpace(), Quaternion.identity);
                     instantiated = true;
                 }
             }

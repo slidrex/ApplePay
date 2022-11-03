@@ -19,7 +19,6 @@ public class Room : MonoBehaviour
         SetupBounds();
         LinkDoors();
     }
-    private void Start() => DefineRoom();
     private void SetupBounds()
     {
         for(int i = 0; i < FreeRoomSpace.Length; i++) FreeRoomSpace[i].RelatedTransform = transform;
@@ -36,7 +35,7 @@ public class Room : MonoBehaviour
         RoomDefiner.ActivateRoomMarks(this);
     }
     public bool IsInsideRoom(Vector2 position) =>  RoomConfiners.IsInsideBound(position);
-    public Vector2 GetRandomRoomSpace() => FreeRoomSpace[Random.Range(0, FreeRoomSpace.Length)].GetRandomSpace();
+    public Vector2 GetRandomFreeRoomSpace() => FreeRoomSpace[Random.Range(0, FreeRoomSpace.Length)].GetRandomSpace();
     [System.Serializable]
     public struct EnvironmentObject
     {
@@ -72,7 +71,7 @@ public class Room : MonoBehaviour
         ///</summary>
         public Vector2[] GetCorners() 
         {
-            Vector2[] sourceCorners = 
+            Vector2[] sourceCorners = new Vector2[4]
             {
                 new Vector2(GetZeroBoundPosition().x - GetScale().x / 2, GetZeroBoundPosition().y + GetScale().y / 2),
                 GetZeroBoundPosition() + GetScale() / 2,
@@ -103,7 +102,7 @@ public class Room : MonoBehaviour
         public Vector2 GetRandomSpace()
         {
             Vector2[] corners = GetCorners();
-            return Pay.Functions.Math.RotateVector(new Vector2(Random.Range(corners[0].x, corners[1].x), Random.Range(corners[2].y, corners[1].y)) - (Vector2)RelatedTransform.transform.position, RelatedTransform.eulerAngles.z);
+            return Pay.Functions.Math.RotateVector(new Vector2(Random.Range(corners[0].x, corners[1].x), Random.Range(corners[2].y, corners[1].y)), RelatedTransform.eulerAngles.z);
         }
     }
 }

@@ -10,18 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fba5ebc592f5644b816fb1d3157c88e, type: 3}
-  m_Name: main
+  m_Name: one_defined_room
   m_EditorClassIdentifier: 
   SpawnRooms:
   - SpawnerRoom:
       room: {fileID: 2949683388831534208, guid: c2275ca7af267734dbec0e049e134086, type: 3}
-      availableRotations: 0100
-    spawnRate: 89
-  - SpawnerRoom:
-      room: {fileID: 2873492361910506121, guid: 35ba26194e973e74cb65f1f182476fcc, type: 3}
-      availableRotations: 0100
-    spawnRate: 39
-  RoomCount: 6
+      availableRotations: 0001
+    spawnRate: 0
+  RoomCount: 1
   CellSize: 50
   StartGridComplexity: 1
   GridComplexityLimit: 1

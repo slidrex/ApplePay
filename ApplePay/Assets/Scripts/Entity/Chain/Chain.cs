@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Chain : AttackingMob
 {
+
     [SerializeField] private GameObject dust;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float radius;
