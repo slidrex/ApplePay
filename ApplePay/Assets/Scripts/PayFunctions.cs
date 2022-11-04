@@ -246,3 +246,7 @@ public class Physics
 }
 
 }
+public static class PayDebug
+{
+    public static void Out(this object str) => Debug.Log(str);
+}

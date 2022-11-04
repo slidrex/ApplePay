@@ -16,7 +16,7 @@ public class WeaponItem : Item
 public struct WeaponInfo
 {
     public WeaponAnimationSettings AnimationParameters;
-    public ItemDisplay Display;
+    public WeaponDisplay Display;
     public WeaponAnimationInfo AnimationInfo;
     public float GetAnimationTime() => AnimationParameters.AnimationTime;
     public float GetAttackInterval() => AnimationParameters.AttackInterval;

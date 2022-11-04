@@ -964,7 +964,6 @@ MonoBehaviour:
   itemHoverableObject: {fileID: 446314027}
   CharmItem:
     Item: {fileID: 11400000, guid: 7e74c561f7468784ba88d782d4adac2f, type: 2}
-    ActiveIndex: 0
 --- !u!50 &446314029
 Rigidbody2D:
   serializedVersion: 4
@@ -1702,7 +1701,6 @@ MonoBehaviour:
   itemHoverableObject: {fileID: 892326712}
   CharmItem:
     Item: {fileID: 11400000, guid: d285c630a8e574448b44a9757ff6df0d, type: 2}
-    ActiveIndex: 0
 --- !u!61 &892326714
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1879,14 +1877,14 @@ RectTransform:
   m_GameObject: {fileID: 937445608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0}
   m_Children: []
   m_Father: {fileID: 1105521375}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 2.4995384, y: -171.35501}
+  m_AnchoredPosition: {x: -12, y: -93}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.50000054, y: 0.5000002}
 --- !u!114 &937445610
@@ -1941,6 +1939,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ImageRenderer: {fileID: 937445610}
   indicator: {fileID: 11400000, guid: 44a602ae3b6f9624987185df3cc685c7, type: 2}
+  textConfiguration:
+    Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    Color: {r: 1, g: 0.5890985, b: 0.5890985, a: 1}
+    LineSpacing: 0
+  textDuration: 2
+  fadeBehaviour:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.642851
+      outSlope: 7.642851
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.120007336
+      value: 0.9171982
+      inSlope: 3.9557712
+      outSlope: 3.9557712
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5622867
+      value: 1.036035
+      inSlope: -0.14100881
+      outSlope: -0.14100881
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.96899414
+      value: -0.002128601
+      inSlope: -2.5526052
+      outSlope: -2.5526052
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &958765758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2197,7 +2242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1014642742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2248,12 +2293,15 @@ MonoBehaviour:
     DropPrefab: {fileID: 1014642742}
     WeaponInfo:
       AnimationParameters:
-        AttackInterval: 0.2
+        AttackInterval: 1
         AnimationTime: 0.2
         VelocityMultiplier: 10
         AngularVelocityMultiplier: 1
       Display:
         InventorySprite: {fileID: 21300000, guid: 5fdeaafa4d566eb4bac87952d9290b3a, type: 3}
+        Description:
+          Name: Corrupt Sword
+          Description: 
 --- !u!50 &1014642743
 Rigidbody2D:
   serializedVersion: 4
@@ -2450,6 +2498,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042998792}
   m_CullTransparentMesh: 1
+--- !u!114 &1096775599 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+  m_PrefabInstance: {fileID: 1849077798889129510}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e260ef1e67a9f48a10ce3e9ea9df68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1105521374
 GameObject:
   m_ObjectHideFlags: 0
@@ -3509,7 +3568,6 @@ MonoBehaviour:
   itemHoverableObject: {fileID: 1595865736}
   CharmItem:
     Item: {fileID: 11400000, guid: 229b480149731d34d8aca467879d8659, type: 2}
-    ActiveIndex: 0
 --- !u!50 &1595865738
 Rigidbody2D:
   serializedVersion: 4
@@ -3700,7 +3758,6 @@ MonoBehaviour:
   itemHoverableObject: {fileID: 1619376355}
   CharmItem:
     Item: {fileID: 11400000, guid: e5e8bca678b170b4199ff1985e897cc0, type: 2}
-    ActiveIndex: 0
 --- !u!50 &1619376350
 Rigidbody2D:
   serializedVersion: 4
@@ -3923,7 +3980,6 @@ MonoBehaviour:
   itemHoverableObject: {fileID: 1718022104}
   CharmItem:
     Item: {fileID: 11400000, guid: dafe9bf7e256ee448b2a406e867b3662, type: 2}
-    ActiveIndex: 0
 --- !u!50 &1718022106
 Rigidbody2D:
   serializedVersion: 4
@@ -4139,7 +4195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1753619838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4147,7 +4203,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753619837}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2b83533e71d42a4daa2ee03ca1628f6, type: 3}
   m_Name: 
@@ -4624,7 +4680,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2120200233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4680,7 +4736,10 @@ MonoBehaviour:
         VelocityMultiplier: 16
         AngularVelocityMultiplier: 1
       Display:
-        InventorySprite: {fileID: 21300000, guid: 5fdeaafa4d566eb4bac87952d9290b3a, type: 3}
+        InventorySprite: {fileID: 0}
+        Description:
+          Name: 
+          Description: 
 --- !u!50 &2120200234
 Rigidbody2D:
   serializedVersion: 4
@@ -4806,7 +4865,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120200232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.01, y: -0.01, z: 1}
+  m_LocalPosition: {x: 0.25, y: -2.15, z: 1}
   m_LocalScale: {x: 6, y: 6, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4960,6 +5019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chains
       objectReference: {fileID: 0}
+    - target: {fileID: 3041076936036105730, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5602800900381002125, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -5013,6 +5076,74 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1124329982}
     m_Modifications:
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Holder
+      value: 
+      objectReference: {fileID: 1124329983}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: holder
+      value: 
+      objectReference: {fileID: 1124329983}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: MaxForce
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: MinForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: indicator
+      value: 
+      objectReference: {fileID: 11400000, guid: 44a602ae3b6f9624987185df3cc685c7, type: 2}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: dropOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: ForceAddSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: dropIndicator
+      value: 
+      objectReference: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: weaponPlaceSlot
+      value: 
+      objectReference: {fileID: 937445612}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.Holder
+      value: 
+      objectReference: {fileID: 1124329983}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: droppedItemBlockTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.MaxForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.MinForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.dropOffset
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.ForceAddSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.dropIndicator
+      value: 
+      objectReference: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
+    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.droppedItemBlockTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1849077798739181968, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: holder
       value: 
@@ -5065,6 +5196,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[1]._hanlders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[1]._hanlders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1096775599}
     - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: HealthBar
       value: 
@@ -5074,13 +5213,65 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1128235972}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Holder
+      value: 
+      objectReference: {fileID: 1124329983}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: holder
       value: 
       objectReference: {fileID: 1124329983}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: MaxForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: MinForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: dropOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: ForceAddSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: dropIndicator
+      value: 
+      objectReference: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: weaponPlaceSlot
       value: 
       objectReference: {fileID: 937445612}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: weapons.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.Holder
+      value: 
+      objectReference: {fileID: 1124329983}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.MaxForce
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.MinForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.ForceAddSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.dropIndicator
+      value: 
+      objectReference: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.droppedItemBlockTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8189285200546192267, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: menuComponents
       value: 

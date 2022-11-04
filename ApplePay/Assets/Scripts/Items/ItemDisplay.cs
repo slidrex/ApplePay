@@ -4,6 +4,8 @@ public class ItemDisplay
 {
     public UnityEngine.Sprite InventorySprite;
 }
+
+[System.Serializable]
 public class WeaponDisplay : ItemDisplay
 {
     public ItemDescription Description;

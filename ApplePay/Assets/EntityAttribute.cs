@@ -118,12 +118,6 @@ public static class EntityAttributeExtension
             }
         }
     }
-    private static System.Collections.IEnumerator DestroyClock(TagAttribute attribute, float time)
-    {
-        yield return new UnityEngine.WaitForSecondsRealtime(time);
-        UnityEngine.Debug.Log("Removed!");
-        if(attribute.AttachedAttribute != null) attribute.Remove();
-    }
     ///<summary> Adds a mask that add change applies for each tagged attribute with the specified tag. </summry>
     public static AttributeMask AddTaggedMultiplierAttributeMask(this EntityAttribute attribute, float value, AttributeOperation operation, string maskedTag) 
     {
@@ -150,7 +144,6 @@ public static class EntityAttributeExtension
     {
         EntityAttribute attrib = null;
         entity.Attributes.TryGetValue(name, out attrib);
-        if(attrib == null) UnityEngine.Debug.LogWarning("Attribute \"" + name + "\" hasn't been found.");
         return attrib;
     }
     public static void Remove(this TagAttribute attribute)
