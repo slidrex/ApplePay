@@ -6,6 +6,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
     [SerializeField, Tooltip("The object which stores weapon drop object in inventory.")] private Transform weaponList;
     public InventorySystem InventorySystem;
     [SerializeField] private string repositoryName;
+    protected abstract Vector2 DropDirection { get; }
     protected InventoryRepository Repository; 
     [Header("Weapon Switch")]
     [SerializeField, ReadOnly] protected byte ActiveWeaponIndex;
@@ -37,6 +38,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
     {
         Debug.Log("Weapon repository was updated! Item " + item + " was " + feedback + " at index " + index + "!");
         WeaponItem charmItem = (WeaponItem)item;
+        
         if(feedback == RepositoryChangeFeedback.Added) OnAddItem(charmItem, index);
     }
     protected WeaponItem GetActiveWeapon()
@@ -74,7 +76,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
     protected virtual void DropStart()
     {
         if(Repository.Items.Length == 0 || Repository.Items[ActiveWeaponIndex] == null) return;
-        IndicatorStartup();
+        //IndicatorStartup();
         targetForce = 0;
     }
     private void IndicatorStartup()
@@ -89,7 +91,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
     protected void DropPreparation() 
     {
         if(currentDropIndicatorObject == null) DropStart();
-        Pay.UI.UIManager.Indicator.UpdateIndicator(currentDropIndicatorObject, targetForce, maxForce);
+        //Pay.UI.UIManager.Indicator.UpdateIndicator(currentDropIndicatorObject, targetForce, maxForce);
         targetForce = Mathf.Clamp(targetForce + forceAddSpeed * Time.deltaTime, 0, maxForce);
     }
     protected void DropRelease(byte index)
@@ -101,8 +103,8 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
     private void DropHandler(byte index)
     {
         if(Repository.Items.Length == 0) return;
-        InstantiateDroppedObject((WeaponItem)Repository.Items[index], SetDropDirection(), SetDropDirection() *(targetForce + minForce));
-        if(currentDropIndicatorObject != null) Pay.UI.UIManager.RemoveUI(currentDropIndicatorObject);
+        InstantiateDroppedObject((WeaponItem)Repository.Items[index], DropDirection, DropDirection *(targetForce + minForce));
+        //if(currentDropIndicatorObject != null) Pay.UI.UIManager.RemoveUI(currentDropIndicatorObject);
         targetForce = 0;
         OnActiveWeaponUpdate();
     }
@@ -122,5 +124,4 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
     ///Calls when active weapon has changed (Not calls if replaced weapon is equal to current).
     ///</summary>
     protected virtual void OnActiveWeaponUpdate() {}
-    protected abstract Vector2 SetDropDirection();
 }

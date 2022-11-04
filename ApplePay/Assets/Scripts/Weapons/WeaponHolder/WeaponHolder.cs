@@ -2,9 +2,11 @@ using UnityEngine;
 public abstract class WeaponHolder : MonoBehaviour
 {
     [Header("Weapon Holder")]
+    [SerializeField] protected Creature Owner;
     public WeaponPlace WeaponPlace;
     [HideInInspector] public bool Disable; 
     private const float additionalFreezeStateTime = .5f;
+    private void Start() => Owner = GetComponent<Creature>();
     protected virtual void Update()
     {
         if(!Disable) UpdateWeaponList();

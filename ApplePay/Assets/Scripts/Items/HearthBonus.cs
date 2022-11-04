@@ -5,11 +5,11 @@ public class HearthBonus : CollectableBonus
     [Header("Hearth Bonus")]
     public GameObject BonusAnimObj;
     public int HealAmount;
-    public override void Collect(Collider2D collision, ref bool picked)
+    public override void CollisionRequest(Collision2D collision, ref bool collectStatus)
     {
-        Creature picker = collision.GetComponent<Creature>();
+        Creature picker = collision.gameObject.GetComponent<Creature>();
         if(picker == null) return;
-        picked = true;
+        collectStatus = true;
         Transform magnitizeObj = null;
         Animator hbAnim = null;
         if(picker.HealthBar != null)
@@ -28,8 +28,8 @@ public class HearthBonus : CollectableBonus
         }
         else
         {
-            collision.GetComponent<Creature>().ChangeHealth(HealAmount);
+            collision.gameObject.GetComponent<Creature>().ChangeHealth(HealAmount);
         }
-        base.Collect(collision, ref picked);
+        SendCollectRequest(collision, collectStatus);
     }
 }

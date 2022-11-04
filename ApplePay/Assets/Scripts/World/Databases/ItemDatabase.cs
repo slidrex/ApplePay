@@ -42,7 +42,7 @@ public class CharmItem : Item
         return CharmType.Base;
     }
     }
-    public byte ActiveIndex;
+    public byte ActiveIndex { get; set; }
     public Charm GetActiveCharm()
     {
         if(Type == CharmType.Base) return (Charm)Item;

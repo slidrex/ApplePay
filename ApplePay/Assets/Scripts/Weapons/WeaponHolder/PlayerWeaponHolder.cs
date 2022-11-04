@@ -7,6 +7,7 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     [SerializeField] private KeyCode dropKey;
     [SerializeField] private KeyCode activateKey;
     [SerializeField] private WeaponPlaceSlot weaponPlaceSlot;
+    protected override Vector2 DropDirection => (Pay.Functions.Generic.GetMousePos(Camera.main) - (Vector2)transform.position).normalized;
     protected override void Update()
     {
         base.Update();
@@ -20,7 +21,7 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
         {
             WeaponItem current = GetActiveWeapon();
             
-            Activate(GetComponent<Creature>(), ref current, Pay.Functions.Generic.GetMousePos(Camera.main), null, out Projectile projectile);
+            Activate(Owner, ref current, Pay.Functions.Generic.GetMousePos(Camera.main), null, out Projectile projectile);
         }
         if(GetActiveWeapon() != null)
         {
@@ -35,12 +36,11 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     }
     public override void OnWeaponActivate(WeaponItem weapon, bool status)
     {
-        weaponPlaceSlot?.RemoveIndicator();
-        if(weapon != null) weaponPlaceSlot?.CreateSlotIndicator(holder);
+        //weaponPlaceSlot?.RemoveIndicator();
+        //if(weapon != null) weaponPlaceSlot?.CreateSlotIndicator(holder);
     }
     protected override void OnActiveWeaponUpdate()
     {
-        weaponPlaceSlot.SetItem(null);
         weaponPlaceSlot.RemoveSlotUI();
         if(GetActiveWeapon() != null)
         {
@@ -48,5 +48,4 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
             weaponPlaceSlot.SetItem(GetActiveWeapon().WeaponInfo.Display.InventorySprite);
         }
     }
-    protected override Vector2 SetDropDirection() => (Pay.Functions.Generic.GetMousePos(Camera.main) - (Vector2)transform.position).normalized;
 }
