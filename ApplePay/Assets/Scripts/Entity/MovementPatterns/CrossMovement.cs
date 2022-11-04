@@ -6,6 +6,7 @@ public class CrossMovement : MovementPattern
     private float currentDirectionChangeFrequency;
     public override void OnUpdate()
     {
+        base.OnUpdate();
         if(directionChangeFrequency > currentDirectionChangeFrequency)
         {
             currentDirectionChangeFrequency += Time.deltaTime;

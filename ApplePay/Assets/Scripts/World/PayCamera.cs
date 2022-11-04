@@ -6,7 +6,7 @@ namespace Pay.Camera
 {
     public static class CameraShake
     {
-        private static IEnumerator HanleFlatShake(float delay, float force, float shakeTime)
+        private static IEnumerator HandleFlatShake(float delay, float force, float shakeTime)
         {
             CinemachineBasicMultiChannelPerlin cam = MonoBehaviour.FindObjectOfType<CinemachineBasicMultiChannelPerlin>();
 
@@ -64,7 +64,7 @@ namespace Pay.Camera
             camera.m_AmplitudeGain = 0;
             camera.m_FrequencyGain = 0;
         }
-        public static void FlatShake(float delay, float force, float shakeTime) => StaticCoroutine.BeginCoroutine(HanleFlatShake(delay, force, shakeTime));
+        public static void FlatShake(float delay, float force, float shakeTime) => StaticCoroutine.BeginCoroutine(HandleFlatShake(delay, force, shakeTime));
         public static void ChaoticShake(float delay, float minForce, float maxForce, float forcesInterval, float forceCount) => StaticCoroutine.BeginCoroutine(HandleChaoticShake(delay, minForce, maxForce, forcesInterval, forceCount));
         public static void SmoothShake(float delay, float beginForce, float endForce, float addingForceOverTime, float decreasingForceOverTime) => StaticCoroutine.BeginCoroutine(HandleSmoothShake(delay, beginForce, endForce, addingForceOverTime, decreasingForceOverTime));
     }
