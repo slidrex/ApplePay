@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Linq;
 public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHandler
 {
     [Header("Weapon display")]
@@ -66,17 +66,22 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
     }
     protected void OffsetActiveWeapon(int offset)
     {
-        //[][][][] <- array
-        if(Repository.Items.Length != 0) ActiveWeaponIndex = (byte)Mathf.Repeat(ActiveWeaponIndex + offset, Repository.Items.Length);
+        System.Collections.Generic.List<byte> activeSlots = new System.Collections.Generic.List<byte>();
+
+        for(byte i = 0; i < Repository.Items.Length; i++)
+        {
+            if(Repository.Items[i] != null) activeSlots.Add(i);
+        }
+        if(activeSlots.Count > 1)
+            ActiveWeaponIndex = activeSlots[(byte)Mathf.Repeat(activeSlots.IndexOf(activeWeaponIndex) + offset, activeSlots.Count)];
     }
 
     protected void SetActiveWeapon(byte index) => ActiveWeaponIndex = index;
-
     protected void DropPreparation() 
     {
-        print("prep");
         if(DropSettings.currentDropIndicatorObject?.GetObject() == null) 
         {
+            "indicator stared up".Out();
             DropSettings.IndicatorStartup(transform);
         }
         
@@ -88,13 +93,14 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
     {
         DropHandler(index);
         Repository.Items[index] = null;
-        OffsetActiveWeapon(offset);
+        OnActiveWeaponUpdate();
+        OffsetActiveWeapon(1);
     }
     private void DropHandler(byte index)
     {
-        DropSettings.TargetForce = 0;
         InstantiateDroppedObject((WeaponItem)Repository.Items[index], DropDirection, DropDirection *(DropSettings.TargetForce + DropSettings.MinForce));
         Pay.UI.UIManager.RemoveUI(DropSettings.currentDropIndicatorObject);
+        DropSettings.TargetForce = 0;
     }
     private CollectableObject InstantiateDroppedObject(WeaponItem instanceObject, Vector2 offsetDirection, Vector2 force)
     {
@@ -124,7 +130,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
         [SerializeField] internal Pay.UI.UIHolder Holder;
         [SerializeField, ReadOnly] internal float TargetForce;
         [SerializeField] internal Pay.UI.Indicator dropIndicator;
-        internal Pay.UI.IndicatorObject currentDropIndicatorObject;
+        [SerializeField] internal Pay.UI.IndicatorObject currentDropIndicatorObject;
         [SerializeField] internal float droppedItemBlockTime;
         internal void IndicatorStartup(Transform transform)
         {

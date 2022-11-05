@@ -119,7 +119,6 @@ GameObject:
   - component: {fileID: 8189285200546192267}
   - component: {fileID: 1463861389}
   - component: {fileID: 3917139913567164824}
-  - component: {fileID: 2117038652}
   - component: {fileID: 2117038651}
   - component: {fileID: 6659970789127294732}
   m_Layer: 3
@@ -349,38 +348,9 @@ MonoBehaviour:
     _hanlders: []
   - RepositoryLength: 3
     Name: weapons
-    _hanlders: []
+    _hanlders:
+    - {fileID: 6659970789127294732}
   InventoryOwner: {fileID: 5767637346845011317}
---- !u!114 &2117038652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2788200553323671107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e260ef1e67a9f48a10ce3e9ea9df68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WeaponPlace: {fileID: 4452132853288108545}
-  Disable: 0
-  weaponList: {fileID: 1334837816}
-  InventorySystem: {fileID: 3917139913567164824}
-  repositoryName: weapons
-  ActiveWeaponIndex: 0
-  targetForce: 0
-  minForce: 0
-  maxForce: 0
-  forceAddSpeed: 0
-  dropOffset: 0
-  holder: {fileID: 0}
-  indicator: {fileID: 0}
-  droppedItemBlockTime: 0
-  switchKey: 113
-  dropKey: 9
-  activateKey: 323
-  weaponPlaceSlot: {fileID: 0}
 --- !u!61 &2117038651
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -424,15 +394,18 @@ MonoBehaviour:
   weaponList: {fileID: 1334837816}
   InventorySystem: {fileID: 3917139913567164824}
   repositoryName: weapons
-  ActiveWeaponIndex: 0
-  targetForce: 0
-  minForce: 0
-  maxForce: 0
-  forceAddSpeed: 0
-  dropOffset: 0
-  holder: {fileID: 0}
-  indicator: {fileID: 0}
-  droppedItemBlockTime: 0
+  activeWeaponIndex: 0
+  DropSettings:
+    MinForce: 10
+    MaxForce: 60
+    ForceAddSpeed: 5
+    dropOffset: 0
+    Holder: {fileID: 0}
+    TargetForce: 0
+    dropIndicator: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
+    currentDropIndicatorObject:
+      Holder: {fileID: 0}
+    droppedItemBlockTime: 1
   switchKey: 113
   dropKey: 9
   activateKey: 323

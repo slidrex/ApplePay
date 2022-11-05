@@ -1941,51 +1941,11 @@ MonoBehaviour:
   indicator: {fileID: 11400000, guid: 44a602ae3b6f9624987185df3cc685c7, type: 2}
   textConfiguration:
     Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
-    Color: {r: 1, g: 0.5890985, b: 0.5890985, a: 1}
+    Color: {r: 1, g: 0.70230603, b: 0.70230603, a: 1}
     LineSpacing: 0
-  textDuration: 2
-  fadeBehaviour:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 7.642851
-      outSlope: 7.642851
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.120007336
-      value: 0.9171982
-      inSlope: 3.9557712
-      outSlope: 3.9557712
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5622867
-      value: 1.036035
-      inSlope: -0.14100881
-      outSlope: -0.14100881
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 1
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.96899414
-      value: -0.002128601
-      inSlope: -2.5526052
-      outSlope: -2.5526052
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  fadeIn: 1
+  duration: 3
+  fadeOut: 1
 --- !u!1001 &958765758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2498,17 +2458,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042998792}
   m_CullTransparentMesh: 1
---- !u!114 &1096775599 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-  m_PrefabInstance: {fileID: 1849077798889129510}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e260ef1e67a9f48a10ce3e9ea9df68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1105521374
 GameObject:
   m_ObjectHideFlags: 0
@@ -5076,74 +5025,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1124329982}
     m_Modifications:
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: Holder
-      value: 
-      objectReference: {fileID: 1124329983}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: holder
-      value: 
-      objectReference: {fileID: 1124329983}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: MaxForce
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: MinForce
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: indicator
-      value: 
-      objectReference: {fileID: 11400000, guid: 44a602ae3b6f9624987185df3cc685c7, type: 2}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: dropOffset
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: ForceAddSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: dropIndicator
-      value: 
-      objectReference: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: weaponPlaceSlot
-      value: 
-      objectReference: {fileID: 937445612}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: DropSettings.Holder
-      value: 
-      objectReference: {fileID: 1124329983}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: droppedItemBlockTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: DropSettings.MaxForce
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: DropSettings.MinForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: DropSettings.dropOffset
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: DropSettings.ForceAddSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: DropSettings.dropIndicator
-      value: 
-      objectReference: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
-    - target: {fileID: 2117038652, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: DropSettings.droppedItemBlockTime
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1849077798739181968, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: holder
       value: 
@@ -5196,14 +5077,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: StartRepositories.Array.data[1]._hanlders.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: StartRepositories.Array.data[1]._hanlders.Array.data[0]
-      value: 
-      objectReference: {fileID: 1096775599}
     - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: HealthBar
       value: 
@@ -5213,65 +5086,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1128235972}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: Holder
-      value: 
-      objectReference: {fileID: 1124329983}
-    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: holder
-      value: 
-      objectReference: {fileID: 1124329983}
-    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: MaxForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: MinForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: dropOffset
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: ForceAddSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: dropIndicator
-      value: 
-      objectReference: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
-    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: weaponPlaceSlot
       value: 
       objectReference: {fileID: 937445612}
-    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: weapons.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: DropSettings.Holder
       value: 
       objectReference: {fileID: 1124329983}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: DropSettings.MaxForce
-      value: 60
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: DropSettings.MinForce
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: DropSettings.ForceAddSpeed
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: DropSettings.dropIndicator
+      propertyPath: DropSettings.currentDropIndicatorObject.Holder
       value: 
-      objectReference: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
-    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: DropSettings.droppedItemBlockTime
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1124329983}
     - target: {fileID: 8189285200546192267, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: menuComponents
       value: 

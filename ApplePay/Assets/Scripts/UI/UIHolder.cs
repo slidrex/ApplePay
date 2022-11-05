@@ -19,7 +19,7 @@ namespace Pay.UI
                 if(current.curDuration < current.Duration)
                 {
                     current.curDuration += Time.deltaTime;
-                    current.Text.color = new Color(current.Text.color.r, current.Text.color.g, current.Text.color.b, current.AlphaBehaviour.Evaluate(current.curDuration/current.Duration));
+                    current.Text.color = new Color(current.Text.color.r, current.Text.color.g, current.Text.color.b, current.AlphaBehaviour.Evaluate(current.curDuration));
                     textObjects[i] = current;
                 }
                 else
