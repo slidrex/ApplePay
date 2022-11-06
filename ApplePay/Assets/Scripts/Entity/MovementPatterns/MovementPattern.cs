@@ -32,7 +32,7 @@ public abstract class MovementPattern : MonoBehaviour
         }
     }
     protected void UpdateRigidbodyVector() => SetRigidbodyVelocity(MovementVector * Movement.CurrentSpeed);
-    protected void SetRigidbodyVelocity(Vector2 velocity) => Movement.Rigidbody.velocity = velocity;
+    public void SetRigidbodyVelocity(Vector2 velocity) => Movement.Rigidbody.velocity = velocity;
     public virtual void OnUpdate() {UpdateMovementAnimator(); }
     public virtual void OnStart() { }
     public virtual void OnSpeedUpdate() { }

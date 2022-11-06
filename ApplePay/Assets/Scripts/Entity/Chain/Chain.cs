@@ -11,6 +11,7 @@ public class Chain : AttackingMob
     private Vector2 fixedDist;
     private ChainStates states;
     private float maxTime = 2.5f, curTime = 0;
+    private bool stop;
 
     protected override void Start()
     {
@@ -23,8 +24,14 @@ public class Chain : AttackingMob
         base.Update();
         if(dist != Vector2.zero) fixedDist = dist;
         Timer();
+        if(CurrentHealth <= maxTime / 2 && stop == false)
+        {
+            stop = true;
+            states = ChainStates.UltimateAttack;
+            AttackStates();
+        }
     }
-    private void RandomizeAttack() => states = (ChainStates)Pay.Functions.Generic.GetRandomizedEnum(states, 1, System.Enum.GetValues(states.GetType()).Length);
+    private void RandomizeAttack() => states = (ChainStates)Pay.Functions.Generic.GetRandomizedEnum(states, 2, System.Enum.GetValues(states.GetType()).Length);
     private void Timer()
     {
         if(curTime < maxTime && states == ChainStates.Idle)
@@ -51,6 +58,11 @@ public class Chain : AttackingMob
             case ChainStates.TripleAttack:
             {
                 Movement.animator.SetTrigger("TripleAttack");
+                break;
+            }
+            case ChainStates.UltimateAttack:
+            {
+                Movement.animator.SetBool("UltimateAttack", true);
                 break;
             }
         }
@@ -81,11 +93,12 @@ public class Chain : AttackingMob
         Movement.animator.SetInteger("Vertical", (int)fixedDist.y);
     }
     private void ThirdAttack() => Movement.animator.SetTrigger("ThirdAttack");
-    private void OnDrawGizmosSelected() => Gizmos.DrawWireSphere(attackPoint.position, radius);
+    private void OnDrawGizmos() => Gizmos.DrawWireSphere(attackPoint.position, radius);
 }
 enum ChainStates
 {
     Idle,
+    UltimateAttack,
     DoubleAttack,
     TripleAttack
 }
