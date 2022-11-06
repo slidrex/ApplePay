@@ -3,7 +3,7 @@ using System.Linq;
 public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable
 {
     public new PlayerMovement Movement => (PlayerMovement)Movement;
-    public int AttackDamage {get; set;} = 10;
+    public int AttackDamage { get; set; } = 10;
     [Header("Player Entity")]
     [SerializeField] private GameObject EffectList;
     [HideInInspector] public float ChangeAmount;

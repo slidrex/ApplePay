@@ -2,10 +2,10 @@
 
 public struct InventoryRepository
 {
-    public IRepositoryUpdateHandler[] Handlers;
+    public IRepositoryHandler[] Handlers;
     public InventorySystem System;
     public Item[] Items;
-    public InventoryRepository(InventorySystem owner, byte capacity, params IRepositoryUpdateHandler[] handlers)
+    public InventoryRepository(InventorySystem owner, byte capacity, params IRepositoryHandler[] handlers)
     {
         Items = new Item[capacity];
         System = owner;
@@ -16,19 +16,29 @@ public static class InventoryRepositoryExtension
 {
     public static bool AddItem(this InventoryRepository repository, Item item)
     {
+        for(int i = 0; i < repository.Handlers.Length; i++) 
+        {
+            if(repository.Handlers[i] is IRepositoryPreUpdateHandler)
+            {
+                ((IRepositoryPreUpdateHandler)repository.Handlers[i]).OnBeforeRepositoryUpdate();
+            }
+        }
+
         for(int i = 0; i < repository.Items.Length; i++)
         {
             if(repository.Items[i] == null)
             {
                 repository.Items[i] = item;
                 repository.Items[i].OnRepositoryAdded(repository.System);
-                foreach(IRepositoryUpdateHandler handler in repository.Handlers)
+            for(int j = 0; j < repository.Handlers.Length; j++) 
+            {
+                if(repository.Handlers[j] is IRepositoryCallbackHandler)
                 {
-                    handler.OnRepositoryUpdated(item, (byte)i, RepositoryChangeFeedback.Added);
+                    ((IRepositoryCallbackHandler)repository.Handlers[j]).OnRepositoryUpdated(item, (byte)i, RepositoryChangeFeedback.Added);
                 }
+            }
                 return true;
-            } else
-            if(i == repository.Items.Length - 1) UnityEngine.Debug.LogWarning("Repository you are trying to add item to is full!");
+            }
         }
         UnityEngine.Debug.LogWarning("Item hasn't been added!");
         return false;
@@ -48,9 +58,12 @@ public static class InventoryRepositoryExtension
             if(repository.Items[i] == item) 
             {
                 repository.Items[i].OnRepositoryRemoved(repository.System);
-                foreach(IRepositoryUpdateHandler handler in repository.Handlers)
+                for(int j = 0; j < repository.Handlers.Length; j++) 
                 {
-                    handler.OnRepositoryUpdated(item, (byte)i, RepositoryChangeFeedback.Removed);
+                    if(repository.Handlers[j] is IRepositoryCallbackHandler)
+                    {
+                       ((IRepositoryCallbackHandler)repository.Handlers[i]).OnRepositoryUpdated(item, (byte)i, RepositoryChangeFeedback.Removed);
+                    }
                 }
                 repository.Items[i] = null;
                 return true;

@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: The Room
       objectReference: {fileID: 0}
+    - target: {fileID: 4094145185703115748, guid: c2275ca7af267734dbec0e049e134086, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4094145185703115751, guid: c2275ca7af267734dbec0e049e134086, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -266,6 +270,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1598452118539059574, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -383,8 +391,16 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543044857054232802, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241660e841b7c44429c22c777212a08e, type: 3}
@@ -466,6 +482,10 @@ PrefabInstance:
     - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Name
       value: InventorySlot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1598452118539059574, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Sprite
@@ -584,8 +604,16 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543044857054232802, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241660e841b7c44429c22c777212a08e, type: 3}
@@ -605,7 +633,7 @@ GameObject:
   - component: {fileID: 265761821}
   - component: {fileID: 265761823}
   - component: {fileID: 265761822}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Background shade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,6 +711,10 @@ PrefabInstance:
     - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Name
       value: InventorySlot (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1598452118539059574, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Sprite
@@ -801,8 +833,16 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543044857054232802, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241660e841b7c44429c22c777212a08e, type: 3}
@@ -820,7 +860,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 296734519}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -901,7 +941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &446314027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,7 +1004,6 @@ MonoBehaviour:
   itemHoverableObject: {fileID: 446314027}
   CharmItem:
     Item: {fileID: 11400000, guid: 7e74c561f7468784ba88d782d4adac2f, type: 2}
-    ActiveIndex: 0
 --- !u!50 &446314029
 Rigidbody2D:
   serializedVersion: 4
@@ -1106,6 +1145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlot (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1598452118539059574, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1223,8 +1266,16 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543044857054232802, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241660e841b7c44429c22c777212a08e, type: 3}
@@ -1242,7 +1293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 574379430}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1281,7 +1332,7 @@ GameObject:
   - component: {fileID: 671725019}
   - component: {fileID: 671725018}
   - component: {fileID: 671725017}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: HUDCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1383,6 +1434,10 @@ PrefabInstance:
     - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Name
       value: InventorySlot (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1598452118539059574, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Sprite
@@ -1501,8 +1556,16 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543044857054232802, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241660e841b7c44429c22c777212a08e, type: 3}
@@ -1554,7 +1617,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &892326709
 Animator:
   serializedVersion: 3
@@ -1702,7 +1765,6 @@ MonoBehaviour:
   itemHoverableObject: {fileID: 892326712}
   CharmItem:
     Item: {fileID: 11400000, guid: d285c630a8e574448b44a9757ff6df0d, type: 2}
-    ActiveIndex: 0
 --- !u!61 &892326714
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1762,7 +1824,7 @@ GameObject:
   - component: {fileID: 931947518}
   - component: {fileID: 931947519}
   - component: {fileID: 931947520}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Hoverboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1863,7 +1925,7 @@ GameObject:
   - component: {fileID: 937445611}
   - component: {fileID: 937445610}
   - component: {fileID: 937445612}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: WeaponDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1879,14 +1941,14 @@ RectTransform:
   m_GameObject: {fileID: 937445608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0}
   m_Children: []
   m_Father: {fileID: 1105521375}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 2.4995384, y: -171.35501}
+  m_AnchoredPosition: {x: -12, y: -93}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.50000054, y: 0.5000002}
 --- !u!114 &937445610
@@ -1941,6 +2003,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ImageRenderer: {fileID: 937445610}
   indicator: {fileID: 11400000, guid: 44a602ae3b6f9624987185df3cc685c7, type: 2}
+  textConfiguration:
+    Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    Color: {r: 1, g: 0.70230603, b: 0.70230603, a: 1}
+    LineSpacing: 0
+  fadeIn: 1
+  duration: 3
+  fadeOut: 1
 --- !u!1001 &958765758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1955,6 +2024,10 @@ PrefabInstance:
     - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Name
       value: InventorySlot (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1598452118539059574, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Sprite
@@ -2073,8 +2146,16 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543044857054232802, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241660e841b7c44429c22c777212a08e, type: 3}
@@ -2095,7 +2176,7 @@ GameObject:
   - component: {fileID: 985754220}
   - component: {fileID: 985754219}
   - component: {fileID: 985754222}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2197,7 +2278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1014642742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2248,12 +2329,15 @@ MonoBehaviour:
     DropPrefab: {fileID: 1014642742}
     WeaponInfo:
       AnimationParameters:
-        AttackInterval: 0.2
+        AttackInterval: 1
         AnimationTime: 0.2
         VelocityMultiplier: 10
         AngularVelocityMultiplier: 1
       Display:
         InventorySprite: {fileID: 21300000, guid: 5fdeaafa4d566eb4bac87952d9290b3a, type: 3}
+        Description:
+          Name: Corrupt Sword
+          Description: 
 --- !u!50 &1014642743
 Rigidbody2D:
   serializedVersion: 4
@@ -2369,7 +2453,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014642741}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.97, y: 0.62, z: 1}
+  m_LocalPosition: {x: 0.4, y: -0.17, z: 1}
   m_LocalScale: {x: 7.2, y: 7.2, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2386,7 +2470,7 @@ GameObject:
   - component: {fileID: 1042998793}
   - component: {fileID: 1042998795}
   - component: {fileID: 1042998794}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2462,7 +2546,7 @@ GameObject:
   - component: {fileID: 1105521377}
   - component: {fileID: 1105521376}
   - component: {fileID: 1105521378}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2619,7 +2703,7 @@ GameObject:
   - component: {fileID: 1148990787}
   - component: {fileID: 1148990786}
   - component: {fileID: 1148990784}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2867,7 +2951,7 @@ GameObject:
   - component: {fileID: 1321229241}
   - component: {fileID: 1321229245}
   - component: {fileID: 1321229246}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2942,7 +3026,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1353799122}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MangitizedObject
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -2982,6 +3066,10 @@ PrefabInstance:
     - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Name
       value: InventorySlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1598452118539059574, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Sprite
@@ -3100,8 +3188,16 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543044857054232802, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6753852235172591715, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Sprite
@@ -3144,6 +3240,10 @@ PrefabInstance:
     - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Name
       value: InventorySlot (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1598452118539059574, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Sprite
@@ -3262,8 +3362,16 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543044857054232802, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241660e841b7c44429c22c777212a08e, type: 3}
@@ -3297,6 +3405,10 @@ PrefabInstance:
     - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Name
       value: InventorySlot (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1441086147618425554, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1598452118539059574, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_Sprite
@@ -3415,8 +3527,16 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283518038015039573, guid: 241660e841b7c44429c22c777212a08e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543044857054232802, guid: 241660e841b7c44429c22c777212a08e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241660e841b7c44429c22c777212a08e, type: 3}
@@ -3446,7 +3566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1595865736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3509,7 +3629,6 @@ MonoBehaviour:
   itemHoverableObject: {fileID: 1595865736}
   CharmItem:
     Item: {fileID: 11400000, guid: 229b480149731d34d8aca467879d8659, type: 2}
-    ActiveIndex: 0
 --- !u!50 &1595865738
 Rigidbody2D:
   serializedVersion: 4
@@ -3700,7 +3819,6 @@ MonoBehaviour:
   itemHoverableObject: {fileID: 1619376355}
   CharmItem:
     Item: {fileID: 11400000, guid: e5e8bca678b170b4199ff1985e897cc0, type: 2}
-    ActiveIndex: 0
 --- !u!50 &1619376350
 Rigidbody2D:
   serializedVersion: 4
@@ -3923,7 +4041,6 @@ MonoBehaviour:
   itemHoverableObject: {fileID: 1718022104}
   CharmItem:
     Item: {fileID: 11400000, guid: dafe9bf7e256ee448b2a406e867b3662, type: 2}
-    ActiveIndex: 0
 --- !u!50 &1718022106
 Rigidbody2D:
   serializedVersion: 4
@@ -4056,7 +4173,7 @@ GameObject:
   - component: {fileID: 1750216185}
   - component: {fileID: 1750216187}
   - component: {fileID: 1750216186}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4139,7 +4256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1753619838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4299,7 +4416,7 @@ GameObject:
   - component: {fileID: 1809698070}
   - component: {fileID: 1809698071}
   - component: {fileID: 1809698072}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: InventorySlotList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4383,7 +4500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1861607798}
   - component: {fileID: 1861607799}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: AdditionalFields
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4560,7 +4677,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2116521017}
   - component: {fileID: 2116521018}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: MenuElements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4619,12 +4736,12 @@ GameObject:
   - component: {fileID: 2120200233}
   - component: {fileID: 2120200236}
   m_Layer: 0
-  m_Name: Holy Spear
+  m_Name: stalin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2120200233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4671,7 +4788,7 @@ MonoBehaviour:
   damagePerForceUnit: 0
   itemHoverableObject: {fileID: 0}
   WeaponItem:
-    Weapon: {fileID: 11400000, guid: 5799daf03c52dcb4483841aa37dfbf6a, type: 2}
+    Weapon: {fileID: 11400000, guid: b0d64e257ca2c5b488ba13d705bed82f, type: 2}
     DropPrefab: {fileID: 2120200233}
     WeaponInfo:
       AnimationParameters:
@@ -4680,7 +4797,10 @@ MonoBehaviour:
         VelocityMultiplier: 16
         AngularVelocityMultiplier: 1
       Display:
-        InventorySprite: {fileID: 21300000, guid: 5fdeaafa4d566eb4bac87952d9290b3a, type: 3}
+        InventorySprite: {fileID: 21300000, guid: 43692f04e25fe474796c81d325c27874, type: 3}
+        Description:
+          Name: Holy Spear
+          Description: 
 --- !u!50 &2120200234
 Rigidbody2D:
   serializedVersion: 4
@@ -4806,7 +4926,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120200232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.01, y: -0.01, z: 1}
+  m_LocalPosition: {x: 0.25, y: -2.15, z: 1}
   m_LocalScale: {x: 6, y: 6, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4821,7 +4941,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2140621629}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4960,6 +5080,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chains
       objectReference: {fileID: 0}
+    - target: {fileID: 3041076936036105730, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5602800900381002125, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -5065,6 +5189,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[1].RepositoryLength
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: HealthBar
       value: 
@@ -5074,13 +5202,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1128235972}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
-      propertyPath: holder
-      value: 
-      objectReference: {fileID: 1124329983}
-    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: weaponPlaceSlot
       value: 
       objectReference: {fileID: 937445612}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.Holder
+      value: 
+      objectReference: {fileID: 1124329983}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.MaxForce
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.MinForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.ForceAddSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: DropSettings.currentDropIndicatorObject.Holder
+      value: 
+      objectReference: {fileID: 1124329983}
     - target: {fileID: 8189285200546192267, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: menuComponents
       value: 
@@ -5299,6 +5443,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Effect grid
       objectReference: {fileID: 0}
+    - target: {fileID: 7364840510401709135, guid: 3dcebf4e2be0ee4438de15d867a8cc26, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dcebf4e2be0ee4438de15d867a8cc26, type: 3}
 --- !u!1001 &8223013047627996872
@@ -5311,6 +5459,10 @@ PrefabInstance:
     - target: {fileID: 8223013048784590204, guid: c048c8310ba5b334bafefef26d0050bc, type: 3}
       propertyPath: m_Name
       value: Description
+      objectReference: {fileID: 0}
+    - target: {fileID: 8223013048784590204, guid: c048c8310ba5b334bafefef26d0050bc, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8223013048784590205, guid: c048c8310ba5b334bafefef26d0050bc, type: 3}
       propertyPath: m_Pivot.x

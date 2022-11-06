@@ -1,7 +1,7 @@
 using UnityEngine;
 [System.Serializable]
 
-public abstract class RepositoryRenderer : MonoBehaviour, IRepositoryUpdateHandler
+public abstract class RepositoryRenderer : MonoBehaviour, IRepositoryCallbackHandler
 {
     public InventorySystem Inventory;
     [SerializeField] protected string RepositoryName;

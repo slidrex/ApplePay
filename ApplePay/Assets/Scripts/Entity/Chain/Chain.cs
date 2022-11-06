@@ -83,7 +83,6 @@ public class Chain : AttackingMob
     }
     public void AttackEnd()
     {
-        Movement.DisablePatterns(false);
         states = ChainStates.Idle;
     }
     public void UpdateAnimatorParameters()

@@ -137,14 +137,13 @@ namespace PayWorld.Effect
             
             return stateEffect.LinkActions(action, endAction);
         }
-        /*public static StateEffect WeaponConstraint()
+        public static StateEffect WeaponConstraint()
         {
             StateEffect stateEffect = CreateState();
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.GetComponent<WeaponHolder>().Disable = true;
-            StateEffect.EndActionHandler endAction = (Entity entity) => entity.GetComponent<WeaponHolder>().Disable = false;
+            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.GetComponent<WeaponHolder>()?.Disables.Add(0);
+            StateEffect.EndActionHandler endAction = (Entity entity) => entity.GetComponent<WeaponHolder>()?.Disables.Remove(0);
 
             return stateEffect.LinkActions(beginAction, endAction);
         }
-        */
     }
 }

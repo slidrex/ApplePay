@@ -40,12 +40,12 @@ public class InventorySystem : MonoBehaviour
                 if(StartRepositories[i]._hanlders[j] == null) Debug.LogWarning("The script " + StartRepositories[i]._hanlders[j].name + " in" + StartRepositories[i].Name + "repository has no handlers specified.");
 
             }
-            AddRepository(StartRepositories[i].Name, StartRepositories[i].RepositoryLength, StartRepositories[i]._hanlders.Select(x => x.GetComponent<IRepositoryUpdateHandler>()).ToArray());
+            AddRepository(StartRepositories[i].Name, StartRepositories[i].RepositoryLength, StartRepositories[i]._hanlders.Select(x => x.GetComponent<IRepositoryHandler>()).ToArray());
 
         }
         
     }
-    public void AddRepository(string name, byte length, params IRepositoryUpdateHandler[] handlers) => Repositories.Add(name, new InventoryRepository(this, length, handlers));
+    public void AddRepository(string name, byte length, params IRepositoryHandler[] handlers) => Repositories.Add(name, new InventoryRepository(this, length, handlers));
     public InventoryRepository GetRepository(string repositoryName)
     {
         InventoryRepository repository = new InventoryRepository();

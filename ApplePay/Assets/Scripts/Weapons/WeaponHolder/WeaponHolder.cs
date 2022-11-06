@@ -3,11 +3,14 @@ public abstract class WeaponHolder : MonoBehaviour
 {
     [Header("Weapon Holder")]
     public WeaponPlace WeaponPlace;
-    [HideInInspector] public bool Disable; 
+    protected Creature Owner { get; set; }
+    public bool Disable { get => Disables.Count != 0; }
+    public System.Collections.Generic.List<float> Disables = new System.Collections.Generic.List<float>();
     private const float additionalFreezeStateTime = .5f;
+    private void Start() => Owner = GetComponent<Creature>();
     protected virtual void Update()
     {
-        if(!Disable) UpdateWeaponList();
+        UpdateWeaponList();
     }
     protected virtual void UpdateWeaponList() { }
     public virtual void Activate(Creature attacker, ref WeaponItem activeWeapon, Vector2 endTrajectory, Transform target, out Projectile projectile)

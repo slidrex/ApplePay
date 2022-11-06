@@ -24,8 +24,10 @@ namespace Pay.UI
         }
         public static class Text
         {
-            public static void CreateText(UIHolder holder, Canvas canvas, string text, TextConfiguration textConfiguration, float duration, float fadeIn, float fadeOut, out TextObject container, params Pay.UI.Options.TransformProperty[] properties)
+            public static void CreateText(UIHolder holder, Canvas canvas, string text, TextConfiguration textConfiguration, float fadeIn, float duration, float fadeOut, out TextObject container, params Pay.UI.Options.TransformProperty[] properties)
             {
+                AnimationCurve animationCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(fadeIn, 1), new Keyframe(fadeIn + duration, 1), new Keyframe(fadeIn + duration + fadeOut, 0));
+                
                 GameObject obj = MonoBehaviour.Instantiate(holder.TextObject.gameObject, canvas.transform);
                 obj.AddComponent<UITransform>();
                 UnityEngine.UI.Text currentText = obj.GetComponent<UnityEngine.UI.Text>();
@@ -33,7 +35,7 @@ namespace Pay.UI
                 currentText.font = textConfiguration.Font;
                 currentText.color = textConfiguration.Color;
                 currentText.lineSpacing = textConfiguration.LineSpacing;
-                container = new TextObject(holder, currentText, fadeIn, duration, fadeOut);
+                container = new TextObject(holder, currentText, duration + fadeIn + fadeOut, animationCurve);
                 
                 holder.InstantiatedUI.Add(container);
                 UIManager.ActivateProperties(properties, container);
@@ -121,20 +123,16 @@ namespace Pay.UI
     [System.Serializable]
     public class TextObject : UIElement
     {
-        public TextObject(UIHolder holder, UnityEngine.UI.Text text, float fadeIn, float duration, float fadeOut) :  base(holder)
+        public TextObject(UIHolder holder, UnityEngine.UI.Text text, float duration, AnimationCurve alphaBehaviour) :  base(holder)
         {
             Text = text;
-            FadeInDuration = fadeIn;
-            FadeOutDuration = fadeOut;
+            AlphaBehaviour = alphaBehaviour;
             Duration = duration;
         }
-        public UnityEngine.UI.Text Text{get; private set;}
-        public float FadeInDuration{get; private set;}
-        public float Duration {get;private set;}
-        public float FadeOutDuration{get; private set;}
-        internal float curFadeInDuration;
+        public UnityEngine.UI.Text Text { get; private set; }
+        public AnimationCurve AlphaBehaviour { get; private set; }
+        public float Duration { get; private set; }
         internal float curDuration;
-        internal float curFadeOutDuration;
         public override GameObject GetObject() => Text == null ? null : Text.gameObject;
     }
     

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+
 public abstract class CollectableObject : ItemEntity
 {
     [Header("Pick Settings")]
@@ -86,31 +87,29 @@ public abstract class CollectableObject : ItemEntity
         animator = GetComponent<Animator>();
     }
     protected void Levitation() => transform.position = transform.position + Vector3.up * Time.deltaTime  * Mathf.Sin(Time.time * speed) * amplitude;
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        bool collectStatus = true;
-        Collect(collision.collider, ref collectStatus);
-    }
+
     public void AddForce(Vector2 force) => rb.AddForce(force, ForceMode2D.Impulse);
     private void OnCollisionEnter2D(Collision2D collision)
     {
         bool collectStatus = true;
-        Collect(collision.collider, ref collectStatus);
-        if(collectStatus == false) CollideHandle(collision);
+        CollisionRequest(collision, ref collectStatus);
     }
     protected virtual void FixedUpdate() => TargetVelocity = rb.velocity;
-    private void CollideHandle(Collision2D collision)
+    private void OnCollectFail(Collision2D collision)
     {
-        DealCollideDamage(collision.gameObject.GetComponent<Entity>(), (int)(damagePerForceUnit * TargetVelocity.magnitude), null);
+        Entity entity = collision.gameObject.GetComponent<Entity>();
+        if(entity != null) DealCollideDamage(entity, (int)(damagePerForceUnit * TargetVelocity.magnitude), null);
         
         Rigidbody2D targetRB = collision.gameObject.GetComponent<Rigidbody2D>();
         if(targetRB != null) targetRB.AddForce(-collision.GetContact(0).normal * TargetVelocity.magnitude / targetRB.mass, ForceMode2D.Impulse); 
         AddForce(Vector2.Reflect(TargetVelocity, collision.GetContact(0).normal));
     }
-    public void DealCollideDamage(Entity entity, int damage, Creature dealer) => entity?.Damage(damage, DamageType.Physical, dealer);
-    public virtual void Collect(Collider2D collision, ref bool collectStatus)
+    public void DealCollideDamage(Entity entity, int damage, Creature dealer) => entity.Damage(damage, DamageType.Physical, dealer);
+    public virtual void CollisionRequest(Collision2D collision, ref bool collectStatus) => SendCollectRequest(collision, collectStatus);
+    protected void SendCollectRequest(Collision2D collision, bool collectStatus)
     {
         if(collectStatus) OnCollect();
+        else OnCollectFail(collision);
     }
     protected virtual void OnCollect()
     {
