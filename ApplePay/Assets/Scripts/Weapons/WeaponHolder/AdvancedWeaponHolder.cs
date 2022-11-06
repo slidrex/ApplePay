@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Linq;
-public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHandler
+public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHandler, IRepositoryPreUpdateHandler
 {
     [Header("Weapon display")]
     [SerializeField, Tooltip("The object which stores weapon drop object in inventory.")] private Transform weaponList;
@@ -35,12 +35,16 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
         drop.transform.SetParent(weaponList);
         drop.gameObject.SetActive(false);
     }
+    public void OnBeforeRepositoryUpdate()
+    {
+        if(Repository.IsRepositoryFull()) DropRelease(ActiveWeaponIndex, 0);
+    }
     public void OnRepositoryUpdated(Item item, byte index, RepositoryChangeFeedback feedback)
     {
-        ("Weapon repository was updated! Item " + item + " was " + feedback + " at index " + index + "!").Out();
-        WeaponItem charmItem = (WeaponItem)item;
-        
-        if(feedback == RepositoryChangeFeedback.Added) OnAddItem(charmItem, index);
+        Debug.Log("Weapon repository was updated! Item " + item + " was " + feedback + " at index " + index + "!");
+        WeaponItem weaponItem = (WeaponItem)item;
+        if(feedback == RepositoryChangeFeedback.Added)
+                OnAddItem(weaponItem, index);
     }
     protected WeaponItem GetActiveWeapon()
     {
@@ -74,6 +78,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
         }
         if(activeSlots.Count > 1)
             ActiveWeaponIndex = activeSlots[(byte)Mathf.Repeat(activeSlots.IndexOf(activeWeaponIndex) + offset, activeSlots.Count)];
+        else ActiveWeaponIndex = 0;
     }
 
     protected void SetActiveWeapon(byte index) => ActiveWeaponIndex = index;
@@ -81,7 +86,6 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateHand
     {
         if(DropSettings.currentDropIndicatorObject?.GetObject() == null) 
         {
-            "indicator stared up".Out();
             DropSettings.IndicatorStartup(transform);
         }
         

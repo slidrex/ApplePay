@@ -112,6 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2788200553323671118}
   - component: {fileID: 2788200553323671117}
+  - component: {fileID: 2117038651}
   - component: {fileID: 2788200553323671119}
   - component: {fileID: 2788200553323671116}
   - component: {fileID: 5767637346845011317}
@@ -119,7 +120,6 @@ GameObject:
   - component: {fileID: 8189285200546192267}
   - component: {fileID: 1463861389}
   - component: {fileID: 3917139913567164824}
-  - component: {fileID: 2117038651}
   - component: {fileID: 6659970789127294732}
   m_Layer: 3
   m_Name: Player
@@ -196,6 +196,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &2117038651
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0018694196, y: -0.075580135}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.36, y: 0.36}
+    newSize: {x: 0.36, y: 0.36}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.083029136, y: 0.16530868}
+  m_EdgeRadius: 0
 --- !u!50 &2788200553323671119
 Rigidbody2D:
   serializedVersion: 4
@@ -351,32 +377,6 @@ MonoBehaviour:
     _hanlders:
     - {fileID: 6659970789127294732}
   InventoryOwner: {fileID: 5767637346845011317}
---- !u!61 &2117038651
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2788200553323671107}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0018694196, y: -0.075580135}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.36, y: 0.36}
-    newSize: {x: 0.36, y: 0.36}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.083029136, y: 0.16530868}
-  m_EdgeRadius: 0
 --- !u!114 &6659970789127294732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +410,7 @@ MonoBehaviour:
   dropKey: 9
   activateKey: 323
   weaponPlaceSlot: {fileID: 0}
+  weapons: []
 --- !u!1 &4454439995575299210
 GameObject:
   m_ObjectHideFlags: 0

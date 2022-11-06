@@ -5020,7 +5020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponPlace: {fileID: 7227759540910595431}
-  Disable: 0
+  Disables: []
   ActiveWeapon:
     Weapon: {fileID: 11400000, guid: 5799daf03c52dcb4483841aa37dfbf6a, type: 2}
     DropPrefab: {fileID: 0}
@@ -5032,6 +5032,9 @@ MonoBehaviour:
         AngularVelocityMultiplier: 1
       Display:
         InventorySprite: {fileID: 0}
+        Description:
+          Name: 
+          Description: 
 --- !u!50 &7227759541157514714
 Rigidbody2D:
   serializedVersion: 4
@@ -5069,7 +5072,7 @@ MonoBehaviour:
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
-  target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+  Target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
   Patterns:
   - {fileID: 8115246995756994378}
   activePatterns: 00

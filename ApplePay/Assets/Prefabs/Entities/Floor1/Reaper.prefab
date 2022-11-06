@@ -245,7 +245,7 @@ MonoBehaviour:
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
-  target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+  Target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
   Patterns:
   - {fileID: 377455623169758770}
   activePatterns: 00

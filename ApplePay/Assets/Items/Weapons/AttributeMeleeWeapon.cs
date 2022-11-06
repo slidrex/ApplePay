@@ -15,7 +15,7 @@ public abstract class AttributeMeleeWeapon : MeleeWeapon
     {
         base.OnEntityHitEnter(collision, hitEntity);
         Entity entity = side == AttackSide.Attacker ? Owner : hitEntity;
-        EntityAttribute _attribute = entity.FindAttribute(attribute);
+        EntityAttribute _attribute = entity?.FindAttribute(attribute);
         if(_attribute == null || (passImmortal == false && entity.Immortal)) return;
         string tagName = attributeTag + Owner;
 
