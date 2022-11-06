@@ -5037,6 +5037,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1321229246}
     - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: MaxHealth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: EffectList
       value: 
       objectReference: {fileID: 1128235972}
