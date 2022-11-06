@@ -44,9 +44,14 @@ public abstract class Creature : Entity
     }
     protected virtual void OnInvulnerability() {}
     protected virtual void OnInvulnerabilityEnd() {}
-    public override void ChangeHealth(int changeAmount)
+    public override void Damage(int amount, DamageType damageType, Creature handler)
     {
-        base.ChangeHealth(changeAmount);
+        base.Damage(amount, damageType, handler);
+        HealthBar?.IndicatorUpdate();
+    }
+    public override void ChangeHealth(int amount)
+    {
+        base.ChangeHealth(amount);
         HealthBar?.IndicatorUpdate();
     }
     protected override void ApplyDamage(Creature handler)
