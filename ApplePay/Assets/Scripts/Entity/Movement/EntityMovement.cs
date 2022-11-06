@@ -3,7 +3,7 @@ using System.Linq;
 
 abstract public class EntityMovement : MonoBehaviour
 {
-    public System.Collections.Generic.Dictionary<byte, PayDisable> Disables = new System.Collections.Generic.Dictionary<byte, PayDisable>();
+    public System.Collections.Generic.Dictionary<byte, PayDisable> Disables {get; private set;} = new System.Collections.Generic.Dictionary<byte, PayDisable>();
     public bool isDisabled {get; private set;}
     public Animator animator {get; private set;}
     [Header("Entity Movement")]

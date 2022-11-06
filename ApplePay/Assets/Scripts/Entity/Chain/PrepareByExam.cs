@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class PrepareByExam : StateMachineBehaviour
 {
-    private MobMovement mobMovement;
+    private Chain chain;
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        mobMovement = animator.GetComponent<MobMovement>();
-        mobMovement.DisablePatterns(true);
+        chain = animator.GetComponent<Chain>();
+        chain.DisableID = chain.Movement.AddDisable();
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        mobMovement.DisablePatterns(false);
+        chain.Movement.RemoveDisable(chain.DisableID);
     }
 }

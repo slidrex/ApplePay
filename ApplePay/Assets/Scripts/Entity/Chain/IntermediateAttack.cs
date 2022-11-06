@@ -5,7 +5,6 @@ public class IntermediateAttack : StateMachineBehaviour
     private MobMovement mobMovement;
     private Chain chain;
     private bool awaken;
-    private byte disableID;
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if(awaken == false)
@@ -14,7 +13,7 @@ public class IntermediateAttack : StateMachineBehaviour
             if(chain == null) chain = animator.GetComponent<Chain>();
             awaken = true;
         }
-        disableID = mobMovement.AddDisable();
+        chain.DisableID = mobMovement.AddDisable();
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -31,6 +30,6 @@ public class IntermediateAttack : StateMachineBehaviour
     }
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        mobMovement.RemoveDisable(disableID);
+        mobMovement.RemoveDisable(chain.DisableID);
     }
 }

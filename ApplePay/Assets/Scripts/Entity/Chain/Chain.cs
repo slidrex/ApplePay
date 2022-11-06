@@ -12,6 +12,7 @@ public class Chain : AttackingMob
     private ChainStates states;
     private float maxTime = 2.5f, curTime = 0;
     private bool stop;
+    public byte DisableID;
 
     protected override void Start()
     {
@@ -24,7 +25,7 @@ public class Chain : AttackingMob
         base.Update();
         if(dist != Vector2.zero) fixedDist = dist;
         Timer();
-        if(CurrentHealth <= maxTime / 2 && stop == false)
+        if(CurrentHealth <= MaxHealth / 2 && stop == false)
         {
             stop = true;
             states = ChainStates.UltimateAttack;
@@ -83,6 +84,7 @@ public class Chain : AttackingMob
     }
     public void AttackEnd()
     {
+        Movement.RemoveDisable(DisableID);
         states = ChainStates.Idle;
     }
     public void UpdateAnimatorParameters()

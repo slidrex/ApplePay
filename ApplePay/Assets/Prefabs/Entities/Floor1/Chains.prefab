@@ -398,7 +398,7 @@ MonoBehaviour:
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
-  Target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+  Target: {fileID: 0}
   Patterns:
   - {fileID: 1821789805}
   - {fileID: 100337839314651114}
@@ -432,7 +432,7 @@ MonoBehaviour:
   deathParticle: {fileID: 0}
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
-  MaxHealth: 200
+  MaxHealth: 100
   CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
@@ -461,6 +461,7 @@ MonoBehaviour:
   UltimateTrail: {fileID: 830950115}
   attackPoint: {fileID: 1970636236}
   radius: 0.35
+  DisableID: 0
 --- !u!114 &100337839314651114
 MonoBehaviour:
   m_ObjectHideFlags: 0

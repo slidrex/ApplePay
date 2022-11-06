@@ -29,7 +29,7 @@ public class UltimateAttack : StateMachineBehaviour
             if(curTime > maxTime)
             {
                 chain.UltimateTrail.SetActive(false);
-                mobMovement.DisablePatterns(true);
+                chain.DisableID = mobMovement.AddDisable();
                 curTime = 0;
                 mobMovement.animator.SetTrigger("ConfusionState");
             }
