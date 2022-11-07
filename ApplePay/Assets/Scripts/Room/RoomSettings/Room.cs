@@ -102,7 +102,8 @@ public class Room : MonoBehaviour
         public Vector2 GetRandomSpace()
         {
             Vector2[] corners = GetCorners();
-            return Pay.Functions.Math.RotateVector(new Vector2(Random.Range(corners[0].x, corners[1].x), Random.Range(corners[2].y, corners[1].y)), RelatedTransform.eulerAngles.z);
+            
+            return Pay.Functions.Math.RotateVector(new Vector2(Random.Range(corners[0].x, corners[1].x), Random.Range(corners[2].y, corners[1].y)) - GetZeroBoundPosition(), RelatedTransform.eulerAngles.z) + GetZeroBoundPosition();
         }
     }
 }

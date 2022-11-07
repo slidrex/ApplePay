@@ -22,7 +22,12 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     }
     private void InventoryController()
     {
-        if(Input.GetKeyDown(switchKey)) OffsetActiveWeapon(1);
+        if(Input.GetKeyDown(switchKey)) 
+        {
+            WeaponItem old = GetActiveWeapon();
+            OffsetActiveWeapon(1);
+            if(old != null && old == GetActiveWeapon()) SetupText();
+        }
         if(Input.GetKey(activateKey)) 
         {
             WeaponItem current = GetActiveWeapon();
@@ -56,7 +61,11 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
             weaponPlaceSlot.CreateSlotIndicator(DropSettings.Holder);
             weaponPlaceSlot.SetItem(currentItem.WeaponInfo.Display.InventorySprite);
             weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().WeaponInfo.Display.Description.Name);
-
         }
+    }
+    private void SetupText()
+    {
+        weaponPlaceSlot.RemoveText();
+        weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().WeaponInfo.Display.Description.Name);
     }
 }
