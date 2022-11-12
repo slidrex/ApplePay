@@ -68,33 +68,9 @@ public class WaveController : MonoBehaviour
         }
     }
     private void OnWaveBegin() => wrappedWaveComponent.SetWaveStatus(WaveStatus.InWave);
-    public void WaveUpdater()
+    public void UpdateWaveStatus()
     {
-        wrappedEntityWaveStatus = wrappedWaveComponent.WaveStatus;
-        if(bindedStatus.bindTime > 0)
-        {
-            wrappedWaveComponent.SetWaveStatus(bindedStatus.status);
-            return;
-        }
-        if(wrappedRoom != null && WrappedCreature.CurrentRoom != null && WrappedCreature.CurrentRoom != wrappedRoom)
-        {
-            OnRoomSwitched();
-            foreach(Creature roomCreature in wrappedRoom.EntityList)
-            {
-                int update;
-                //foreach(Creature hostileCreature in WrappedCreature.Hostiles)
-                {
-                  //  if(!roomCreature.isDead && hostileCreature.GetType() == roomCreature.GetType())
-                    {
-                        if(wrappedWaveComponent.WaveStatus == WaveStatus.NoWave) OnWaveBegin();
-                        return;
-                    }
-                }
-            }
-        }
-        wrappedRoom = WrappedCreature.CurrentRoom;
         
-        if(wrappedWaveComponent.WaveStatus == WaveStatus.InWave) OnWaveEnd();
     }
     private void OnWaveEnd()
     {

@@ -7,7 +7,7 @@ public abstract class WeaponHolder : MonoBehaviour
     public bool Disable { get => Disables.Count != 0; }
     public System.Collections.Generic.List<float> Disables = new System.Collections.Generic.List<float>();
     private const float additionalFreezeStateTime = .5f;
-    private void Start() => Owner = GetComponent<Creature>();
+    protected virtual void Start() => Owner = GetComponent<Creature>();
     protected virtual void Update()
     {
         UpdateWeaponList();

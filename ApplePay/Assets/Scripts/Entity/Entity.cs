@@ -115,7 +115,8 @@ public abstract class Entity : MonoBehaviour
     }
     protected virtual void Die(Creature killer)
     {   
-        IKillHandler killHandler = killer.GetComponent<IKillHandler>();
+        IKillHandler killHandler = killer?.GetComponent<IKillHandler>();
+        
         if(killer != null && killHandler != null) 
         {
             killer.GetComponent<IKillHandler>().OnBeforeKill(killer);

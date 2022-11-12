@@ -20,7 +20,11 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
             activeWeaponIndex = value;
         }
     }
-    private void Start() => Repository = InventorySystem.GetRepository(repositoryName);
+    protected override void Start() 
+    {
+        base.Start();
+        Repository = InventorySystem.GetRepository(repositoryName);
+    }
     public virtual void OnAddItem(WeaponItem item, byte index)
     {
         CreateDropInstance(ref item.DropPrefab);
@@ -114,7 +118,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
         droppedObject.gameObject.SetActive(true);
         droppedObject.StoredHealth = instanceObject.DropPrefab.StoredHealth;
         droppedObject.AddConstraintCollider(DropSettings.droppedItemBlockTime, GetComponent<Collider2D>());
-        droppedObject.AddForce(force);
+        droppedObject.CollisionHandler.Knock(force, Mathf.PI);
         Destroy(instanceObject.DropPrefab.gameObject);
         return droppedObject;
     }
