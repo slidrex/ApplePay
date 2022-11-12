@@ -18,6 +18,16 @@ public abstract class CollectableItem : CollectableObject
         }
         SendCollectRequest(collision, collectStatus);
     }
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
+        for(int i = 0; i < CollisionHandler.Forces.Count; i++)
+        {
+            PayKnock knock = CollisionHandler.Forces[i];
+            knock.CurrentSpeed = Vector2.Reflect(knock.CurrentSpeed, collision.GetContact(0).normal);
+            CollisionHandler.Forces[i] = knock;
+        }
+    }
     protected bool AddItem(InventorySystem system, string repository, Item item)
     {
         if(system != null) return system.GetRepository(repository).AddItem(item);

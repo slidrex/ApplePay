@@ -40,9 +40,10 @@ public class PayCollisionHandler
     {
         if(Forces.Count > 0)
         {
-            rb.velocity = Vector2.zero;
+            Vector2 resultSpeed = Vector2.zero;
             for(int i = 0; i < Forces.Count; i++) 
-                rb.velocity += Forces[i].CurrentSpeed;
+                resultSpeed += Forces[i].CurrentSpeed;
+            rb.velocity = resultSpeed;
         }
     }
 }
