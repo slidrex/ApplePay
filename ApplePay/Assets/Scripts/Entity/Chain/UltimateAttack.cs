@@ -14,8 +14,7 @@ public class UltimateAttack : StateMachineBehaviour
             mobMovement = animator.GetComponent<MobMovement>();
             awaken = true;
         }
-        animator.GetComponent<ReflectMovement>().
-            CollsionsManipulation(animator.GetComponent<Collider2D>(), chain.Movement.Target.GetComponent<Collider2D>(), true, 0.5f);
+        Pay.Functions.Physics.IgnoreCollision(0.5f, animator.GetComponent<Collider2D>(), chain.Target.GetComponent<Collider2D>());
         chain.UltimateTrail.SetActive(true);
         maxTime = Random.Range(5, 7);
         mobMovement.SetActivePatterns(1);

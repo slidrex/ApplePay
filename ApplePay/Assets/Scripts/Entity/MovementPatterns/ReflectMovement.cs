@@ -20,23 +20,11 @@ public class ReflectMovement : MovementPattern
         {
             lastCollision = collision;
             collision.collider.GetComponent<Creature>().Damage(collisionDamage, DamageType.Physical, GetComponent<Creature>());
-            CollsionsManipulation(GetComponent<Collider2D>(), lastCollision.gameObject.GetComponent<Collider2D>(), true, 0.5f);
+            Pay.Functions.Physics.IgnoreCollision(0.7f, GetComponent<Collider2D>(), lastCollision.collider.GetComponent<Collider2D>());
         }
         var contact = collision.contacts[0].normal;
         var inNormal = ((Vector2)transform.position - contact).normalized;
         MovementVector = Vector2.Reflect(lastVelocity, inNormal).normalized;
         PayWorld.Particles.InstantiateParticles(collisionEffect, contact, Quaternion.identity, collisionEffectDuration);
     }
-    private IEnumerator CollsionManipulation(Collider2D col1, Collider2D col2, bool ignore, float timeToEnable)
-    {
-        if(ignore == true)
-        {
-            Physics2D.IgnoreCollision(col1, col2, true);
-            yield return new WaitForSeconds(timeToEnable);
-            Physics2D.IgnoreCollision(col1, col2, false);
-        }
-        else Physics2D.IgnoreCollision(col1, col2, false);
-    }
-    public void CollsionsManipulation(Collider2D col1, Collider2D col2, bool ignore, float timeToEnable) =>
-        StartCoroutine(CollsionManipulation(col1, col2, ignore, timeToEnable));
 }

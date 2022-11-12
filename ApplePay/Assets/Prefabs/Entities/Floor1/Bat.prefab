@@ -5055,7 +5055,7 @@ MonoBehaviour:
   isDead: 0
   Tags:
   - aggressive
-  Hostiles: []
+  target: {fileID: 0}
   DamageField: 0
   seenRadius: 4
 --- !u!114 &5788186651065888758
@@ -5117,7 +5117,6 @@ MonoBehaviour:
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
-  Target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
   Patterns:
   - {fileID: 3484306305253491394}
   activePatterns: 00
