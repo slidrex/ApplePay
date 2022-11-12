@@ -3,7 +3,6 @@ using UnityEngine;
 public class Chain : AttackingMob
 {
 
-    [SerializeField] private GameObject dust;
     public GameObject UltimateTrail;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float radius;
@@ -79,7 +78,6 @@ public class Chain : AttackingMob
     }
     private void Dash()
     {
-        //PayWorld.Particles.InstantiateParticles(dust, transform.position, Quaternion.identity, 2);
         Movement.Rigidbody.velocity = dist.normalized * Pay.Functions.Math.ClampVectorComponents(dist, 35, 45);
     }
     public void AttackEnd()
