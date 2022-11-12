@@ -5002,6 +5002,8 @@ MonoBehaviour:
     rgba: 3314322629
   DamageInvulnerabilityDuration: 0.1
   isDead: 0
+  Tags:
+  - aggressive
   Hostiles: []
   DamageField: 20
   switchStateInterval: 1.5
@@ -5090,6 +5092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionEffect: {fileID: 7834434809057065935, guid: 14b5311582f928344badf0bca72ceb56, type: 3}
   collisionEffectDuration: 0.25
+  collisionDamage: 0
 --- !u!61 &1367820902
 BoxCollider2D:
   m_ObjectHideFlags: 0

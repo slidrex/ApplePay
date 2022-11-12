@@ -21,12 +21,17 @@ public abstract class Entity : MonoBehaviour
     public System.Collections.Generic.Dictionary<string, EntityAttribute> Attributes = new System.Collections.Generic.Dictionary<string, EntityAttribute>();
     public PayCollisionHandler CollisionHandler;
     private byte disableID;
+    
     protected virtual void Awake()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         CollisionHandler.rb = rb;
         if(Movement == null) Movement = GetComponent<EntityMovement>();
-        if(Movement != null) Movement.Rigidbody = rb;
+        if(Movement != null) 
+        {
+            Movement.Entity = this;
+            Movement.Rigidbody = rb;
+        }
         if(SpriteRenderer == null) SpriteRenderer = GetComponent<SpriteRenderer>();
         Particles.InstantiateParticles(appearParticle, transform.position, Quaternion.identity, 2);
         CurrentHealth = MaxHealth;
@@ -59,6 +64,7 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Update()
     {
         CollisionHandler.OnUpdate();
+        
         foreach(EntityAttribute attribute in Attributes.Values) attribute.HandleClockedAttributes();
         CollisionUpdate();
         EffectsUpdate();
@@ -109,8 +115,19 @@ public abstract class Entity : MonoBehaviour
     }
     protected virtual void Die(Creature killer)
     {   
-        if(killer != null && killer.GetComponent<IKillHandler>() != null) killer.GetComponent<IKillHandler>().OnKill(this);
+        IKillHandler killHandler = killer.GetComponent<IKillHandler>();
+        if(killer != null && killHandler != null) 
+        {
+            killer.GetComponent<IKillHandler>().OnBeforeKill(killer);
+            StaticCoroutine.BeginCoroutine(OnAfterKill(killHandler));
+        }
         Destroy(gameObject);
+    }
+    private System.Collections.IEnumerator OnAfterKill(IKillHandler handler)
+    {
+        yield return new WaitForEndOfFrame();
+        
+        handler.OnAfterKill();
     }
     protected void EffectsUpdate()
     {

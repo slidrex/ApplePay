@@ -10,6 +10,7 @@ public class Room : MonoBehaviour
     public List<EnvironmentObject> EnvironmentObjectList = new List<EnvironmentObject>();
     public byte MinObjectsCount, MaxObjectsCount;
     [HideInInspector] public bool isActive;
+    public RoomSpawner spawner { get; set; }
     [Header("Mob Room")]
     public byte MobCountLimit;
     public SpawnMob[] MobList;

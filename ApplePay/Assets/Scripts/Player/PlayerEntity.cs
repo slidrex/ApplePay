@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+
 public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable
 {
     public new PlayerMovement Movement => (PlayerMovement)Movement;
@@ -12,6 +13,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     public WaveStatus WaveStatus { get; private set; }
     [SerializeField] private EffectCell effectCell;
     private UnityEngine.Rendering.Universal.Vignette vignette;
+    [SerializeField] private Creature checkEntity;
     public void AddDamageAttribute()
     {
         this.AddAttribute("attackDamage", new ReferencedAttribute(

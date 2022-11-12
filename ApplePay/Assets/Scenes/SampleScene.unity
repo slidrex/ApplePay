@@ -4315,6 +4315,7 @@ GameObject:
   - component: {fileID: 1753619838}
   - component: {fileID: 1753619840}
   - component: {fileID: 1753619842}
+  - component: {fileID: 1753619843}
   m_Layer: 0
   m_Name: RoomSpawner
   m_TagString: Untagged
@@ -4398,6 +4399,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4efa7f0453d994f93f3da0e15032d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1753619843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753619837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66b32c7f1185fdc4abf78f358d5e96ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelRoomSpawner: {fileID: 1753619838}
+  tags:
+  - Tag: player
+    HostileTags:
+    - aggressive
+  - Tag: aggressive
+    HostileTags:
+    - player
 --- !u!1 &1756034047
 GameObject:
   m_ObjectHideFlags: 0
@@ -5094,9 +5115,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[0].Name
+      value: charms
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[1].Name
+      value: weapons
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[0].RepositoryLength
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: StartRepositories.Array.data[1].RepositoryLength
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[0]._hanlders.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[1]._hanlders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: StartRepositories.Array.data[0]._hanlders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1849077798889129511}
     - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: HealthBar
       value: 
@@ -5109,10 +5154,26 @@ PrefabInstance:
       propertyPath: EffectList
       value: 
       objectReference: {fileID: 1128235972}
+    - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Tags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Tags.Array.data[0]
+      value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Hostiles.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: weaponPlaceSlot
       value: 
       objectReference: {fileID: 937445612}
+    - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: weapons.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: DropSettings.Holder
       value: 
@@ -5143,6 +5204,17 @@ PrefabInstance:
       objectReference: {fileID: 2140621628}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+--- !u!114 &1849077798889129511 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+  m_PrefabInstance: {fileID: 1849077798889129510}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e260ef1e67a9f48a10ce3e9ea9df68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2273568673703890235
 PrefabInstance:
   m_ObjectHideFlags: 0

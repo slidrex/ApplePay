@@ -26,7 +26,11 @@ public class DoorBehaviour : KeyHoldingHack
     protected override void OnInteractAction()
     {
         base.OnInteractAction();
-        if(InteractEntity != null) InteractEntity.transform.position = ConnectedDoor.TeleportPoint.position;
+        if(InteractEntity != null) 
+        {
+            InteractEntity.transform.position = ConnectedDoor.TeleportPoint.position;
+            InteractEntity.entity.LevelController.UpdateRoomEntityList();
+        }
     }
     private System.Collections.Generic.Dictionary<DoorDirection, Vector2> directionConverter = new System.Collections.Generic.Dictionary<DoorDirection, Vector2>()
     {

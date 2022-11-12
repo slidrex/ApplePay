@@ -16,7 +16,6 @@ public class WaveController : MonoBehaviour
     private void Start()
     {
         AssignWrappedEntity(WrappedCreature);
-        GlobalEventManager.OnActionActivated += WaveUpdater;
         if(WrappedCreature == null)
             throw new System.NullReferenceException("Wrapped Creature hasn't been assigned.");
     }
@@ -31,7 +30,6 @@ public class WaveController : MonoBehaviour
             bindedStatus = curStatus;
         }
     }
-    private void OnDestroy() => GlobalEventManager.OnActionActivated -= WaveUpdater;
     private void OnRoomSwitched()
     {
         byte stageCount = (byte)Random.Range(WrappedCreature.CurrentRoom.MinStageCount, WrappedCreature.CurrentRoom.MaxStageCount);
@@ -83,9 +81,10 @@ public class WaveController : MonoBehaviour
             OnRoomSwitched();
             foreach(Creature roomCreature in wrappedRoom.EntityList)
             {
-                foreach(Creature hostileCreature in WrappedCreature.Hostiles)
+                int update;
+                //foreach(Creature hostileCreature in WrappedCreature.Hostiles)
                 {
-                    if(!roomCreature.isDead && hostileCreature.GetType() == roomCreature.GetType())
+                  //  if(!roomCreature.isDead && hostileCreature.GetType() == roomCreature.GetType())
                     {
                         if(wrappedWaveComponent.WaveStatus == WaveStatus.NoWave) OnWaveBegin();
                         return;

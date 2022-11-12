@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class MobMovement : EntityMovement
 {
-    public Transform Target;
+    public Transform Target { get; private set; }
+    public new MobEntity Entity {get => (MobEntity)base.Entity; }
     [Header("Movement Patterns")]
     public System.Collections.Generic.List<MovementPattern> Patterns = new System.Collections.Generic.List<MovementPattern>();
     [SerializeField] private byte[] activePatterns = new byte[1];
@@ -18,6 +19,7 @@ public class MobMovement : EntityMovement
         }
         return patterns;
     }
+    public void SetMovementTarget(Transform target) => Target = target;
     public void SetActivePatterns(params byte[] patterns) => activePatterns = patterns;
     protected override void Start()
     {
@@ -30,6 +32,10 @@ public class MobMovement : EntityMovement
     }
     protected override void Update()
     {
+        if(Target == null) 
+        {
+            Target = Entity.Target != null ? Entity.Target.transform : LevelController.EntityTagHandler.GetNearestHostile(Entity.CurrentRoom, Entity).transform;
+        }
         base.Update();
         if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.OnUpdate();
     }

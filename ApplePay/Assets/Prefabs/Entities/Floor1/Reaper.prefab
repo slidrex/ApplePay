@@ -224,6 +224,8 @@ MonoBehaviour:
     rgba: 3080165321
   DamageInvulnerabilityDuration: 0.1
   isDead: 0
+  Tags:
+  - aggressive
   Hostiles: []
   DamageField: 0
   SummonObject: {fileID: 3690851434413449927, guid: aada10299c857634d9d44c0411c0e080, type: 3}

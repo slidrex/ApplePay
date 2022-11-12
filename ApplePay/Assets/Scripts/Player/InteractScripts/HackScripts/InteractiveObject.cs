@@ -19,7 +19,6 @@ public abstract class InteractiveObject : MonoBehaviour
     {
         OnInteractAction();
         InteractEnd();
-        GlobalEventManager.UpdateMobLists();
     }
     public virtual void OnInteractBegin(InteractManager interactEntity)
     {

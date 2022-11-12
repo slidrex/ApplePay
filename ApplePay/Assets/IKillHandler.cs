@@ -1,4 +1,5 @@
 public interface IKillHandler
 {
-    public void OnKill(Entity killed);
+    public void OnBeforeKill(Creature killed);
+    public void OnAfterKill();
 }

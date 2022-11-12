@@ -13,11 +13,13 @@ public class InteractManager : MonoBehaviour
     private Pay.UI.IndicatorObject interactIndicator;
     private byte constraintId;
     public float HackSpeed = 1;
+    public Creature entity;
     [SerializeField] private Pay.UI.UIHolder holder;
     [SerializeField] private Pay.UI.Indicator indicator;
     private void Awake()
     {
-        GetComponent<Entity>().AddAttribute("hackSpeed", new ReferencedAttribute(
+        entity = GetComponent<Creature>();
+        entity.AddAttribute("hackSpeed", new ReferencedAttribute(
             () => HackSpeed, val => HackSpeed = val), HackSpeed
         );
     }
@@ -109,7 +111,7 @@ public class InteractManager : MonoBehaviour
         Vector2 state = Mathf.Abs(dist.x) > Mathf.Abs(dist.y) ? Vector2.right * Mathf.Sign(dist.x) : Vector2.up * Mathf.Sign(dist.y);
         movement.SetFacingState(state, Time.deltaTime, StateParameter.MirrorHorizontal);
         interactiveObj.InteractLoop();
-        GetComponent<EntityMovement>().SetMoveMod(false);
+        movement.SetMoveMod(false);
         if(interactiveObj.GetComponent<HackSystem>() != null)
             Pay.UI.UIManager.Indicator.UpdateIndicator(interactIndicator, interactiveObj.GetComponent<HackSystem>().CurrentProgess, interactiveObj.GetComponent<HackSystem>().MaxProgress);
     }

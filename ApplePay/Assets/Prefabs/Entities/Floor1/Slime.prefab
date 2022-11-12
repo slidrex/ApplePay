@@ -305,6 +305,9 @@ MonoBehaviour:
   CollisionHandler:
     rb: {fileID: 761386401692117043}
     resistance: 0.5
+    DragIntensity: 1
+    disabled: 0
+    Forces: []
   InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
@@ -317,7 +320,9 @@ MonoBehaviour:
     rgba: 3869747156
   DamageInvulnerabilityDuration: 0
   isDead: 0
-  Hostiles: []
+  Tags:
+  - aggressive
+  target: {fileID: 0}
   DamageField: 0
   explosion: {fileID: 7668836383585276447, guid: 792cd6daaecd19446ae046e229174ccd, type: 3}
   isJumping: 0

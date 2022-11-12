@@ -5053,6 +5053,8 @@ MonoBehaviour:
     rgba: 3432223718
   DamageInvulnerabilityDuration: 0.1
   isDead: 0
+  Tags:
+  - aggressive
   Hostiles: []
   DamageField: 0
   seenRadius: 4
@@ -5154,6 +5156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionEffect: {fileID: 0}
   collisionEffectDuration: 0
+  collisionDamage: 0
 --- !u!1 &6006621946491845973
 GameObject:
   m_ObjectHideFlags: 0

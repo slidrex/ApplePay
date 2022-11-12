@@ -5058,7 +5058,13 @@ MonoBehaviour:
     localScale: {x: 20, y: 15}
     offset: {x: 0, y: 0}
     RelatedTransform: {fileID: 4094145185703115751}
-  EntityList: []
+  EntityList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   MarkList:
   - {fileID: 0}
   EnvironmentObjectList: []

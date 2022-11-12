@@ -2,24 +2,6 @@ using UnityEngine;
 
 public static class RoomDefiner
 {
-    public static void RoomEntityListUpdater()
-    {
-        Creature[] entities = MonoBehaviour.FindObjectsOfType<Creature>();
-        Room[] rooms = MonoBehaviour.FindObjectsOfType<Room>();
-        foreach(Creature entity in entities) entity.CurrentRoom = null;
-        foreach(Room room in rooms)
-        {
-            foreach(Creature entity in entities)
-            {
-                if(room.EntityList.Capacity > 0) room.EntityList.Clear();
-                if(room.RoomConfiners.IsInsideBound(entity.transform.position) && !entity.isDead)
-                {
-                    room.EntityList.Add(entity);
-                    entity.CurrentRoom = room;
-                }
-            }
-        }
-    }
     public static void ActivateRoomMarks(this Room room)
     {
         RoomObjectsSpawn(room);

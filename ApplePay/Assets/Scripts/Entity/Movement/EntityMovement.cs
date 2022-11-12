@@ -12,6 +12,7 @@ abstract public class EntityMovement : MonoBehaviour
     [HideInInspector] public Rigidbody2D Rigidbody;
     [HideInInspector] public bool ConstraintRotation;
     private float curConstraintDuration;
+    public Entity Entity {get; set;}
     protected virtual void Start()
     {
         if(Rigidbody == null) Rigidbody = GetComponent<Rigidbody2D>();

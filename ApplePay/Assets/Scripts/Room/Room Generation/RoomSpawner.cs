@@ -31,7 +31,8 @@ public class RoomSpawner : MonoBehaviour
     [HideInInspector] public System.Collections.Generic.List<Transform> StartObjects;
     private int spawnedRoomCount;
     [HideInInspector] public Transform RoomContainer;
-    private void Start()
+    public Room[] ActiveLevelRooms { get; set; }
+    private void Awake()
     {
         GenerateLevel();
     }
@@ -51,7 +52,7 @@ public class RoomSpawner : MonoBehaviour
         FilledCells = new Dictionary<Vector2, Room>();
         contractedRooms = new Dictionary<int, SpawnerRoom>();
         RoomContainer = new GameObject("Room container").transform;
-
+        ActiveLevelRooms = new Room[Scenario.RoomCount + Scenario.ContractRooms.Count()];
         if(Scenario == null) throw new System.NullReferenceException("Scenario hasn't been specified!");
         FillContracts();
         if(spawnedRoomCount < Scenario.RoomCount) SpawnRoom(Vector2.zero, 0);
@@ -118,6 +119,9 @@ public class RoomSpawner : MonoBehaviour
                 contractedRooms.TryGetValue(spawnedRoomIndex, out SpawnerRoom room);
                 if(room.availableRotations.Length != 0) rotation = room.availableRotations[Random.Range(0, room.availableRotations.Length)];
                 contractedRooms.Remove(spawnedRoomIndex);
+                
+                
+                
                 return InstantiateRoom(room.room, rotation, spawnPosition , walkerPosition);
             }
             
@@ -127,21 +131,32 @@ public class RoomSpawner : MonoBehaviour
             {
                 spawned = true;
                 if(Scenario.SpawnRooms[index].SpawnerRoom.availableRotations.Length != 0) rotation = Scenario.SpawnRooms[index].SpawnerRoom.availableRotations[Random.Range(0, Scenario.SpawnRooms[index].SpawnerRoom.availableRotations.Length)];
-                return InstantiateRoom(Scenario.SpawnRooms[index].SpawnerRoom.room, rotation, spawnPosition, walkerPosition);
+                Room room = InstantiateRoom(Scenario.SpawnRooms[index].SpawnerRoom.room, rotation, spawnPosition, walkerPosition);
+                room.spawner = this;
+                return room;
             }
         }
         return null;
     }
     private Room InstantiateRoom(Room room, byte rotations, Vector2 spawnPosition, Vector2 walkerPosition)
     {
-        Room obj = Instantiate(room.gameObject, spawnPosition, Quaternion.identity).GetComponent<Room>();
+        Room obj = Instantiate(room, spawnPosition, Quaternion.identity);
         obj.gameObject.transform.SetParent(RoomContainer.transform);
         FilledCells.Add(walkerPosition, obj);
         obj.transform.eulerAngles = obj.transform.eulerAngles - Vector3.forward * rotations * 90f;
         DoorBehaviour[] doors = obj.GetComponentsInChildren<DoorBehaviour>();
         foreach(DoorBehaviour door in doors) door.SwapDirection(rotations);
+        
+        for(int i = 0; i < ActiveLevelRooms.Length; i++)
+        {
+            if(ActiveLevelRooms[i] == null) 
+            {
+                ActiveLevelRooms[i] = obj;
+                break;
+            }
+        }
         spawnedRoomCount++;
-        return obj.GetComponent<Room>();
+        return obj;
     }
     private void FillMark(Room room)
     {
@@ -192,6 +207,7 @@ public class RoomSpawner : MonoBehaviour
             gameObject.position = FilledCells.ElementAt(0).Value.gameObject.transform.position;
         }
     }
+
     [System.Serializable]
 
     public struct RandRoom
