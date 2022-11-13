@@ -8,7 +8,7 @@ public class Hoverboard : MonoBehaviour
     [SerializeField] private Text _description;
     [SerializeField] private Text _additionalFieldObject;
     [SerializeField] private RectTransform additionalFieldList;
-    [ReadOnly] public System.Collections.Generic.List<Text> InstantiatedFields = new System.Collections.Generic.List<Text>();
+    public System.Collections.Generic.List<Text> InstantiatedFields = new System.Collections.Generic.List<Text>();
     private void Start() => SetDefaultDescription();
     public void SetDescription(string name, string description)
     {

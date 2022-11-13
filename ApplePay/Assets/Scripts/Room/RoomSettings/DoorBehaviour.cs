@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DoorBehaviour : KeyHoldingHack
 {
-    [ReadOnly] public Room AttachedRoom;
+    public Room AttachedRoom { get; set; }
     [Header("Door Behaviour")]
     [SerializeField] private Transform TeleportPoint;
     [SerializeField] private DoorDirection direction;

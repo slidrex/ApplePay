@@ -5,7 +5,7 @@ public abstract class Creature : Entity, IKillHandler
     [HideInInspector] public InventorySystem InventorySystem;
     public HealthBar HealthBar;
     public LootTable DropTable;
-    [ReadOnly] public Room CurrentRoom;
+    public Room CurrentRoom;
     private Room oldRoom;
     [SerializeField] private Color32 startColor;
     [SerializeField] private Color32 takeDamageColor;

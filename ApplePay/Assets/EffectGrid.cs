@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EffectGrid : MonoBehaviour
 {
-    [SerializeField, ReadOnly] private Canvas canvas;
+    [SerializeField] private Canvas canvas;
     [SerializeField] private EffectPanel effectPanel;
     [HideInInspector] public EffectPanel CurrentEffectPanel;
     public void OnCellEnter(EffectCell cell)

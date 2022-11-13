@@ -8,15 +8,10 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     [SerializeField] private KeyCode activateKey;
     [SerializeField] private WeaponPlaceSlot weaponPlaceSlot;
     protected override Vector2 DropDirection => (Pay.Functions.Generic.GetMousePos(Camera.main) - (Vector2)transform.position).normalized;
-    public WeaponItem[] weapons;
     override protected void Update()
     {
         base.Update();
-        weapons = new WeaponItem[Repository.Items.Length];
-        for(int i = 0; i < weapons.Length; i++)
-        {
-            weapons[i] = (WeaponItem)Repository.Items[i];
-        }
+        
         InventoryController();
         UpdateSlotIndicator();
     }

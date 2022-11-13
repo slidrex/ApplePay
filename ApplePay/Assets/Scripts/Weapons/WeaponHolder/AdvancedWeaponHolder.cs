@@ -9,7 +9,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
     protected abstract Vector2 DropDirection { get; }
     protected InventoryRepository Repository; 
     [Header("Weapon Switch")]
-    [SerializeField, ReadOnly] private byte activeWeaponIndex;
+    private byte activeWeaponIndex;
     [SerializeField] protected DropIndicator DropSettings;
     protected byte ActiveWeaponIndex 
     { 
@@ -136,7 +136,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
         [SerializeField] internal float ForceAddSpeed;
         [SerializeField] internal float dropOffset;
         [SerializeField] internal Pay.UI.UIHolder Holder;
-        [SerializeField, ReadOnly] internal float TargetForce;
+        internal float TargetForce;
         [SerializeField] internal Pay.UI.Indicator dropIndicator;
         [SerializeField] internal Pay.UI.IndicatorObject currentDropIndicatorObject;
         [SerializeField] internal float droppedItemBlockTime;

@@ -4,7 +4,7 @@ public class Room : MonoBehaviour
 {
     [SerializeField, Tooltip("Specified space is free for spawn objects.")] private RoomBound[] FreeRoomSpace;
     [SerializeField, Tooltip("Used for checking if object inside the room.")] public RoomBound RoomConfiners;
-    [ReadOnly] public List<Creature> EntityList = new List<Creature>();
+    public List<Creature> EntityList = new List<Creature>();
     public List<RoomMark> MarkList = new List<RoomMark>();
     [Header("Environment settings")]
     public List<EnvironmentObject> EnvironmentObjectList = new List<EnvironmentObject>();

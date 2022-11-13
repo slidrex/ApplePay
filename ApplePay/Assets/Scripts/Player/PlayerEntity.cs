@@ -13,7 +13,6 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     public WaveStatus WaveStatus { get; private set; }
     [SerializeField] private EffectCell effectCell;
     private UnityEngine.Rendering.Universal.Vignette vignette;
-    [SerializeField] private Creature checkEntity;
     public void AddDamageAttribute()
     {
         this.AddAttribute("attackDamage", new ReferencedAttribute(
@@ -25,6 +24,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     {
         AddDamageAttribute();
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
+        PayWorld.EffectController.AddEffect(this, "slowness", 1, 5f);
         base.Start();
     }
     public void SetWaveStatus(WaveStatus waveStatus) => WaveStatus = waveStatus;

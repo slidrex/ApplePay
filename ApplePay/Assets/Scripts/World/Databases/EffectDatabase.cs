@@ -12,12 +12,13 @@ public class EffectDatabase
     }
     public const string EffectIconPath = "Assets/Sprites/EffectIcons/";
     private TextConfigurationDatabase textConfigDatabase = (TextConfigurationDatabase)PayDatabase.GetDatabase("text_config"); 
+    public SpriteDatabase EffectIconDatabase = (SpriteDatabase)PayDatabase.GetDatabase("effect_icon");
     public EffectDatabase(byte level)
     {
         Level = level;
     }
     ///<summary>Gets sprite by name (name.extension). </summary>
-    private UnityEngine.Sprite GetSprite(string name) => (UnityEngine.Sprite)UnityEditor.AssetDatabase.LoadAssetAtPath(EffectIconPath + name, typeof(UnityEngine.Sprite));
+    private UnityEngine.Sprite GetSprite(string name) => EffectIconDatabase.GetItem(name);
     private string ColorizeText(string text, string colorHex) => Pay.Functions.String.SetRichTextTag(text, "color", colorHex);
     private string ColorizeRoman(byte level, string colorHex) => ColorizeText(Pay.Functions.Generic.RomanConverter(level), colorHex);
     private Dictionary<string, EffectTemplate> effects;
@@ -27,8 +28,8 @@ public class EffectDatabase
         {
             effects = new Dictionary<string, EffectTemplate>
             {
-                ["slowness"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(GetSprite("Slowness.png"), "Slowness", "Movement speed decreased by " + (Level * 0.1f) * 100 + "%.", ColorizeRoman(Level, EffectColor.Negative), new Pay.UI.UIManager.TextField(textConfigDatabase.Find("lore"), "Agent pidorasik makes you slow)))")), 10, EffectType.Negative, new EffectProperty(States.VelocityChanger(-0.1f * Level))),
-                ["speed"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(GetSprite("Slowness.png"), "Speed", "Movement speed increases by " + (Level * 0.1f) * 100 + "%.", ColorizeRoman(Level, EffectColor.Positive)), byte.MaxValue, EffectType.Positive, new EffectProperty(States.VelocityChanger(0.1f * Level))),
+                ["slowness"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(GetSprite("slowness"), "Slowness", "Movement speed decreased by " + (Level * 0.1f) * 100 + "%.", ColorizeRoman(Level, EffectColor.Negative), new Pay.UI.UIManager.TextField(textConfigDatabase.GetItem("lore"), "Agent pidorasik makes you slow)))")), 10, EffectType.Negative, new EffectProperty(States.VelocityChanger(-0.1f * Level))),
+                ["speed"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(GetSprite("slowness"), "Speed", "Movement speed increases by " + (Level * 0.1f) * 100 + "%.", ColorizeRoman(Level, EffectColor.Positive)), byte.MaxValue, EffectType.Positive, new EffectProperty(States.VelocityChanger(0.1f * Level))),
                 ["move_constraint"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(GetSprite("Interact.png"), "Move Constraint", "Constraints your movement abilities.", ColorizeRoman(Level, EffectColor.Negative)), 1, EffectType.Unassigned , new EffectProperty(States.MoveConstraint())),
                 ["speed_hack"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(GetSprite("Interact.png"), "Hack Haste", "Increases hack speed by "+ (Level * 0.1f) * 100 + "%.", ColorizeRoman(Level, EffectColor.Positive)), byte.MaxValue, EffectType.Positive, new EffectProperty(States.HoldingHackSpeedChanger(0.1f * Level))),
                 ["strength"] = new EffectTemplate(new PayWorld.EffectController.EffectDisplay(null, "Strength", "Increases attack damage.", ""), byte.MaxValue, EffectType.Positive, new EffectProperty(States.Strength(Level * 0.1f))),
@@ -42,13 +43,6 @@ public class EffectDatabase
             };
             return effects;
         }
-    }
-    ///<summary>
-    ///Finds effect sprite by default path ("Assets/Sprites/EffectIcons/").
-    ///</summary>
-    public static UnityEngine.Sprite FindEffectSprite(string file)
-    {
-        return (UnityEngine.Sprite)UnityEditor.AssetDatabase.LoadAssetAtPath(EffectIconPath + file, typeof(UnityEngine.Sprite));
     }
     
 }

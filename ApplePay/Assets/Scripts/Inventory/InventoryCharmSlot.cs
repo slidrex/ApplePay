@@ -3,10 +3,10 @@ using UnityEngine;
 public class InventoryCharmSlot : InventoryDisplaySlot
 {
     [SerializeField] private GameObject SwitchIcon;
+    private new CharmRepositoryRenderer attachedRenderer {get => (CharmRepositoryRenderer)base.attachedRenderer;}
     public void OnCharmSwitched()
     {
-        CharmRepositoryRenderer renderer = (CharmRepositoryRenderer)attachedRenderer;
-        renderer.OnCharmSwitched(this);
+        attachedRenderer.OnCharmSwitched(this);
     }
     public void RenderItem(CharmDisplay display, bool switchable)
     {

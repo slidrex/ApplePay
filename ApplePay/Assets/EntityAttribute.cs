@@ -79,6 +79,7 @@ public class TagAttribute
         AttachedAttribute = attachedAttribute;
         Type = attributeType;
         Tags = tags;
+        if(Tags == null) Tags = new string[1];
         Value = value;
     }
 }
@@ -209,10 +210,9 @@ public static class EntityAttributeExtension
             if(tagAttribute.Type == AttributeType.BaseAttributeValue) summary.BaseAttributeValue += tagAttribute.Value;
             else
             {
-                if(tagAttribute.Tags != null)
                     foreach(string tag in tagAttribute.Tags)
                     {
-                        if(attribute.TaggedAttributeMasks.ContainsKey(tag))
+                        if(tag != null && attribute.TaggedAttributeMasks.ContainsKey(tag))
                         {
                             attribute.TaggedAttributeMasks.TryGetValue(tag, out AttributeMask currentMask);
                             if(currentMask.Operation == AttributeOperation.Add) summary.MultiplierValue += currentMask.Value;

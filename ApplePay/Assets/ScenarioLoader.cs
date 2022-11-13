@@ -80,7 +80,7 @@ public static class ScenarioExtension
         Scene[] scenes = new Scene[SceneManager.sceneCount];
         for(int i = 0; i < SceneManager.sceneCount; i++) scenes[i] = SceneManager.GetSceneAt(i);
         
-        UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(scene.name ,new LoadSceneParameters(LoadSceneMode.Additive));
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scene.name ,new LoadSceneParameters(LoadSceneMode.Additive));
         
         foreach(Transform gameObject in portable)
         {

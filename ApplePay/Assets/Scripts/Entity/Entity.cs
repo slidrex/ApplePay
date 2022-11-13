@@ -14,8 +14,8 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private GameObject deathParticle, takeDamageParticle, appearParticle;
     [Header("Health")]
     public int MaxHealth = 100;
-    [ReadOnly] public int CurrentHealth;
-    [ReadOnly, SerializeField] private float evasionRate;
+    public int CurrentHealth {get ;set;}
+    [SerializeField] private float evasionRate;
     [SerializeField] private float magicResistance;
     [SerializeField] private GameObject evasionEffect;
     public System.Collections.Generic.Dictionary<string, EntityAttribute> Attributes = new System.Collections.Generic.Dictionary<string, EntityAttribute>();

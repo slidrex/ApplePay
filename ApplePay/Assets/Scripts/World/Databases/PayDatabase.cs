@@ -1,10 +1,12 @@
-public static class PayDatabase
+public class PayDatabase : UnityEngine.MonoBehaviour
 {
-    private const string DatabaseObjectPath = "Assets/Databases/Database object.asset";
+    
+    private const string DatabaseObjectPath = "Databases/Database object";
     public static Database GetDatabase(string databaseID)
     {
-        DatabaseObject databaseObject = (DatabaseObject)UnityEditor.AssetDatabase.LoadAssetAtPath(DatabaseObjectPath, typeof(DatabaseObject));
-        if(databaseObject == null) throw new System.Exception("Path (" + DatabaseObjectPath + ") doesn't contain Database object.");
-        return databaseObject.Find(databaseID);
+        DatabaseObject databaseObject = UnityEngine.Resources.Load<DatabaseObject>(DatabaseObjectPath);
+        if(databaseObject == null) throw new System.Exception("Path (" + "Resources/" + DatabaseObjectPath + ") doesn't contain Database object.");
+        return databaseObject.GetItem(databaseID);
     }
+    
 }

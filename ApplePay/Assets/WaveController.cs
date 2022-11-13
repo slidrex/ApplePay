@@ -1,7 +1,7 @@
 using UnityEngine;
 public class WaveController : MonoBehaviour
 {
-    [SerializeField] private MarkDatabase markDatabase;
+    //[SerializeField] private MarkDatabase markDatabase;
     internal struct BindedWaveStatus
     {
         internal WaveStatus status;
@@ -10,7 +10,7 @@ public class WaveController : MonoBehaviour
     [SerializeField] private Creature WrappedCreature;
     private IWavedepent wrappedWaveComponent;
     private Room wrappedRoom;
-    [ReadOnly, SerializeField] private WaveStatus wrappedEntityWaveStatus;
+    private WaveStatus wrappedEntityWaveStatus;
     [SerializeField] private BindedWaveStatus bindedStatus;
     private RoomMark[] wrappedRoomStages;
     private void Start()
@@ -56,9 +56,10 @@ public class WaveController : MonoBehaviour
         {
             while(markArray[i] == null)
             {
+                /*
                 int rand = Random.Range(0, 100);
                 MarkDatabase.MarkSlot currentRoomMark = markDatabase.MarkList[Random.Range(0, markDatabase.MarkList.Length)];
-                /*if(currentRoomMark.SpawnChance >= rand && currentRoomMark.Mark.MarkType == MarkDatabase.MarkType.Mob)
+                if(currentRoomMark.SpawnChance >= rand && currentRoomMark.Mark.MarkType == MarkDatabase.MarkType.Mob)
                 {
                     markArray[i] = currentRoomMark.Mark;
                     break;

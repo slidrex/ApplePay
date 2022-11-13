@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a955d18753df70f4f91f4577a5ae23b1, type: 3}
   m_Name: Database object
   m_EditorClassIdentifier: 
-  Databases:
-  - Id: text_config
-    Database: {fileID: 11400000, guid: 7e9d3dff78b79134a9639551ccba1146, type: 2}
-  - Id: mark
-    Database: {fileID: 11400000, guid: 292c8e31858dd3a4893a4fdcebbc72bb, type: 2}
+  <items>k__BackingField:
+  - Key: text_config
+    Value: {fileID: 11400000, guid: 7e9d3dff78b79134a9639551ccba1146, type: 2}
+  - Key: mark
+    Value: {fileID: 11400000, guid: 292c8e31858dd3a4893a4fdcebbc72bb, type: 2}
+  - Key: effect_icon
+    Value: {fileID: 11400000, guid: 1fc23fafa27a47a4c8deff8bcc22eca3, type: 2}

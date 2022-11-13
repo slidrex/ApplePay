@@ -7,7 +7,7 @@ public class PayCollisionHandler
     [HideInInspector] public Rigidbody2D rb;
     [Range(0f, 1f)] public float resistance;
     public float DragIntensity = 1f;
-    [ReadOnly] public bool disabled;
+    public bool disabled { get; set; }
     public System.Collections.Generic.List<PayKnock> Forces = new System.Collections.Generic.List<PayKnock>();
     public bool Knockbacked { get => Forces.Count != 0; }
     public void Knock(Vector2 startSpeed, float decceleration)

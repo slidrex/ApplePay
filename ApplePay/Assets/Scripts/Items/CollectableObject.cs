@@ -7,8 +7,8 @@ public abstract class CollectableObject : ItemEntity
     [Header("Pick Settings")]
     [SerializeField] private Color32 constraintColor;
     private Color32 storedColor;
-    [ReadOnly, SerializeField] private List<float> ConstraintList = new List<float>();
-    [ReadOnly, SerializeField] protected Dictionary<Collider2D, float > ConstraintColliders = new Dictionary<Collider2D, float>();
+    private List<float> ConstraintList = new List<float>();
+    protected Dictionary<Collider2D, float > ConstraintColliders = new Dictionary<Collider2D, float>();
     public bool isCollectable { get; private set; } = true;
     [Header("Pick visual")]
     [SerializeField] private GameObject collectParticle;
@@ -17,7 +17,7 @@ public abstract class CollectableObject : ItemEntity
     [SerializeField] private float speed;
     [Header("Physics")]
     [SerializeField] protected Rigidbody2D rb;
-    [SerializeField, ReadOnly] protected Vector2 TargetVelocity;
+    protected Vector2 TargetVelocity;
     [SerializeField, Tooltip("Force multiplier coefficient")] private float damagePerForceUnit;
     private Animator animator;
     ///<summary>

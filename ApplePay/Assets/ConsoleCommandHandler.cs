@@ -79,11 +79,12 @@ namespace Pay.Debug
         }
         private static UnityEngine.GameObject ParseAsset(string path, out ParseStatus status)
         {
-            UnityEngine.GameObject gameObject = (UnityEngine.GameObject)UnityEditor.AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.GameObject));
+            //UnityEngine.GameObject gameObject = (UnityEngine.GameObject)UnityEditor.AssetDatabase.LoadAssetAtPath(path, typeof(UnityEngine.GameObject));
             
-            status = gameObject != null ? ParseStatus.Success : ParseStatus.Fail;
-            
-            return gameObject;
+            //status = gameObject != null ? ParseStatus.Success : ParseStatus.Fail;
+            status = 0;
+            return null;
+            //return gameObject;
         }
         private static Entity[] ParseSelector(Entity executer, string selector, out ParseStatus status)
         {

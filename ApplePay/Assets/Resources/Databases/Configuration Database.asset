@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379236ae833596a44aeb80b0328c99e8, type: 3}
   m_Name: Configuration Database
   m_EditorClassIdentifier: 
-  Items:
-  - Name: lore
-    Configuration:
+  <items>k__BackingField:
+  - Key: lore
+    Value:
       Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
-      Color: {r: 0.525, g: 0.525, b: 0.525, a: 1}
+      Color: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
       LineSpacing: 1

@@ -1,4 +1,4 @@
 public class InteractPointer : UnityEngine.MonoBehaviour
 {
-    [ReadOnly] public InteractiveObject AttachedInteractive;
+    public InteractiveObject AttachedInteractive;
 }

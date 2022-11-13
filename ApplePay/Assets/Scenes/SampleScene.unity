@@ -974,7 +974,6 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 50
-  CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -982,7 +981,6 @@ MonoBehaviour:
     rb: {fileID: 0}
     resistance: 0
     DragIntensity: 1
-    disabled: 0
     Forces: []
   StoredHealth: 0
   maxHealthColor:
@@ -994,12 +992,10 @@ MonoBehaviour:
   constraintColor:
     serializedVersion: 2
     rgba: 0
-  ConstraintList: []
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
   rb: {fileID: 0}
-  TargetVelocity: {x: 0, y: 0}
   damagePerForceUnit: 1
   itemHoverableObject: {fileID: 446314027}
   CharmItem:
@@ -1800,7 +1796,6 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
-  CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -1808,7 +1803,6 @@ MonoBehaviour:
     rb: {fileID: 0}
     resistance: 0.25
     DragIntensity: 1
-    disabled: 0
     Forces: []
   StoredHealth: 0
   maxHealthColor:
@@ -1820,12 +1814,10 @@ MonoBehaviour:
   constraintColor:
     serializedVersion: 2
     rgba: 0
-  ConstraintList: []
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
   rb: {fileID: 0}
-  TargetVelocity: {x: 0, y: 0}
   damagePerForceUnit: 1
   itemHoverableObject: {fileID: 892326712}
   CharmItem:
@@ -1869,14 +1861,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &931947516
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,7 +2353,6 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
-  CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -2369,7 +2360,6 @@ MonoBehaviour:
     rb: {fileID: 0}
     resistance: 0
     DragIntensity: 1
-    disabled: 0
     Forces: []
   StoredHealth: 0
   maxHealthColor:
@@ -2381,12 +2371,10 @@ MonoBehaviour:
   constraintColor:
     serializedVersion: 2
     rgba: 0
-  ConstraintList: []
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
   rb: {fileID: 0}
-  TargetVelocity: {x: 0, y: 0}
   damagePerForceUnit: 0
   itemHoverableObject: {fileID: 0}
   WeaponItem:
@@ -3644,7 +3632,6 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
-  CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -3652,7 +3639,6 @@ MonoBehaviour:
     rb: {fileID: 0}
     resistance: 0
     DragIntensity: 1
-    disabled: 0
     Forces: []
   StoredHealth: 0
   maxHealthColor:
@@ -3664,12 +3650,10 @@ MonoBehaviour:
   constraintColor:
     serializedVersion: 2
     rgba: 0
-  ConstraintList: []
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
   rb: {fileID: 1595865738}
-  TargetVelocity: {x: 0, y: 0}
   damagePerForceUnit: 0
   itemHoverableObject: {fileID: 1595865736}
   CharmItem:
@@ -3834,7 +3818,6 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 50
-  CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -3842,7 +3825,6 @@ MonoBehaviour:
     rb: {fileID: 0}
     resistance: 0
     DragIntensity: 1
-    disabled: 0
     Forces: []
   StoredHealth: 0
   maxHealthColor:
@@ -3854,12 +3836,10 @@ MonoBehaviour:
   constraintColor:
     serializedVersion: 2
     rgba: 0
-  ConstraintList: []
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
   rb: {fileID: 0}
-  TargetVelocity: {x: 0, y: 0}
   damagePerForceUnit: 1
   itemHoverableObject: {fileID: 1619376355}
   CharmItem:
@@ -4056,7 +4036,6 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 50
-  CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -4064,7 +4043,6 @@ MonoBehaviour:
     rb: {fileID: 0}
     resistance: 0
     DragIntensity: 1
-    disabled: 0
     Forces: []
   StoredHealth: 0
   maxHealthColor:
@@ -4076,12 +4054,10 @@ MonoBehaviour:
   constraintColor:
     serializedVersion: 2
     rgba: 0
-  ConstraintList: []
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
   rb: {fileID: 0}
-  TargetVelocity: {x: 0, y: 0}
   damagePerForceUnit: 1
   itemHoverableObject: {fileID: 1718022104}
   CharmItem:
@@ -4364,9 +4340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38bc0104a7168b84f97742686b8dec2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  markDatabase: {fileID: 11400000, guid: 292c8e31858dd3a4893a4fdcebbc72bb, type: 2}
   WrappedCreature: {fileID: 1463861386}
-  wrappedEntityWaveStatus: 0
 --- !u!114 &1753619842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4825,7 +4799,6 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
-  CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -4833,7 +4806,6 @@ MonoBehaviour:
     rb: {fileID: 0}
     resistance: 0.2
     DragIntensity: 3
-    disabled: 0
     Forces: []
   StoredHealth: 0
   maxHealthColor:
@@ -4845,12 +4817,10 @@ MonoBehaviour:
   constraintColor:
     serializedVersion: 2
     rgba: 0
-  ConstraintList: []
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
   rb: {fileID: 0}
-  TargetVelocity: {x: 0, y: 0}
   damagePerForceUnit: 0
   itemHoverableObject: {fileID: 0}
   WeaponItem:
@@ -5146,6 +5116,10 @@ PrefabInstance:
       propertyPath: Hostiles.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: <Sprite>k__BackingField
+      value: 
+      objectReference: {fileID: 3598344733854434236, guid: f9d8eaa7e2991154c8d80dbb969ec18f, type: 3}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: weaponPlaceSlot
       value: 
@@ -5208,7 +5182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2273568672903025380, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.28147167
+      value: 0.28147164
       objectReference: {fileID: 0}
     - target: {fileID: 2273568672903025380, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5221,6 +5195,10 @@ PrefabInstance:
     - target: {fileID: 2273568672903025381, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_Lens.NearClipPlane
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2273568672903025381, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2273568673044369825, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_RootOrder
@@ -5274,13 +5252,17 @@ PrefabInstance:
       propertyPath: near clip plane
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2273568673667364164, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
+      propertyPath: orthographic size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2273568673667364283, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.0538213
       objectReference: {fileID: 0}
     - target: {fileID: 2273568673667364283, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.28147167
+      value: 0.28147164
       objectReference: {fileID: 0}
     - target: {fileID: 2273568673667364283, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.z

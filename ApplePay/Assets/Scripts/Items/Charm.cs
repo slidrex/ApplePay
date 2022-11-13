@@ -8,6 +8,7 @@ public class Charm : CharmObject
     public virtual void BeginFunction(Entity entity) => SetCharmStats(entity);
     protected void SetCharmStats(Entity entity)
     {
+        
         TaggedAttributes = new TagAttribute[Attributes.Length];
         
         

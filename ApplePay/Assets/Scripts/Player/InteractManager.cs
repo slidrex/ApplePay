@@ -97,7 +97,7 @@ public class InteractManager : MonoBehaviour
             new PayWorld.Effect.EffectProperty(PayWorld.Effect.States.MoveConstraint())
         );
         
-        PayWorld.EffectController.AttachVisualAttrib(effect, "Interact Constrainer", "Some abilities are under constraint.", "", EffectDatabase.FindEffectSprite("Interact.png"));
+        PayWorld.EffectController.AttachVisualAttrib(effect, "Interact Constrainer", "Some abilities are under constraint.", "", null);
         Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.FollowCanvas, indicator, out interactIndicator,
             Pay.UI.Options.Transform.StaticProperty.Position(transform.position + Vector3.up / 1.2f),
             Pay.UI.Options.Transform.DynamicProperty.LocalScale(Vector3.one / 3, Vector3.one / 4, true, 0.5f)

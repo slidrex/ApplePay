@@ -8,7 +8,7 @@ abstract public class EntityMovement : MonoBehaviour
     public Animator animator {get; private set;}
     [Header("Entity Movement")]
     public float CurrentSpeed = Mathf.PI;
-    [ReadOnly] public Vector2 MoveVector;
+    public Vector2 MoveVector;
     [HideInInspector] public Rigidbody2D Rigidbody;
     [HideInInspector] public bool ConstraintRotation;
     private float curConstraintDuration;

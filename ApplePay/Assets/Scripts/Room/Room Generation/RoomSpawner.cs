@@ -4,7 +4,6 @@ using System.Linq;
 
 public class RoomSpawner : MonoBehaviour
 {
-    private const string MarkDatabaseName = "mark";
     internal struct walker
     {
         internal walker(Vector2 position)
@@ -160,7 +159,7 @@ public class RoomSpawner : MonoBehaviour
     }
     private void FillMark(Room room)
     {
-        MarkDatabase markDatabase = (MarkDatabase)PayDatabase.GetDatabase(MarkDatabaseName);
+        MarkDatabase markDatabase = (MarkDatabase)PayDatabase.GetDatabase("mark");
         for(int i = 0; i < room.MarkList.Count; i++)
         {
             while(room.MarkList[i] == null)
