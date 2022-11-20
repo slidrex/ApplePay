@@ -40,22 +40,22 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Start() { }
     private void AttributesSetup()
     {
-        this.AddAttribute("maxHealth", new ReferencedAttribute(
+        this.AddAttribute("maxHealth", new FloatRef(
             () => MaxHealth,
             val => MaxHealth = (int)val
         ), MaxHealth);
-        this.AddAttribute("evasion", new ReferencedAttribute(
+        this.AddAttribute("evasion", new FloatRef(
             () => evasionRate,
             val => evasionRate = val
         ), 0f);
-        this.AddAttribute("magicResistance", new ReferencedAttribute(
+        this.AddAttribute("magicResistance", new FloatRef(
             () => magicResistance,
             val => magicResistance = val
         ), 0f);
         if(Movement != null)
             this.AddAttribute(
             "movementSpeed",
-            new ReferencedAttribute(
+            new FloatRef(
             () => Movement.CurrentSpeed,
             val => Movement.CurrentSpeed = val
             ),
@@ -65,7 +65,6 @@ public abstract class Entity : MonoBehaviour
     {
         CollisionHandler.OnUpdate();
         
-        foreach(EntityAttribute attribute in Attributes.Values) attribute.HandleClockedAttributes();
         CollisionUpdate();
         EffectsUpdate();
     }

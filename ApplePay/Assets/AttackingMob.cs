@@ -12,7 +12,7 @@ public class AttackingMob : MobEntity, IDamageDealable
     }
     public void AddDamageAttribute() 
     {
-        GetComponent<Entity>().AddAttribute("attack_damage", new ReferencedAttribute(
+        this.AddAttribute("attack_damage", new FloatRef(
             () => AttackDamage,
             val => AttackDamage = (int)val
         ), AttackDamage);

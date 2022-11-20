@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class CharmRepositoryRenderer : RepositoryRenderer
+public class CharmRepositoryRenderer : RepositoryRenderer<CharmDisplay>
 {
     [SerializeField] private Hoverboard hoverboard;
     private void OnEnable() => Render();
     protected override void OnRepositoryUpdated(byte index) => Render();
-    public override void OnCellTriggerEnter(ItemDisplay display, InventoryDisplaySlot slot)
+    public override void OnCellTriggerEnter(CharmDisplay display, InventoryDisplaySlot<CharmDisplay> slot)
     {
         CharmDisplay charmDisplay = (CharmDisplay)display;
         UpdateHoverboard(charmDisplay);
     }
     private void UpdateHoverboard(CharmDisplay display)
     {
-        if(display == null)
+        if(display.Equals(new CharmDisplay()))
         {
             hoverboard.SetDefaultDescription();
             return;
@@ -22,34 +22,34 @@ public class CharmRepositoryRenderer : RepositoryRenderer
 
         foreach(CharmDisplay.CharmAddtionalField addtionalField in display.AdditionalFields)
         {
-            hoverboard.AddField(addtionalField.Text, addtionalField.Color);
+            hoverboard.AddField(addtionalField.Text, addtionalField.GetColor());
         }
 
     }
-    public void OnCharmSwitched(InventoryDisplaySlot slot)
+    public void OnCharmSwitched(InventoryDisplaySlot<CharmDisplay> slot)
     {
         for(int i = 0; i < Slots.Length; i++)
         {
-            if(slot == Slots[i] && slot.Display != null)
+            if(slot == Slots[i] && slot.m_Display.Equals(new CharmDisplay()) == false)
             {
                 CharmItem item = (CharmItem)Repository.Items[i];
                 
                 MixedCharm mixedCharm = (MixedCharm)item.Item;
                 
                 
-                item.GetActiveCharm().EndFunction(Inventory.InventoryOwner);
+                item.GetActiveCharm().EndFunction(Inventory.InventoryOwner, item.Manual);
                 
                 item.ActiveIndex = (byte)Mathf.Repeat(item.ActiveIndex + 1, mixedCharm.Charms.Length);
                 
                 
-                item.GetActiveCharm().BeginFunction(Inventory.InventoryOwner);
+                item.GetActiveCharm().BeginFunction(Inventory.InventoryOwner, item.Manual);
                 Repository.Items[i] = item;
                 UpdateHoverboard(item.GetActiveCharm().Display);
                 OnRepositoryUpdated((byte)i); //Performance issue.
             }
         }
     }
-    public override void OnCellTriggerExit(ItemDisplay display, InventoryDisplaySlot slot) => hoverboard.SetDefaultDescription();
+    public override void OnCellTriggerExit(CharmDisplay display, InventoryDisplaySlot<CharmDisplay> slot) => hoverboard.SetDefaultDescription();
     private void Render()
     {
         InventoryRepository repository = Inventory.GetRepository(RepositoryName);
@@ -60,8 +60,21 @@ public class CharmRepositoryRenderer : RepositoryRenderer
             CharmInventoryRenderItem _item = new CharmInventoryRenderItem();
             if(item != null) 
             {
-                _item.Type = item.Type; 
-                _item.Display = item.GetActiveCharm().Display;
+                _item.Type = item.Type;
+                CharmDisplay currentCharmDisplay = item.GetActiveCharm().Display; 
+                
+                _item.Display = new CharmDisplay();
+                _item.Display.Description = new ItemDescription();
+                _item.Display.Description = item.GetActiveCharm().Display.Description;
+                _item.Display.Icon = item.GetActiveCharm().Display.Icon;
+                _item.Display.AdditionalFields = new CharmDisplay.CharmAddtionalField[currentCharmDisplay.AdditionalFields.Length];
+                
+                
+                for(int j = 0; j < _item.Display.AdditionalFields.Length; j++)
+                {
+                    _item.Display.AdditionalFields[j].Color = currentCharmDisplay.AdditionalFields[j].Color;
+                    _item.Display.AdditionalFields[j].Text = CharmDisplay.FormatCharmField(currentCharmDisplay.AdditionalFields[j].Text, item.GetActiveCharm(), item.Manual);
+                }
             }
             renderItems[i] = _item;
             

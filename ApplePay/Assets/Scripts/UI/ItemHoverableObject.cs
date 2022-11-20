@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class ItemHoverableObject : MonoBehaviour
 {
+    public ItemDescription Description;
     [SerializeField] private DroppedItemContentPanel contentPanel;
-    [SerializeField] private string header;
-    [SerializeField, TextArea] private string description;
+    [SerializeField] protected string header;
+    [SerializeField, TextArea] protected string description;
     private Pay.UI.UIHolder holder;
     private DroppedItemContentPanel tempPanel;
     private Vector2 sourceOffset = Vector2.up;

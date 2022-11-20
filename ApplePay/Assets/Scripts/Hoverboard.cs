@@ -27,6 +27,8 @@ public class Hoverboard : MonoBehaviour
         Vector2 sourceScale = obj.transform.localScale;
         obj.transform.SetParent(additionalFieldList);
         obj.transform.localScale = sourceScale;
+        
+        
         obj.text = text;
         obj.color = color;
         UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(additionalFieldList);

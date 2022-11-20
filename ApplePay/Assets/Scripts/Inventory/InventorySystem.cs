@@ -16,7 +16,11 @@ public class InventorySystem : MonoBehaviour
     [SerializeField] private InventoryRepositoryObject[] StartRepositories;
     public Creature InventoryOwner;
     public Dictionary<string, InventoryRepository> Repositories = new Dictionary<string, InventoryRepository>();
-    private void Awake() => FillSetupRepositories();
+    private void Awake()
+    {
+        InventoryOwner.InventorySystem = this;
+        FillSetupRepositories();
+    }
     private void Update()
     {
         UpdateRepositoryItems();

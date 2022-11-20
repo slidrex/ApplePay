@@ -5,7 +5,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
     [Header("Weapon display")]
     [SerializeField, Tooltip("The object which stores weapon drop object in inventory.")] private Transform weaponList;
     public InventorySystem InventorySystem;
-    [SerializeField] private string repositoryName;
+    private const string repositoryName = "weapons";
     protected abstract Vector2 DropDirection { get; }
     protected InventoryRepository Repository; 
     [Header("Weapon Switch")]
@@ -57,6 +57,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
     }
     protected override void UpdateWeaponList()
     {
+        Item[] items = Repository.GetExistingItems();
         for(int i = 0; i < Repository.Items.Length; i++)
         {
             if(Repository.Items[i] != null)
@@ -71,11 +72,21 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
                 Repository.Items[i] = currentItem;
             }
         }
+        UpdateDisableStatus();
+    }
+    private void UpdateDisableStatus()
+    {
+        if(Disable && DropSettings.currentDropIndicatorObject != null) 
+        {
+            DropSettings.TargetForce = 0;
+            Pay.UI.UIManager.RemoveUI(DropSettings.currentDropIndicatorObject);
+            return;
+        }
     }
     protected void OffsetActiveWeapon(int offset)
     {
         System.Collections.Generic.List<byte> activeSlots = new System.Collections.Generic.List<byte>();
-
+        
         for(byte i = 0; i < Repository.Items.Length; i++)
         {
             if(Repository.Items[i] != null) activeSlots.Add(i);
@@ -92,6 +103,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
         {
             DropSettings.IndicatorStartup(transform);
         }
+        
         
         Pay.UI.UIManager.Indicator.UpdateIndicator(DropSettings.currentDropIndicatorObject, DropSettings.TargetForce, DropSettings.MaxForce - DropSettings.MinForce);
         DropSettings.TargetForce = Mathf.Clamp(DropSettings.TargetForce + DropSettings.ForceAddSpeed * Time.deltaTime, 0, DropSettings.MaxForce - DropSettings.MinForce);

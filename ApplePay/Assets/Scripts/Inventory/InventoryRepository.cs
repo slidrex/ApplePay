@@ -1,3 +1,4 @@
+using System.Linq;
 [System.Serializable]
 
 public struct InventoryRepository
@@ -5,6 +6,10 @@ public struct InventoryRepository
     public IRepositoryHandler[] Handlers;
     public InventorySystem System;
     public Item[] Items;
+    ///<summary>
+    ///Gets only existing items in the repository.
+    ///</summary>
+    public Item[] GetExistingItems() => Items.Where(x => x != null).ToArray();
     public InventoryRepository(InventorySystem owner, byte capacity, params IRepositoryHandler[] handlers)
     {
         Items = new Item[capacity];

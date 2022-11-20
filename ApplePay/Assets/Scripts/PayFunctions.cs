@@ -135,13 +135,13 @@ namespace Pay.Functions
         ///<summary>
         ///Gets a random enumeration value (Needs to be parsed to the specified enum type).
         ///</summary>
-        public static System.Enum GetRandomizedEnum(System.Enum enumeration) => RandomizeEnum(enumeration, 0, System.Enum.GetValues(enumeration.GetType()).Length);
-        public static System.Enum GetRandomizedEnum(System.Enum enumeration, int from, int to) => RandomizeEnum(enumeration, from, to);
-        private static System.Enum RandomizeEnum(System.Enum enumeration, int from, int to)
+        public static EnumType GetRandomizedEnum<EnumType>(EnumType enumeration) => RandomizeEnum<EnumType>(enumeration, 0, System.Enum.GetValues(enumeration.GetType()).Length);
+        public static EnumType GetRandomizedEnum<EnumType>(EnumType enumeration, int startIndex, int length) => RandomizeEnum<EnumType>(enumeration, startIndex, length);
+        private static EnumType RandomizeEnum<EnumType>(EnumType enumeration, int startIndex, int length)
         {
             System.Array arr = System.Enum.GetValues(enumeration.GetType());
             System.Random rand = new System.Random();
-            enumeration = (System.Enum)arr.GetValue(rand.Next(from, to));
+            enumeration = (EnumType)arr.GetValue(rand.Next(startIndex, length));
             return enumeration;
         }
         ///<summary>

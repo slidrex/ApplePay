@@ -16,11 +16,13 @@ MonoBehaviour:
   - AttributeName: attackDamage
     AdditionalAttributeValue: 0.2
     Type: 0
+    DisplayType: 1
   Display:
-    InventorySprite: {fileID: 21300000, guid: ecb978154d9b3104fa36bb61d71f4108, type: 3}
+    Icon: {fileID: 21300000, guid: ecb978154d9b3104fa36bb61d71f4108, type: 3}
     Description:
       Name: Scissors of Strength
       Description: Increases attack damage
     AdditionalFields:
-    - Color: {r: 0.6627451, g: 1, b: 0.654902, a: 1}
-      Text: +20% attack damage
+    - Color: 1
+      Text: +{0,0}% attack damage
+  CharmFields: []

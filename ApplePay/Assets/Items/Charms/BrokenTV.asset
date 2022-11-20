@@ -16,11 +16,13 @@ MonoBehaviour:
   - AttributeName: evasion
     AdditionalAttributeValue: 0.2
     Type: 1
+    DisplayType: 1
   Display:
-    InventorySprite: {fileID: -6407655375219818683, guid: 611b30f189a9fd54ca426385d5955070, type: 3}
+    Icon: {fileID: -6407655375219818683, guid: 611b30f189a9fd54ca426385d5955070, type: 3}
     Description:
       Name: Broken Television
       Description: Increases evasion abilities
     AdditionalFields:
-    - Color: {r: 0.6627451, g: 1, b: 0.654902, a: 1}
-      Text: +20% evasion
+    - Color: 3
+      Text: +{0,0}% evasion
+  CharmFields: []

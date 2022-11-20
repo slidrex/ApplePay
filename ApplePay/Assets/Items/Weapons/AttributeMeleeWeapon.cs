@@ -21,14 +21,14 @@ public abstract class AttributeMeleeWeapon : MeleeWeapon
 
         if(_attribute.GetTaggedAttributesCount(tagName) > 1) throw new System.Exception("Doubled effect");
         
-        if(_attribute.ContainsTaggedAttribute(tagName) == false)
+        if(!_attribute.ContainsTaggedAttribute(tagName))
         {
             tagAttribute = _attribute.AddAttributeValue(value, type, tagName);
         }
         else
         {
             tagAttribute = _attribute.GetTagAttributes(tagName)[0];
-            tagAttribute.RemoveDestroyClock();
+            if(tagAttribute.DestroyClocks.Count > 0) tagAttribute.DestroyClocks[0].Remove();
         }
         tagAttribute.SetDestroyClock(time);
     }

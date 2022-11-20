@@ -1,10 +1,10 @@
 using System.Linq;
 
-public struct ReferencedAttribute
+public struct FloatRef
 {
     public System.Func<float> Get;
     public System.Action<float> Set;
-    public ReferencedAttribute(System.Func<float> getter, System.Action<float> setter)
+    public FloatRef(System.Func<float> getter, System.Action<float> setter)
     {
         Get = getter;
         Set = setter;
@@ -13,39 +13,20 @@ public struct ReferencedAttribute
 [System.Serializable]
 public class EntityAttribute
 {
-    internal ReferencedAttribute ReferencedAttribute;
+    internal FloatRef ReferencedAttribute;
     public System.Collections.Generic.List<TagAttribute> TaggedAttributes;
     public System.Collections.Generic.Dictionary<string, AttributeMask> TaggedAttributeMasks;
-    public System.Collections.Generic.List<TagAttributeClock> ClockedTagAttributes;
     public System.Collections.Generic.List<AttributeMask> GlobalMasks;
     internal float BaseAttributevalue;
     internal float ValueMultiplier;
-    public EntityAttribute(ReferencedAttribute attribute, float baseAttributeValue)
+    public EntityAttribute(FloatRef attribute, float baseAttributeValue)
     {
-        ClockedTagAttributes = new System.Collections.Generic.List<TagAttributeClock>();
         ReferencedAttribute = attribute;
         BaseAttributevalue = baseAttributeValue;
         TaggedAttributes = new System.Collections.Generic.List<TagAttribute>();
         GlobalMasks = new System.Collections.Generic.List<AttributeMask>();
         TaggedAttributeMasks = new System.Collections.Generic.Dictionary<string, AttributeMask>();
         ValueMultiplier = 1f;
-    }
-    public void HandleClockedAttributes()
-    {
-        for(int i = 0; i < ClockedTagAttributes.Count; i++)
-        {
-            if(ClockedTagAttributes[i].RemainTime <= 0)
-            {
-                ClockedTagAttributes[i].TagAttribute.Remove();
-                ClockedTagAttributes.RemoveAt(i);
-            }
-            else
-            {
-                TagAttributeClock attribute = ClockedTagAttributes[i];
-                attribute.RemainTime -= UnityEngine.Time.deltaTime;
-                ClockedTagAttributes[i] = attribute;
-            }
-        }
     }
 }
 
@@ -70,10 +51,10 @@ public struct AttributeMask
 public class TagAttribute
 {
     public EntityAttribute AttachedAttribute;
+    public System.Collections.Generic.List<TagAttribute.DestroyClock> DestroyClocks = new System.Collections.Generic.List<TagAttribute.DestroyClock>();
     public string[] Tags;
     public float Value;
     public AttributeType Type;
-    public byte Count { get; set; }
     public TagAttribute(EntityAttribute attachedAttribute, float value, AttributeType attributeType, string[] tags)
     {
         AttachedAttribute = attachedAttribute;
@@ -82,15 +63,15 @@ public class TagAttribute
         if(Tags == null) Tags = new string[1];
         Value = value;
     }
-}
-public struct TagAttributeClock
-{
-    [UnityEngine.SerializeField] internal float RemainTime;
-    [UnityEngine.SerializeField] internal TagAttribute TagAttribute;
-    internal TagAttributeClock(TagAttribute tagAttribute, float time)
+    public struct DestroyClock
     {
-        RemainTime = time;
-        TagAttribute = tagAttribute;
+        public TagAttribute Attribute;
+        public System.Collections.IEnumerator Coroutine;
+        public void Remove() 
+        {
+            Attribute.DestroyClocks.Remove(this);
+            StaticCoroutine.EndCoroutine(Coroutine);
+        }
     }
 }
 public struct AttributeSummary
@@ -106,19 +87,6 @@ public struct AttributeSummary
 }
 public static class EntityAttributeExtension
 {
-    ///<summary> Sets the tagged attribute termination time.
-    public static void SetDestroyClock(this TagAttribute attribute, float time)  => attribute.AttachedAttribute.ClockedTagAttributes.Add(new TagAttributeClock(attribute, time));
-    public static void RemoveDestroyClock(this TagAttribute attribute)
-    {
-        EntityAttribute attrib = attribute.AttachedAttribute;
-        for(int i = 0; i < attrib.ClockedTagAttributes.Count; i++)
-        {
-            if(attrib.ClockedTagAttributes[i].TagAttribute == attribute)
-            {
-                attrib.ClockedTagAttributes.RemoveAt(i);
-            }
-        }
-    }
     ///<summary> Adds a mask that add change applies for each tagged attribute with the specified tag. </summry>
     public static AttributeMask AddTaggedMultiplierAttributeMask(this EntityAttribute attribute, float value, AttributeOperation operation, string maskedTag) 
     {
@@ -248,11 +216,33 @@ public static class EntityAttributeExtension
         return taggedAttributesCount;
     }
         ///<summary> Turns variable into a result attribute. </summary>
-    public static EntityAttribute AddAttribute(this Entity entity, string name, ReferencedAttribute attribute, float baseAttributeValue)
+    public static EntityAttribute AddAttribute(this Entity entity, string name, FloatRef attribute, float baseAttributeValue)
     {
         EntityAttribute attrib = new EntityAttribute(attribute, baseAttributeValue);
         entity.Attributes.Add(name, attrib);
         return attrib;
     }
     public static TagAttribute[] GetTagAttributes(this EntityAttribute attribute, string tag) => attribute.TaggedAttributes.Where(x => x.Tags.Contains(tag)).ToArray();
+}
+
+public static class AttributeDestroyClockExtension
+{
+    ///<summary> Sets the tagged attribute termination time.</summary>
+    public static TagAttribute.DestroyClock SetDestroyClock(this TagAttribute attribute, float time)
+    {
+        TagAttribute.DestroyClock clock = new TagAttribute.DestroyClock();
+        System.Collections.IEnumerator coroutine = DestroyTagAttribute(clock, attribute, time);
+        clock.Coroutine = coroutine;
+        clock.Attribute = attribute;
+        StaticCoroutine.BeginCoroutine(coroutine);
+        
+        attribute.DestroyClocks.Add(clock);
+        return clock;
+    }
+    private static System.Collections.IEnumerator DestroyTagAttribute(TagAttribute.DestroyClock clock, TagAttribute attribute, float time)
+    {
+        yield return new UnityEngine.WaitForSeconds(time);
+        attribute.DestroyClocks.Remove(clock);
+        attribute.Remove();
+    }
 }

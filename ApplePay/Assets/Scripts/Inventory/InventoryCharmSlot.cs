@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InventoryCharmSlot : InventoryDisplaySlot
+public class InventoryCharmSlot : InventoryDisplaySlot<CharmDisplay>
 {
     [SerializeField] private GameObject SwitchIcon;
     private new CharmRepositoryRenderer attachedRenderer {get => (CharmRepositoryRenderer)base.attachedRenderer;}
@@ -10,7 +10,8 @@ public class InventoryCharmSlot : InventoryDisplaySlot
     }
     public void RenderItem(CharmDisplay display, bool switchable)
     {
-        RenderItem(display);
+        RenderIcon(display.Icon);
+        LinkDisplay(display);
         SwitchIcon.SetActive(false);
         if(switchable) SwitchIcon.SetActive(true);
         switchable = false;

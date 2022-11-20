@@ -15,7 +15,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     private UnityEngine.Rendering.Universal.Vignette vignette;
     public void AddDamageAttribute()
     {
-        this.AddAttribute("attackDamage", new ReferencedAttribute(
+        this.AddAttribute("attackDamage", new FloatRef(
             () => AttackDamage,
             val => AttackDamage = (int)val
         ), AttackDamage);

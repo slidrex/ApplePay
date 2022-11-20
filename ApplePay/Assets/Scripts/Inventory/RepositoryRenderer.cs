@@ -1,7 +1,7 @@
 using UnityEngine;
 [System.Serializable]
 
-public abstract class RepositoryRenderer : MonoBehaviour, IRepositoryCallbackHandler
+public abstract class RepositoryRenderer<Display> : MonoBehaviour, IRepositoryCallbackHandler
 {
     public InventorySystem Inventory;
     [SerializeField] protected string RepositoryName;
@@ -11,14 +11,14 @@ public abstract class RepositoryRenderer : MonoBehaviour, IRepositoryCallbackHan
         Repository = Inventory.GetRepository(RepositoryName);
         SetSlotsRenderer();
     }
-    public InventoryDisplaySlot[] Slots
+    public InventoryDisplaySlot<Display>[] Slots
     {
         get
         {
-            System.Collections.Generic.List<InventoryDisplaySlot> slotList = new System.Collections.Generic.List<InventoryDisplaySlot>();
+            System.Collections.Generic.List<InventoryDisplaySlot<Display>> slotList = new System.Collections.Generic.List<InventoryDisplaySlot<Display>>();
             for(byte i = 0; i < transform.childCount; i++)
             {
-                if(transform.GetChild(i).GetComponent<InventoryDisplaySlot>() != null) slotList.Add(transform.GetChild(i).GetComponent<InventoryDisplaySlot>());
+                if(transform.GetChild(i).GetComponent<InventoryDisplaySlot<Display>>() != null) slotList.Add(transform.GetChild(i).GetComponent<InventoryDisplaySlot<Display>>());
             }
             return slotList.ToArray();
         }
@@ -27,9 +27,9 @@ public abstract class RepositoryRenderer : MonoBehaviour, IRepositoryCallbackHan
     protected virtual void OnRepositoryUpdated(byte index) {}
     private void SetSlotsRenderer()
     {
-        foreach(InventoryDisplaySlot slot in Slots) slot.LinkRender(this);
+        foreach(InventoryDisplaySlot<Display> slot in Slots) slot.LinkRender(this);
     }
-    public virtual void OnCellTriggerEnter(ItemDisplay display, InventoryDisplaySlot slot) {}
-    public virtual void OnCellTrigger(ItemDisplay display, InventoryDisplaySlot slot) {}
-    public virtual void OnCellTriggerExit(ItemDisplay display, InventoryDisplaySlot slot) {}
+    public virtual void OnCellTriggerEnter(Display display, InventoryDisplaySlot<Display> slot) {}
+    public virtual void OnCellTrigger(Display display, InventoryDisplaySlot<Display> slot) {}
+    public virtual void OnCellTriggerExit(Display display, InventoryDisplaySlot<Display> slot) {}
 }

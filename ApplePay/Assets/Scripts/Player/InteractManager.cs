@@ -19,7 +19,7 @@ public class InteractManager : MonoBehaviour
     private void Awake()
     {
         entity = GetComponent<Creature>();
-        entity.AddAttribute("hackSpeed", new ReferencedAttribute(
+        entity.AddAttribute("hackSpeed", new FloatRef(
             () => HackSpeed, val => HackSpeed = val), HackSpeed
         );
     }
@@ -81,7 +81,7 @@ public class InteractManager : MonoBehaviour
     }
     private WaveStatus WaveStatusCheck()
     {
-        wavedepentComponent = GetComponent<Creature>().GetComponent<IWavedepent>();
+        wavedepentComponent = entity.GetComponent<IWavedepent>();
         if(wavedepentComponent == null) return WaveStatus.NoWave;
         return wavedepentComponent.WaveStatus;
     }
@@ -120,7 +120,7 @@ public class InteractManager : MonoBehaviour
         InInteract = false;
         currentInteractObj = null;
         anim.SetBool("isUnhacking", true);
-        PayWorld.EffectController.RemoveEffect(GetComponent<Entity>(), ref constraintId);
+        PayWorld.EffectController.RemoveEffect(entity, ref constraintId);
         Pay.UI.UIManager.RemoveUI(interactIndicator);
     }
     

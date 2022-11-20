@@ -12,7 +12,7 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     {
         base.Update();
         
-        InventoryController();
+        if(!Disable) InventoryController();
         UpdateSlotIndicator();
     }
     private void InventoryController()
@@ -54,7 +54,7 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
         if(currentItem != null)
         {
             weaponPlaceSlot.CreateSlotIndicator(DropSettings.Holder);
-            weaponPlaceSlot.SetItem(currentItem.WeaponInfo.Display.InventorySprite);
+            weaponPlaceSlot.SetItem(currentItem.WeaponInfo.Display.Icon);
             weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().WeaponInfo.Display.Description.Name);
         }
     }
