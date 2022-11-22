@@ -37,12 +37,12 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CharmDisplay>
                 MixedCharm mixedCharm = (MixedCharm)item.Item;
                 
                 
-                item.GetActiveCharm().EndFunction(Inventory.InventoryOwner, item.Manual);
+                item.GetActiveCharm().EndFunction(Inventory.InventoryOwner, item.Manuals[item.ActiveIndex]);
                 
                 item.ActiveIndex = (byte)Mathf.Repeat(item.ActiveIndex + 1, mixedCharm.Charms.Length);
                 
                 
-                item.GetActiveCharm().BeginFunction(Inventory.InventoryOwner, item.Manual);
+                item.GetActiveCharm().BeginFunction(Inventory.InventoryOwner, item.Manuals[item.ActiveIndex]);
                 Repository.Items[i] = item;
                 UpdateHoverboard(item.GetActiveCharm().Display);
                 OnRepositoryUpdated((byte)i); //Performance issue.
@@ -73,7 +73,7 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CharmDisplay>
                 for(int j = 0; j < _item.Display.AdditionalFields.Length; j++)
                 {
                     _item.Display.AdditionalFields[j].Color = currentCharmDisplay.AdditionalFields[j].Color;
-                    _item.Display.AdditionalFields[j].Text = CharmDisplay.FormatCharmField(currentCharmDisplay.AdditionalFields[j].Text, item.GetActiveCharm(), item.Manual);
+                    _item.Display.AdditionalFields[j].Text = CharmDisplay.FormatCharmField(currentCharmDisplay.AdditionalFields[j].Text, item.GetActiveCharm(), item.Manuals[item.ActiveIndex]);
                 }
             }
             renderItems[i] = _item;

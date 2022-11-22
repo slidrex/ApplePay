@@ -8,9 +8,9 @@ public abstract class AttributeMeleeWeapon : MeleeWeapon
     [SerializeField] private bool passImmortal;
     [SerializeField] private string attribute;
     [SerializeField] private float value;
-    [SerializeField] private AttributeType type;
+    [SerializeField] private EntityAttribute.AttributeType type;
     [SerializeField] private float time;
-    [SerializeField] private TagAttribute tagAttribute;
+    [SerializeField] private EntityAttribute.TagAttribute tagAttribute;
     protected override void OnEntityHitEnter(Collider2D collision, Entity hitEntity)
     {
         base.OnEntityHitEnter(collision, hitEntity);
@@ -19,16 +19,17 @@ public abstract class AttributeMeleeWeapon : MeleeWeapon
         if(_attribute == null || (passImmortal == false && entity.Immortal)) return;
         string tagName = attributeTag + Owner;
 
-        if(_attribute.GetTaggedAttributesCount(tagName) > 1) throw new System.Exception("Doubled effect");
+        if(_attribute.GetTagAttributesCount(tagName) > 1) throw new System.Exception("Doubled effect");
         
-        if(!_attribute.ContainsTaggedAttribute(tagName))
+        if(!_attribute.ContainsTagAttribute(tagName))
         {
-            tagAttribute = _attribute.AddAttributeValue(value, type, tagName);
+            tagAttribute = type == EntityAttribute.AttributeType.Multiplier ? _attribute.AddAttributeMultiplier(value, tagName) : _attribute.AddAttributeMultiplier(value, tagName);
+            
         }
         else
         {
             tagAttribute = _attribute.GetTagAttributes(tagName)[0];
-            if(tagAttribute.DestroyClocks.Count > 0) tagAttribute.DestroyClocks[0].Remove();
+            if(tagAttribute.GetDestroyClocks().Count > 0) tagAttribute.GetDestroyClocks()[0].Remove();
         }
         tagAttribute.SetDestroyClock(time);
     }

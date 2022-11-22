@@ -147,7 +147,7 @@ namespace PayWorld
             }
             public ActiveEffect() { }
         }
-        public static EffectMask AddMask(this ActiveEffect effect, EffectMask.MaskedParameter parameter, AttributeOperation operation, float value)
+        public static EffectMask AddMask(this ActiveEffect effect, EffectMask.MaskedParameter parameter, EntityAttribute.AttributeOperation operation, float value)
         {
             EffectMask mask = new EffectMask(parameter, operation, value, effect);
             effect.Masks.Add(mask);
@@ -167,12 +167,12 @@ namespace PayWorld
             {
                 if(mask.Parameter == EffectMask.MaskedParameter.EffectValue)
                 {
-                    if(mask.Operation == AttributeOperation.Add) valueAdd += mask.Value;
+                    if(mask.Operation == EntityAttribute.AttributeOperation.Add) valueAdd += mask.Value;
                     else valueMultiplier *= mask.Value;
                 }
                 else
                 {
-                    if(mask.Operation == AttributeOperation.Add) timeAdd += mask.Value;
+                    if(mask.Operation == EntityAttribute.AttributeOperation.Add) timeAdd += mask.Value;
                     else timeMultiplier *= mask.Value;
                 }
 
@@ -193,14 +193,14 @@ namespace PayWorld
         {
             public ActiveEffect AttachedEffect;
             public float Value;
-            public AttributeOperation Operation;
+            public EntityAttribute.AttributeOperation Operation;
             public MaskedParameter Parameter;
             public enum MaskedParameter
             {
                 RemainTime,
                 EffectValue
             }
-            public EffectMask(MaskedParameter parameter, AttributeOperation operation, float value, ActiveEffect attachedEffect)
+            public EffectMask(MaskedParameter parameter, EntityAttribute.AttributeOperation operation, float value, ActiveEffect attachedEffect)
             {
                 Value = value;
                 Operation = operation;

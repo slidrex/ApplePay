@@ -34,16 +34,55 @@ public struct WeaponAnimationInfo
 [System.Serializable]
 public class CharmItem : Item
 {
-    public ChangeManual Manual = new ChangeManual();
+    public ChangeManual[] Manuals;
     public CharmObject Item;
+    private bool initiated;
     public CharmType Type {get 
     {
-        try { CharmObject charm = (Charm)Item; }
-        catch { return CharmType.Switchable;}
+        CharmObject charm = Item as Charm;
+        if(charm == null)
+        {
+            return CharmType.Switchable;
+        }
         return CharmType.Base;
     }
     }
     public byte ActiveIndex { get; set; }
+    public byte CharmsCount {get 
+    {
+        if(Type == CharmType.Switchable) return (byte)((MixedCharm)Item).Charms.Length;
+        return 1;
+    }}
+    private void Init()
+    {
+        int charmCount = CharmsCount;
+        Manuals = new ChangeManual[charmCount];
+        for(int i = 0; i < charmCount; i++)
+        {
+            Charm curCharm = GetCharm(i);
+            Manuals[i] = new ChangeManual();
+            for(int j = 0; j < curCharm.Attributes.Length; j++)
+            {
+                Manuals[i].attributeFields.Add(j, new VirtualBase(curCharm.Attributes[j].AdditionalAttributeValue));
+            }
+            for(int j = 0; j < curCharm.CharmFields.Length; j++)
+            {
+                Manuals[i].additionalFields.Add(curCharm.CharmFields[j].name, new VirtualBase(curCharm.CharmFields[j].value));
+            }
+        }
+        initiated = true;
+    }
+    public Charm GetCharm(int index)
+    {
+        if(Type == CharmType.Base && index == 0) return GetActiveCharm();
+        
+        if(Type == CharmType.Switchable) 
+        {
+            MixedCharm charm = (MixedCharm)Item;
+            return charm.Charms[index];
+        }
+        return null;
+    }
     public Charm GetActiveCharm()
     {
         if(Type == CharmType.Base) return (Charm)Item;
@@ -55,15 +94,16 @@ public class CharmItem : Item
     }
     public override void OnRepositoryAdded(InventorySystem system) 
     {
+        if(initiated == false) Init();
         if(Type == CharmType.Switchable)
         {
             MixedCharm charm = (MixedCharm)Item;
-            charm.Charms[ActiveIndex].BeginFunction(system.InventoryOwner, Manual);
+            charm.Charms[ActiveIndex].BeginFunction(system.InventoryOwner, Manuals[ActiveIndex]);
         }
         else
         {
             Charm charm = (Charm)Item;
-            charm.BeginFunction(system.InventoryOwner, Manual);
+            charm.BeginFunction(system.InventoryOwner, Manuals[ActiveIndex]);
         }
             
     }
@@ -72,12 +112,12 @@ public class CharmItem : Item
         if(Type == CharmType.Base)
         {
             Charm charm = (Charm)Item;
-            charm.EndFunction(system.InventoryOwner, Manual);
+            charm.EndFunction(system.InventoryOwner, Manuals[ActiveIndex]);
         }
         else
         {
             MixedCharm charm = (MixedCharm)Item;
-            charm.Charms[ActiveIndex].EndFunction(system.InventoryOwner, Manual);
+            charm.Charms[ActiveIndex].EndFunction(system.InventoryOwner, Manuals[ActiveIndex]);
         }
 
     }
@@ -86,12 +126,12 @@ public class CharmItem : Item
         if(Type == CharmType.Base)
         {
             Charm charm = (Charm)Item;
-            charm.UpdateFunction(system.InventoryOwner, Manual);
+            charm.UpdateFunction(system.InventoryOwner, Manuals[ActiveIndex]);
         }
         else
         {
             MixedCharm charm = (MixedCharm)Item;
-            charm.Charms[ActiveIndex].UpdateFunction(system.InventoryOwner, Manual);
+            charm.Charms[ActiveIndex].UpdateFunction(system.InventoryOwner, Manuals[ActiveIndex]);
         }
     }
 }
@@ -105,18 +145,7 @@ public class WeaponAnimationSettings
 }
 public class ChangeManual
 {
-    private System.Collections.Generic.Dictionary<string, float> manualMultipliers = new System.Collections.Generic.Dictionary<string, float>();
-    ///<summary>
-    ///Adds manual multiplier. If multiplier exists in manual, values will be added together.
-    ///</summary>
-    public bool TryGetMultiplier(string name, out float multiplier) => manualMultipliers.TryGetValue(name, out multiplier);
-    public bool ContainsMultiplier(string tag) => manualMultipliers.ContainsKey(tag);
-    public void AddMultiplier(string name, float value)
-    {
-        if(!manualMultipliers.ContainsKey(name))
-        {
-            manualMultipliers.Add(name, value);
-        }else manualMultipliers[name] += value;
-    }
-    public TagAttribute[] TagAttributes;
+    public System.Collections.Generic.Dictionary<int, VirtualBase> attributeFields = new System.Collections.Generic.Dictionary<int, VirtualBase>();
+    public System.Collections.Generic.Dictionary<string, VirtualBase> additionalFields = new System.Collections.Generic.Dictionary<string, VirtualBase>();
+    public System.Collections.Generic.List<EntityAttribute.TagAttribute> TagAttributeCache = new System.Collections.Generic.List<EntityAttribute.TagAttribute>();
 }

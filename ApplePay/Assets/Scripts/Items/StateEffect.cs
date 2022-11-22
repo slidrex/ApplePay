@@ -85,17 +85,17 @@ namespace PayWorld.Effect
         public static StateEffect Strength(float amount)
         {
             StateEffect effect = CreateState(amount);
-            StateEffect.BeginActionHandler beginAction = (Entity entity)  => entity.FindAttribute("attack_damage")?.AddAttributeValue(effect.GetValue(), AttributeType.Multiplier);
-            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("attack_damage")?.AddAttributeValue(-effect.GetValue(), AttributeType.Multiplier);
+            StateEffect.BeginActionHandler beginAction = (Entity entity)  => entity.FindAttribute("attack_damage")?.AddPercent(effect.GetValue());
+            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("attack_damage")?.AddPercent(-effect.GetValue());
 
             return effect.LinkActions(beginAction, endAction);
         }
         public static StateEffect HoldingHackSpeedChanger(float amount)
         {
             StateEffect stateEffect = CreateState(amount);
-            TagAttribute tag =  null;
+            EntityAttribute.TagAttribute tag = null;
             
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("hackSpeed").AddAttributeValue(stateEffect.GetValue(), AttributeType.Multiplier, null);
+            StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("hackSpeed").AddPercent(stateEffect.GetValue());
             StateEffect.EndActionHandler endAction = delegate(Entity entity) 
             {
                 if(tag != null) tag.Remove();
@@ -106,8 +106,8 @@ namespace PayWorld.Effect
         public static StateEffect VelocityChanger(float amount)
         {
             StateEffect stateEffect = CreateState(amount);
-            TagAttribute tag = null;
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("movementSpeed").AddAttributeValue(stateEffect.GetValue(), AttributeType.Multiplier, null);
+            EntityAttribute.TagAttribute tag = null;
+            StateEffect.BeginActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute("movementSpeed").AddPercent(stateEffect.GetValue());
             StateEffect.EndActionHandler endAction = delegate(Entity entity) 
             {
                 if(tag != null) tag.Remove();
@@ -118,22 +118,22 @@ namespace PayWorld.Effect
         public static StateEffect VelocityReverser()
         {
             StateEffect stateEffect = CreateState();
-            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.FindAttribute("movementSpeed").SetMultiplier(entity.FindAttribute("movementSpeed").ValueMultiplier * -1);
-            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("movementSpeed").SetMultiplier(entity.FindAttribute("movementSpeed").ValueMultiplier * -1);
+            StateEffect.BeginActionHandler beginAction = (Entity entity) => entity.FindAttribute("movementSpeed").AddAttributeMultiplier(-1);
+            StateEffect.EndActionHandler endAction = (Entity entity) => entity.FindAttribute("movementSpeed").AddAttributeMultiplier(-1);
             
             return stateEffect.LinkActions(beginAction, endAction);
         }
         public static StateEffect MoveConstraint()
         {
             StateEffect stateEffect = CreateState();
-            AttributeMask mask = new AttributeMask();
+            EntityAttribute.TagAttribute tagAttribute = null;
             StateEffect.BeginActionHandler action = delegate(Entity entity) 
             {
                 EntityAttribute attribute = entity.FindAttribute("movementSpeed");
-                mask = attribute.AddGlobalMultiplierAttributeMask(0, AttributeOperation.Multiply);
+                tagAttribute = attribute.AddAttributeMultiplier(0);
             };
             
-            StateEffect.EndActionHandler endAction = (Entity entity) => mask.Remove();
+            StateEffect.EndActionHandler endAction = (Entity entity) => tagAttribute.Remove();
             
             return stateEffect.LinkActions(action, endAction);
         }

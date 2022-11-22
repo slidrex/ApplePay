@@ -23,8 +23,9 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Start()
     {
         AddDamageAttribute();
+        
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
-        PayWorld.EffectController.AddEffect(this, "slowness", 1, 5f);
+        
         base.Start();
     }
     public void SetWaveStatus(WaveStatus waveStatus) => WaveStatus = waveStatus;

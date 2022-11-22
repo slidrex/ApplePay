@@ -57,25 +57,24 @@ public struct CharmDisplay
             input = input.Remove(index, 5);
             GroupCollection group = match.Groups;
                     float multiplier = 1f;
+                    int arr_index;
                 if(group[1].Value == "0")
                 {
-                    AdditionalItemAttributes attribute = charm.Attributes[int.Parse(group[2].Value)];
-                    if(manual.TryGetMultiplier("attributes", out float mult))
-                    {
-                        multiplier *= mult;
-                    }
+                    arr_index = int.Parse(group[2].Value);
+                    AdditionalItemAttributes attribute = charm.Attributes[arr_index];
+                    float value = manual.attributeFields[arr_index].GetValue();
+
                     if(attribute.DisplayType == Pay.Functions.Math.NumberType.Percent) multiplier *= 100;
-                    input = input.Insert(index, (attribute.AdditionalAttributeValue * multiplier).ToString());
+                    input = input.Insert(index, (value * multiplier).ToString());
                 }
                 else if(group[1].Value == "1")
                 {
-                    Charm.CharmAttribute attribute = charm.CharmFields[int.Parse(group[2].Value)];
+                    arr_index = int.Parse(group[2].Value);
+                    Charm.CharmField attribute = charm.CharmFields[arr_index];
+                    float value = manual.additionalFields[charm.CharmFields[arr_index].name].GetValue();
                     if(attribute.NumberType == Pay.Functions.Math.NumberType.Percent) multiplier *= 100;
-                    if(manual.TryGetMultiplier(attribute.name, out float mult))
-                    {
-                        multiplier *= mult;
-                    }
-                    input = input.Insert(index, (attribute.value * attribute.multiplier * multiplier).ToString());
+                    
+                    input = input.Insert(index, (value * multiplier).ToString());
                 }
         }
         return input;

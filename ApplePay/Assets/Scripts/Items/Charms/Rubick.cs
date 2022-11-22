@@ -1,6 +1,7 @@
 [UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Rubick", fileName = "new charm")]
 public class Rubick : Charm
 {
+    private const string tag = "rubick_attribute-amplification";
     public override void UpdateFunction(Creature entity, ChangeManual manual)
     {
         base.UpdateFunction(entity, manual);
@@ -9,18 +10,24 @@ public class Rubick : Charm
         for(int i = 0; i < charmItems.Length; i++)
         {
             CharmItem charm = (CharmItem)charmItems[i];
-            if(charm.Manual.ContainsMultiplier("attributes") == false)
+            if(charm.GetActiveCharm() != this)
             {
-                float attribAmplif = GetFieldValue("attribute-amplification", manual);
-                
-                if(charm.GetActiveCharm() != this)
+                for(int j = 0; j < charm.Manuals[charm.ActiveIndex].attributeFields.Count; j++)
                 {
-                    ChangeManual currentManual = charm.Manual;
-                        currentManual.AddMultiplier("attributes", 1 + attribAmplif);
-                        charm.GetActiveCharm().ReloadCharmManual(entity, currentManual);
+                    VirtualBase virtualBase = charm.Manuals[charm.ActiveIndex].attributeFields[j];
+                    if(!virtualBase.ContainsModifiedTag(tag))
+                    {
+                        virtualBase.AddPercent(0.25f, tag);
+                        entity.FindAttribute(charm.GetActiveCharm().Attributes[j].AttributeName).ApplyResult();
+                    }
+                }
+                
+                foreach(VirtualBase virtualBase in charm.Manuals[charm.ActiveIndex].additionalFields.Values)
+                {
+                    if(!virtualBase.ContainsModifiedTag(tag)) virtualBase.AddPercent(0.25f, tag);
                 }
             }
-
-            }
         }
+        //Performance issue
     }
+}

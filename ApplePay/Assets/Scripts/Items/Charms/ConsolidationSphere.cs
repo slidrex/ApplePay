@@ -6,8 +6,8 @@ public class ConsolidationSphere : Charm
     public override void UpdateFunction(Creature entity, ChangeManual manual)
     {
         base.UpdateFunction(entity, manual);
-        float amplify = GetFieldValue("effect-amplify", new ChangeManual()); 
-        float duration = GetFieldValue("effect-duration", new ChangeManual());
+        float amplify = GetFieldValue("effect-amplify", manual); 
+        float duration = GetFieldValue("effect-duration", manual);
         
         foreach(PayWorld.EffectController.ActiveEffect effect in entity.ActiveEffects.Values)
         {
@@ -15,9 +15,10 @@ public class ConsolidationSphere : Charm
             {
                 if(effect.Tags.Contains("positiveEffect"))
                 {
-                    durationMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.RemainTime, AttributeOperation.Multiply, duration);
-                }
-                valueMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.EffectValue, AttributeOperation.Multiply, amplify);
+                    durationMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.RemainTime, EntityAttribute.AttributeOperation.Multiply, duration);
+                }//To do:
+                 //Ref sphere virtual database amount to effect virtual databsase remain time and effect value.
+                valueMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.EffectValue, EntityAttribute.AttributeOperation.Multiply, amplify);
                 effect.Tags.Add("SphereAmplified");
             }
         }
