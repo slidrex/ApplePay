@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Linq;
-public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHandler, IRepositoryPreUpdateHandler
+public abstract class AdvancedWeaponHolder : WeaponHolder
 {
     [Header("Weapon display")]
     [SerializeField, Tooltip("The object which stores weapon drop object in inventory.")] private Transform weaponList;
     public InventorySystem InventorySystem;
-    private const string repositoryName = "weapons";
+    private const string repositoryName = "weapon";
     protected abstract Vector2 DropDirection { get; }
-    protected InventoryRepository Repository; 
+    protected WeaponRepository Repository; 
     [Header("Weapon Switch")]
     private byte activeWeaponIndex;
     [SerializeField] protected DropIndicator DropSettings;
@@ -23,7 +23,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
     protected override void Start() 
     {
         base.Start();
-        Repository = InventorySystem.GetRepository(repositoryName);
+        Repository = (WeaponRepository)InventorySystem.GetRepository(repositoryName);
     }
     public virtual void OnAddItem(WeaponItem item, byte index)
     {
@@ -41,14 +41,14 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
     }
     public void OnBeforeRepositoryUpdate()
     {
-        if(Repository.IsRepositoryFull()) DropRelease(ActiveWeaponIndex, 0);
+        if(Repository.IsFull()) DropRelease(ActiveWeaponIndex, 0);
     }
-    public void OnRepositoryUpdated(Item item, byte index, RepositoryChangeFeedback feedback)
+    public void OnRepositoryAdded(WeaponItem item, byte index)
     {
-        Debug.Log("Weapon repository was updated! Item " + item + " was " + feedback + " at index " + index + "!");
+        Debug.Log("Weapon repository was updated! Item " + item + " was added + at index " + index + "!");
         WeaponItem weaponItem = (WeaponItem)item;
-        if(feedback == RepositoryChangeFeedback.Added)
-                OnAddItem(weaponItem, index);
+        
+        OnAddItem(weaponItem, index);
     }
     protected WeaponItem GetActiveWeapon()
     {
@@ -57,7 +57,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryCallbackHa
     }
     protected override void UpdateWeaponList()
     {
-        Item[] items = Repository.GetExistingItems();
+        WeaponItem[] items = Repository.GetExistingItems();
         for(int i = 0; i < Repository.Items.Length; i++)
         {
             if(Repository.Items[i] != null)

@@ -36,14 +36,14 @@ namespace PayWorld
         ///<summary>
         ///Adds effect to selected entity (use "AttachVisualAttrib" to specify effect visual attributes).
         ///</summary>
-        public static ActiveEffect AddEffect(Entity applyEntity, float duration, out byte id, params EffectProperty[] stateEffects) => AddEffect(applyEntity, duration, false, out id, stateEffects);
+        public static ActiveEffect AddEffect(Entity applyEntity, float duration, out byte id, params EffectProperty[] EffectActions) => AddEffect(applyEntity, duration, false, out id, EffectActions);
         ///<summary>
         ///Adds effect to selected entity (use "AttachVisualAttrib" to specify effect visual attributes).
         ///</summary>
-        public static ActiveEffect AddEffect(Entity applyEntity, out byte id, params EffectProperty[] stateEffects) => AddEffect(applyEntity, 0f, true, out id, stateEffects);
-        private static ActiveEffect AddEffect(Entity applyEntity, float duration, bool endless, out byte id, EffectProperty[] stateEffects)
+        public static ActiveEffect AddEffect(Entity applyEntity, out byte id, params EffectProperty[] EffectActions) => AddEffect(applyEntity, 0f, true, out id, EffectActions);
+        private static ActiveEffect AddEffect(Entity applyEntity, float duration, bool endless, out byte id, EffectProperty[] EffectActions)
         {
-            ActiveEffect activeEffect = CreateEffect(applyEntity, duration, endless, stateEffects);
+            ActiveEffect activeEffect = CreateEffect(applyEntity, duration, endless, EffectActions);
             AddEffect(applyEntity, activeEffect, out id);
             return activeEffect;
         }
@@ -52,9 +52,9 @@ namespace PayWorld
 
             byte[] usedID = Pay.Functions.Generic.CombineArrays(entity.ActiveEffects.Keys.ToArray(), entity.EffectBundleBuffer.Keys.ToArray());
             byte _id = Pay.Functions.Math.GetUniqueByte(usedID, 0);
-            StateEffect[] stateEffects = effect.EffectProperties.Select(x => x.StateEffect).ToArray();
-            foreach(StateEffect stateEffect in stateEffects)
-                stateEffect.BeginAction?.Invoke(entity);
+            EffectAction[] EffectActions = effect.EffectProperties.Select(x => x.EffectAction).ToArray();
+            foreach(EffectAction EffectAction in EffectActions)
+                EffectAction.BeginAction?.Invoke(entity);
             
             entity.ActiveEffects.Add(_id, effect);
             
@@ -104,8 +104,8 @@ namespace PayWorld
         private static void RemoveSingle(Entity entity, ref byte effectId)
         {
             entity.ActiveEffects.TryGetValue(effectId, out ActiveEffect activeEffect);
-            StateEffect[] stateEffects = activeEffect.EffectProperties.Select(x => x.StateEffect).ToArray();
-            foreach(StateEffect state in stateEffects)
+            EffectAction[] EffectActions = activeEffect.EffectProperties.Select(x => x.EffectAction).ToArray();
+            foreach(EffectAction state in EffectActions)
             {
                 state.EndAction?.Invoke(entity);
             }
@@ -118,8 +118,8 @@ namespace PayWorld
             foreach(byte id in bundledId)
             {
                 entity.ActiveEffects.TryGetValue(id, out ActiveEffect activeEffect);
-                StateEffect[] stateEffects = activeEffect.EffectProperties.Select(x => x.StateEffect).ToArray();
-                foreach(StateEffect state in stateEffects)
+                EffectAction[] EffectActions = activeEffect.EffectProperties.Select(x => x.EffectAction).ToArray();
+                foreach(EffectAction state in EffectActions)
                     state.EndAction.Invoke(entity);
                 entity.ActiveEffects.Remove(id);
             }
@@ -179,14 +179,14 @@ namespace PayWorld
             }
             foreach(EffectProperty property in effect.EffectProperties)
             {
-                if(property.StateEffect.Value != null) property.StateEffect.Value.Value = (property.StateEffect.Value.BaseValue + valueAdd) * valueMultiplier;
+                if(property.EffectAction.Value != null) property.EffectAction.Value.Value = (property.EffectAction.Value.BaseValue + valueAdd) * valueMultiplier;
             }
             effect.RemainTime = (effect.RemainTime + timeAdd) * timeMultiplier;
             
             foreach(EffectProperty _property in effect.EffectProperties)
             {
-                if(_property.StateEffect.EndAction != null) _property.StateEffect.EndAction(effect.Owner);
-                if(_property.StateEffect.BeginAction != null) _property.StateEffect.BeginAction(effect.Owner);
+                if(_property.EffectAction.EndAction != null) _property.EffectAction.EndAction(effect.Owner);
+                if(_property.EffectAction.BeginAction != null) _property.EffectAction.BeginAction(effect.Owner);
             }
         }
         public struct EffectMask

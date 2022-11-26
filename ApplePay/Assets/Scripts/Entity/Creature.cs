@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Creature : Entity, IKillHandler
 {
-    [HideInInspector] public InventorySystem InventorySystem;
+    public InventorySystem InventorySystem { get; set; }
     public HealthBar HealthBar;
     public LootTable DropTable;
     public Room CurrentRoom;

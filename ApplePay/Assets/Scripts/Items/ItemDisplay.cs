@@ -47,7 +47,7 @@ public struct CharmDisplay
             Gray
         }
     }
-    public static string FormatCharmField(string input, Charm charm, ChangeManual manual)
+    public static string FormatCharmField(string input, Charm charm)
     {
         Regex res = new Regex("{(.),(.)}");
         MatchCollection collection = res.Matches(input);
@@ -62,7 +62,7 @@ public struct CharmDisplay
                 {
                     arr_index = int.Parse(group[2].Value);
                     AdditionalItemAttributes attribute = charm.Attributes[arr_index];
-                    float value = manual.attributeFields[arr_index].GetValue();
+                    float value = charm.attributeFields[arr_index].GetValue();
 
                     if(attribute.DisplayType == Pay.Functions.Math.NumberType.Percent) multiplier *= 100;
                     input = input.Insert(index, (value * multiplier).ToString());
@@ -71,7 +71,7 @@ public struct CharmDisplay
                 {
                     arr_index = int.Parse(group[2].Value);
                     Charm.CharmField attribute = charm.CharmFields[arr_index];
-                    float value = manual.additionalFields[charm.CharmFields[arr_index].name].GetValue();
+                    float value = charm.additionalFields[charm.CharmFields[arr_index].name].GetValue();
                     if(attribute.NumberType == Pay.Functions.Math.NumberType.Percent) multiplier *= 100;
                     
                     input = input.Insert(index, (value * multiplier).ToString());

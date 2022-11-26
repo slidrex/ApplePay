@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InventoryDisplaySlot<Display> : HoverableObject
+public class InventoryDisplaySlot<ItemType> : HoverableObject
 {
-    protected RepositoryRenderer<Display> attachedRenderer;
+    protected RepositoryRenderer<ItemType> attachedRenderer;
     [SerializeField] private UnityEngine.UI.Image Slot;
-    [HideInInspector] public Display m_Display;
-    public void LinkRender(RepositoryRenderer<Display> renderer) => attachedRenderer = renderer;
-    public void LinkDisplay(Display display) => m_Display = display;
+    [HideInInspector] public ItemType Item;
+    public void LinkRender(RepositoryRenderer<ItemType> renderer) => attachedRenderer = renderer;
+    public void LinkItem(ItemType item) => Item = item;
     public void RenderIcon(Sprite sprite)
     {
         if(sprite == null)
@@ -20,17 +20,19 @@ public class InventoryDisplaySlot<Display> : HoverableObject
     }
     public override void OnPointerEnter(PointerEventData pointerData)
     {
+        if(Item == null) return;
         base.OnPointerEnter(pointerData);
-        attachedRenderer.OnCellTriggerEnter(m_Display, this);
+        attachedRenderer.OnCellTriggerEnter(Item, this);
     }
     public override void OnPointer()
     {
         base.OnPointer();
-        attachedRenderer.OnCellTrigger(m_Display, this);
+        attachedRenderer.OnCellTrigger(Item, this);
     }
     public override void OnPointerExit(PointerEventData pointerData)
     {
+        if(Item == null) return;
         base.OnPointerExit(pointerData);
-        attachedRenderer.OnCellTriggerExit(m_Display, this);
+        attachedRenderer.OnCellTriggerExit(Item, this);
     }
 }

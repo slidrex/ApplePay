@@ -1,79 +1,47 @@
 using System.Linq;
 [System.Serializable]
-
-public struct InventoryRepository
+public abstract class InventoryRepository : UnityEngine.MonoBehaviour 
 {
-    public IRepositoryHandler[] Handlers;
-    public InventorySystem System;
-    public Item[] Items;
-    ///<summary>
-    ///Gets only existing items in the repository.
-    ///</summary>
-    public Item[] GetExistingItems() => Items.Where(x => x != null).ToArray();
-    public InventoryRepository(InventorySystem owner, byte capacity, params IRepositoryHandler[] handlers)
-    {
-        Items = new Item[capacity];
-        System = owner;
-        Handlers = handlers;
-    }
+    public abstract string Id {get;}
+    public InventorySystem AttachedSystem { get; set; }
 }
-public static class InventoryRepositoryExtension
+public abstract class InventoryRepository<ItemType> : InventoryRepository
 {
-    public static bool AddItem(this InventoryRepository repository, Item item)
+    public byte Capacity;
+    public ItemType[] Items;
+    private void Awake() => Items = new ItemType[Capacity];
+    public ItemType[] GetExistingItems() => Items.Where(x => x != null).ToArray();
+    public virtual bool AddItem(ItemType item)
     {
-        for(int i = 0; i < repository.Handlers.Length; i++) 
+        for(int i = 0; i < Items.Length; i++)
         {
-            if(repository.Handlers[i] is IRepositoryPreUpdateHandler)
+            if(Items[i] == null)
             {
-                ((IRepositoryPreUpdateHandler)repository.Handlers[i]).OnBeforeRepositoryUpdate();
-            }
-        }
-
-        for(int i = 0; i < repository.Items.Length; i++)
-        {
-            if(repository.Items[i] == null)
-            {
-                repository.Items[i] = item;
-                repository.Items[i].OnRepositoryAdded(repository.System);
-            for(int j = 0; j < repository.Handlers.Length; j++) 
-            {
-                if(repository.Handlers[j] is IRepositoryCallbackHandler)
-                {
-                    ((IRepositoryCallbackHandler)repository.Handlers[j]).OnRepositoryUpdated(item, (byte)i, RepositoryChangeFeedback.Added);
-                }
-            }
+                Items[i] = item;
                 return true;
             }
         }
         UnityEngine.Debug.LogWarning("Item hasn't been added!");
         return false;
     }
-    public static bool IsRepositoryFull(this InventoryRepository repository)
+    public bool IsFull()
     {
-        foreach(Item item in repository.Items)
+        foreach(ItemType item in Items)
         {
             if(item == null) return false;
         }
         return true;
     }
-    public static bool RemoveItem(this InventoryRepository repository, Item item)
+    public virtual bool RemoveItem(ItemType item)
     {
-        for(int i = 0; i < repository.Items.Length; i++)
+        for(int i = 0; i < Items.Length; i++)
         {
-            if(repository.Items[i] == item) 
+            if(Items[i].Equals(item)) 
             {
-                repository.Items[i].OnRepositoryRemoved(repository.System);
-                for(int j = 0; j < repository.Handlers.Length; j++) 
-                {
-                    if(repository.Handlers[j] is IRepositoryCallbackHandler)
-                    {
-                       ((IRepositoryCallbackHandler)repository.Handlers[i]).OnRepositoryUpdated(item, (byte)i, RepositoryChangeFeedback.Removed);
-                    }
-                }
-                repository.Items[i] = null;
+                Items[i] = default(ItemType);
                 return true;
             }
-            else if(i == repository.Items.Length) UnityEngine.Debug.LogWarning("Repository you are trying to remove item from doesn't contain specified item!");
+            else if(i == Items.Length) UnityEngine.Debug.LogWarning("Repository you are trying to remove item from doesn't contain specified item!");
         }
         UnityEngine.Debug.LogWarning("Item hasn't been removed!");
         return false;

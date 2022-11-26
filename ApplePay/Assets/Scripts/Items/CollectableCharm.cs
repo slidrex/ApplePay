@@ -1,6 +1,5 @@
-public class CollectableCharm : CollectableItem
+public class CollectableCharm : CollectableItem<Charm>
 {
-    public CharmItem CharmItem;
-    public override string TargetRepository { get => "charms"; }
-    protected override Item CollectableObject { get => CharmItem; }
+    [field: UnityEngine.SerializeField] protected override Charm CollectableObject {get;set;}
+    protected override string TargetRepository => "charm";
 }

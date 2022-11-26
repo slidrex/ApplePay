@@ -3,4 +3,5 @@
 public class MixedCharm : CharmObject
 {
     public Charm[] Charms;
+    public byte ActiveIndex;
 }

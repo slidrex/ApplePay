@@ -145,7 +145,7 @@ public abstract class Entity : MonoBehaviour
                 for(int j = 0; j < activeEffect.EffectProperties.Count; j++)
                 {
                     PayWorld.Effect.EffectProperty property = activeEffect.EffectProperties[j];
-                    UpdateEffectTick(property.StateEffect);
+                    UpdateEffectTick(property.EffectAction);
                     activeEffect.EffectProperties[j] = property;
                 }
                 
@@ -163,10 +163,10 @@ public abstract class Entity : MonoBehaviour
         }
         
     }
-    private void UpdateEffectTick(PayWorld.Effect.StateEffect state)
+    private void UpdateEffectTick(PayWorld.Effect.EffectAction state)
     {
-        PayWorld.Effect.StateEffect.TickImplementation tick = state.TickImplement;
-        if(tick.Equals(new PayWorld.Effect.StateEffect.TickImplementation())) return;
+        PayWorld.Effect.EffectAction.TickImplementation tick = state.TickImplement;
+        if(tick.Equals(new PayWorld.Effect.EffectAction.TickImplementation())) return;
         if(tick.TimeSinceAction >= tick.TickScale)
         {
             tick.TimeSinceAction = 0;

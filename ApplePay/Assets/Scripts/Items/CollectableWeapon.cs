@@ -1,11 +1,10 @@
-public class CollectableWeapon : CollectableItem
+public class CollectableWeapon : CollectableItem<WeaponItem>
 {
-    public WeaponItem WeaponItem;
-    public override string TargetRepository { get => "weapons"; }
+    protected override string TargetRepository { get => "weapon"; }
     protected override void Awake() 
     {
         base.Awake();
-        WeaponItem.DropPrefab = this;
+        CollectableObject.DropPrefab = this;
     }
-    protected override Item CollectableObject { get => WeaponItem; }
+    [field: UnityEngine.SerializeField] protected override WeaponItem CollectableObject {get;set;}
 }

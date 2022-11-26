@@ -462,7 +462,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
   m_PrefabInstance: {fileID: 1849077798889129510}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1849077798889129512}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f5a042eb6aeb9d43b77abba143a14e3, type: 3}
@@ -1001,8 +1001,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   damagePerForceUnit: 1
   itemHoverableObject: {fileID: 446314027}
-  CharmItem:
-    Item: {fileID: 11400000, guid: 7e74c561f7468784ba88d782d4adac2f, type: 2}
+  <CollectableObject>k__BackingField: {fileID: 0}
 --- !u!50 &446314029
 Rigidbody2D:
   serializedVersion: 4
@@ -1826,8 +1825,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   damagePerForceUnit: 1
   itemHoverableObject: {fileID: 892326712}
-  CharmItem:
-    Item: {fileID: 11400000, guid: d285c630a8e574448b44a9757ff6df0d, type: 2}
+  <CollectableObject>k__BackingField: {fileID: 11400000, guid: d285c630a8e574448b44a9757ff6df0d, type: 2}
 --- !u!61 &892326714
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2383,19 +2381,19 @@ MonoBehaviour:
   rb: {fileID: 0}
   damagePerForceUnit: 0
   itemHoverableObject: {fileID: 0}
-  WeaponItem:
+  <CollectableObject>k__BackingField:
     Weapon: {fileID: 11400000, guid: ed996c9aac2479c4083a269def560f4b, type: 2}
     DropPrefab: {fileID: 1014642742}
     WeaponInfo:
       AnimationParameters:
-        AttackInterval: 1
+        AttackInterval: 0.3
         AnimationTime: 0.2
-        VelocityMultiplier: 10
+        VelocityMultiplier: 5
         AngularVelocityMultiplier: 1
       Display:
-        Icon: {fileID: 0}
+        Icon: {fileID: 21300000, guid: 5fdeaafa4d566eb4bac87952d9290b3a, type: 3}
         Description:
-          Name: Corrupt sword
+          Name: 
           Description: 
 --- !u!50 &1014642743
 Rigidbody2D:
@@ -3086,8 +3084,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   damagePerForceUnit: 1
   itemHoverableObject: {fileID: 1309111032}
-  CharmItem:
-    Item: {fileID: 11400000, guid: 15a82f6c7d8257a4dae74615180cb8fc, type: 2}
+  <CollectableObject>k__BackingField: {fileID: 11400000, guid: 15a82f6c7d8257a4dae74615180cb8fc, type: 2}
 --- !u!50 &1309111034
 Rigidbody2D:
   serializedVersion: 4
@@ -3638,7 +3635,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
   m_PrefabInstance: {fileID: 1849077798889129510}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1849077798889129512}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff64b7b98b0b5704a93d49556531ffff, type: 3}
@@ -3879,8 +3876,7 @@ MonoBehaviour:
   rb: {fileID: 1595865738}
   damagePerForceUnit: 0
   itemHoverableObject: {fileID: 1595865736}
-  CharmItem:
-    Item: {fileID: 11400000, guid: 229b480149731d34d8aca467879d8659, type: 2}
+  <CollectableObject>k__BackingField: {fileID: 0}
 --- !u!50 &1595865738
 Rigidbody2D:
   serializedVersion: 4
@@ -4065,8 +4061,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   damagePerForceUnit: 1
   itemHoverableObject: {fileID: 1619376355}
-  CharmItem:
-    Item: {fileID: 11400000, guid: e5e8bca678b170b4199ff1985e897cc0, type: 2}
+  <CollectableObject>k__BackingField: {fileID: 11400000, guid: e5e8bca678b170b4199ff1985e897cc0, type: 2}
 --- !u!50 &1619376350
 Rigidbody2D:
   serializedVersion: 4
@@ -4287,8 +4282,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   damagePerForceUnit: 1
   itemHoverableObject: {fileID: 1718022104}
-  CharmItem:
-    Item: {fileID: 11400000, guid: dafe9bf7e256ee448b2a406e867b3662, type: 2}
+  <CollectableObject>k__BackingField: {fileID: 11400000, guid: dafe9bf7e256ee448b2a406e867b3662, type: 2}
 --- !u!50 &1718022106
 Rigidbody2D:
   serializedVersion: 4
@@ -4754,8 +4748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62dbeab590890e643af145729bc6ef41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inventory: {fileID: 238755350}
-  RepositoryName: charms
+  InventorySystem: {fileID: 238755350}
   hoverboard: {fileID: 931947518}
 --- !u!1 &1861607797
 GameObject:
@@ -5031,8 +5024,8 @@ MonoBehaviour:
   evasionEffect: {fileID: 0}
   CollisionHandler:
     rb: {fileID: 0}
-    resistance: 0.2
-    DragIntensity: 3
+    resistance: 0
+    DragIntensity: 1
     Forces: []
   StoredHealth: 0
   maxHealthColor:
@@ -5050,19 +5043,19 @@ MonoBehaviour:
   rb: {fileID: 0}
   damagePerForceUnit: 0
   itemHoverableObject: {fileID: 0}
-  WeaponItem:
+  <CollectableObject>k__BackingField:
     Weapon: {fileID: 11400000, guid: b0d64e257ca2c5b488ba13d705bed82f, type: 2}
     DropPrefab: {fileID: 2120200233}
     WeaponInfo:
       AnimationParameters:
-        AttackInterval: 0.3
-        AnimationTime: 0.2
-        VelocityMultiplier: 16
+        AttackInterval: 0.5
+        AnimationTime: 1
+        VelocityMultiplier: 1
         AngularVelocityMultiplier: 1
       Display:
-        Icon: {fileID: 0}
+        Icon: {fileID: 21300000, guid: c05ce08778f8f01409668285d4fa6a6d, type: 3}
         Description:
-          Name: Holy Spear
+          Name: 
           Description: 
 --- !u!50 &2120200234
 Rigidbody2D:
@@ -5296,6 +5289,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: SystemOwner
+      value: 
+      objectReference: {fileID: 1463861386}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Repositories.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Repositories.Array.data[0]
+      value: 
+      objectReference: {fileID: 1849077798889129513}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Repositories.Array.data[1]
+      value: 
+      objectReference: {fileID: 1849077798889129514}
+    - target: {fileID: 3917139913567164824, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: StartRepositories.Array.data[0].Name
       value: charms
       objectReference: {fileID: 0}
@@ -5323,6 +5332,10 @@ PrefabInstance:
       propertyPath: StartRepositories.Array.data[0]._hanlders.Array.data[0]
       value: 
       objectReference: {fileID: 1849077798889129511}
+    - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Rubick
+      value: 
+      objectReference: {fileID: 11400000, guid: 15a82f6c7d8257a4dae74615180cb8fc, type: 2}
     - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: HealthBar
       value: 
@@ -5402,12 +5415,46 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
   m_PrefabInstance: {fileID: 1849077798889129510}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1849077798889129512}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33e260ef1e67a9f48a10ce3e9ea9df68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1849077798889129512 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2788200553323671107, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+  m_PrefabInstance: {fileID: 1849077798889129510}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1849077798889129513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849077798889129512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9c399f229428a4eab8df43d04f1d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Capacity: 9
+  Items: []
+--- !u!114 &1849077798889129514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849077798889129512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 008a6d603ec1dd84b840ec80694d0c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Capacity: 4
+  Items: []
+  Holder: {fileID: 1849077798889129511}
 --- !u!1001 &2273568673703890235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5417,7 +5464,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2273568672903025380, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.053821
+      value: -2.0538213
       objectReference: {fileID: 0}
     - target: {fileID: 2273568672903025380, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5497,7 +5544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2273568673667364283, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.053821
+      value: -2.0538213
       objectReference: {fileID: 0}
     - target: {fileID: 2273568673667364283, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.y

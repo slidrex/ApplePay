@@ -5,7 +5,8 @@ public struct VirtualBase
 {
     public float SourceValue;
 
-    public System.Collections.Generic.List<BaseValue> BaseModifiers {get; private set;}
+    public System.Collections.Generic.List<BaseValue> BaseModifiers { get; private set; }
+    
     public VirtualBase(float sourceValue)
     {
         SourceValue = sourceValue;
@@ -58,7 +59,7 @@ public struct VirtualBase
     ///</summary>
     public float GetValue()
     {
-        double value = SourceValue;
+        float value = SourceValue;
         foreach(BaseValue baseValue in BaseModifiers)
         {
             value += baseValue.AdditionalValue.Get();
@@ -68,7 +69,7 @@ public struct VirtualBase
             value *= baseValue.Multiplier.Get();
         }
         
-        return (float)value;
+        return value;
     }
     private static VirtualFloatRef GetStaticFloatRef(float value) => new VirtualFloatRef(() => value);
     [System.Serializable]

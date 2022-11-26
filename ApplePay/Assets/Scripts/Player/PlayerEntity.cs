@@ -49,6 +49,10 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Update()
     {
         base.Update();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            PayWorld.EffectController.AddEffect(this, "slowness", 2, 5f);
+        }
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);
     }
     public override void ChangeHealth(int changeAmount)

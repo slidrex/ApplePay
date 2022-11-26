@@ -1,20 +1,19 @@
 using UnityEngine;
 
-public abstract class CollectableItem : CollectableObject
+public abstract class CollectableItem<Item> : CollectableObject
 {
-    protected abstract Item CollectableObject { get; }
-    
-    public abstract string TargetRepository { get; }
-
+    protected abstract Item CollectableObject { get; set; }
+    protected abstract string TargetRepository { get; }
     [SerializeField] private ItemHoverableObject itemHoverableObject;
 
     public override void CollisionRequest(Collision2D collision, ref bool collectStatus)
     {
-        InventorySystem inventorySystem = collision.gameObject.GetComponent<InventorySystem>();
         collectStatus = false;
-        if(inventorySystem != null && inventorySystem.ContainsRepository(TargetRepository))
+        Creature entity = collision.gameObject.GetComponent<Creature>();
+        
+        if(entity != null && entity.InventorySystem != null && entity.InventorySystem.ContainsRepository(TargetRepository))
         {
-            collectStatus = AddItem(inventorySystem, TargetRepository, CollectableObject);
+            collectStatus = AddItem((InventoryRepository<Item>)entity.InventorySystem.GetRepository(TargetRepository), CollectableObject);
         }
         SendCollectRequest(collision, collectStatus);
     }
@@ -28,11 +27,7 @@ public abstract class CollectableItem : CollectableObject
             CollisionHandler.Forces[i] = knock;
         }
     }
-    protected bool AddItem(InventorySystem system, string repository, Item item)
-    {
-        if(system != null) return system.GetRepository(repository).AddItem(item);
-        return false;
-    }
+    protected bool AddItem(InventoryRepository<Item> repository, Item item) => repository.AddItem(item);
 
     private void OnDestroy()
     {

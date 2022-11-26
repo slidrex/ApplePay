@@ -1,13 +1,15 @@
 using UnityEngine;
 
-public class CharmRepositoryRenderer : RepositoryRenderer<CharmDisplay>
+public class CharmRepositoryRenderer : RepositoryRenderer<Charm>
 {
     [SerializeField] private Hoverboard hoverboard;
+
+    public override string RepositoryType => "charm";
     private void OnEnable() => Render();
     protected override void OnRepositoryUpdated(byte index) => Render();
-    public override void OnCellTriggerEnter(CharmDisplay display, InventoryDisplaySlot<CharmDisplay> slot)
+    public override void OnCellTriggerEnter(Charm charm, InventoryDisplaySlot<Charm> slot)
     {
-        CharmDisplay charmDisplay = (CharmDisplay)display;
+        CharmDisplay charmDisplay = charm.Display;
         UpdateHoverboard(charmDisplay);
     }
     private void UpdateHoverboard(CharmDisplay display)
@@ -26,75 +28,66 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CharmDisplay>
         }
 
     }
-    public void OnCharmSwitched(InventoryDisplaySlot<CharmDisplay> slot)
+    public void OnCharmSwitched(InventoryDisplaySlot<Charm> slot)
     {
         for(int i = 0; i < Slots.Length; i++)
         {
-            if(slot == Slots[i] && slot.m_Display.Equals(new CharmDisplay()) == false)
+            if(slot == Slots[i] && slot.Item.Display.Equals(new CharmDisplay()) == false)
             {
-                CharmItem item = (CharmItem)Repository.Items[i];
+                CharmObject item = repository.Items[i];
                 
-                MixedCharm mixedCharm = (MixedCharm)item.Item;
+                MixedCharm mixeedCharm = (MixedCharm)item;
+                
+                item.GetActiveCharm().EndFunction(InventorySystem.SystemOwner);
+                
+                mixeedCharm.ActiveIndex = (byte)Mathf.Repeat(mixeedCharm.ActiveIndex + 1, mixeedCharm.Charms.Length);
                 
                 
-                item.GetActiveCharm().EndFunction(Inventory.InventoryOwner, item.Manuals[item.ActiveIndex]);
-                
-                item.ActiveIndex = (byte)Mathf.Repeat(item.ActiveIndex + 1, mixedCharm.Charms.Length);
-                
-                
-                item.GetActiveCharm().BeginFunction(Inventory.InventoryOwner, item.Manuals[item.ActiveIndex]);
-                Repository.Items[i] = item;
+                item.GetActiveCharm().BeginFunction(InventorySystem.SystemOwner);
+                repository.Items[i] = item.GetActiveCharm();
                 UpdateHoverboard(item.GetActiveCharm().Display);
                 OnRepositoryUpdated((byte)i); //Performance issue.
             }
         }
     }
-    public override void OnCellTriggerExit(CharmDisplay display, InventoryDisplaySlot<CharmDisplay> slot) => hoverboard.SetDefaultDescription();
+    public override void OnCellTriggerExit(Charm charm, InventoryDisplaySlot<Charm> slot) => hoverboard.SetDefaultDescription();
     private void Render()
     {
-        InventoryRepository repository = Inventory.GetRepository(RepositoryName);
         CharmInventoryRenderItem[] renderItems = new CharmInventoryRenderItem[repository.Items.Length];
         for(int i = 0; i < repository.Items.Length; i++)
         {
-            CharmItem item = (CharmItem)repository.Items[i];
+            CharmObject item = repository.Items[i];
             CharmInventoryRenderItem _item = new CharmInventoryRenderItem();
             if(item != null) 
             {
-                _item.Type = item.Type;
-                CharmDisplay currentCharmDisplay = item.GetActiveCharm().Display; 
-                
-                _item.Display = new CharmDisplay();
-                _item.Display.Description = new ItemDescription();
-                _item.Display.Description = item.GetActiveCharm().Display.Description;
-                _item.Display.Icon = item.GetActiveCharm().Display.Icon;
-                _item.Display.AdditionalFields = new CharmDisplay.CharmAddtionalField[currentCharmDisplay.AdditionalFields.Length];
-                
-                
-                for(int j = 0; j < _item.Display.AdditionalFields.Length; j++)
+                _item.Type = item.charmType;
+                _item.Item = item;
+                Charm currentCharm = _item.Item.GetActiveCharm();
+                for(int j = 0; j < currentCharm.Display.AdditionalFields.Length; j++)
                 {
-                    _item.Display.AdditionalFields[j].Color = currentCharmDisplay.AdditionalFields[j].Color;
-                    _item.Display.AdditionalFields[j].Text = CharmDisplay.FormatCharmField(currentCharmDisplay.AdditionalFields[j].Text, item.GetActiveCharm(), item.Manuals[item.ActiveIndex]);
+                    currentCharm.Display.AdditionalFields[j].Color = currentCharm.Display.AdditionalFields[j].Color;
+                    currentCharm.Display.AdditionalFields[j].Text = CharmDisplay.FormatCharmField(currentCharm.Display.AdditionalFields[j].Text, item.GetActiveCharm());
                 }
+                renderItems[i] = _item;
             }
-            renderItems[i] = _item;
             
         }
         for(int i = 0; i < Slots.Length; i++)
         {
-            InventoryCharmSlot slot = (InventoryCharmSlot)Slots[i];
-            bool switchable = renderItems[i].Type == CharmType.Base ? false : true;
-            slot.RenderItem(renderItems[i].Display, switchable);
+            if(renderItems[i].Item != null)
+            {
+                InventoryCharmSlot slot = (InventoryCharmSlot)Slots[i];
+                bool switchable = renderItems[i].Type == CharmObject.CharmType.Base ? false : true;
+                
+                slot.RenderItem(renderItems[i].Item.GetActiveCharm(), switchable);
+
+            }
         }
     }
     private struct CharmInventoryRenderItem
     {
-        internal CharmDisplay Display;
-        internal CharmType Type;
+        internal CharmObject Item;
+        internal CharmObject.CharmType Type;
     }
     
-}
-public enum CharmType
-{
-    Base,
-    Switchable
 }
