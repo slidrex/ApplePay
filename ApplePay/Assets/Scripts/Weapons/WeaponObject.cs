@@ -1,5 +1,5 @@
 using UnityEngine;
-public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer
+public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer, IHitResponder
 {
     [Header("Collide settings")]
     public Collider2D Collider;
@@ -11,18 +11,7 @@ public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer
     public DamageType DamageType;
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        OnColliderHit(collider);
-        if(collider.GetComponent<Entity>() != null && !collider.gameObject.GetComponent<Entity>().Equals(Owner))
-        {
-            OnEntityHitEnter(collider, collider.gameObject.GetComponent<Entity>());
-        }
-        else
-            OnMissColliderHit(collider);
         
-    }
-    private void OnTriggerStay2D(Collider2D collider)
-    {
-        if(collider.gameObject.GetComponent<Entity>() != null) OnEntityHitStay(collider, collider.gameObject.GetComponent<Entity>());
     }
     protected virtual Vector2 GetCollisionNormal(Collider2D collider) => collider.ClosestPoint(transform.position) - (Vector2)transform.position;
     protected virtual void OnColliderHit(Collider2D collider) {}
@@ -31,10 +20,22 @@ public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer
     {
         if(hitEntity != Owner) DealCollideDamage(hitEntity, CollideDamage, Owner);
     }
-    protected virtual void OnEntityHitStay(Collider2D collider, Entity entity) {}
     public void DealCollideDamage(Entity entity, int damage, Creature dealer) => entity?.Damage(damage, DamageType, dealer);
     public void LinkAttacker(Creature attacker) => Owner = attacker;
     public virtual void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out Projectile projectile) => projectile = null;
+
+    public virtual void OnHitDetected(HitInfo hitInfo)
+    {
+        OnColliderHit(hitInfo.collider);
+        if(hitInfo.collider.GetComponent<Entity>() != null && !hitInfo.collider.gameObject.GetComponent<Entity>().Equals(Owner))
+        {
+            OnEntityHitEnter(hitInfo.collider, hitInfo.collider.gameObject.GetComponent<Entity>());
+        }
+        else
+            OnMissColliderHit(hitInfo.collider);
+        OnEntityHitEnter(hitInfo.collider, hitInfo.entity);
+    }
+
     public enum AttackSide
     {
         Attacker,

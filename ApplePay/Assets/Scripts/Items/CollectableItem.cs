@@ -5,11 +5,10 @@ public abstract class CollectableItem<Item> : CollectableObject
     protected abstract Item CollectableObject { get; set; }
     protected abstract string TargetRepository { get; }
     [SerializeField] private ItemHoverableObject itemHoverableObject;
-
-    public override void CollisionRequest(Collision2D collision, ref bool collectStatus)
+    public override void CollisionRequest(HitInfo collision, ref bool collectStatus)
     {
         collectStatus = false;
-        Creature entity = collision.gameObject.GetComponent<Creature>();
+        Creature entity = collision.entity.GetComponent<Creature>();
         
         if(entity != null && entity.InventorySystem != null && entity.InventorySystem.ContainsRepository(TargetRepository))
         {
@@ -19,7 +18,6 @@ public abstract class CollectableItem<Item> : CollectableObject
     }
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        base.OnCollisionEnter2D(collision);
         for(int i = 0; i < CollisionHandler.Forces.Count; i++)
         {
             PayKnock knock = CollisionHandler.Forces[i];

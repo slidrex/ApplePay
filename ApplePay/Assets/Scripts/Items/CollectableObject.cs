@@ -2,9 +2,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public abstract class CollectableObject : ItemEntity
+public abstract class CollectableObject : ItemEntity, IHitResponder
 {
     [Header("Pick Settings")]
+    public PayHitShape HitShape;
     [SerializeField] private Color32 constraintColor;
     private Color32 storedColor;
     private List<float> ConstraintList = new List<float>();
@@ -23,6 +24,16 @@ public abstract class CollectableObject : ItemEntity
     ///<summary>
     ///Item cannot be accessible during the constraint time (constraints are able to stack).
     ///</summary>
+    protected override void Awake()
+    {
+        base.Awake();
+        HitShape.Responder = this;
+    }
+    public void OnHitDetected(HitInfo hitInfo)
+    {
+        bool collectStatus = true;
+        CollisionRequest(hitInfo, ref collectStatus);
+    }
     public void AddConstraint(float duration)
     {
         if(ConstraintList.Count == 0) StoreColor(SpriteRenderer.color);
@@ -70,6 +81,7 @@ public abstract class CollectableObject : ItemEntity
     {
         base.Update();
         ConstraintHandler();
+        HitShape.CheckHit();
         Levitation();
     }
     protected override void Start()
@@ -81,24 +93,18 @@ public abstract class CollectableObject : ItemEntity
     protected void Levitation() => transform.position = transform.position + Vector3.up * Time.deltaTime  * Mathf.Sin(Time.time * speed) * amplitude;
 
     public void AddForce(Vector2 force) => rb.AddForce(force, ForceMode2D.Impulse);
-    protected virtual void OnCollisionEnter2D(Collision2D collision)
-    {
-        bool collectStatus = true;
-        CollisionRequest(collision, ref collectStatus);
-    }
     protected virtual void FixedUpdate() => TargetVelocity = rb.velocity;
-    protected virtual void OnCollectFail(Collision2D collision)
+    protected virtual void OnCollectFail(HitInfo collision)
     {
-        Entity entity = collision.gameObject.GetComponent<Entity>();
-        if(entity != null) DealCollideDamage(entity, (int)(damagePerForceUnit * TargetVelocity.magnitude), null);
+        DealCollideDamage(collision.entity, (int)(damagePerForceUnit * TargetVelocity.magnitude), null);
         
-        Rigidbody2D targetRB = collision.gameObject.GetComponent<Rigidbody2D>();
-        if(targetRB != null) targetRB.AddForce(-collision.GetContact(0).normal * TargetVelocity.magnitude / targetRB.mass, ForceMode2D.Impulse); 
-        AddForce(Vector2.Reflect(TargetVelocity, collision.GetContact(0).normal));
+        Rigidbody2D targetRB = collision.collider.GetComponent<Rigidbody2D>();
+        if(targetRB != null) targetRB.AddForce(-collision.normal * TargetVelocity.magnitude / targetRB.mass, ForceMode2D.Impulse); 
+        AddForce(Vector2.Reflect(TargetVelocity, collision.normal));
     }
     public void DealCollideDamage(Entity entity, int damage, Creature dealer) => entity.Damage(damage, DamageType.Physical, dealer);
-    public virtual void CollisionRequest(Collision2D collision, ref bool collectStatus) => SendCollectRequest(collision, collectStatus);
-    protected void SendCollectRequest(Collision2D collision, bool collectStatus)
+    public virtual void CollisionRequest(HitInfo collision, ref bool collectStatus) => SendCollectRequest(collision, collectStatus);
+    protected void SendCollectRequest(HitInfo collision, bool collectStatus)
     {
         if(collectStatus) OnCollect();
         else OnCollectFail(collision);

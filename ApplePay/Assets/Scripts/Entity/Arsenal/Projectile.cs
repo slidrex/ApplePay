@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour, IHitResponder
 {
     public Creature ProjectileOwner { get; private set; }
     public float LifeTime;
@@ -12,11 +12,16 @@ public class Projectile : MonoBehaviour
     public float MaxSpeed;
     protected Rigidbody2D rb;
     protected Animator Animator;
+    public PayHitBox HitBox;
     public Transform Target {get; private set;}
     [SerializeField] private GameObject destroyParticle;
     [SerializeField] private DamageType damageType;
     [HideInInspector] public Vector2 MoveVector { get; private set; }
     public bool SetMoveRotation;
+    private void Awake()
+    {
+        HitBox.Responder = this;
+    }
     public void Setup(Vector2 moveVector, Creature owner, Transform target)
     {
         SetOwner(owner);
@@ -33,7 +38,11 @@ public class Projectile : MonoBehaviour
         Physics2D.IgnoreLayerCollision(12, 12);
         if(SetMoveRotation) Pay.Functions.Math.Atan3(MoveVector.y, MoveVector.x);
     }
-    protected virtual void Update() => HandleLifeTime();
+    protected virtual void Update()
+    {
+        HandleLifeTime();
+
+    }
     protected virtual void HandleLifeTime()
     {
         LifeTime -= Time.deltaTime;
@@ -50,9 +59,13 @@ public class Projectile : MonoBehaviour
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<Entity>() != null)
-            collision.gameObject.GetComponent<Entity>().Damage(Damage, damageType, ProjectileOwner);
         Destroy(gameObject);
     }
     protected virtual void OnDestroy() => PayWorld.Particles.InstantiateParticles(destroyParticle, transform.position, Quaternion.identity, 1f);
+
+    public void OnHitDetected(HitInfo hitInfo)
+    {
+        hitInfo.entity.Damage(Damage, damageType, ProjectileOwner);
+        Destroy(gameObject);
+    }
 }
