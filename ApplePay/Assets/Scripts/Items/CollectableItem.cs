@@ -16,7 +16,7 @@ public abstract class CollectableItem<Item> : CollectableObject
         }
         SendCollectRequest(collision, collectStatus);
     }
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         for(int i = 0; i < CollisionHandler.Forces.Count; i++)
         {
