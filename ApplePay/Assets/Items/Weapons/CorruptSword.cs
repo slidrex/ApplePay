@@ -16,7 +16,7 @@ public class CorruptSword : MeleeWeapon
             {
                 if(hitEntity.ActiveEffects.ElementAt(i).Value.Tags.Contains(wrappedTag))
                 {
-                    hitEntity.ActiveEffects[hitEntity.ActiveEffects.ElementAt(i).Key].RemainTime = corruptionTime;
+                    hitEntity.ActiveEffects[hitEntity.ActiveEffects.ElementAt(i).Key].RemainTimeSourceValue = corruptionTime;
                     return;
                 }
             }

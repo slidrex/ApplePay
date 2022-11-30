@@ -51,7 +51,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         base.Update();
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            PayWorld.EffectController.AddEffect(this, "slowness", 2, 5f);
+            PayWorld.EffectController.AddEffect(this, "speed", 3, 5f);
         }
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);
     }

@@ -248,12 +248,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35276180}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.82, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1753619839}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &132769455
 PrefabInstance:
@@ -1707,7 +1707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &892326709
 Animator:
   serializedVersion: 3
@@ -1833,7 +1833,7 @@ MonoBehaviour:
   evasionEffect: {fileID: 0}
   CollisionHandler:
     rb: {fileID: 0}
-    resistance: 0.25
+    resistance: 0
     DragIntensity: 1
     Forces: []
   StoredHealth: 0
@@ -3042,7 +3042,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1309111031
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3119,7 +3119,7 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 0}
+  HitShape: {fileID: 1309111038}
   constraintColor:
     serializedVersion: 2
     rgba: 0
@@ -3233,7 +3233,7 @@ Transform:
   m_LocalScale: {x: 6, y: 6, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1309111038
 MonoBehaviour:
@@ -3876,7 +3876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1595865736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4662,7 +4662,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 35276183}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5139,7 +5140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2120200233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5387,7 +5388,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1463861389, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: CurrentSpeed
-      value: 3.14
+      value: 3.1415925
       objectReference: {fileID: 0}
     - target: {fileID: 2117038651, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: m_Size.x
@@ -5549,6 +5550,10 @@ PrefabInstance:
       propertyPath: <Sprite>k__BackingField
       value: 
       objectReference: {fileID: 3598344733854434236, guid: f9d8eaa7e2991154c8d80dbb969ec18f, type: 3}
+    - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: activeEffect.Tags.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: weaponPlaceSlot
       value: 

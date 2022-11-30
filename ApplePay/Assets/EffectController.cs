@@ -9,17 +9,17 @@ namespace PayWorld
         ///<summary>
         ///Generates index that can be used for access all the bundled effects.
         ///</summary>
-        public static void CreateBundle(Entity applyEntity, out byte id, params byte[] bundledId)
+        public static void CreateBundle(Entity entity, out byte id, params byte[] bundledId)
         {
-            byte[] usedID = Pay.Functions.Generic.CombineArrays(applyEntity.ActiveEffects.Keys.ToArray(), applyEntity.EffectBundleBuffer.Keys.ToArray());
+            byte[] usedID = Pay.Functions.Generic.CombineArrays(entity.ActiveEffects.Keys.ToArray(), entity.EffectBundleBuffer.Keys.ToArray());
             byte _id = Pay.Functions.Math.GetUniqueByte(usedID, 0);
-            applyEntity.EffectBundleBuffer.Add(_id, bundledId);
+            entity.EffectBundleBuffer.Add(_id, bundledId);
             id = _id;
         }
         ///<summary>
         ///Adds effect to the specified entity by template.
         ///</summary>
-        public static ActiveEffect AddEffect(Entity applyEntity, string id, byte level, float duration)
+        public static ActiveEffect AddEffect(Entity entity, string id, byte level, float duration)
         {
             EffectDatabase effectDatabase = new EffectDatabase(level);
             if(effectDatabase.Effects.ContainsKey(id) == false) 
@@ -29,22 +29,22 @@ namespace PayWorld
             }
             effectDatabase.Effects.TryGetValue(id, out EffectTemplate databaseEffect);
             
-            ActiveEffect effect = CreateEffect(applyEntity, duration, false, databaseEffect.Properties, databaseEffect.EntryTag, "activeEffect");
+            ActiveEffect effect = CreateEffect(entity, duration, false, databaseEffect.Properties, databaseEffect.EntryTag, "activeEffect");
             AttachVisualAttrib(effect, databaseEffect.TemplateDisplay.Name, databaseEffect.TemplateDisplay.Description, databaseEffect.TemplateDisplay.Index, databaseEffect.TemplateDisplay.Sprite, databaseEffect.TemplateDisplay.Additionals);
-            return AddEffect(applyEntity, effect, out byte _id);
+            return AddEffect(entity, effect, out byte _id);
         }
         ///<summary>
         ///Adds effect to selected entity (use "AttachVisualAttrib" to specify effect visual attributes).
         ///</summary>
-        public static ActiveEffect AddEffect(Entity applyEntity, float duration, out byte id, params EffectProperty[] EffectActions) => AddEffect(applyEntity, duration, false, out id, EffectActions);
+        public static ActiveEffect AddEffect(Entity entity, float duration, out byte id, params EffectProperty[] EffectActions) => AddEffect(entity, duration, false, out id, EffectActions);
         ///<summary>
         ///Adds effect to selected entity (use "AttachVisualAttrib" to specify effect visual attributes).
         ///</summary>
-        public static ActiveEffect AddEffect(Entity applyEntity, out byte id, params EffectProperty[] EffectActions) => AddEffect(applyEntity, 0f, true, out id, EffectActions);
-        private static ActiveEffect AddEffect(Entity applyEntity, float duration, bool endless, out byte id, EffectProperty[] EffectActions)
+        public static ActiveEffect AddEffect(Entity entity, out byte id, params EffectProperty[] EffectActions) => AddEffect(entity, 0f, true, out id, EffectActions);
+        private static ActiveEffect AddEffect(Entity entity, float duration, bool endless, out byte id, EffectProperty[] EffectActions)
         {
-            ActiveEffect activeEffect = CreateEffect(applyEntity, duration, endless, EffectActions);
-            AddEffect(applyEntity, activeEffect, out id);
+            ActiveEffect activeEffect = CreateEffect(entity, duration, endless, EffectActions);
+            AddEffect(entity, activeEffect, out id);
             return activeEffect;
         }
         private static ActiveEffect AddEffect(Entity entity, ActiveEffect effect, out byte id)
@@ -62,7 +62,7 @@ namespace PayWorld
             id = _id;
             return effect;
         }
-        private static ActiveEffect CreateEffect(Entity entity, float duration, bool endless, EffectProperty[] properties, params string[] tags) => new ActiveEffect(entity, properties.ToList(), duration, endless, tags);
+        private static ActiveEffect CreateEffect(Entity entity, float duration, bool endless, EffectProperty[] properties, params string[] tags) => new ActiveEffect(entity, properties, duration, endless, tags);
         ///<summary>
         ///Attaches display attribute to an active effect.
         ///</summary>
@@ -87,19 +87,19 @@ namespace PayWorld
         ///<summary>
         ///Removes effect (or all the effects if it is a bundle) from the specified entity by index.
         ///</summary>
-        public static void RemoveEffect(Entity applyEntity, ref byte id)
+        public static void RemoveEffect(Entity entity, ref byte id)
         {
-            bool isBundle = applyEntity.EffectBundleBuffer.ContainsKey(id);
+            bool isBundle = entity.EffectBundleBuffer.ContainsKey(id);
             if(isBundle == false)
             {
-                RemoveSingle(applyEntity,ref id);
+                RemoveSingle(entity,ref id);
             }
             else
             {
-                RemoveBundle(applyEntity, ref id);
+                RemoveBundle(entity, ref id);
             }
-            if(applyEntity.GetComponent<IEffectUpdateHandler>() != null)
-                applyEntity.GetComponent<IEffectUpdateHandler>().OnEffectUpdated();
+            if(entity.GetComponent<IEffectUpdateHandler>() != null)
+                entity.GetComponent<IEffectUpdateHandler>().OnEffectUpdated();
         }
         private static void RemoveSingle(Entity entity, ref byte effectId)
         {
@@ -126,87 +126,69 @@ namespace PayWorld
             entity.EffectBundleBuffer.Remove(bundleId);
 
         }
+        [System.Serializable]
         public class ActiveEffect
         {
             public Entity Owner;
-            internal System.Collections.Generic.List<EffectProperty> EffectProperties = new System.Collections.Generic.List<EffectProperty>();
-            public System.Collections.Generic.List<string> Tags = new System.Collections.Generic.List<string>();
-            public System.Collections.Generic.List<EffectMask> Masks = new System.Collections.Generic.List<EffectMask>();
-            public float RemainTime;
-            internal float baseRemainTime;
+            internal EffectProperty[] EffectProperties;
+            public System.Collections.Generic.List<string> Tags = new System.Collections.Generic.List<string>();            
+            private VirtualBase remainTime;
+            public float RemainTimeSourceValue 
+            {
+                get => remainTime.SourceValue;
+                set => remainTime.SourceValue = value;
+            }
+            public float ResultRemainTime => remainTime.GetValue();
             internal bool Endless;
             public EffectDisplay EffectDisplay;
-            public ActiveEffect(Entity entity, System.Collections.Generic.List<EffectProperty> states, float duration, bool endless, params string[] tags)
+            public ActiveEffect(Entity entity, EffectProperty[] states, float duration, bool endless, params string[] tags)
             {
                 EffectProperties = states;
-                baseRemainTime = duration;
-                RemainTime = duration;
+                remainTime = new VirtualBase(duration);
                 Endless = endless;
                 Tags.AddRange(tags);
                 Owner = entity;
             }
+            public Modifier AddRemainTimeModifier(VirtualBase.VirtualFloatRef multiplier, params string[] tags) => new Modifier(default(VirtualBase.BaseValue[]), remainTime.AddMultiplier(multiplier, tags), Owner);
+            public Modifier AddValueModifier(VirtualBase.VirtualFloatRef multiplier, params string[] tags)
+            {
+                VirtualBase.BaseValue[] baseValueArray = new VirtualBase.BaseValue[EffectProperties.Length];
+                for(int i = 0; i < EffectProperties.Length; i++)
+                {
+                    baseValueArray[i] = EffectProperties[i].EffectAction.Value.AddMultiplier(multiplier, tags);
+                    foreach(EntityAttribute attribute in Owner.Attributes.Values)
+                    {
+                        attribute.ApplyResult();
+                    }
+                }
+                Modifier modifier = new Modifier(baseValueArray, default(VirtualBase.BaseValue), Owner);
+                return modifier;
+            }
+            public struct Modifier
+            {
+                private VirtualBase.BaseValue[] valueModifiers;
+                private VirtualBase.BaseValue timeModifier;
+                private Entity owner;
+                internal Modifier(VirtualBase.BaseValue[] valueMod, VirtualBase.BaseValue timeMod, Entity entity)
+                {
+                    valueModifiers = valueMod;
+                    timeModifier = timeMod;
+                    owner = entity;
+                }
+                public void Remove()
+                {
+                    foreach(VirtualBase.BaseValue baseValue in valueModifiers)
+                    {
+                        baseValue.Remove();
+                    }
+                    timeModifier.Remove();
+                    foreach(EntityAttribute attribute in owner.Attributes.Values)
+                    {
+                        attribute.ApplyResult();
+                    }
+                }
+            }
             public ActiveEffect() { }
-        }
-        public static EffectMask AddMask(this ActiveEffect effect, EffectMask.MaskedParameter parameter, EntityAttribute.AttributeOperation operation, float value)
-        {
-            EffectMask mask = new EffectMask(parameter, operation, value, effect);
-            effect.Masks.Add(mask);
-            effect.UpdateEffectMasks();
-            return mask;
-        }
-        public static void Remove(this EffectMask mask)
-        {
-            mask.AttachedEffect.Masks.Remove(mask);
-            mask.AttachedEffect.UpdateEffectMasks();
-        }
-        private static void UpdateEffectMasks(this ActiveEffect effect)
-        {
-            float timeAdd = 0, timeMultiplier = 1;
-            float valueAdd = 0, valueMultiplier = 1;
-            foreach(EffectMask mask in effect.Masks) 
-            {
-                if(mask.Parameter == EffectMask.MaskedParameter.EffectValue)
-                {
-                    if(mask.Operation == EntityAttribute.AttributeOperation.Add) valueAdd += mask.Value;
-                    else valueMultiplier *= mask.Value;
-                }
-                else
-                {
-                    if(mask.Operation == EntityAttribute.AttributeOperation.Add) timeAdd += mask.Value;
-                    else timeMultiplier *= mask.Value;
-                }
-
-            }
-            foreach(EffectProperty property in effect.EffectProperties)
-            {
-                if(property.EffectAction.Value != null) property.EffectAction.Value.Value = (property.EffectAction.Value.BaseValue + valueAdd) * valueMultiplier;
-            }
-            effect.RemainTime = (effect.RemainTime + timeAdd) * timeMultiplier;
-            
-            foreach(EffectProperty _property in effect.EffectProperties)
-            {
-                if(_property.EffectAction.EndAction != null) _property.EffectAction.EndAction(effect.Owner);
-                if(_property.EffectAction.BeginAction != null) _property.EffectAction.BeginAction(effect.Owner);
-            }
-        }
-        public struct EffectMask
-        {
-            public ActiveEffect AttachedEffect;
-            public float Value;
-            public EntityAttribute.AttributeOperation Operation;
-            public MaskedParameter Parameter;
-            public enum MaskedParameter
-            {
-                RemainTime,
-                EffectValue
-            }
-            public EffectMask(MaskedParameter parameter, EntityAttribute.AttributeOperation operation, float value, ActiveEffect attachedEffect)
-            {
-                Value = value;
-                Operation = operation;
-                Parameter = parameter;
-                AttachedEffect = attachedEffect;
-            }
         }
         public struct EffectDisplay
         {

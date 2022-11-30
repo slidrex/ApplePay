@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1a22c029ef961409bea3d0b302268e, type: 3}
   m_Name: ConsolidationSphere
   m_EditorClassIdentifier: 
+  TagAttributeCache: []
   Attributes: []
   Display:
     Icon: {fileID: 21300000, guid: 6c8fb1ae77e03b346a8014eac61142d4, type: 3}
@@ -25,7 +26,7 @@ MonoBehaviour:
       Text: x{1,1} Positive Effect Duration
   CharmFields:
   - name: effect-amplify
-    value: 3
+    value: 2
     NumberType: 0
   - name: effect-duration
     value: 1.5

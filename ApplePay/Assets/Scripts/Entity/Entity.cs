@@ -142,7 +142,7 @@ public abstract class Entity : MonoBehaviour
                 
                 EffectController.ActiveEffect activeEffect = ActiveEffects[ActiveEffects.ElementAt(i).Key];
                 
-                for(int j = 0; j < activeEffect.EffectProperties.Count; j++)
+                for(int j = 0; j < activeEffect.EffectProperties.Length; j++)
                 {
                     PayWorld.Effect.EffectProperty property = activeEffect.EffectProperties[j];
                     UpdateEffectTick(property.EffectAction);
@@ -151,8 +151,10 @@ public abstract class Entity : MonoBehaviour
                 
                 if(ActiveEffects.ElementAt(i).Value.Endless == false)
                 {
-                    activeEffect.RemainTime -= Time.deltaTime;
-                    if(ActiveEffects[ActiveEffects.ElementAt(i).Key].RemainTime <= 0)
+                    int n = 1;
+                    activeEffect.RemainTimeSourceValue -= Time.deltaTime * (activeEffect.RemainTimeSourceValue / activeEffect.ResultRemainTime);
+                    
+                    if(ActiveEffects[ActiveEffects.ElementAt(i).Key].RemainTimeSourceValue <= 0)
                     {
                         byte id = ActiveEffects.ElementAt(i).Key;
                         EffectController.RemoveEffect(this, ref id);
