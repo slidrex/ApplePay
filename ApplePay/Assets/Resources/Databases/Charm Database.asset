@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb811740fd925940a6a7be3c5742511, type: 3}
+  m_Name: Charm Database
+  m_EditorClassIdentifier: 
+  <items>k__BackingField:
+  - Key: 0
+    Value: {fileID: 5824225410495748234, guid: 09b7ecedf2e690448bcf7f59cb5f90f1, type: 3}
+  - Key: 1
+    Value: {fileID: 6627422004362106133, guid: 36efa1e365845c54bbfef48033c3a3a5, type: 3}
+  - Key: 2
+    Value: {fileID: 4193517530701323216, guid: d83bb41db5c0e6d4c85bda725794399b, type: 3}
+  - Key: 3
+    Value: {fileID: 3122979208934395854, guid: b534492a67b636e4b9d517a65021b9d6, type: 3}
+  - Key: 4
+    Value: {fileID: 5208956990352950897, guid: 91333f612f7fc9d4fad22da9290d0669, type: 3}
+  - Key: 5
+    Value: {fileID: 8631333552440265198, guid: e5beb80fa10d59243bbfd8d302d1e704, type: 3}
