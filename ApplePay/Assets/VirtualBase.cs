@@ -99,7 +99,6 @@ public struct VirtualBase
             public void Remove() 
             {
                 BaseValue.DestroyClocks.Remove(this);
-                UnityEngine.Debug.Log("Clock destroyed!");
                 StaticCoroutine.EndCoroutine(Coroutine);
             }
         }
@@ -134,10 +133,11 @@ public static class DestroyClockExtension
     public static VirtualBase.BaseValue.DestroyClock SetDestroyClock(this VirtualBase.BaseValue baseValue, float time)
     {
         UnityEngine.Debug.Log("Clock set!");
+        System.Collections.IEnumerator coroutine = null;
         VirtualBase.BaseValue.DestroyClock clock = new VirtualBase.BaseValue.DestroyClock();
-        System.Collections.IEnumerator coroutine = DestroyTagAttribute(clock, time);
-        clock.Coroutine = coroutine;
         clock.BaseValue = baseValue;
+        coroutine = DestroyTagAttribute(clock, time);
+        clock.Coroutine = coroutine;
         StaticCoroutine.BeginCoroutine(coroutine);
         
         baseValue.DestroyClocks.Add(clock);
@@ -146,7 +146,7 @@ public static class DestroyClockExtension
     private static System.Collections.IEnumerator DestroyTagAttribute(VirtualBase.BaseValue.DestroyClock clock, float time)
     {
         yield return new UnityEngine.WaitForSeconds(time);
-        UnityEngine.Debug.Log("Clock destroyed by coroutine!");
+        UnityEngine.Debug.Log(clock.BaseValue.DestroyClocks);
         clock.BaseValue.DestroyClocks.Remove(clock);
         clock.BaseValue.Remove();
     }

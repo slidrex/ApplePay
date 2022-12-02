@@ -16,9 +16,7 @@ public class EffectGrid : MonoBehaviour
         panelObj.transform.SetParent(canvas.transform);
         panelObj.transform.localScale = Vector3.one;
         CurrentEffectPanel = panelObj.GetComponent<EffectPanel>();
-        
         CurrentEffectPanel.SetHeader(cell.EffectDisplay.Name);
-        CurrentEffectPanel.SetMain(cell.EffectDisplay.Description);
         for(int i = 0; i < cell.EffectDisplay.Additionals.Length; i++) CurrentEffectPanel.CreateTextField(cell.EffectDisplay.Additionals[i].TextConfiguration, cell.EffectDisplay.Additionals[i].Text, 1);
     }
     public void OnCellOver(EffectCell cell)
@@ -28,6 +26,7 @@ public class EffectGrid : MonoBehaviour
         CurrentEffectPanel.GetComponent<RectTransform>().GetWorldCorners(verteces);
         Vector2 scale = Vector2.one;
         
+        CurrentEffectPanel.SetMain(cell.EffectDisplay.FormatDescription(cell.EffectDisplay.Description));
         Vector2 mousePos = Pay.Functions.Generic.GetMousePos(Camera.main) + nativeOffset /  Pay.Functions.Generic.GetAspectRatio(Camera.main);
         
         

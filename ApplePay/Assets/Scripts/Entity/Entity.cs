@@ -151,7 +151,6 @@ public abstract class Entity : MonoBehaviour
                 
                 if(ActiveEffects.ElementAt(i).Value.Endless == false)
                 {
-                    int n = 1;
                     activeEffect.RemainTimeSourceValue -= Time.deltaTime * (activeEffect.RemainTimeSourceValue / activeEffect.ResultRemainTime);
                     
                     if(ActiveEffects[ActiveEffects.ElementAt(i).Key].RemainTimeSourceValue <= 0)

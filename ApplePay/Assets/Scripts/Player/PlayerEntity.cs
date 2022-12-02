@@ -13,6 +13,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     public WaveStatus WaveStatus { get; private set; }
     [SerializeField] private EffectCell effectCell;
     private UnityEngine.Rendering.Universal.Vignette vignette;
+    public VirtualBase test = new VirtualBase(0f);
     public void AddDamageAttribute()
     {
         this.AddAttribute("attackDamage", new FloatRef(
@@ -49,9 +50,10 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Update()
     {
         base.Update();
+        
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            PayWorld.EffectController.AddEffect(this, "speed", 3, 5f);
+            PayWorld.EffectController.AddEffect(this, "slowness", 3, 5f);
         }
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);
     }
