@@ -8,8 +8,8 @@ public class WeaponItem
 [System.Serializable]
 public struct WeaponInfo
 {
-    public WeaponAnimationSettings AnimationParameters;
     public WeaponDisplay Display;
+    public WeaponAnimationSettings AnimationParameters;
     public WeaponAnimationInfo AnimationInfo;
     public float GetAnimationTime() => AnimationParameters.AnimationTime;
     public float GetAttackInterval() => AnimationParameters.AttackInterval;

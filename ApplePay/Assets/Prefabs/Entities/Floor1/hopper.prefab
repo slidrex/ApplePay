@@ -4870,6 +4870,7 @@ GameObject:
   - component: {fileID: 1088011555184934264}
   - component: {fileID: 8115246995756994378}
   - component: {fileID: 1367820902}
+  - component: {fileID: 8350899720710395391}
   m_Layer: 0
   m_Name: hopper
   m_TagString: Untagged
@@ -4980,7 +4981,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
-  CurrentHealth: 0
+  HitShape: {fileID: 0}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -4988,9 +4989,7 @@ MonoBehaviour:
     rb: {fileID: 7227759541157514714}
     resistance: 0.5
     DragIntensity: 1
-    disabled: 0
     Forces: []
-  InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
   CurrentRoom: {fileID: 0}
@@ -5004,7 +5003,7 @@ MonoBehaviour:
   isDead: 0
   Tags:
   - aggressive
-  Hostiles: []
+  target: {fileID: 0}
   DamageField: 20
   switchStateInterval: 1.5
   timeSinceSwitch: 0
@@ -5033,7 +5032,7 @@ MonoBehaviour:
         VelocityMultiplier: 1
         AngularVelocityMultiplier: 1
       Display:
-        InventorySprite: {fileID: 0}
+        Icon: {fileID: 0}
         Description:
           Name: 
           Description: 
@@ -5074,7 +5073,6 @@ MonoBehaviour:
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
-  Target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
   Patterns:
   - {fileID: 8115246995756994378}
   activePatterns: 00
@@ -5119,3 +5117,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.08220712, y: 0.13787925}
   m_EdgeRadius: 0
+--- !u!114 &8350899720710395391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7227759541157514706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 7227759541157514711}
+  Collider: {fileID: 1367820902}

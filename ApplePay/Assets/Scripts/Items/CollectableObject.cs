@@ -2,10 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public abstract class CollectableObject : ItemEntity, IHitResponder
+public abstract class CollectableObject : ItemEntity
 {
     [Header("Pick Settings")]
-    public PayHitShape HitShape;
     [SerializeField] private Color32 constraintColor;
     private Color32 storedColor;
     private List<float> ConstraintList = new List<float>();
@@ -30,8 +29,9 @@ public abstract class CollectableObject : ItemEntity, IHitResponder
         HitShape = GetComponent<PayHitShape>();
         HitShape.SetResponder(this);
     }
-    public void OnHitDetected(HitInfo hitInfo)
+    public override void OnHitDetected(HitInfo hitInfo)
     {
+        base.OnHitDetected(hitInfo);
         bool collectStatus = true;
         CollisionRequest(hitInfo, ref collectStatus);
     }
@@ -109,10 +109,6 @@ public abstract class CollectableObject : ItemEntity, IHitResponder
     {
         if(collectStatus) OnCollect();
         else OnCollectFail(collision);
-    }
-    protected virtual void OnDestroy()
-    {
-        print("On destroy");
     }
     protected virtual void OnCollect()
     {

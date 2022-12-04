@@ -266,7 +266,8 @@ GameObject:
   - component: {fileID: 1821789805}
   - component: {fileID: 1821789806}
   - component: {fileID: 100337839314651114}
-  - component: {fileID: 100337839314651115}
+  - component: {fileID: 4220001795205278659}
+  - component: {fileID: 2463848941344230661}
   m_Layer: 0
   m_Name: Chains
   m_TagString: Untagged
@@ -398,7 +399,6 @@ MonoBehaviour:
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
-  Target: {fileID: 0}
   Patterns:
   - {fileID: 1821789805}
   - {fileID: 100337839314651114}
@@ -433,7 +433,6 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
-  CurrentHealth: 0
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -441,9 +440,7 @@ MonoBehaviour:
     rb: {fileID: 5111808536178740533}
     resistance: 0.6
     DragIntensity: 1
-    disabled: 0
     Forces: []
-  InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
   CurrentRoom: {fileID: 0}
@@ -455,9 +452,9 @@ MonoBehaviour:
     rgba: 3503609087
   DamageInvulnerabilityDuration: 0.35
   isDead: 0
-  Hostiles: []
+  Tags: []
+  target: {fileID: 0}
   DamageField: 15
-  dust: {fileID: 0}
   UltimateTrail: {fileID: 830950115}
   attackPoint: {fileID: 1970636236}
   radius: 0.35
@@ -477,8 +474,8 @@ MonoBehaviour:
   collisionEffect: {fileID: 0}
   collisionEffectDuration: 0
   collisionDamage: 0
---- !u!70 &100337839314651115
-CapsuleCollider2D:
+--- !u!61 &4220001795205278659
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -490,6 +487,30 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0005298555, y: -0.013776794}
-  m_Size: {x: 0.10063106, y: 0.21190515}
-  m_Direction: 0
+  m_Offset: {x: -0.0025850087, y: -0.023911338}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.32}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.14163437, y: 0.2721773}
+  m_EdgeRadius: 0
+--- !u!114 &2463848941344230661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3041076936036105730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 1821789806}
+  Collider: {fileID: 4220001795205278659}

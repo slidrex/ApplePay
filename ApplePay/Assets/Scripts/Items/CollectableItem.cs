@@ -29,9 +29,8 @@ public abstract class CollectableItem<Item> : CollectableObject
         if(hoverableObject.Initiated)
             hoverableObject.OnMouseExit();
     }
-    protected override void OnDestroy()
+    private void OnDestroy()
     {
-        base.OnDestroy();
         if(hoverableObject.Initiated)
             hoverableObject.OnDestroy();
     }

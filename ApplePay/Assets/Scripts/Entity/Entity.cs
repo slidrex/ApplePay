@@ -3,7 +3,7 @@ using UnityEngine;
 using PayWorld;
 using System.Linq;
 
-public abstract class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour, IHitResponder
 {
     public EntityMovement Movement { get; set; }
     protected SpriteRenderer SpriteRenderer;
@@ -14,6 +14,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField] private GameObject deathParticle, takeDamageParticle, appearParticle;
     [Header("Health")]
     public int MaxHealth = 100;
+    public PayHitShape HitShape;
     public int CurrentHealth {get ;set;}
     [SerializeField] private float evasionRate;
     [SerializeField] private float magicResistance;
@@ -24,6 +25,8 @@ public abstract class Entity : MonoBehaviour
     
     protected virtual void Awake()
     {
+        HitShape = GetComponent<PayHitShape>();
+        HitShape?.SetResponder(this);
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         CollisionHandler.rb = rb;
         if(Movement == null) Movement = GetComponent<EntityMovement>();
@@ -175,6 +178,11 @@ public abstract class Entity : MonoBehaviour
         }
         else tick.TimeSinceAction += Time.deltaTime;
         state.TickImplement = tick;
+    }
+
+    public virtual void OnHitDetected(HitInfo hitInfo)
+    {
+        
     }
 }
 public enum DamageType

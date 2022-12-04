@@ -1016,6 +1016,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 50
+  HitShape: {fileID: 446314031}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -1031,7 +1032,6 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 446314031}
   constraintColor:
     serializedVersion: 2
     rgba: 0
@@ -1848,6 +1848,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
+  HitShape: {fileID: 892326716}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -1863,7 +1864,6 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 892326716}
   constraintColor:
     serializedVersion: 2
     rgba: 0
@@ -2392,17 +2392,18 @@ GameObject:
   m_Component:
   - component: {fileID: 1014642747}
   - component: {fileID: 1014642746}
-  - component: {fileID: 1014642745}
   - component: {fileID: 1014642744}
   - component: {fileID: 1014642743}
   - component: {fileID: 1014642742}
+  - component: {fileID: 1014642748}
+  - component: {fileID: 1014642745}
   m_Layer: 0
   m_Name: Corrupt sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1014642742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2420,6 +2421,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
+  HitShape: {fileID: 0}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -2435,7 +2437,6 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 0}
   constraintColor:
     serializedVersion: 2
     rgba: 0
@@ -2500,22 +2501,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!58 &1014642745
-CircleCollider2D:
+--- !u!114 &1014642745
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014642741}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.03}
-  serializedVersion: 2
-  m_Radius: 0.055
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 1014642742}
+  Collider: {fileID: 1014642748}
 --- !u!212 &1014642746
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2575,12 +2574,38 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014642741}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.56, y: -3.21, z: 1}
+  m_LocalPosition: {x: 0.38, y: -1.99, z: 1}
   m_LocalScale: {x: 7.2, y: 7.2, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1014642748
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014642741}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0027084611, y: -0.012639441}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.07874643, y: 0.13472112}
+  m_EdgeRadius: 0
 --- !u!1 &1042998792
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,6 +3132,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 50
+  HitShape: {fileID: 0}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -3122,7 +3148,6 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 0}
   constraintColor:
     serializedVersion: 2
     rgba: 0
@@ -3897,6 +3922,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 50
+  HitShape: {fileID: 1619376356}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -3912,7 +3938,6 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 1619376356}
   constraintColor:
     serializedVersion: 2
     rgba: 0
@@ -3977,7 +4002,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0023013726, y: -0.01841098}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3988,7 +4013,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.10016431, y: 0.123178035}
   m_EdgeRadius: 0
 --- !u!212 &1619376353
 SpriteRenderer:
@@ -4090,7 +4115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1718022105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4108,6 +4133,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 50
+  HitShape: {fileID: 1718022111}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -4123,7 +4149,6 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 1718022111}
   constraintColor:
     serializedVersion: 2
     rgba: 0
@@ -4260,7 +4285,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718022103}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.69, y: -2.25, z: 1}
+  m_LocalPosition: {x: -1.4, y: -2.88, z: 1}
   m_LocalScale: {x: 7.2, y: 7.2, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4878,7 +4903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2120200233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4896,6 +4921,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
+  HitShape: {fileID: 2120200236}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -4911,7 +4937,6 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 2120200236}
   constraintColor:
     serializedVersion: 2
     rgba: 0
@@ -5125,10 +5150,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1124329982}
     m_Modifications:
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1849077798739181968, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: holder
       value: 
