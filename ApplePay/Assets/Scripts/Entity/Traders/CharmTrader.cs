@@ -11,6 +11,7 @@ public class CharmTrader : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<PlayerEntity>();
+        obj = Instantiate(cards, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform.position, Quaternion.identity, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform);
     }
     private void Update()
     {
@@ -24,20 +25,21 @@ public class CharmTrader : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.C) && traded == false)
             {
                 traded = true;
+                obj.SetActive(true);
                 GetComponent<Animator>().SetBool("isOpen", true);
-                obj = Instantiate(cards, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform.position, Quaternion.identity, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform);
             }
             if(Input.GetKeyDown(KeyCode.Escape) && traded == true)
             {
-                GetComponent<Animator>().SetBool("isOpen", false);
                 traded = false;
-                Destroy(obj);
+                obj.SetActive(false);
+                GetComponent<Animator>().SetBool("isOpen", false);
+                
             }
         }
         else
         {
-            if (obj != null) Destroy(obj);
             traded = false;
+            if (obj != null) obj.SetActive(false);
             button.SetBool("isActive", false);
             GetComponent<Animator>().SetBool("isOpen", false);
         }

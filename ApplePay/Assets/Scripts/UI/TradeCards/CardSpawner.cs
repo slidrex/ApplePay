@@ -23,7 +23,6 @@ public class CardSpawner : MonoBehaviour
                 //charmDatabase.GetItem(uniqueIndexes[i]).charm.Display.AdditionalFields,
                 charmDatabase.GetItem(uniqueIndexes[i]).charm.Display.Icon
             );
-            cards[i].Init();
         }
     }
     private void GetUniqueIndexes()
@@ -41,5 +40,9 @@ public class CardSpawner : MonoBehaviour
                 uniqueIndexes[i] = (byte)Random.Range(0, charmDatabase.GetLength());
             }
         }
+    }
+    public Card GetCard(byte cardNumber)
+    {
+        return cards[cardNumber];
     }
 }
