@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5824225410495748232}
   - component: {fileID: 5824225410495748233}
   - component: {fileID: 5824225410495748234}
-  - component: {fileID: 5824225410495748235}
   m_Layer: 0
   m_Name: ConsolidationSphere
   m_TagString: Untagged
@@ -175,6 +174,7 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
+  HitShape: {fileID: 0}
   constraintColor:
     serializedVersion: 2
     rgba: 0
@@ -183,23 +183,6 @@ MonoBehaviour:
   speed: 0
   rb: {fileID: 0}
   damagePerForceUnit: 1
-  itemHoverableObject: {fileID: 5824225410495748235}
+  hoverableObject:
+    contentPanel: {fileID: 0}
   charm: {fileID: 11400000, guid: dafe9bf7e256ee448b2a406e867b3662, type: 2}
---- !u!114 &5824225410495748235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5824225410495748228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03196795d23b2a438842976c2821a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Description:
-    Name: 
-    Description: 
-  contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
-  header: 
-  description: 

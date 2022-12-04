@@ -110,9 +110,14 @@ public abstract class CollectableObject : ItemEntity, IHitResponder
         if(collectStatus) OnCollect();
         else OnCollectFail(collision);
     }
+    protected virtual void OnDestroy()
+    {
+        print("On destroy");
+    }
     protected virtual void OnCollect()
     {
         PayWorld.Particles.InstantiateParticles(collectParticle, transform.position, Quaternion.identity, 2);
+        
         Destroy(gameObject);
     }
 }

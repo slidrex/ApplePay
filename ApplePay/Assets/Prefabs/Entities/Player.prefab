@@ -112,7 +112,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2788200553323671118}
   - component: {fileID: 2788200553323671117}
-  - component: {fileID: 2117038651}
   - component: {fileID: 2788200553323671119}
   - component: {fileID: 2788200553323671116}
   - component: {fileID: 5767637346845011317}
@@ -121,6 +120,10 @@ GameObject:
   - component: {fileID: 1463861389}
   - component: {fileID: 3917139913567164824}
   - component: {fileID: 6659970789127294732}
+  - component: {fileID: 1849077798889129513}
+  - component: {fileID: 1849077798889129514}
+  - component: {fileID: 6475928628708991697}
+  - component: {fileID: 7396770341887057190}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -196,32 +199,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2117038651
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2788200553323671107}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0018694196, y: -0.075580135}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.36, y: 0.36}
-    newSize: {x: 0.36, y: 0.36}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.083029136, y: 0.16530868}
-  m_EdgeRadius: 0
 --- !u!50 &2788200553323671119
 Rigidbody2D:
   serializedVersion: 4
@@ -278,8 +255,7 @@ MonoBehaviour:
   deathParticle: {fileID: 0}
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
-  MaxHealth: 1000
-  CurrentHealth: 0
+  MaxHealth: 500
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 2891188614314171647, guid: 954f520504525bf43b6bb04b77b565a9, type: 3}
@@ -287,9 +263,7 @@ MonoBehaviour:
     rb: {fileID: 2788200553323671119}
     resistance: 0
     DragIntensity: 1
-    disabled: 0
     Forces: []
-  InventorySystem: {fileID: 0}
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
   CurrentRoom: {fileID: 0}
@@ -301,7 +275,8 @@ MonoBehaviour:
     rgba: 2865219583
   DamageInvulnerabilityDuration: 1
   isDead: 0
-  Hostiles: []
+  Tags:
+  - player
   EffectList: {fileID: 0}
   ChangeAmount: -10
   ChangeHealthKey: 103
@@ -322,6 +297,7 @@ MonoBehaviour:
   interactDistance: 1
   InInteract: 0
   HackSpeed: 2
+  entity: {fileID: 0}
   holder: {fileID: 0}
   indicator: {fileID: 11400000, guid: 5282dbe45d1ccee4283598cedb4009ae, type: 2}
 --- !u!114 &8189285200546192267
@@ -352,7 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff2f06684b5e71408d04275bb14a3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentSpeed: 3.1415925
+  CurrentSpeed: 3.14
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
@@ -368,15 +344,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a042eb6aeb9d43b77abba143a14e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartRepositories:
-  - RepositoryLength: 9
-    Name: charms
-    _hanlders: []
-  - RepositoryLength: 3
-    Name: weapons
-    _hanlders:
-    - {fileID: 6659970789127294732}
-  InventoryOwner: {fileID: 5767637346845011317}
+  SystemOwner: {fileID: 5767637346845011317}
+  Repositories:
+  - {fileID: 1849077798889129513}
+  - {fileID: 1849077798889129514}
 --- !u!114 &6659970789127294732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,18 +361,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponPlace: {fileID: 4452132853288108545}
-  Disable: 0
+  Disables: []
   weaponList: {fileID: 1334837816}
   InventorySystem: {fileID: 3917139913567164824}
-  repositoryName: weapons
-  activeWeaponIndex: 0
   DropSettings:
-    MinForce: 10
-    MaxForce: 60
+    MinForce: 5
+    MaxForce: 15
     ForceAddSpeed: 5
     dropOffset: 0
     Holder: {fileID: 0}
-    TargetForce: 0
     dropIndicator: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
     currentDropIndicatorObject:
       Holder: {fileID: 0}
@@ -410,7 +378,75 @@ MonoBehaviour:
   dropKey: 9
   activateKey: 323
   weaponPlaceSlot: {fileID: 0}
-  weapons: []
+--- !u!114 &1849077798889129513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9c399f229428a4eab8df43d04f1d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Capacity: 9
+  Items: []
+--- !u!114 &1849077798889129514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 008a6d603ec1dd84b840ec80694d0c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Capacity: 4
+  Items: []
+  Holder: {fileID: 6659970789127294732}
+--- !u!114 &6475928628708991697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 5767637346845011317}
+  Collider: {fileID: 7396770341887057190}
+--- !u!61 &7396770341887057190
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0088768825, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.36, y: 0.36}
+    newSize: {x: 0.36, y: 0.36}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16470821, y: 0.36}
+  m_EdgeRadius: 0
 --- !u!1 &4454439995575299210
 GameObject:
   m_ObjectHideFlags: 0

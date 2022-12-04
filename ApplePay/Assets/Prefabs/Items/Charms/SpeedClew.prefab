@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3122979208934395889}
   - component: {fileID: 3122979208934395890}
-  - component: {fileID: 3122979208934395891}
   - component: {fileID: 3122979208934395852}
   - component: {fileID: 3122979208934395853}
-  - component: {fileID: 3122979208934395888}
   - component: {fileID: 3122979208934395854}
+  - component: {fileID: 6497081813024424572}
+  - component: {fileID: 7516740317972889632}
   m_Layer: 0
   m_Name: SpeedClew
   m_TagString: Untagged
@@ -87,22 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!58 &3122979208934395891
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122979208934395855}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.03}
-  serializedVersion: 2
-  m_Radius: 0.055
 --- !u!95 &3122979208934395852
 Animator:
   serializedVersion: 3
@@ -143,24 +127,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3122979208934395888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122979208934395855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03196795d23b2a438842976c2821a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Description:
-    Name: 
-    Description: 
-  contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
-  header: 
-  description: 
 --- !u!114 &3122979208934395854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,13 +159,55 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
+  HitShape: {fileID: 7516740317972889632}
   constraintColor:
     serializedVersion: 2
     rgba: 0
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
-  rb: {fileID: 0}
+  rb: {fileID: 3122979208934395853}
   damagePerForceUnit: 1
-  itemHoverableObject: {fileID: 3122979208934395888}
+  hoverableObject:
+    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
   charm: {fileID: 11400000, guid: e5e8bca678b170b4199ff1985e897cc0, type: 2}
+--- !u!61 &6497081813024424572
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3122979208934395855}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.16}
+  m_EdgeRadius: 0
+--- !u!114 &7516740317972889632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3122979208934395855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 3122979208934395854}
+  Collider: {fileID: 6497081813024424572}

@@ -39,15 +39,16 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        /*Instantiate(cardSpawner.charmDatabase.GetItem(cardSpawner.uniqueIndexes[cardNumber]),
-         FindObjectOfType<PlayerEntity>().transform.position, Quaternion.identity);*/
         anim.SetTrigger("Click");
     }
     private void SetActive(bool isActive) => gameObject.SetActive(isActive);
     private void Disable()
     {
+        Instantiate(cardSpawner.charmDatabase.GetItem(cardSpawner.uniqueIndexes[cardNumber]),
+         FindObjectOfType<PlayerEntity>().transform.position, Quaternion.identity);
         PayWorld.Particles.InstantiateParticles(applause, transform.position, Quaternion.identity, 2, cardSpawner.transform);
         sold.gameObject.SetActive(true);
+        
         gameObject.SetActive(false);
     }
 }

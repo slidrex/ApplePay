@@ -28,7 +28,7 @@ public class CharmTrader : MonoBehaviour
                 obj.SetActive(true);
                 GetComponent<Animator>().SetBool("isOpen", true);
             }
-            if(Input.GetKeyDown(KeyCode.Escape) && traded == true)
+            else if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.C)) && traded == true)
             {
                 traded = false;
                 obj.SetActive(false);

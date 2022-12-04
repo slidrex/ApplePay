@@ -17,9 +17,9 @@ public abstract class PayHitShape : MonoBehaviour
             if(hit.collider != collider)
                 if(hit.collider.GetComponent<PayHitShape>() != null && IgnoreShapes.ContainsKey(hit.collider) == false)
                 {
-                    PayHitShape hitBox = hit.collider.GetComponent<PayHitShape>();
+                    PayHitShape hitBox = hit.collider.gameObject.GetComponent<PayHitShape>();
                     
-                    if(hitBox.Owner != null && hitBox.Owner != Owner)
+                    if(hitBox.Owner != null && hitBox.Owner != Owner && hitBox.M_Collider == hit.collider)
                     {
                         HitInfo hitInfo = new HitInfo();
                         hitInfo.entity = hitBox.Owner;
