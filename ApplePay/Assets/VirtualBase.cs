@@ -4,7 +4,6 @@
 public struct VirtualBase
 {
     public float SourceValue;
-
     public System.Collections.Generic.List<BaseValue> BaseModifiers { get; private set; }
     
     public VirtualBase(float sourceValue)
@@ -14,42 +13,42 @@ public struct VirtualBase
     }
     public BaseValue AddValue(float value, params string[] tags)
     {
-        BaseValue baseValue = new BaseValue(this, GetStaticFloatRef(value), GetStaticFloatRef(1f), tags);
+        BaseValue baseValue = new BaseValue(this, GetStaticFloatRef(value), GetStaticFloatRef(1f), GetStaticFloatRef(0), tags);
         
         BaseModifiers.Add(baseValue);
         return baseValue;
     }
     public BaseValue AddValue(VirtualFloatRef value, params string[] tags)
     {
-        BaseValue baseValue = new BaseValue(this, value, GetStaticFloatRef(1f), tags);
+        BaseValue baseValue = new BaseValue(this, value, GetStaticFloatRef(1f), GetStaticFloatRef(0), tags);
         
         BaseModifiers.Add(baseValue);
         return baseValue;
     }
     public BaseValue AddPercent(float value, params string[] tags)
     {
-        BaseValue baseValue = new BaseValue(this, GetStaticFloatRef(0), GetStaticFloatRef(1 + value), tags);
+        BaseValue baseValue = new BaseValue(this, GetStaticFloatRef(0), GetStaticFloatRef(1f), new VirtualFloatRef(() => value), tags);
         
         BaseModifiers.Add(baseValue);
         return baseValue;
     }
     public BaseValue AddPercent(VirtualFloatRef value, params string[] tags)
     {
-        BaseValue baseValue = new BaseValue(this, GetStaticFloatRef(0), new VirtualFloatRef(() => 1 + value.Get()), tags);
+        BaseValue baseValue = new BaseValue(this, GetStaticFloatRef(0), GetStaticFloatRef(1f), new VirtualFloatRef(() => value.Get()), tags);
         
         BaseModifiers.Add(baseValue);
         return baseValue;
     }
     public BaseValue AddMultiplier(float value, params string[] tags)
     {
-        BaseValue baseValue = new BaseValue(this, GetStaticFloatRef(1f), GetStaticFloatRef(value), tags);
+        BaseValue baseValue = new BaseValue(this, GetStaticFloatRef(0f), GetStaticFloatRef(value), GetStaticFloatRef(0), tags);
         
         BaseModifiers.Add(baseValue);
         return baseValue;
     }
     public BaseValue AddMultiplier(VirtualFloatRef value, params string[] tags)
     {
-        BaseValue baseValue = new BaseValue(this, GetStaticFloatRef(0), value, tags);
+        BaseValue baseValue = new BaseValue(this, GetStaticFloatRef(0), value, GetStaticFloatRef(0), tags);
         
         BaseModifiers.Add(baseValue);
         return baseValue;
@@ -60,6 +59,7 @@ public struct VirtualBase
     public float GetValue()
     {
         float value = SourceValue;
+        float resultMultilplier = 1f;
         foreach(BaseValue baseValue in BaseModifiers)
         {
             value += baseValue.AdditionalValue.Get();
@@ -67,8 +67,9 @@ public struct VirtualBase
         foreach(BaseValue baseValue in BaseModifiers)
         {
             value *= baseValue.Multiplier.Get();
+            resultMultilplier += baseValue.AdditionalSourcePercent.Get();
         }
-        
+        value *= resultMultilplier;
         return value;
     }
     private static VirtualFloatRef GetStaticFloatRef(float value) => new VirtualFloatRef(() => value);
@@ -80,11 +81,13 @@ public struct VirtualBase
         public System.Collections.Generic.List<DestroyClock> DestroyClocks;
         public VirtualFloatRef Multiplier;
         public VirtualFloatRef AdditionalValue;
-        public BaseValue(VirtualBase virtualBase, VirtualFloatRef value, VirtualFloatRef multiplier, string[] tags)
+        public VirtualFloatRef AdditionalSourcePercent;
+        public BaseValue(VirtualBase virtualBase, VirtualFloatRef value, VirtualFloatRef multiplier, VirtualFloatRef sourcePercent, string[] tags)
         {
             m_base = virtualBase;
             AdditionalValue = value;
             Multiplier = multiplier;
+            AdditionalSourcePercent = sourcePercent;
             Tags = new System.Collections.Generic.List<string>();
             DestroyClocks = new System.Collections.Generic.List<DestroyClock>();
             Tags.AddRange(tags);
@@ -129,10 +132,12 @@ public static class DestroyClockExtension
     ///<summary>Sets the tagged attribute termination time.</summary>
     public static VirtualBase.BaseValue.DestroyClock SetDestroyClock(this VirtualBase.BaseValue baseValue, float time)
     {
+        UnityEngine.Debug.Log("Clock set!");
+        System.Collections.IEnumerator coroutine = null;
         VirtualBase.BaseValue.DestroyClock clock = new VirtualBase.BaseValue.DestroyClock();
-        System.Collections.IEnumerator coroutine = DestroyTagAttribute(clock, time);
-        clock.Coroutine = coroutine;
         clock.BaseValue = baseValue;
+        coroutine = DestroyTagAttribute(clock, time);
+        clock.Coroutine = coroutine;
         StaticCoroutine.BeginCoroutine(coroutine);
         
         baseValue.DestroyClocks.Add(clock);
@@ -141,6 +146,7 @@ public static class DestroyClockExtension
     private static System.Collections.IEnumerator DestroyTagAttribute(VirtualBase.BaseValue.DestroyClock clock, float time)
     {
         yield return new UnityEngine.WaitForSeconds(time);
+        UnityEngine.Debug.Log(clock.BaseValue.DestroyClocks);
         clock.BaseValue.DestroyClocks.Remove(clock);
         clock.BaseValue.Remove();
     }

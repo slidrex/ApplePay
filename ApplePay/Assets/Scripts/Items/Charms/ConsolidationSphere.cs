@@ -1,8 +1,8 @@
-using PayWorld;
 [UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Other/Consolidation sphere")]
+
 public class ConsolidationSphere : Charm
 {
-    private EffectController.EffectMask valueMask, durationMask;
+    private PayWorld.EffectController.ActiveEffect.Modifier valueModifier, durationModifier;
     public override void UpdateFunction(Creature entity)
     {
         base.UpdateFunction(entity);
@@ -15,10 +15,9 @@ public class ConsolidationSphere : Charm
             {
                 if(effect.Tags.Contains("positiveEffect"))
                 {
-                    durationMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.RemainTime, EntityAttribute.AttributeOperation.Multiply, duration);
-                }//To do:
-                 //Ref sphere virtual database amount to effect virtual databsase remain time and effect value.
-                valueMask = effect.AddMask(EffectController.EffectMask.MaskedParameter.EffectValue, EntityAttribute.AttributeOperation.Multiply, amplify);
+                   durationModifier = effect.AddRemainTimeModifier(new VirtualBase.VirtualFloatRef(() => duration));
+                }
+                valueModifier = effect.AddValueModifier(new VirtualBase.VirtualFloatRef(() => amplify));
                 effect.Tags.Add("SphereAmplified");
             }
         }
@@ -26,7 +25,7 @@ public class ConsolidationSphere : Charm
     public override void EndFunction(Creature entity)
     {
         base.EndFunction(entity);
-        if(valueMask.Equals(new EffectController.EffectMask()) == false) valueMask.Remove();
-        if(durationMask.Equals(new EffectController.EffectMask()) == false) durationMask.Remove();
+        if(valueModifier.Equals(default(PayWorld.EffectController.ActiveEffect.Modifier)) == false) valueModifier.Remove();
+        if(durationModifier.Equals(default(PayWorld.EffectController.ActiveEffect.Modifier)) == false) durationModifier.Remove();
     }
 }

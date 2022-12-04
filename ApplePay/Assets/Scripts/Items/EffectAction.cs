@@ -5,16 +5,6 @@ namespace PayWorld.Effect
         public EffectAction EffectAction;
         public EffectProperty(EffectAction state) => EffectAction = state;
     }
-    public class EffectValue
-    {
-        public float Value;
-        public float BaseValue;
-        public EffectValue(float value)
-        {
-            BaseValue = value;
-            Value = value;
-        }
-    }
     public class EffectAction
     {
         public struct TickImplementation
@@ -30,15 +20,15 @@ namespace PayWorld.Effect
             public float TimeSinceAction;
 
         }
-        public EffectValue Value;
-        public float GetValue() => Value.Value;
+        public VirtualBase Value;
+        public float GetValue() => Value.GetValue();
         public TickImplementation TickImplement;
         public delegate void EffectActionHandler(Entity entity);
         public EffectActionHandler BeginAction;
         public EffectActionHandler EndAction;
-        public EffectAction(float targetValue) => Value = new EffectValue(targetValue);
+        public EffectAction(float targetValue) => Value = new VirtualBase(targetValue);
         public EffectAction() {}
-        private void Init(EffectActionHandler beginAction, EffectActionHandler endAction, TickImplementation tick, EffectValue value)
+        private void Init(EffectActionHandler beginAction, EffectActionHandler endAction, TickImplementation tick, VirtualBase value)
         {
             BeginAction = beginAction;
             EndAction = endAction;
@@ -49,7 +39,7 @@ namespace PayWorld.Effect
     public static class EffectActionPresets
     {
         private static EffectAction CreateState(float targetValue) => new EffectAction(targetValue);
-        private static EffectAction CreateState() => new EffectAction();
+        private static EffectAction CreateEmptyState() => new EffectAction();
         private static EffectAction LinkActions(this EffectAction effect, EffectAction.EffectActionHandler beginAction, EffectAction.EffectActionHandler endAction) => effect.LinkActions(beginAction, endAction, new EffectAction.TickImplementation());
         private static EffectAction LinkActions(this EffectAction effect, EffectAction.EffectActionHandler beginAction, EffectAction.EffectActionHandler endAction, EffectAction.TickImplementation tick)
         {
@@ -82,7 +72,7 @@ namespace PayWorld.Effect
         }
         public static EffectAction AttributeMultiply(string attributeName, float value)
         {
-            EffectAction EffectAction = CreateState();
+            EffectAction EffectAction = CreateState(value);
             EntityAttribute.TagAttribute tag = null;
             EffectAction.EffectActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute(attributeName).AddAttributeMultiplier(value, "effect-multiplier");
             EffectAction.EffectActionHandler endAction = (Entity entity) => tag?.Remove();
@@ -91,16 +81,16 @@ namespace PayWorld.Effect
         }
         public static EffectAction AttributePercent(string attributeName, float value)
         {
-            EffectAction EffectAction = CreateState();
+            EffectAction EffectAction = CreateState(value);
             EntityAttribute.TagAttribute tag = null;
-            EffectAction.EffectActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute(attributeName).AddPercent(value, "effect-multiplier");
+            EffectAction.EffectActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute(attributeName).AddPercent(new VirtualBase.VirtualFloatRef(() => EffectAction.Value.GetValue()) , "effect-multiplier");
             EffectAction.EffectActionHandler endAction = (Entity entity) => tag?.Remove();
 
             return EffectAction.LinkActions(beginAction, endAction);
         }
         public static EffectAction MoveConstraint()
         {
-            EffectAction EffectAction = CreateState();
+            EffectAction EffectAction = CreateEmptyState();
             EntityAttribute.TagAttribute tagAttribute = null;
             EffectAction.EffectActionHandler action = delegate(Entity entity) 
             {
@@ -114,7 +104,7 @@ namespace PayWorld.Effect
         }
         public static EffectAction WeaponConstraint()
         {
-            EffectAction EffectAction = CreateState();
+            EffectAction EffectAction = CreateEmptyState();
             EffectAction.EffectActionHandler beginAction = (Entity entity) => entity.GetComponent<WeaponHolder>()?.Disables.Add(0);
             EffectAction.EffectActionHandler endAction = (Entity entity) => entity.GetComponent<WeaponHolder>()?.Disables.Remove(0);
 
