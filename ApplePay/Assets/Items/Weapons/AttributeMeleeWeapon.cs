@@ -10,7 +10,7 @@ public abstract class AttributeMeleeWeapon : MeleeWeapon
     [SerializeField] private float value;
     [SerializeField] private EntityAttribute.AttributeType type;
     [SerializeField] private float time;
-    [SerializeField] private EntityAttribute.TagAttribute tagAttribute;
+    private EntityAttribute.TagAttribute tagAttribute;
     protected override void OnEntityHitEnter(Collider2D collision, Entity hitEntity)
     {
         base.OnEntityHitEnter(collision, hitEntity);
@@ -23,7 +23,7 @@ public abstract class AttributeMeleeWeapon : MeleeWeapon
         
         if(!_attribute.ContainsTagAttribute(tagName))
         {
-            tagAttribute = type == EntityAttribute.AttributeType.Multiplier ? _attribute.AddAttributeMultiplier(value, tagName) : _attribute.AddAttributeMultiplier(value, tagName);
+            tagAttribute = type == EntityAttribute.AttributeType.Multiplier ? _attribute.AddAttributeMultiplier(value, tagName) : _attribute.AddAttributeValue(value, tagName);
             
         }
         else

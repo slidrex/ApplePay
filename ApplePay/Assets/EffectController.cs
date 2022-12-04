@@ -30,7 +30,7 @@ namespace PayWorld
             effectDatabase.Effects.TryGetValue(id, out EffectTemplate databaseEffect);
             
             ActiveEffect effect = CreateEffect(entity, duration, false, databaseEffect.Properties, databaseEffect.EntryTag, "activeEffect");
-            AttachVisualAttrib(effect, databaseEffect.TemplateDisplay.Name, databaseEffect.TemplateDisplay.EffectFormatValues, databaseEffect.TemplateDisplay.Description, databaseEffect.TemplateDisplay.Index, databaseEffect.TemplateDisplay.Sprite, databaseEffect.TemplateDisplay.Additionals);
+            effect.AttachVisualAttrib(databaseEffect.TemplateDisplay.Name, databaseEffect.TemplateDisplay.Description, databaseEffect.TemplateDisplay.Index, databaseEffect.TemplateDisplay.Sprite, databaseEffect.TemplateDisplay.Additionals);
             return AddEffect(entity, effect, out byte _id);
         }
         ///<summary>
@@ -66,22 +66,12 @@ namespace PayWorld
         ///<summary>
         ///Attaches display attribute to an active effect.
         ///</summary>
-        public static void AttachVisualAttrib(ActiveEffect effect, string name, EffectAction[] descriptionFormatValues, string description, string index, Sprite sprite, Pay.UI.UIManager.TextField[] additionals)
+        public static ActiveEffect AttachVisualAttrib(this ActiveEffect effect, string name, string description, string index, Sprite sprite, params Pay.UI.UIManager.TextField[] additionals)
         {
-            VisualAttribHandler(effect, name, descriptionFormatValues, description, index, sprite, additionals);
-        }
-        ///<summary>
-        ///Attaches display attribute to an active effect.
-        ///</summary>
-        public static void AttachVisualAttrib(ActiveEffect effect, string name, EffectAction[] descriptionFormatValues, string description, string index, Sprite sprite)
-        {
-            VisualAttribHandler(effect, name, descriptionFormatValues, description, index, sprite, null);
-        }
-        private static void VisualAttribHandler(ActiveEffect effect, string name, EffectAction[] descriptionFormatValues, string description, string index, Sprite sprite, Pay.UI.UIManager.TextField[] additionals)
-        {
-            EffectController.EffectDisplay effectDisplay = new EffectDisplay(sprite, name, description, descriptionFormatValues, index, additionals);
+            EffectController.EffectDisplay effectDisplay = new EffectDisplay(sprite, name, description, effect.EffectProperties.Select(x => x.EffectAction).ToArray(), index, additionals);
             
             effect.EffectDisplay = effectDisplay;
+            return effect;
         }
     
         ///<summary>
@@ -194,7 +184,7 @@ namespace PayWorld
         {
             public string FormatDescription(string description)
             {
-                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("{(\\d+),?(.+)?}");
+                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("{(\\d+),(.*?)}");
                 System.Text.RegularExpressions.MatchCollection matchCollection = regex.Matches(description);
                 
                 foreach(System.Text.RegularExpressions.Match match in matchCollection)

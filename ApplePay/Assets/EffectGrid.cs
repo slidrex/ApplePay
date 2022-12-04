@@ -17,7 +17,8 @@ public class EffectGrid : MonoBehaviour
         panelObj.transform.localScale = Vector3.one;
         CurrentEffectPanel = panelObj.GetComponent<EffectPanel>();
         CurrentEffectPanel.SetHeader(cell.EffectDisplay.Name);
-        for(int i = 0; i < cell.EffectDisplay.Additionals.Length; i++) CurrentEffectPanel.CreateTextField(cell.EffectDisplay.Additionals[i].TextConfiguration, cell.EffectDisplay.Additionals[i].Text, 1);
+        if(cell.EffectDisplay.Additionals != null)
+            for(int i = 0; i < cell.EffectDisplay.Additionals.Length; i++) CurrentEffectPanel.CreateTextField(cell.EffectDisplay.Additionals[i].TextConfiguration, cell.EffectDisplay.Additionals[i].Text, 1);
     }
     public void OnCellOver(EffectCell cell)
     {

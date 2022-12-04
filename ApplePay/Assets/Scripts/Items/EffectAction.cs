@@ -83,7 +83,7 @@ namespace PayWorld.Effect
         {
             EffectAction EffectAction = CreateState(value);
             EntityAttribute.TagAttribute tag = null;
-            EffectAction.EffectActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute(attributeName).AddPercent(new VirtualBase.VirtualFloatRef(() => EffectAction.Value.GetValue()) , "effect-multiplier");
+            EffectAction.EffectActionHandler beginAction = (Entity entity) => tag = entity.FindAttribute(attributeName)?.AddPercent(new VirtualBase.VirtualFloatRef(() => EffectAction.Value.GetValue()) , "effect-multiplier");
             EffectAction.EffectActionHandler endAction = (Entity entity) => tag?.Remove();
 
             return EffectAction.LinkActions(beginAction, endAction);

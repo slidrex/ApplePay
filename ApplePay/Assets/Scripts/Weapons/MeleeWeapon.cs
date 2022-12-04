@@ -15,7 +15,7 @@ public class MeleeWeapon : WeaponObject
         {
             hitEntity.CollisionHandler?.Knock(transform.up.normalized * Knockback, Knockback);
             
-            Pay.Functions.Physics.IgnoreCollision(1f, Collider, collision);
+            
         }
     }
 }

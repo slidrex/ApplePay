@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4993660511035803439}
   - component: {fileID: 5828380199262159360}
   - component: {fileID: 7876552633506993754}
+  - component: {fileID: 5062544414722703039}
   m_Layer: 0
   m_Name: HolySpear
   m_TagString: Untagged
@@ -122,13 +123,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ffbb45c5a0f7b47a50e8d4d061c97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Collider: {fileID: 5828380199262159360}
+  Collider: {fileID: 5062544414722703039}
   collideDamage: 5
   Knockback: 2
   DamageType: 0
   side: 0
   passImmortal: 1
   attribute: movementSpeed
-  value: 0.5
+  value: 1.5
   type: 0
-  time: 4
+  time: 3
+--- !u!114 &5062544414722703039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5462634962518563402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 0}
+  Collider: {fileID: 5828380199262159360}

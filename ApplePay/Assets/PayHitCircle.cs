@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CircleCollider2D))]
 public class PayHitCircle : PayHitShape
 {
     public CircleCollider2D Collider;

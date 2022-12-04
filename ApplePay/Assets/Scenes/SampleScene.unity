@@ -933,7 +933,6 @@ GameObject:
   - component: {fileID: 446314030}
   - component: {fileID: 446314029}
   - component: {fileID: 446314028}
-  - component: {fileID: 446314027}
   - component: {fileID: 446314034}
   - component: {fileID: 446314031}
   m_Layer: 0
@@ -943,24 +942,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &446314027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 446314026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03196795d23b2a438842976c2821a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Description:
-    Name: 
-    Description: 
-  contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
-  header: 
-  description: 
 --- !u!114 &446314028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1002,8 +983,10 @@ MonoBehaviour:
   speed: 0
   rb: {fileID: 0}
   damagePerForceUnit: 1
-  itemHoverableObject: {fileID: 446314027}
-  <CollectableObject>k__BackingField: {fileID: 11400000, guid: 7e74c561f7468784ba88d782d4adac2f, type: 2}
+  hoverableObject:
+    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+    Initiated: 0
+  charm: {fileID: 11400000, guid: 7e74c561f7468784ba88d782d4adac2f, type: 2}
 --- !u!50 &446314029
 Rigidbody2D:
   serializedVersion: 4
@@ -1641,7 +1624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5602800900381002125, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5602800900381002125, guid: 8bde5636ad8deed458d324953675ca2f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1697,7 +1680,6 @@ GameObject:
   - component: {fileID: 892326710}
   - component: {fileID: 892326709}
   - component: {fileID: 892326713}
-  - component: {fileID: 892326712}
   - component: {fileID: 892326715}
   - component: {fileID: 892326714}
   - component: {fileID: 892326716}
@@ -1793,24 +1775,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &892326712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 892326708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03196795d23b2a438842976c2821a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Description:
-    Name: 
-    Description: 
-  contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
-  header: 
-  description: 
 --- !u!114 &892326713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1852,8 +1816,10 @@ MonoBehaviour:
   speed: 0
   rb: {fileID: 0}
   damagePerForceUnit: 1
-  itemHoverableObject: {fileID: 892326712}
-  <CollectableObject>k__BackingField: {fileID: 11400000, guid: d285c630a8e574448b44a9757ff6df0d, type: 2}
+  hoverableObject:
+    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+    Initiated: 0
+  charm: {fileID: 11400000, guid: d285c630a8e574448b44a9757ff6df0d, type: 2}
 --- !u!61 &892326714
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2371,17 +2337,18 @@ GameObject:
   m_Component:
   - component: {fileID: 1014642747}
   - component: {fileID: 1014642746}
-  - component: {fileID: 1014642745}
   - component: {fileID: 1014642744}
   - component: {fileID: 1014642743}
   - component: {fileID: 1014642742}
+  - component: {fileID: 1014642748}
+  - component: {fileID: 1014642745}
   m_Layer: 0
   m_Name: Corrupt sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1014642742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2414,7 +2381,7 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 0}
+  HitShape: {fileID: 1014642748}
   constraintColor:
     serializedVersion: 2
     rgba: 0
@@ -2423,7 +2390,9 @@ MonoBehaviour:
   speed: 0
   rb: {fileID: 0}
   damagePerForceUnit: 0
-  itemHoverableObject: {fileID: 0}
+  hoverableObject:
+    contentPanel: {fileID: 0}
+    Initiated: 0
   <CollectableObject>k__BackingField:
     Weapon: {fileID: 11400000, guid: ed996c9aac2479c4083a269def560f4b, type: 2}
     DropPrefab: {fileID: 1014642742}
@@ -2478,8 +2447,8 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!58 &1014642745
-CircleCollider2D:
+--- !u!61 &1014642745
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2491,9 +2460,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.03}
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.055
+  m_Size: {x: 0.16, y: 0.16}
+  m_EdgeRadius: 0
 --- !u!212 &1014642746
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2559,6 +2538,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1014642748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014642741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 1014642742}
+  Collider: {fileID: 1014642745}
 --- !u!1 &1042998792
 GameObject:
   m_ObjectHideFlags: 0
@@ -3033,7 +3026,6 @@ GameObject:
   - component: {fileID: 1309111035}
   - component: {fileID: 1309111034}
   - component: {fileID: 1309111033}
-  - component: {fileID: 1309111032}
   - component: {fileID: 1309111031}
   - component: {fileID: 1309111038}
   m_Layer: 0
@@ -3069,24 +3061,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.22729407, y: 0.21444356}
   m_EdgeRadius: 0
---- !u!114 &1309111032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1309111030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03196795d23b2a438842976c2821a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Description:
-    Name: 
-    Description: 
-  contentPanel: {fileID: 0}
-  header: 
-  description: 
 --- !u!114 &1309111033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3128,8 +3102,10 @@ MonoBehaviour:
   speed: 0
   rb: {fileID: 0}
   damagePerForceUnit: 1
-  itemHoverableObject: {fileID: 1309111032}
-  <CollectableObject>k__BackingField: {fileID: 11400000, guid: 15a82f6c7d8257a4dae74615180cb8fc, type: 2}
+  hoverableObject:
+    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+    Initiated: 0
+  charm: {fileID: 11400000, guid: 15a82f6c7d8257a4dae74615180cb8fc, type: 2}
 --- !u!50 &1309111034
 Rigidbody2D:
   serializedVersion: 4
@@ -3867,7 +3843,6 @@ GameObject:
   - component: {fileID: 1595865739}
   - component: {fileID: 1595865738}
   - component: {fileID: 1595865737}
-  - component: {fileID: 1595865736}
   - component: {fileID: 1595865743}
   - component: {fileID: 1595865740}
   m_Layer: 0
@@ -3877,24 +3852,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1595865736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1595865735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03196795d23b2a438842976c2821a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Description:
-    Name: 
-    Description: 
-  contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
-  header: 
-  description: 
 --- !u!114 &1595865737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3936,8 +3893,10 @@ MonoBehaviour:
   speed: 0
   rb: {fileID: 1595865738}
   damagePerForceUnit: 0
-  itemHoverableObject: {fileID: 1595865736}
-  <CollectableObject>k__BackingField: {fileID: 11400000, guid: 229b480149731d34d8aca467879d8659, type: 2}
+  hoverableObject:
+    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+    Initiated: 0
+  charm: {fileID: 0}
 --- !u!50 &1595865738
 Rigidbody2D:
   serializedVersion: 4
@@ -4095,7 +4054,6 @@ GameObject:
   - component: {fileID: 1619376353}
   - component: {fileID: 1619376351}
   - component: {fileID: 1619376350}
-  - component: {fileID: 1619376355}
   - component: {fileID: 1619376349}
   - component: {fileID: 1619376356}
   - component: {fileID: 1619376352}
@@ -4147,8 +4105,10 @@ MonoBehaviour:
   speed: 0
   rb: {fileID: 0}
   damagePerForceUnit: 1
-  itemHoverableObject: {fileID: 1619376355}
-  <CollectableObject>k__BackingField: {fileID: 11400000, guid: e5e8bca678b170b4199ff1985e897cc0, type: 2}
+  hoverableObject:
+    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+    Initiated: 0
+  charm: {fileID: 11400000, guid: e5e8bca678b170b4199ff1985e897cc0, type: 2}
 --- !u!50 &1619376350
 Rigidbody2D:
   serializedVersion: 4
@@ -4202,7 +4162,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0008273199, y: -0.012958914}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4213,7 +4173,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.12954773, y: 0.13408217}
   m_EdgeRadius: 0
 --- !u!212 &1619376353
 SpriteRenderer:
@@ -4280,24 +4240,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1619376355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619376348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03196795d23b2a438842976c2821a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Description:
-    Name: 
-    Description: 
-  contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
-  header: 
-  description: 
 --- !u!114 &1619376356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4325,7 +4267,6 @@ GameObject:
   - component: {fileID: 1718022107}
   - component: {fileID: 1718022106}
   - component: {fileID: 1718022105}
-  - component: {fileID: 1718022104}
   - component: {fileID: 1718022111}
   - component: {fileID: 1718022108}
   m_Layer: 0
@@ -4334,25 +4275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1718022104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1718022103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03196795d23b2a438842976c2821a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Description:
-    Name: 
-    Description: 
-  contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
-  header: 
-  description: 
+  m_IsActive: 0
 --- !u!114 &1718022105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4394,8 +4317,10 @@ MonoBehaviour:
   speed: 0
   rb: {fileID: 0}
   damagePerForceUnit: 1
-  itemHoverableObject: {fileID: 1718022104}
-  <CollectableObject>k__BackingField: {fileID: 11400000, guid: dafe9bf7e256ee448b2a406e867b3662, type: 2}
+  hoverableObject:
+    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+    Initiated: 0
+  charm: {fileID: 11400000, guid: dafe9bf7e256ee448b2a406e867b3662, type: 2}
 --- !u!50 &1718022106
 Rigidbody2D:
   serializedVersion: 4
@@ -5140,7 +5065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2120200233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5182,16 +5107,18 @@ MonoBehaviour:
   speed: 0
   rb: {fileID: 0}
   damagePerForceUnit: 0
-  itemHoverableObject: {fileID: 0}
+  hoverableObject:
+    contentPanel: {fileID: 0}
+    Initiated: 0
   <CollectableObject>k__BackingField:
     Weapon: {fileID: 11400000, guid: b0d64e257ca2c5b488ba13d705bed82f, type: 2}
     DropPrefab: {fileID: 2120200233}
     WeaponInfo:
       AnimationParameters:
-        AttackInterval: 0.5
-        AnimationTime: 1
-        VelocityMultiplier: 1
-        AngularVelocityMultiplier: 1
+        AttackInterval: 0.4
+        AnimationTime: 0.2
+        VelocityMultiplier: 3
+        AngularVelocityMultiplier: 0
       Display:
         Icon: {fileID: 21300000, guid: c05ce08778f8f01409668285d4fa6a6d, type: 3}
         Description:
@@ -5314,7 +5241,7 @@ Transform:
   m_LocalScale: {x: 6, y: 6, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2120200239
 BoxCollider2D:
@@ -5422,17 +5349,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2788200553323671107, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.793
+      value: -25.51
       objectReference: {fileID: 0}
     - target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.409
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 2788200553323671118, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5664,7 +5595,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.005821392, y: -0.032358073}
+  m_Offset: {x: 0.0016379096, y: -0.006250322}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5675,7 +5606,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3786362, y: 0.39542508}
+  m_Size: {x: 0.21453047, y: 0.34320956}
   m_EdgeRadius: 0
 --- !u!1001 &2273568673703890235
 PrefabInstance:
@@ -5686,11 +5617,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2273568672903025380, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.0538213
+      value: -1.7708222
       objectReference: {fileID: 0}
     - target: {fileID: 2273568672903025380, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.28147164
+      value: 0.33247164
       objectReference: {fileID: 0}
     - target: {fileID: 2273568672903025380, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5766,11 +5697,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2273568673667364283, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.0538213
+      value: -1.7708222
       objectReference: {fileID: 0}
     - target: {fileID: 2273568673667364283, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.28147164
+      value: 0.33247164
       objectReference: {fileID: 0}
     - target: {fileID: 2273568673667364283, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
       propertyPath: m_LocalPosition.z

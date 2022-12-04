@@ -27,7 +27,8 @@ public abstract class CollectableObject : ItemEntity, IHitResponder
     protected override void Awake()
     {
         base.Awake();
-        HitShape.Responder = this;
+        HitShape = GetComponent<PayHitShape>();
+        HitShape.SetResponder(this);
     }
     public void OnHitDetected(HitInfo hitInfo)
     {

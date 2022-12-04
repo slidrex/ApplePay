@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6665c162982aff64aa3c6af4101bf52a, type: 3}
   m_Name: SpeedClew
   m_EditorClassIdentifier: 
+  TagAttributeCache: []
   Attributes:
   - AttributeName: movementSpeed
     AdditionalAttributeValue: 0.3

@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour, IHitResponder
     public bool SetMoveRotation;
     private void Awake()
     {
-        HitBox.Responder = this;
+        HitBox.SetResponder(this);
     }
     public void Setup(Vector2 moveVector, Creature owner, Transform target)
     {
@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour, IHitResponder
     protected virtual void Update()
     {
         HandleLifeTime();
-
+        HitBox.CheckHit();
     }
     protected virtual void HandleLifeTime()
     {

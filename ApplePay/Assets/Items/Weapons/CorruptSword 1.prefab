@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 110667411562124963}
   - component: {fileID: 7892664446570645795}
   - component: {fileID: 1557959922151716276}
-  - component: {fileID: 2033671792662052622}
+  - component: {fileID: 1852485805866436339}
+  - component: {fileID: 4261761091503586758}
   m_Layer: 0
   m_Name: CorruptSword 1
   m_TagString: Untagged
@@ -110,7 +111,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.093745366, y: 0.16609234}
   m_EdgeRadius: 0
---- !u!114 &2033671792662052622
+--- !u!114 &1852485805866436339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,16 +120,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 3219820890450592181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83ffbb45c5a0f7b47a50e8d4d061c97a, type: 3}
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Owner: {fileID: 0}
   Collider: {fileID: 1557959922151716276}
-  collideDamage: 3
-  Knockback: 2
+--- !u!114 &4261761091503586758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3219820890450592181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295bb0167d588df4d8aea81b647823e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Collider: {fileID: 1852485805866436339}
+  collideDamage: 1
+  Knockback: 5
   DamageType: 1
-  side: 1
-  passImmortal: 1
-  attribute: movementSpeed
-  value: 0.4
-  type: 0
-  time: 4
+  corruptionTime: 3
+  level: 2
+  slownessPerLevel: 0.1
+  decayHPPerLevel: 1
+  duration: 5
