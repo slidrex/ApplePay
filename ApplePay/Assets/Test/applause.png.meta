@@ -1,22 +1,19 @@
 fileFormatVersion: 2
-guid: 87508d0e824e7cb4a85ccfbcc00aac03
+guid: feb7e32603b2d0b4f862929d2c8c3e28
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3002912790224551962
-    second: CharmTraderOpen_0
+      213: 7477772243652807153
+    second: applause_0
   - first:
-      213: -8615004499368417451
-    second: CharmTraderOpen_1
+      213: -2402840106546270983
+    second: applause_1
   - first:
-      213: 270037272261449770
-    second: CharmTraderOpen_2
+      213: -6510441974014107087
+    second: applause_2
   - first:
-      213: 1417210038981244830
-    second: CharmTraderOpen_3
-  - first:
-      213: 8217512057711073335
-    second: CharmTraderOpen_4
+      213: 4614827769210317186
+    second: applause_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CharmTraderOpen_0
+      name: applause_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 48
+        width: 34
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,20 +117,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a10cfc8c54d7ca920800000000000000
-      internalID: 3002912790224551962
+      spriteID: 1f983369c3266c760800000000000000
+      internalID: 7477772243652807153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharmTraderOpen_1
+      name: applause_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 34
         y: 0
-        width: 48
-        height: 48
+        width: 34
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,20 +138,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 557e0c45d0b517880800000000000000
-      internalID: -8615004499368417451
+      spriteID: 9fc6f3567a567aed0800000000000000
+      internalID: -2402840106546270983
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharmTraderOpen_2
+      name: applause_2
       rect:
         serializedVersion: 2
-        x: 96
+        x: 68
         y: 0
-        width: 48
-        height: 48
+        width: 34
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,20 +159,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a285249e77d5fb300800000000000000
-      internalID: 270037272261449770
+      spriteID: 132a818b48346a5a0800000000000000
+      internalID: -6510441974014107087
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CharmTraderOpen_3
+      name: applause_3
       rect:
         serializedVersion: 2
-        x: 144
+        x: 102
         y: 0
-        width: 48
-        height: 48
+        width: 34
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,29 +180,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9738919501faa310800000000000000
-      internalID: 1417210038981244830
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CharmTraderOpen_4
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 48
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7389b51ada77a0270800000000000000
-      internalID: 8217512057711073335
+      spriteID: 289a36bd7692b0040800000000000000
+      internalID: 4614827769210317186
       vertices: []
       indices: 
       edges: []

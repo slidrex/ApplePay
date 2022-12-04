@@ -4,11 +4,13 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    [SerializeField] private GameObject applause;
     [SerializeField] private Text itemName;
     [SerializeField] private Text description;
     [SerializeField] private Text additionalField;
     [SerializeField] private Image icon;
-    [SerializeField] private int cardNumber;
+    [SerializeField] private byte cardNumber;
+    [SerializeField] private Text sold;
     private CardSpawner cardSpawner;
     private Animator anim;
     //private int Price;
@@ -23,11 +25,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         this.description.text = description;
         //this.additionalField.text = additionalField;
         this.icon.sprite = icon;
-    }
-    public void Init()
-    {
-        gameObject.SetActive(true);
-    }
+    }  
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -41,7 +39,15 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Instantiate(cardSpawner.charmDatabase.GetItem(cardSpawner.uniqueIndexes[cardNumber]),
-         FindObjectOfType<PlayerEntity>().transform.position, Quaternion.identity);
+        /*Instantiate(cardSpawner.charmDatabase.GetItem(cardSpawner.uniqueIndexes[cardNumber]),
+         FindObjectOfType<PlayerEntity>().transform.position, Quaternion.identity);*/
+        anim.SetTrigger("Click");
+    }
+    private void SetActive(bool isActive) => gameObject.SetActive(isActive);
+    private void Disable()
+    {
+        PayWorld.Particles.InstantiateParticles(applause, transform.position, Quaternion.identity, 2, cardSpawner.transform);
+        sold.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
