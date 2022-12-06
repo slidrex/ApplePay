@@ -1,6 +1,7 @@
 using UnityEngine;
 public class MenuComponents : MonoBehaviour
 {
+    [HideInInspector] public bool IsOpen;
     public GameObject[] Elements;
     public void SetActiveElements(bool active, params GameObject[] components)
     {

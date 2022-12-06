@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ScytheBehaviour : AttackingMob
 {
-    private Rigidbody2D rb;
     [Header("Scythe Behaviour")]
     [SerializeField] private float speed;
     [SerializeField] private float obstacleHitDist;

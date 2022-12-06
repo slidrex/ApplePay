@@ -5,7 +5,6 @@ using System.Linq;
 
 public abstract class Entity : MonoBehaviour, IHitResponder
 {
-    public EntityMovement Movement { get; set; }
     protected SpriteRenderer SpriteRenderer;
     public Dictionary<byte, byte[]> EffectBundleBuffer = new Dictionary<byte, byte[]>();
     public Dictionary<byte, EffectController.ActiveEffect> ActiveEffects = new Dictionary<byte, EffectController.ActiveEffect>(); 
@@ -21,20 +20,14 @@ public abstract class Entity : MonoBehaviour, IHitResponder
     [SerializeField] private GameObject evasionEffect;
     public System.Collections.Generic.Dictionary<string, EntityAttribute> Attributes = new System.Collections.Generic.Dictionary<string, EntityAttribute>();
     public PayCollisionHandler CollisionHandler;
-    private byte disableID;
-    
+    protected Rigidbody2D rb;
     protected virtual void Awake()
     {
         HitShape = GetComponent<PayHitShape>();
         HitShape?.SetResponder(this);
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         CollisionHandler.rb = rb;
-        if(Movement == null) Movement = GetComponent<EntityMovement>();
-        if(Movement != null) 
-        {
-            Movement.Entity = this;
-            Movement.Rigidbody = rb;
-        }
+        
         if(SpriteRenderer == null) SpriteRenderer = GetComponent<SpriteRenderer>();
         Particles.InstantiateParticles(appearParticle, transform.position, Quaternion.identity, 2);
         CurrentHealth = MaxHealth;
@@ -55,34 +48,12 @@ public abstract class Entity : MonoBehaviour, IHitResponder
             () => magicResistance,
             val => magicResistance = val
         ), 0f);
-        if(Movement != null)
-            this.AddAttribute(
-            "movementSpeed",
-            new FloatRef(
-            () => Movement.CurrentSpeed,
-            val => Movement.CurrentSpeed = val
-            ),
-            Movement.CurrentSpeed);
     }
     protected virtual void Update()
     {
         CollisionHandler.OnUpdate();
         
-        CollisionUpdate();
         EffectsUpdate();
-    }
-    private void CollisionUpdate()
-    {
-        if(Movement != null)
-            if(CollisionHandler.disabled && disableID == 0)
-            {
-                disableID = Movement.AddDisable();
-            }
-            else if(CollisionHandler.disabled == false && disableID != 0)
-            {
-                Movement.RemoveDisable(disableID);
-                disableID = 0;
-            }
     }
     public virtual void Damage(int amount, DamageType damageType, Creature handler)
     {

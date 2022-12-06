@@ -12,7 +12,7 @@ abstract public class EntityMovement : MonoBehaviour
     [HideInInspector] public Rigidbody2D Rigidbody;
     [HideInInspector] public bool ConstraintRotation;
     private float curConstraintDuration;
-    public Entity Entity {get; set;}
+    public Creature Entity {get; set;}
     protected virtual void Start()
     {
         if(Rigidbody == null) Rigidbody = GetComponent<Rigidbody2D>();
@@ -37,6 +37,11 @@ abstract public class EntityMovement : MonoBehaviour
     virtual protected void OnSpeedUpdate() {}
     private void DisableHandler()
     {
+        if(Entity.IsBlocked())
+        {
+            isDisabled = true;
+            return;
+        }
         if(Disables.Count == 0 && isDisabled) isDisabled = false;
         for(int i = 0; i < Disables.Count; i++)
         {

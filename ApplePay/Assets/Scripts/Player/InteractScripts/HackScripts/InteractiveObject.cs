@@ -1,31 +1,35 @@
 using UnityEngine;
+
 public abstract class InteractiveObject : MonoBehaviour
 {
     public InteractPointer InteractPointer;
-    public Pay.UI.Indicator indicator;
     public bool NonInteractable;
     public bool InInteract;
-    protected InteractManager InteractEntity;
     private void Awake() => InteractPointer.AttachedInteractive = this;
     public void InteractBegin(InteractManager interactEntity) => OnInteractBegin(interactEntity);
-    public void InteractLoop() => OnInteractLoop();
-    public void InteractEnd()
+    public void InteractLoop(InteractManager interactEntity) => OnInteractLoop(interactEntity);
+    ///<summary>Calls before entity interacts. Returns validation (if return false - entity's interaction would be interrupted.)</summary>
+    public virtual bool BeforeInteractBegin(InteractManager interactEntity)
     {
-        OnInteractEnd();
+        return true;
+    }
+    public void InteractEnd(InteractManager interactEntity, bool success = false)
+    {
+        if(success) OnInteractAction(interactEntity);
+        OnInteractEnd(interactEntity);
         InInteract = false;
-        InteractEntity = null;
     }
-    protected void InteractAction()
+    ///<summary>Calls if entity began interacting with Downed Interact Button</summary>
+    public virtual void OnInteractBeginDown(InteractManager interactEntity)
     {
-        OnInteractAction();
-        InteractEnd();
+
     }
+    ///<summary>Calls if entity began interacting (works repeatedly).</summary>
     public virtual void OnInteractBegin(InteractManager interactEntity)
     {
         InInteract = true;
-        InteractEntity = interactEntity;
     }
-    protected virtual void OnInteractLoop() { }
-    protected virtual void OnInteractEnd() { }
-    protected virtual void OnInteractAction() { }
+    protected virtual void OnInteractLoop(InteractManager interactEntity) { }
+    protected virtual void OnInteractEnd(InteractManager interactEntity) { }
+    protected virtual void OnInteractAction(InteractManager interactEntity) { }
 }

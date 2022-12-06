@@ -2,6 +2,20 @@ using UnityEngine;
 
 public abstract class Creature : Entity, IKillHandler
 {
+    public enum InState
+    {
+        Engaged,
+        ///<summary>State mark for states that fully removes control of the Entity.</summary>
+        Blocked
+    }
+    public System.Collections.Generic.List<InState> StateLayers = new System.Collections.Generic.List<InState>();
+    public bool IsFree() => StateLayers.Count == 0;
+    public void Engage() => StateLayers.Add(InState.Engaged);
+    public bool IsBlocked() => StateLayers.Contains(InState.Blocked);
+    public void UnEngage() => StateLayers.Remove(InState.Engaged);
+    
+    [HideInInspector] public InState State;
+    public EntityMovement Movement { get; set; }
     public InventorySystem InventorySystem { get; set; }
     public HealthBar HealthBar;
     public LootTable DropTable;
@@ -15,6 +29,7 @@ public abstract class Creature : Entity, IKillHandler
     public LevelController LevelController {get; set;}
     [Header("Entity Settings")]
     public string[] Tags;
+    private byte disableID;
     protected override void Awake()
     {
         LevelController = FindObjectOfType<LevelController>();
@@ -26,6 +41,32 @@ public abstract class Creature : Entity, IKillHandler
         base.Start();
         LevelController.UpdateRoomEntityList();
         CheckTagsValidation();
+        if(Movement == null) Movement = GetComponent<EntityMovement>();
+        if(Movement != null) 
+        {
+            Movement.Entity = this;
+            Movement.Rigidbody = rb;
+            this.AddAttribute(
+            "movementSpeed",
+            new FloatRef(
+            () => Movement.CurrentSpeed,
+            val => Movement.CurrentSpeed = val
+            ),
+            Movement.CurrentSpeed);
+        }
+    }
+    private void CollisionUpdate()
+    {
+        if(Movement != null)
+            if(CollisionHandler.disabled && disableID == 0)
+            {
+                disableID = Movement.AddDisable();
+            }
+            else if(CollisionHandler.disabled == false && disableID != 0)
+            {
+                Movement.RemoveDisable(disableID);
+                disableID = 0;
+            }
     }
     private void CheckTagsValidation()
     {
@@ -37,6 +78,7 @@ public abstract class Creature : Entity, IKillHandler
     protected override void Update()
     {
         base.Update();
+        CollisionUpdate();
         Invulnerability();
         ChangeRoomCheck();
     }
@@ -89,10 +131,7 @@ public abstract class Creature : Entity, IKillHandler
         DropTable?.DropLoot();
         base.Die(killer);
     }
-    public virtual void OnBeforeKill(Creature entity)
-    {
-        
-    }
+    public virtual void OnBeforeKill(Creature entity) { }
     public virtual void OnAfterKill()
     {
         LevelController.UpdateRoomEntityList();

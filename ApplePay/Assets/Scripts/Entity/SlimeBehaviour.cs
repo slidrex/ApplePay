@@ -3,7 +3,6 @@ using UnityEngine;
 public class SlimeBehaviour : AttackingMob
 {
     [SerializeField] private GameObject explosion;
-    private Rigidbody2D rb;
     private Animator anim;
     private Vector3 dist {get =>Target.transform.position - transform.position; }
     public bool isJumping;
@@ -12,7 +11,6 @@ public class SlimeBehaviour : AttackingMob
         base.Start();
         SetTarget(FindObjectOfType<PlayerEntity>());
         RotateEulerAngles();
-        rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
     private void FixedUpdate()

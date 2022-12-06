@@ -14,23 +14,44 @@ public class DoorBehaviour : KeyHoldingHack
     }
     }
     public void SwapDirection(int swap) => direction = (DoorDirection)Mathf.Repeat((int)direction + swap, 4);
-    protected override void OnAfterHack()
+    protected override void OnAfterHack(InteractManager interactEntity)
     {
-        base.OnAfterHack();
+        base.OnAfterHack(interactEntity);
         if(ConnectedDoor.isUnlocked == false) 
         {
             ConnectedDoor.OnUnlock();
             ConnectedDoor.AttachedRoom.DefineRoom();
         }
     }
-    protected override void OnInteractAction()
+    public override bool BeforeInteractBegin(InteractManager interactEntity)
     {
-        base.OnInteractAction();
-        if(InteractEntity != null) 
+        return WaveStatusCheck(interactEntity.entity) == WaveStatus.NoWave ? true : false;
+    }
+    protected override void OnInteractAction(InteractManager interactEntity)
+    {
+        base.OnInteractAction(interactEntity);
+        if(interactEntity != null) 
         {
-            InteractEntity.transform.position = ConnectedDoor.TeleportPoint.position;
-            InteractEntity.entity.LevelController.UpdateRoomEntityList();
+            interactEntity.transform.position = ConnectedDoor.TeleportPoint.position;
+            interactEntity.entity.LevelController.UpdateRoomEntityList();
         }
+    }
+    private WaveStatus WaveStatusCheck(Creature entity)
+    {
+        IWavedepent wavedepentComponent = entity.GetComponent<IWavedepent>();
+        if(wavedepentComponent == null) return WaveStatus.NoWave;
+        return wavedepentComponent.WaveStatus;
+    }
+    public override void OnInteractBegin(InteractManager interactEntity)
+    {
+        base.OnInteractBegin(interactEntity);
+        interactEntity.anim.SetBool("isUnhacking", false);
+        interactEntity.anim.SetTrigger("isHacking");
+    }
+    protected override void OnInteractEnd(InteractManager interactEntity)
+    {
+        base.OnInteractEnd(interactEntity);
+        interactEntity.anim.SetBool("isUnhacking", true);
     }
     private System.Collections.Generic.Dictionary<DoorDirection, Vector2> directionConverter = new System.Collections.Generic.Dictionary<DoorDirection, Vector2>()
     {

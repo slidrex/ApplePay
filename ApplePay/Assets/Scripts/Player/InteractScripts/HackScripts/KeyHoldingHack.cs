@@ -1,33 +1,41 @@
 using UnityEngine;
+using Pay.UI;
 
 public class KeyHoldingHack : HackSystem
 {
     [SerializeField] private bool saveProgess;
     private const float OpenTime = 0.35f;
-    protected override void OnInteractLoop()
+    protected override void OnInteractLoop(InteractManager interactEntity)
     {
-        base.OnInteractLoop();
-        if(CurrentProgess < MaxProgress)
+        base.OnInteractLoop(interactEntity);
+        if(CurrentProgress < MaxProgress)
         {
-            CurrentProgess += Time.deltaTime * InteractEntity.HackSpeed;
-            if(CurrentProgess >= MaxProgress)
+            CurrentProgress += Time.deltaTime * interactEntity.HackSpeed;
+            interactEntity.UpdateIndicator(CurrentProgress, MaxProgress);
+            if(CurrentProgress >= MaxProgress)
             {
-                if(InteractEntity.InInteract) InteractEntity.InteractEnd();
-                if(isUnlocked == false) AfterHack();
-                InteractAction();
+                interactEntity.FinishInteract();
+                if(isUnlocked == false) OnAfterHack(interactEntity);
+                InteractEnd(interactEntity, true);
                 
             }
         }
     }
-    protected override void OnInteractEnd()
+    public override void OnInteractBegin(InteractManager interactEntity)
     {
-        base.OnInteractEnd();
-        if(!saveProgess) CurrentProgess = 0;
+        base.OnInteractBegin(interactEntity);
+        interactEntity.CreateIndicator(interactEntity.DefaultIndicator);
     }
-    protected override void OnInteractAction()
+    protected override void OnInteractEnd(InteractManager interactEntity)
     {
-        base.OnInteractAction();
-        CurrentProgess = 0;
+        base.OnInteractEnd(interactEntity);
+        interactEntity.RemoveIndicator();
+        if(!saveProgess) CurrentProgress = 0;
+    }
+    protected override void OnInteractAction(InteractManager interactEntity)
+    {
+        base.OnInteractAction(interactEntity);
+        CurrentProgress = 0;
     }
     public override void OnUnlock()
     {

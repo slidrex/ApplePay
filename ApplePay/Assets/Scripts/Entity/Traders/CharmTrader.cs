@@ -22,8 +22,9 @@ public class CharmTrader : MonoBehaviour
         if(Vector2.Distance(player.transform.position, transform.position) <= tradeDistance)
         {
             button.SetBool("isActive", true);
-            if(Input.GetKeyDown(KeyCode.C) && traded == false)
+            if(Input.GetKeyDown(KeyCode.C) && traded == false && player.IsFree())
             {
+                player.Engage();
                 traded = true;
                 obj.SetActive(true);
                 GetComponent<Animator>().SetBool("isOpen", true);
@@ -31,6 +32,7 @@ public class CharmTrader : MonoBehaviour
             else if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.C)) && traded == true)
             {
                 traded = false;
+                player.UnEngage();
                 obj.SetActive(false);
                 GetComponent<Animator>().SetBool("isOpen", false);
                 

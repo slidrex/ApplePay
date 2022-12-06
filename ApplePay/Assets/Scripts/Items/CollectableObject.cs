@@ -16,7 +16,6 @@ public abstract class CollectableObject : ItemEntity
     public float amplitude;
     [SerializeField] private float speed;
     [Header("Physics")]
-    [SerializeField] protected Rigidbody2D rb;
     protected Vector2 TargetVelocity;
     [SerializeField, Tooltip("Force multiplier coefficient")] private float damagePerForceUnit;
     private Animator animator;
