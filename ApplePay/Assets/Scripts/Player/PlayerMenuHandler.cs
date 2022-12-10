@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerInteraction : MonoBehaviour
+public class PlayerMenuHandler : MonoBehaviour
 {
     [SerializeField] private MenuComponents menuComponents;
     [SerializeField] private GameObject[] toggleActiveElements;
@@ -24,6 +24,7 @@ public class PlayerInteraction : MonoBehaviour
     }
     private void SetComponentActive(bool active, GameObject[] elements)
     {
+        menuComponents.IsOpen = active;
         menuComponents.gameObject.SetActive(true);
         menuComponents.SetActiveElements(active, elements);
         

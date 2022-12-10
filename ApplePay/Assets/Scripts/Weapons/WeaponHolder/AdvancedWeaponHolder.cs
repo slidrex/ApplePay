@@ -156,7 +156,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
         {
             Pay.UI.UIManager.RemoveUI(currentDropIndicatorObject);
 
-            Pay.UI.UIManager.Indicator.CreateIndicator(Holder, Holder.FollowCanvas, dropIndicator, out currentDropIndicatorObject,
+            currentDropIndicatorObject = Pay.UI.UIManager.Indicator.CreateIndicator(Holder, Holder.FollowCanvas, dropIndicator,
                 Pay.UI.Options.Transform.DynamicProperty.LocalScale(Vector3.one / 8, Vector3.one / 4, true, 1f),
                 Pay.UI.Options.Transform.StaticProperty.Position(transform.position + Vector3.up)
             );

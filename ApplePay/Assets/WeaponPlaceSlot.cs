@@ -19,16 +19,14 @@ public class WeaponPlaceSlot : MonoBehaviour
     }
     public void CreateSlotIndicator(Pay.UI.UIHolder holder)
     {
-        Pay.UI.IndicatorObject buffer;
-        Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.HUDCanvas, indicator, out buffer,
-        Pay.UI.Options.Transform.StaticProperty.Position(ImageRenderer.transform.position - Vector3.up),
-        Pay.UI.Options.Transform.StaticProperty.LocalScale(Vector3.one / 5)
+        IndicatorBuffer = Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.HUDCanvas, indicator,
+            Pay.UI.Options.Transform.StaticProperty.Position(ImageRenderer.transform.position - Vector3.up),
+            Pay.UI.Options.Transform.StaticProperty.LocalScale(Vector3.one / 5)
         );
-        IndicatorBuffer = buffer;
     }
     public void CreateSlotText(Pay.UI.UIHolder holder, string text)
     {
-        Pay.UI.UIManager.Text.CreateText(holder, holder.HUDCanvas, text, textConfiguration, fadeIn, duration, fadeOut, out textBuffer,
+        textBuffer = Pay.UI.UIManager.Text.CreateText(holder, holder.HUDCanvas, text, textConfiguration, fadeIn, duration, fadeOut,
             Pay.UI.Options.Transform.StaticProperty.LocalScale(Vector3.one / 1.5f),
             Pay.UI.Options.Transform.StaticProperty.Position(ImageRenderer.transform.position + Vector3.up/1.5f)
         );

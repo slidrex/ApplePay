@@ -1,97 +1,169 @@
 using UnityEngine;
 using System.Linq;
+
 public class InteractManager : MonoBehaviour
 {
-    private IWavedepent wavedepentComponent;
     public Animator anim {get; set;}
     [SerializeField] private KeyCode interactKey;
     [SerializeField] private float interactDistance;
-    private InteractiveObject currentInteractObj;
-    private bool InteractUpdate;
-    [HideInInspector] public bool InInteract;
+    public bool InInteract;
     private byte constraintId;
     public float HackSpeed = 1;
     public Creature entity {get; set;}
     [SerializeField] private Pay.UI.UIHolder holder;
     public Pay.UI.Indicator DefaultIndicator;
     [HideInInspector] public Pay.UI.IndicatorObject indicatorObject;
+    private CurrentInteractObject currentInteractObject;
+    private int currentInteractObjectIndex;
+    public System.Collections.Generic.List<CurrentInteractObject> InteractObjects = new System.Collections.Generic.List<CurrentInteractObject>();
+    public InteractHint Hint;
+    private InteractHint hint;
+    private bool hintSpawned;
     private void Awake()
     {
         entity = GetComponent<Creature>();
+        anim = GetComponent<Animator>();
         
         entity.AddAttribute("hackSpeed", new FloatRef(
             () => HackSpeed, val => HackSpeed = val), HackSpeed
         );
         
     }
-    private void Start()
-    {
-        anim = GetComponent<Animator>();
-    }
     public void ChangeHackSpeed(float amount) => HackSpeed += amount;
-    private void Update()
-    {
-        InteractUpdate = false;
-        if(Input.GetKeyDown(interactKey) && IsValidate()) Interact(true);
-        if(Input.GetKey(interactKey) && IsValidate()) Interact(false);
-        if(InteractUpdate == false && InInteract == true)
-        {
-            if(currentInteractObj.InInteract) currentInteractObj.InteractEnd(this);
-            InteractEnd();
-        }
-    }
     private bool IsValidate()
     {
-        if(InInteract == false)
-        {
-            if(entity.IsFree() == false) return false;
-        }
+        if(entity.IsFree() == false) return false;
+        
         return true;
     }
-    private void Interact(bool repeat)
+    private void Update()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, interactDistance).Where(x => x.GetComponent<InteractPointer>() != null).ToArray();
+        bool hasInteractObjects = UpdateInteractiveObjectList();
         
-        for(int i = 0; i < colliders.Length; i++)
+        InteractiveObject closestObject = null;
+        if(hasInteractObjects) closestObject = GetNearestInteractiveObject(out int id).interactiveObject;
+        
+        if(hintSpawned && (entity.IsFree() == false || closestObject == null))
         {
-            for(int j = i + 1; j < colliders.Length; j++)
-            {
-                if(Vector2.Distance(colliders[j].transform.position, transform.position) < Vector2.Distance(colliders[i].transform.position, transform.position))
-                {
-                    Collider2D tempCollider = colliders[i];
-                    colliders[i] = colliders[j];
-                    colliders[j] = tempCollider;
-                }
-            }
+            RemoveInteractHint();
         }
-        InteractiveObject wrappedObject = null;
-        foreach(Collider2D collider in colliders)
+        else if(hintSpawned == false && entity.IsFree() && closestObject != null)
         {
-            InteractiveObject current = collider.GetComponent<InteractPointer>().AttachedInteractive;
-            if(current.NonInteractable == false)
-            {
-                wrappedObject = current;
-                break;
-            }
+            CreateInteractHint(closestObject.InteractPointer);
         }
         
-        if(wrappedObject != null && wrappedObject.BeforeInteractBegin(this))
+        
+        
+        
+        
+        if(Input.GetKeyDown(interactKey) && hasInteractObjects)
         {
-            if(InInteract == false) 
+            if(currentInteractObject.interactiveObject == null && InInteract == false)
             {
-                currentInteractObj = wrappedObject;
-                
-                InteractBegin(currentInteractObj);
-                
+                print("reassagnition");
+                InInteract = true;
+                currentInteractObject = GetNearestInteractiveObject(out currentInteractObjectIndex);
+                print(currentInteractObject.interactiveObject.name);
             }
-            InteractLoop(currentInteractObj);
+            InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyDown(this);
+        }
+        if(Input.GetKey(interactKey) && hasInteractObjects)
+        {
+            if(currentInteractObject.interactiveObject == null && InInteract == false)
+            {
+                print("reassagnition");
+                InInteract = true;
+                currentInteractObject = GetNearestInteractiveObject(out currentInteractObjectIndex);
+            }
+            bool firstInteraction = false;
+            if(currentInteractObject.interactInitiated == false)
+            {
+                firstInteraction = true;
+                currentInteractObject.interactInitiated = true;
+                InteractObjects[currentInteractObjectIndex] = currentInteractObject;
+            }
+            InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyHolding(this, firstInteraction);
+        }
+        if(Input.GetKeyUp(interactKey) && hasInteractObjects)
+        {
+            if(InteractObjects[currentInteractObjectIndex].interactInitiated == true) InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyUp(this);
         }
     }
-    private void InteractBegin(InteractiveObject interactiveObj)
+    private CurrentInteractObject GetNearestInteractiveObject(out int associatedIndex) 
     {
-        entity.Engage();
-        interactiveObj.OnInteractBegin(this);
+        associatedIndex = 0;
+        float sqrMinDist = Vector2.SqrMagnitude(InteractObjects[0].collider.transform.position - transform.position);
+            for(int i = 1; i < InteractObjects.Count; i++)
+            {
+                float dist = Vector2.SqrMagnitude(InteractObjects[i].collider.transform.position - transform.position);
+                if(dist < sqrMinDist)
+                {
+                    sqrMinDist = dist;
+                    associatedIndex = i;
+                }
+            }
+            
+        return InteractObjects[associatedIndex];
+    }
+    
+    private bool UpdateInteractiveObjectList()
+    {
+        InteractPointer[] colliders = Physics2D.OverlapCircleAll(transform.position, interactDistance).Select(x => x.GetComponent<InteractPointer>()).ToArray();
+        for(int i = 0; i < colliders.Length; i++)
+        {
+            if(colliders[i] != null)
+                for(int j = i + 1; j < colliders.Length; j++)
+                {
+                    if(colliders[i] == colliders[j]) colliders[j] = null;
+                }
+        }
+        for(int i = 0; i < colliders.Length; i++)
+        {
+            if(colliders[i] == null) continue;
+            
+            Collider2D currentCollider = colliders[i].rangeCollider;
+            bool isNew = true;
+            foreach(CurrentInteractObject currentInteractObject in InteractObjects)
+            {
+                if(currentInteractObject.collider == currentCollider)
+                {
+                    isNew = false;
+                    break;
+                }
+            }
+            if(isNew == true)
+            {
+                CurrentInteractObject curObj = new CurrentInteractObject(currentCollider.gameObject.GetComponent<InteractPointer>().AttachedInteractive, currentCollider.transform, currentCollider);
+                curObj.interactiveObject.OnInteractZoneEntered(this);
+                curObj.collider = currentCollider;
+                InteractObjects.Add(curObj);
+            }
+        }
         
+        for(int i = 0; i < InteractObjects.Count; i++)
+        {
+            CurrentInteractObject currentKey = InteractObjects[i];
+            bool valid = false;
+            foreach(InteractPointer pointer in colliders)
+            {
+                if(pointer != null && pointer.rangeCollider == currentKey.collider) 
+                {
+                    valid = true;
+                    break;
+                }
+            }
+            if(valid == false)
+            {
+                InteractObjects[i].interactiveObject.OnInteractZoneLeft(this);
+                InteractObjects.RemoveAt(i);
+            }
+        }
+        return InteractObjects.Count > 0;
+        
+    }
+    public void SetBlockedState(InteractiveObject interactiveObj)
+    {
+        SetInteractState(interactiveObj);
         
         PayWorld.EffectController.ActiveEffect effect = PayWorld.EffectController.AddEffect(entity, out constraintId, 
             new PayWorld.Effect.EffectProperty(PayWorld.Effect.EffectActionPresets.WeaponConstraint()),
@@ -101,9 +173,25 @@ public class InteractManager : MonoBehaviour
         PayWorld.EffectController.AttachVisualAttrib(effect, "Interact Constrainer", "Some abilities are under constraint.", "", null);
         
     }
+    public void FinishInteract(InteractiveObject interactiveObject, bool allowNewRequest = true)
+    {
+        currentInteractObject = new CurrentInteractObject();
+        currentInteractObjectIndex = 0;
+        
+        int index = InteractObjects.IndexOf(InteractObjects.Find(x => x.interactiveObject == interactiveObject));
+        CurrentInteractObject obj = InteractObjects[index];
+        obj.interactInitiated = false;
+        InteractObjects[index] = obj;
+        
+        entity.UnEngage();
+        if(indicatorObject.GetObject() != null) RemoveIndicator();
+        if(constraintId != 0)
+            PayWorld.EffectController.RemoveEffect(entity, ref constraintId);
+        InInteract = !allowNewRequest;
+    }
     public void CreateIndicator(Pay.UI.Indicator indicator)
     {
-        Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.FollowCanvas, indicator, out indicatorObject,
+        indicatorObject = Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.FollowCanvas, indicator,
             Pay.UI.Options.Transform.StaticProperty.Position(transform.position + Vector3.up / 1.2f),
             Pay.UI.Options.Transform.DynamicProperty.LocalScale(Vector3.one / 3, Vector3.one / 4, true, 0.5f)
         );
@@ -116,28 +204,46 @@ public class InteractManager : MonoBehaviour
     {
         Pay.UI.UIManager.RemoveUI(indicatorObject);
     }
-    private void InteractLoop(InteractiveObject interactiveObj)
+    public void SetInteractState(InteractiveObject interactiveObj)
     {
-        InteractUpdate = true;
         InInteract = true;
+        entity.Engage();
         Vector2 dist = interactiveObj.gameObject.transform.position - transform.position;
         Vector2 state = Mathf.Abs(dist.x) > Mathf.Abs(dist.y) ? Vector2.right * Mathf.Sign(dist.x) : Vector2.up * Mathf.Sign(dist.y);
         entity.Movement.SetFacingState(state, Time.deltaTime, StateParameter.MirrorHorizontal);
-        interactiveObj.InteractLoop(this);
+        
         entity.Movement.SetMoveMod(false);
     }
-    public void FinishInteract()
+    private void CreateInteractHint(InteractPointer pointer)
     {
-        InteractEnd();
-        InInteract = false;
+        hint = Instantiate<InteractHint>(Hint);
+        Pay.UI.UIManager.Image.RegisterImage(holder, hint.image,
+            Pay.UI.Options.Transform.StaticProperty.LocalScale(Vector3.one * 0.1f),
+            Pay.UI.Options.Transform.StaticProperty.Position(pointer.hintPosition.position)
+        );
+        hint.text.text = interactKey.ToString();
+        hintSpawned = true;
     }
-    private void InteractEnd()
+    private void RemoveInteractHint()
     {
-        InInteract = false;
-        currentInteractObj = null;
-        entity.UnEngage();
-        if(indicatorObject.GetObject() != null) RemoveIndicator();
-        PayWorld.EffectController.RemoveEffect(entity, ref constraintId);
+        Destroy(hint.gameObject);
+        hintSpawned = false;
     }
-    
+    [System.Serializable]
+    public struct CurrentInteractObject
+    {
+        public Transform transform;
+        public Collider2D collider;
+        public InteractiveObject interactiveObject;
+        public bool interactInitiated;
+        public bool enteredZone;
+        public CurrentInteractObject(InteractiveObject interactiveObject, Transform transform, Collider2D collider)
+        {
+            this.collider = collider;
+            this.interactiveObject = interactiveObject;
+            enteredZone = false;
+            interactInitiated = false;
+            this.transform = transform;
+        }
+    }
 }

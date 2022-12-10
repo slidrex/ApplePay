@@ -1,53 +1,48 @@
 using UnityEngine;
 
-public class CharmTrader : MonoBehaviour
+public class CharmTrader : InteractiveObject
 {
     [SerializeField] private GameObject cards;
-    [SerializeField] private Animator button;
-    [SerializeField] private float tradeDistance;
+    private Animator animator;
     private PlayerEntity player;
     private GameObject obj;
-    private bool traded = false;
+    private bool closed;
+    private bool inTrade = false;
     private void Start()
     {
+        animator = GetComponent<Animator>();
         player = FindObjectOfType<PlayerEntity>();
         obj = Instantiate(cards, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform.position, Quaternion.identity, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform);
     }
-    private void Update()
+    public override void OnInteractZoneLeft(InteractManager interactEntity)
     {
-        Trade();
+        if(closed == false) TraderClose(interactEntity, false); 
+        interactEntity.InInteract = false;
     }
-    private void Trade()
+    public override void OnInteractKeyDown(InteractManager interactEntity)
     {
-        if(Vector2.Distance(player.transform.position, transform.position) <= tradeDistance)
+        if(inTrade == false && player.IsFree())
         {
-            button.SetBool("isActive", true);
-            if(Input.GetKeyDown(KeyCode.C) && traded == false && player.IsFree())
-            {
-                player.Engage();
-                traded = true;
-                obj.SetActive(true);
-                GetComponent<Animator>().SetBool("isOpen", true);
-            }
-            else if((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.C)) && traded == true)
-            {
-                traded = false;
-                player.UnEngage();
-                obj.SetActive(false);
-                GetComponent<Animator>().SetBool("isOpen", false);
-                
-            }
+            player.Engage();
+            closed = false;
+            inTrade = true;
+            obj.SetActive(true);
+            animator.SetBool("isOpen", true);
         }
-        else
-        {
-            traded = false;
-            if (obj != null) obj.SetActive(false);
-            button.SetBool("isActive", false);
-            GetComponent<Animator>().SetBool("isOpen", false);
-        }
+            else if(inTrade == true)
+            {
+                TraderClose(interactEntity, true);
+            }
     }
-    private void OnDrawGizmos()
+    private void TraderClose(InteractManager entity, bool stayInteract)
     {
-        Gizmos.DrawWireSphere(transform.position, tradeDistance);
+        if(inTrade)
+        {
+            entity.FinishInteract(this, stayInteract);
+        }
+        inTrade = false;
+        closed = true;
+        animator.SetBool("isOpen", false);
+        if (obj != null) obj.SetActive(false);
     }
 }

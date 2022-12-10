@@ -23,6 +23,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     }
     protected override void Start()
     {
+        
         AddDamageAttribute();
         
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();

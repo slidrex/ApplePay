@@ -1,36 +1,50 @@
 using UnityEngine;
-using Pay.UI;
 
 public class KeyHoldingHack : HackSystem
 {
     [SerializeField] private bool saveProgess;
     private const float OpenTime = 0.35f;
-    protected override void OnInteractLoop(InteractManager interactEntity)
+    public override void OnInteractKeyHolding(InteractManager interactEntity, bool first)
     {
-        base.OnInteractLoop(interactEntity);
+        if(first)
+        {
+            if(interactEntity.entity.IsFree())
+            {
+            interactEntity.CreateIndicator(interactEntity.DefaultIndicator);
+            OnInteractBegin(interactEntity);
+
+            }
+        }
+        
         if(CurrentProgress < MaxProgress)
         {
             CurrentProgress += Time.deltaTime * interactEntity.HackSpeed;
+            
             interactEntity.UpdateIndicator(CurrentProgress, MaxProgress);
             if(CurrentProgress >= MaxProgress)
             {
-                interactEntity.FinishInteract();
+                interactEntity.FinishInteract(this, false);
                 if(isUnlocked == false) OnAfterHack(interactEntity);
-                InteractEnd(interactEntity, true);
-                
+
+                OnInteractInterruption(interactEntity);
             }
         }
     }
-    public override void OnInteractBegin(InteractManager interactEntity)
+    protected virtual void OnInteractBegin(InteractManager interactEntity)
     {
-        base.OnInteractBegin(interactEntity);
-        interactEntity.CreateIndicator(interactEntity.DefaultIndicator);
+        interactEntity.SetBlockedState(this);
     }
-    protected override void OnInteractEnd(InteractManager interactEntity)
+    public override void OnInteractKeyUp(InteractManager interactEntity)
     {
-        base.OnInteractEnd(interactEntity);
+        OnInteractInterruption(interactEntity);
+    }
+    protected virtual void OnInteractInterruption(InteractManager interactEntity)
+    {
+        if(interactEntity.InInteract == false) return;
+        interactEntity.FinishInteract(this, false);
         interactEntity.RemoveIndicator();
         if(!saveProgess) CurrentProgress = 0;
+
     }
     protected override void OnInteractAction(InteractManager interactEntity)
     {

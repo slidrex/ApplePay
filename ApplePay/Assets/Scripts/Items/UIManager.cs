@@ -24,21 +24,21 @@ namespace Pay.UI
         }
         public static class Text
         {
-            public static void CreateText(UIHolder holder, Canvas canvas, string text, TextConfiguration textConfiguration, float fadeIn, float duration, float fadeOut, out TextObject container, params Pay.UI.Options.TransformProperty[] properties)
+            public static TextObject CreateText(UIHolder holder, Canvas canvas, string text, TextConfiguration textConfiguration, float fadeIn, float duration, float fadeOut, params Pay.UI.Options.TransformProperty[] properties)
             {
                 AnimationCurve animationCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(fadeIn, 1), new Keyframe(fadeIn + duration, 1), new Keyframe(fadeIn + duration + fadeOut, 0));
                 
-                GameObject obj = MonoBehaviour.Instantiate(holder.TextObject.gameObject, canvas.transform);
-                obj.AddComponent<UITransform>();
-                UnityEngine.UI.Text currentText = obj.GetComponent<UnityEngine.UI.Text>();
-                currentText.text = text;
-                currentText.font = textConfiguration.Font;
-                currentText.color = textConfiguration.Color;
-                currentText.lineSpacing = textConfiguration.LineSpacing;
-                container = new TextObject(holder, currentText, duration + fadeIn + fadeOut, animationCurve);
+                UnityEngine.UI.Text obj = MonoBehaviour.Instantiate(holder.TextObject, canvas.transform);
+                
+                obj.text = text;
+                obj.font = textConfiguration.Font;
+                obj.color = textConfiguration.Color;
+                obj.lineSpacing = textConfiguration.LineSpacing;
+                TextObject container = new TextObject(holder, obj, duration + fadeIn + fadeOut, animationCurve);
                 
                 holder.InstantiatedUI.Add(container);
                 UIManager.ActivateProperties(properties, container);
+                return container;
             }
         }
         public struct TextField
@@ -51,21 +51,43 @@ namespace Pay.UI
                 TextConfiguration = configuration;
             }
         }
+        public static class Image
+        {
+            public static ImageObject CreateImage(UIHolder holder, Canvas canvas, UnityEngine.UI.Image image, params Pay.UI.Options.TransformProperty[] properties)
+            {
+                UnityEngine.UI.Image img = MonoBehaviour.Instantiate(image, canvas.transform);
+                img.gameObject.AddComponent<UITransform>();
+                ImageObject container = new ImageObject(holder, img);
+                UIManager.ActivateProperties(properties, container);
+                holder.InstantiatedUI.Add(container);
+                return container;
+            }
+            public static ImageObject RegisterImage(UIHolder holder, UnityEngine.UI.Image image, params Pay.UI.Options.TransformProperty[] properties)
+            {
+                ImageObject container = new ImageObject(holder, image);
+                container.GetObject().AddComponent<UITransform>();
+                UIManager.ActivateProperties(properties, container);
+                holder.InstantiatedUI.Add(container);
+                return container;
+            }
+        }
         public static class Indicator
         {
-            public static void CreateIndicator(UIHolder holder, Canvas canvas, Pay.UI.Indicator indicator, out IndicatorObject container, params Pay.UI.Options.UIProperty[] properties)
+            public static IndicatorObject CreateIndicator(UIHolder holder, Canvas canvas, Pay.UI.Indicator indicator, params Pay.UI.Options.UIProperty[] properties)
             {
-                Image indicatorImage = new GameObject("Indicator", typeof(UITransform)).AddComponent<Image>();
-                indicatorImage.type = Image.Type.Filled;
+                UnityEngine.UI.Image indicatorImage = new GameObject("Indicator", typeof(UITransform)).AddComponent<UnityEngine.UI.Image>();
+                indicatorImage.type = UnityEngine.UI.Image.Type.Filled;
+                
                 indicatorImage.fillMethod = indicator.fillMethod;
                 indicatorImage.sprite = indicator.sprite;
                 indicatorImage.transform.SetParent(canvas.transform);
                 indicatorImage.transform.localPosition = Vector3.zero;
                 indicatorImage.transform.localScale = Vector3.one;
                 
-                container = new IndicatorObject(holder, indicatorImage);
+                IndicatorObject container = new IndicatorObject(holder, indicatorImage);
                 holder.InstantiatedUI.Add(container);
                 ActivateProperties(properties, container);
+                return container;
             }
             public static void UpdateIndicator(IndicatorObject indicator, float currentAmount, float maxAmount, params Pay.UI.Options.IndicatorProperty[] properties)
             {
@@ -73,10 +95,11 @@ namespace Pay.UI
                 indicator.indicatorObject.fillAmount = indicator.IndicatorValue;
                 ActivateProperties(properties, indicator);
             }
-            public static void RegisterIndicator(UIHolder holder, Image indicator, out IndicatorObject container)
+            public static IndicatorObject RegisterIndicator(UIHolder holder, UnityEngine.UI.Image indicator)
             {
-                container = new IndicatorObject(holder, indicator);
+                IndicatorObject container = new IndicatorObject(holder, indicator);
                 holder.InstantiatedUI.Add(container);
+                return container;
             }
         }
         private static void ActivateProperties(Pay.UI.Options.UIProperty[] properties, UIElement propertyUI)
@@ -119,6 +142,12 @@ namespace Pay.UI
         public Image indicatorObject {get; private set;}
         public float IndicatorValue {get; set;}
         public override GameObject GetObject() => indicatorObject == null ? null : indicatorObject.gameObject;
+    }
+    public class ImageObject : UIElement
+    {
+        public Image imageObject {get; private set;}
+        public ImageObject(UIHolder holder, Image image) : base(holder) => imageObject = image;
+        public override GameObject GetObject() => imageObject.gameObject;
     }
     [System.Serializable]
     public class TextObject : UIElement

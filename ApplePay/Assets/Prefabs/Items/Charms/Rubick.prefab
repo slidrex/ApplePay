@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6627422004362106135}
   - component: {fileID: 6627422004362106134}
   - component: {fileID: 6627422004362106133}
-  - component: {fileID: 6627422004362106132}
   - component: {fileID: 6627422004362106139}
   m_Layer: 0
   m_Name: Rubick
@@ -144,6 +143,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 50
+  HitShape: {fileID: 0}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -165,28 +165,10 @@ MonoBehaviour:
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
-  rb: {fileID: 0}
   damagePerForceUnit: 1
-  itemHoverableObject: {fileID: 6627422004362106132}
+  hoverableObject:
+    contentPanel: {fileID: 0}
   charm: {fileID: 11400000, guid: 15a82f6c7d8257a4dae74615180cb8fc, type: 2}
---- !u!114 &6627422004362106132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6627422004362106138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03196795d23b2a438842976c2821a31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Description:
-    Name: 
-    Description: 
-  contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
-  header: 
-  description: 
 --- !u!61 &6627422004362106139
 BoxCollider2D:
   m_ObjectHideFlags: 0
