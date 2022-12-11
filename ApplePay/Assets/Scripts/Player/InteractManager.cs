@@ -6,7 +6,7 @@ public class InteractManager : MonoBehaviour
     public Animator anim {get; set;}
     [SerializeField] private KeyCode interactKey;
     [SerializeField] private float interactDistance;
-    public bool InInteract;
+    public bool InInteract { get; private set; }
     private byte constraintId;
     public float HackSpeed = 1;
     public Creature entity {get; set;}
@@ -60,10 +60,8 @@ public class InteractManager : MonoBehaviour
         {
             if(currentInteractObject.interactiveObject == null && InInteract == false)
             {
-                print("reassagnition");
-                InInteract = true;
                 currentInteractObject = GetNearestInteractiveObject(out currentInteractObjectIndex);
-                print(currentInteractObject.interactiveObject.name);
+                InInteract = true;
             }
             InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyDown(this);
         }
@@ -71,18 +69,25 @@ public class InteractManager : MonoBehaviour
         {
             if(currentInteractObject.interactiveObject == null && InInteract == false)
             {
-                print("reassagnition");
-                InInteract = true;
-                currentInteractObject = GetNearestInteractiveObject(out currentInteractObjectIndex);
+                CurrentInteractObject cur = GetNearestInteractiveObject(out currentInteractObjectIndex);
+                if(cur.interactiveObject.HoldFoundable == true)
+                {
+                    currentInteractObject = cur;
+                    InInteract = true;
+                }
             }
-            bool firstInteraction = false;
-            if(currentInteractObject.interactInitiated == false)
+            if(currentInteractObject.interactiveObject != null)
             {
-                firstInteraction = true;
-                currentInteractObject.interactInitiated = true;
-                InteractObjects[currentInteractObjectIndex] = currentInteractObject;
+                bool firstInteraction = false;
+                if(currentInteractObject.interactInitiated == false)
+                {
+                    firstInteraction = true;
+                    currentInteractObject.interactInitiated = true;
+                    InteractObjects[currentInteractObjectIndex] = currentInteractObject;
+                }
+                InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyHolding(this, firstInteraction);
+
             }
-            InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyHolding(this, firstInteraction);
         }
         if(Input.GetKeyUp(interactKey) && hasInteractObjects)
         {
@@ -173,7 +178,7 @@ public class InteractManager : MonoBehaviour
         PayWorld.EffectController.AttachVisualAttrib(effect, "Interact Constrainer", "Some abilities are under constraint.", "", null);
         
     }
-    public void FinishInteract(InteractiveObject interactiveObject, bool allowNewRequest = true)
+    public void FinishInteract(InteractiveObject interactiveObject)
     {
         currentInteractObject = new CurrentInteractObject();
         currentInteractObjectIndex = 0;
@@ -187,7 +192,7 @@ public class InteractManager : MonoBehaviour
         if(indicatorObject.GetObject() != null) RemoveIndicator();
         if(constraintId != 0)
             PayWorld.EffectController.RemoveEffect(entity, ref constraintId);
-        InInteract = !allowNewRequest;
+        InInteract = false;
     }
     public void CreateIndicator(Pay.UI.Indicator indicator)
     {

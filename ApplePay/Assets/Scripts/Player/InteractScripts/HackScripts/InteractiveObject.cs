@@ -4,9 +4,9 @@ using UnityEngine;
 
 public abstract class InteractiveObject : MonoBehaviour
 {
+    ///<summary>Mark that object can be interacted if entity holds key</summary>
+    public abstract bool HoldFoundable {get;}
     public InteractPointer InteractPointer;
-    public bool NonInteractable;
-    public bool InInteract;
     private void Awake() => InteractPointer.AttachedInteractive = this;
     public virtual void OnInteractZoneEntered(InteractManager interactEntity) { }
     public virtual void OnInteractZoneLeft(InteractManager interactEntity) { }

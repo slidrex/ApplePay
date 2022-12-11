@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class KeyHoldingHack : HackSystem
 {
+    public override bool HoldFoundable => true;
     [SerializeField] private bool saveProgess;
     private const float OpenTime = 0.35f;
     public override void OnInteractKeyHolding(InteractManager interactEntity, bool first)
@@ -23,7 +24,7 @@ public class KeyHoldingHack : HackSystem
             interactEntity.UpdateIndicator(CurrentProgress, MaxProgress);
             if(CurrentProgress >= MaxProgress)
             {
-                interactEntity.FinishInteract(this, false);
+                interactEntity.FinishInteract(this);
                 if(isUnlocked == false) OnAfterHack(interactEntity);
 
                 OnInteractInterruption(interactEntity);
@@ -41,7 +42,7 @@ public class KeyHoldingHack : HackSystem
     protected virtual void OnInteractInterruption(InteractManager interactEntity)
     {
         if(interactEntity.InInteract == false) return;
-        interactEntity.FinishInteract(this, false);
+        interactEntity.FinishInteract(this);
         interactEntity.RemoveIndicator();
         if(!saveProgess) CurrentProgress = 0;
 

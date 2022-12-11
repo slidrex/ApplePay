@@ -2,43 +2,42 @@ using UnityEngine;
 
 public class CharmTrader : InteractiveObject
 {
+    public override bool HoldFoundable => false;
     [SerializeField] private GameObject cards;
     private Animator animator;
-    private PlayerEntity player;
     private GameObject obj;
     private bool closed;
     private bool inTrade = false;
     private void Start()
     {
         animator = GetComponent<Animator>();
-        player = FindObjectOfType<PlayerEntity>();
         obj = Instantiate(cards, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform.position, Quaternion.identity, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform);
     }
     public override void OnInteractZoneLeft(InteractManager interactEntity)
     {
-        if(closed == false) TraderClose(interactEntity, false); 
-        interactEntity.InInteract = false;
+        if(closed == false) TraderClose(interactEntity);
     }
     public override void OnInteractKeyDown(InteractManager interactEntity)
     {
-        if(inTrade == false && player.IsFree())
+        if(inTrade == false && interactEntity.entity.IsFree())
         {
-            player.Engage();
+            interactEntity.SetBlockedState(this);
             closed = false;
             inTrade = true;
             obj.SetActive(true);
             animator.SetBool("isOpen", true);
         }
-            else if(inTrade == true)
-            {
-                TraderClose(interactEntity, true);
-            }
+        else if(inTrade == true)
+        {
+            TraderClose(interactEntity);
+        }
     }
-    private void TraderClose(InteractManager entity, bool stayInteract)
+    private void TraderClose(InteractManager entity)
     {
         if(inTrade)
         {
-            entity.FinishInteract(this, stayInteract);
+            entity.FinishInteract(this);
+            print("finish interact");
         }
         inTrade = false;
         closed = true;
