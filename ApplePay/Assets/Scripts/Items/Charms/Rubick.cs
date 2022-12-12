@@ -5,12 +5,12 @@ public class Rubick : Charm
     public override void UpdateFunction(Creature entity)
     {
         base.UpdateFunction(entity);
-        CharmRepository _repository = (CharmRepository)entity.InventorySystem.GetRepository("charm");
+        CharmRepository _repository = (CharmRepository)entity.InventorySystem.GetRepository("charms");
         
-        CharmObject[] charmItems = _repository.Items;
+        CollectableCharm[] charmItems = _repository.Items;
         for(int i = 0; i < charmItems.Length; i++)
         {
-            CharmObject charm = charmItems[i];
+            CharmObject charm = charmItems[i].charm;
             if(charm != null && charm.GetActiveCharm() != this)
             {
                 for(int j = 0; j < charm.GetActiveCharm().attributeFields.Count; j++)

@@ -1,25 +1,33 @@
-public class CharmRepository : InventoryRepository<Charm>
+public class CharmRepository : InventoryRepository<CollectableCharm>
 {
     public override string Id => "charm";
-    public override bool AddItem(Charm item)
+    public override bool AddItem(CollectableCharm item)
     {
-        Charm charmInstance = Instantiate(item);
-        bool success = base.AddItem(charmInstance);
-        if(success) charmInstance.BeginFunction(AttachedSystem.SystemOwner);
+        bool success = IsValid(); 
+        if(success)
+        {
+            CollectableCharm charm = Instantiate(item);
+            base.AddItem(charm);
+            charm.gameObject.SetActive(false);
+            charm.gameObject.transform.SetParent(itemInstancesContainer);
+        }
         return success;
+    }
+    public override void OnItemAdded(CollectableCharm item)
+    {
+        item.charm.BeginFunction(AttachedSystem.SystemOwner);
     }
     private void Update()
     {
-        foreach(CharmObject charm in Items)
+        foreach(CollectableCharm charm in Items)
         {
             if(charm != null)
-                charm.GetActiveCharm().UpdateFunction(AttachedSystem.SystemOwner);
+                charm.charm.GetActiveCharm().UpdateFunction(AttachedSystem.SystemOwner);
         }
     }
-    public override bool RemoveItem(Charm item)
+    public override void OnItemRemoved(CollectableCharm item)
     {
-        bool success = base.RemoveItem(item);
-        if(success) item.EndFunction(AttachedSystem.SystemOwner); 
-        return success;
+        base.OnItemRemoved(item);
+        item.charm.EndFunction(AttachedSystem.SystemOwner); 
     }
 }

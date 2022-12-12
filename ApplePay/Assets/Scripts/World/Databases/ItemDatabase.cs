@@ -1,11 +1,4 @@
 [System.Serializable]
-public class WeaponItem
-{
-    public Weapon Weapon;
-    public CollectableObject DropPrefab;
-    public WeaponInfo WeaponInfo;
-}
-[System.Serializable]
 public struct WeaponInfo
 {
     public WeaponDisplay Display;
@@ -25,10 +18,10 @@ public struct WeaponAnimationInfo
 
 
 [System.Serializable]
-public class WeaponAnimationSettings
+public struct WeaponAnimationSettings
 {
-    public float AttackInterval = 0.5f;
-    public float AnimationTime = 1f;
-    public float VelocityMultiplier = 1;
-    public float AngularVelocityMultiplier = 1;
+    public float AttackInterval;
+    public float AnimationTime;
+    public float VelocityMultiplier;
+    public float AngularVelocityMultiplier;
 }

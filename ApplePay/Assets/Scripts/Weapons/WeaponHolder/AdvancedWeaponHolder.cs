@@ -1,9 +1,8 @@
 using UnityEngine;
-using System.Linq;
+
 public abstract class AdvancedWeaponHolder : WeaponHolder
 {
     [Header("Weapon display")]
-    [SerializeField, Tooltip("The object which stores weapon drop object in inventory.")] private Transform weaponList;
     public InventorySystem InventorySystem;
     private const string repositoryName = "weapon";
     protected abstract Vector2 DropDirection { get; }
@@ -25,50 +24,42 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
         base.Start();
         Repository = (WeaponRepository)InventorySystem.GetRepository(repositoryName);
     }
-    public virtual void OnAddItem(WeaponItem item, byte index)
+    public virtual void OnAddItem(CollectableWeapon item, byte index)
     {
-        CreateDropInstance(ref item.DropPrefab);
-        
         activeWeaponIndex = index;
         OnActiveWeaponUpdate();
-    }
-    private void CreateDropInstance(ref CollectableObject drop)
-    {
-        drop = Instantiate(drop, weaponList.position, Quaternion.identity);
-        drop.StoredHealth = drop.CurrentHealth;
-        drop.transform.SetParent(weaponList);
-        drop.gameObject.SetActive(false);
     }
     public void OnBeforeRepositoryUpdate()
     {
         if(Repository.IsFull()) DropRelease(ActiveWeaponIndex, 0);
     }
-    public void OnRepositoryAdded(WeaponItem item, byte index)
+    public void OnRepositoryAdded(CollectableWeapon item, byte index)
     {
         Debug.Log("Weapon repository was updated! Item " + item + " was added + at index " + index + "!");
-        WeaponItem weaponItem = (WeaponItem)item;
+        CollectableWeapon CollectableWeapon = (CollectableWeapon)item;
         
-        OnAddItem(weaponItem, index);
+        OnAddItem(CollectableWeapon, index);
     }
-    protected WeaponItem GetActiveWeapon()
+    protected CollectableWeapon GetActiveWeapon()
     {
         if(Repository.Items.Length == 0) return null;
-        return (WeaponItem)Repository.Items[ActiveWeaponIndex];
+        return (CollectableWeapon)Repository.Items[ActiveWeaponIndex];
     }
     protected override void UpdateWeaponList()
     {
-        WeaponItem[] items = Repository.GetExistingItems();
+        CollectableWeapon[] items = Repository.GetExistingItems();
         for(int i = 0; i < Repository.Items.Length; i++)
         {
             if(Repository.Items[i] != null)
             {
-                WeaponItem currentItem = (WeaponItem)Repository.Items[i];
-                if(currentItem.WeaponInfo.AnimationInfo.inAnimation || currentItem.WeaponInfo.AnimationInfo.timeSinceUse < currentItem.WeaponInfo.GetAttackInterval())
+                CollectableWeapon currentItem = (CollectableWeapon)Repository.Items[i];
+
+                if(currentItem.weapon.WeaponInfo.AnimationInfo.inAnimation || currentItem.weapon.WeaponInfo.AnimationInfo.timeSinceUse < currentItem.weapon.WeaponInfo.GetAttackInterval())
                 {
-                    currentItem.WeaponInfo.AnimationInfo.timeSinceUse += currentItem.WeaponInfo.AnimationInfo.inAnimation ? 0 : Time.deltaTime;
-                    currentItem.WeaponInfo.AnimationInfo.canActivate = false;
+                    currentItem.weapon.WeaponInfo.AnimationInfo.timeSinceUse += currentItem.weapon.WeaponInfo.AnimationInfo.inAnimation ? 0 : Time.deltaTime;
+                    currentItem.weapon.WeaponInfo.AnimationInfo.canActivate = false;
                 }
-                else currentItem.WeaponInfo.AnimationInfo.canActivate = true;
+                else currentItem.weapon.WeaponInfo.AnimationInfo.canActivate = true;
                 Repository.Items[i] = currentItem;
             }
         }
@@ -118,21 +109,20 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     }
     private void DropHandler(byte index)
     {
-        InstantiateDroppedObject((WeaponItem)Repository.Items[index], DropDirection, DropDirection *(DropSettings.TargetForce + DropSettings.MinForce));
+        GetDroppedObject(Repository.Items[index], DropDirection, DropDirection *(DropSettings.TargetForce + DropSettings.MinForce));
         Pay.UI.UIManager.RemoveUI(DropSettings.currentDropIndicatorObject);
         DropSettings.TargetForce = 0;
     }
-    private CollectableObject InstantiateDroppedObject(WeaponItem instanceObject, Vector2 offsetDirection, Vector2 force)
+    private CollectableObject GetDroppedObject(CollectableWeapon instanceObject, Vector2 offsetDirection, Vector2 force)
     {
-        CollectableObject droppedObject = Instantiate(instanceObject.DropPrefab, (Vector2)transform.position + offsetDirection * DropSettings.dropOffset, Quaternion.identity);
-        
-        droppedObject.transform.localScale = instanceObject.DropPrefab.transform.lossyScale;
-        droppedObject.gameObject.SetActive(true);
-        droppedObject.StoredHealth = instanceObject.DropPrefab.StoredHealth;
-        droppedObject.AddConstraintCollider(DropSettings.droppedItemBlockTime, GetComponent<Collider2D>());
-        droppedObject.CollisionHandler.Knock(force, Mathf.PI);
-        Destroy(instanceObject.DropPrefab.gameObject);
-        return droppedObject;
+        Vector2 lossyScale = instanceObject.gameObject.transform.lossyScale;
+        instanceObject.AddConstraintCollider(DropSettings.droppedItemBlockTime, GetComponent<Collider2D>());
+        instanceObject.transform.position += (Vector3)offsetDirection;
+        instanceObject.gameObject.SetActive(true);
+        instanceObject.gameObject.transform.SetParent(null);
+        instanceObject.gameObject.transform.localScale = lossyScale;
+        instanceObject.CollisionHandler.Knock(force, Mathf.PI);
+        return instanceObject;
     }
     ///<summary>
     ///Calls when active weapon has changed (Not calls if replaced weapon is equal to current).

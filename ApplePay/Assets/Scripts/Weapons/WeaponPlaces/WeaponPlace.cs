@@ -8,9 +8,9 @@ public class WeaponPlace : MonoBehaviour
     public float Radius;
     public float WeaponScale = 1f;
     [HideInInspector] public WeaponPlaceAnimator animator = new WeaponPlaceAnimator();
-    public void WeaponActivate(Creature attacker, Vector2 origin, Vector2 attackPosition, WeaponItem weaponItem, Transform target, out Projectile projectile)
+    public void WeaponActivate(Creature attacker, Vector2 origin, Vector2 attackPosition, Weapon weaponItem, Transform target, out Projectile projectile)
     {
-        weaponItem.Weapon.Activate(attacker, origin, attackPosition, out GameObject weaponObject, target, out projectile);
+        weaponItem.Activate(attacker, origin, attackPosition, out GameObject weaponObject, target, out projectile);
         
         Transform container = new GameObject().transform;
         container.transform.position = transform.position;
@@ -18,7 +18,7 @@ public class WeaponPlace : MonoBehaviour
         weaponObject.transform.position = transform.position;
         weaponObject.transform.SetParent(container, true);
         weaponObject.transform.localScale *= WeaponScale;
-        TranformPlaceSetup(container, weaponItem.Weapon.AttackAnimationSettings.AttackType, attackPosition, out Vector2 _facing);
+        TranformPlaceSetup(container, weaponItem.AttackAnimationSettings.AttackType, attackPosition, out Vector2 _facing);
         animator.StartAnimation(weaponItem, container);
     }
     private void TranformPlaceSetup(Transform transform, AttackType type, Vector2 attackPosition, out Vector2 facing)

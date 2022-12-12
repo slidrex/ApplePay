@@ -13,13 +13,13 @@ public abstract class WeaponHolder : MonoBehaviour
         UpdateWeaponList();
     }
     protected virtual void UpdateWeaponList() { }
-    public virtual void Activate(Creature attacker, ref WeaponItem activeWeapon, Vector2 endTrajectory, Transform target, out Projectile projectile)
+    public virtual void Activate(Creature attacker, ref Weapon activeWeapon, Vector2 endTrajectory, Transform target, out Projectile projectile)
     {
         ActivateHandler(attacker, transform.position, endTrajectory, ref activeWeapon, target, out projectile);
     }
-    public virtual void Activate(Creature attacker, ref WeaponItem activeWeapon, Vector2 endTrajectory, Transform target) => ActivateHandler(attacker, transform.position, endTrajectory, ref activeWeapon, target, out Projectile projectile);
-    public virtual void Activate(Creature attacker, ref WeaponItem activeWeapon, Vector2 beginTrajectory, Vector2 endTrajectory, Transform target) => ActivateHandler(attacker, beginTrajectory, endTrajectory, ref activeWeapon, target, out Projectile projectile);
-    private void ActivateHandler(Creature attacker, Vector2 beginTrajectory , Vector2 endTrajectory, ref WeaponItem activeWeapon, Transform target, out Projectile projectile)
+    public virtual void Activate(Creature attacker, ref Weapon activeWeapon, Vector2 endTrajectory, Transform target) => ActivateHandler(attacker, transform.position, endTrajectory, ref activeWeapon, target, out Projectile projectile);
+    public virtual void Activate(Creature attacker, ref Weapon activeWeapon, Vector2 beginTrajectory, Vector2 endTrajectory, Transform target) => ActivateHandler(attacker, beginTrajectory, endTrajectory, ref activeWeapon, target, out Projectile projectile);
+    private void ActivateHandler(Creature attacker, Vector2 beginTrajectory , Vector2 endTrajectory, ref Weapon activeWeapon, Transform target, out Projectile projectile)
     {
         if(activeWeapon == null || Disable || !activeWeapon.WeaponInfo.AnimationInfo.canActivate) 
         {
@@ -33,7 +33,7 @@ public abstract class WeaponHolder : MonoBehaviour
         WeaponPlace.WeaponActivate(attacker, beginTrajectory, endTrajectory, activeWeapon, target, out projectile);
         OnWeaponActivate(activeWeapon, true);
     }
-    public virtual void OnWeaponActivate(WeaponItem weapon, bool status) {}
+    public virtual void OnWeaponActivate(Weapon weapon, bool status) {}
     private void SetFacing(Vector2 beginPosition, Vector2 endPosition, bool freezeHorizontal, bool freezeVertical)
     {
         Vector2 distance = endPosition - beginPosition;

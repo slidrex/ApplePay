@@ -5,7 +5,7 @@ public abstract class CollectableItem<Item> : CollectableObject
     [UnityEngine.SerializeField] protected ItemHoverableObject hoverableObject;
     protected virtual string hoverableObjectHeader {get => null;}
     protected virtual string hoverableObjectDescription {get => null;}
-    protected abstract Item CollectableObject { get; set; }
+    public abstract Item CollectableObject { get; }
     protected abstract string TargetRepository { get; }
     protected override void Start()
     {
@@ -38,7 +38,6 @@ public abstract class CollectableItem<Item> : CollectableObject
     {
         collectStatus = false;
         Creature entity = collision.entity.GetComponent<Creature>();
-        
         if(entity != null && entity.InventorySystem != null && entity.InventorySystem.ContainsRepository(TargetRepository))
         {
             collectStatus = AddItem((InventoryRepository<Item>)entity.InventorySystem.GetRepository(TargetRepository), CollectableObject);

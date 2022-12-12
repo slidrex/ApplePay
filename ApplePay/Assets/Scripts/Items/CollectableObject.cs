@@ -18,7 +18,6 @@ public abstract class CollectableObject : ItemEntity
     [Header("Physics")]
     protected Vector2 TargetVelocity;
     [SerializeField, Tooltip("Force multiplier coefficient")] private float damagePerForceUnit;
-    private Animator animator;
     ///<summary>
     ///Item cannot be accessible during the constraint time (constraints are able to stack).
     ///</summary>
@@ -88,7 +87,6 @@ public abstract class CollectableObject : ItemEntity
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
     }
     protected void Levitation() => transform.position = transform.position + Vector3.up * Time.deltaTime  * Mathf.Sin(Time.time * speed) * amplitude;
 

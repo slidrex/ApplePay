@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4193517530701323223}
   - component: {fileID: 4193517530701323220}
   - component: {fileID: 4193517530701323221}
-  - component: {fileID: 4193517530701323218}
   - component: {fileID: 4193517530701323219}
   - component: {fileID: 4193517530701323216}
   - component: {fileID: 4417553884787125545}
@@ -104,25 +103,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.03}
   serializedVersion: 2
   m_Radius: 0.055
---- !u!95 &4193517530701323218
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4193517530701323230}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d6e1b46d51f89146b72133e07aaf5ff, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!50 &4193517530701323219
 Rigidbody2D:
   serializedVersion: 4
@@ -161,6 +141,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
+  HitShape: {fileID: 840371783147210578}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -176,14 +157,12 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 840371783147210578}
   constraintColor:
     serializedVersion: 2
     rgba: 0
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
-  rb: {fileID: 4193517530701323219}
   damagePerForceUnit: 0
   hoverableObject:
     contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}

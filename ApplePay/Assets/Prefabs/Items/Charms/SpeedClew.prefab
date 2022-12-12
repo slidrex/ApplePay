@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3122979208934395889}
   - component: {fileID: 3122979208934395890}
-  - component: {fileID: 3122979208934395852}
   - component: {fileID: 3122979208934395853}
   - component: {fileID: 3122979208934395854}
   - component: {fileID: 6497081813024424572}
@@ -87,25 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!95 &3122979208934395852
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122979208934395855}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d6e1b46d51f89146b72133e07aaf5ff, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!50 &3122979208934395853
 Rigidbody2D:
   serializedVersion: 4
@@ -144,6 +124,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 50
+  HitShape: {fileID: 7516740317972889632}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -159,14 +140,12 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  HitShape: {fileID: 7516740317972889632}
   constraintColor:
     serializedVersion: 2
     rgba: 0
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
-  rb: {fileID: 3122979208934395853}
   damagePerForceUnit: 1
   hoverableObject:
     contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}

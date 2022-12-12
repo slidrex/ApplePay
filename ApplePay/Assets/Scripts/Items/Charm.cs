@@ -56,6 +56,7 @@ public class Charm : CharmObject
     protected void SetCharmStats(Creature entity)
     {
         TagAttributeCache = new EntityAttribute.TagAttribute[attributeFields.Count];
+        
         for(int i = 0; i < attributeFields.Count; i++)
         {
             EntityAttribute attribute = entity.FindAttribute(Attributes[i].AttributeName);

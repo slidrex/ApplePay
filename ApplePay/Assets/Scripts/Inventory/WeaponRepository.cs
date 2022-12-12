@@ -1,10 +1,10 @@
-using UnityEngine;
-
-public class WeaponRepository : InventoryRepository<WeaponItem>
+public class WeaponRepository : InventoryRepository<CollectableWeapon>
 {
     public AdvancedWeaponHolder Holder;
+
     public override string Id => "weapon";
-    public override bool AddItem(WeaponItem item)
+
+    public override bool AddItem(CollectableWeapon item)
     {
         int index = -1;
         for(int i = 0; i < Items.Length; i++)
@@ -16,8 +16,16 @@ public class WeaponRepository : InventoryRepository<WeaponItem>
             }
         }
         Holder.OnBeforeRepositoryUpdate();
-        bool success = base.AddItem(item);
-        if(success) Holder.OnAddItem(item, (byte)index);
+        bool success = IsValid();
+        if(success)
+        {
+            CollectableWeapon _item = Instantiate(item);
+            base.AddItem(_item);
+            Holder.OnAddItem(_item, (byte)index);
+            _item.gameObject.SetActive(false);
+            _item.transform.SetParent(itemInstancesContainer);
+
+        }
         return success;
     }
     

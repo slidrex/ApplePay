@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
+
 [CreateAssetMenu(menuName = "Databases/Charm Database")]
 public class CharmDatabase : ItemAccessDatabase<int, CollectableCharm>
 {

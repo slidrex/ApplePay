@@ -19,13 +19,13 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     {
         if(Input.GetKeyDown(switchKey)) 
         {
-            WeaponItem old = GetActiveWeapon();
+            CollectableWeapon old = GetActiveWeapon();
             OffsetActiveWeapon(1);
             if(old != null && old == GetActiveWeapon()) SetupText();
         }
         if(Input.GetKey(activateKey)) 
         {
-            WeaponItem current = GetActiveWeapon();
+            Weapon current = GetActiveWeapon().weapon;
             
             Activate(Owner, ref current, Pay.Functions.Generic.GetMousePos(Camera.main), null, out Projectile projectile);
         }
@@ -39,9 +39,9 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     private void UpdateSlotIndicator()
     {
         if(GetActiveWeapon() != null && weaponPlaceSlot.IndicatorBuffer != null)
-            weaponPlaceSlot.SlotIndicatorUpdate(DropSettings.Holder, GetActiveWeapon().WeaponInfo.AnimationInfo.timeSinceUse, GetActiveWeapon().WeaponInfo.GetAttackInterval());
+            weaponPlaceSlot.SlotIndicatorUpdate(DropSettings.Holder, GetActiveWeapon().weapon.WeaponInfo.AnimationInfo.timeSinceUse, GetActiveWeapon().weapon.WeaponInfo.GetAttackInterval());
     }
-    public override void OnWeaponActivate(WeaponItem weapon, bool status)
+    public override void OnWeaponActivate(Weapon weapon, bool status)
     {
         weaponPlaceSlot.RemoveIndicator();
         if(weapon != null) weaponPlaceSlot.CreateSlotIndicator(DropSettings.Holder);
@@ -50,17 +50,17 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     {
         weaponPlaceSlot.RemoveSlotUI();
         
-        WeaponItem currentItem = GetActiveWeapon();
+        CollectableWeapon currentItem = GetActiveWeapon();
         if(currentItem != null)
         {
             weaponPlaceSlot.CreateSlotIndicator(DropSettings.Holder);
-            weaponPlaceSlot.SetItem(currentItem.WeaponInfo.Display.Icon);
-            weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().WeaponInfo.Display.Description.Name);
+            weaponPlaceSlot.SetItem(currentItem.weapon.WeaponInfo.Display.Icon);
+            weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().weapon.WeaponInfo.Display.Description.Name);
         }
     }
     private void SetupText()
     {
         weaponPlaceSlot.RemoveText();
-        weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().WeaponInfo.Display.Description.Name);
+        weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().weapon.WeaponInfo.Display.Description.Name);
     }
 }
