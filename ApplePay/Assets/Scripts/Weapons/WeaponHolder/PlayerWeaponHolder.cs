@@ -39,7 +39,7 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     private void UpdateSlotIndicator()
     {
         if(GetActiveWeapon() != null && weaponPlaceSlot.IndicatorBuffer != null)
-            weaponPlaceSlot.SlotIndicatorUpdate(DropSettings.Holder, GetActiveWeapon().weapon.WeaponInfo.AnimationInfo.timeSinceUse, GetActiveWeapon().weapon.WeaponInfo.GetAttackInterval());
+            weaponPlaceSlot.SlotIndicatorUpdate(DropSettings.Holder, GetActiveWeapon().weapon.WeaponInfo.AnimationInfo.timeSinceUse, GetActiveWeapon().weapon.WeaponInfo.GetAttackCooldown());
     }
     public override void OnWeaponActivate(Weapon weapon, bool status)
     {

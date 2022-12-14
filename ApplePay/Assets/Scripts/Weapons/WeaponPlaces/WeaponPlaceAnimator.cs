@@ -29,6 +29,7 @@ public class WeaponPlaceAnimator
         TransformObject.position += TransformObject.up * activeWeaponInfo.AttackAnimationSettings.VelocityPattern.Evaluate(passedTime/animationTime) * Time.deltaTime * animationSpeed;
         TransformObject.Rotate(Vector3.forward * activeWeaponInfo.AttackAnimationSettings.AngularVelocityPattern.Evaluate(passedTime/animationTime) * Time.deltaTime * animationRotationSpeed * 180);
         passedTime += Time.deltaTime;
+        
         if(passedTime >= animationTime) OnAnimationOver();
     }
     internal void Update()
@@ -39,6 +40,7 @@ public class WeaponPlaceAnimator
     {
         MonoBehaviour.Destroy(TransformObject.gameObject);
         InAnimation = false;
+        passedTime = 0;
         activeWeaponInfo.WeaponInfo.AnimationInfo.inAnimation = false;
     }
     public float GetRemainAnimationTime() => animationTime - passedTime;

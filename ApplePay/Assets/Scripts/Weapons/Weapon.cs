@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Item/Weapon/Weapon object", fileName = "new weapon")]
 public class Weapon : ScriptableObject
 {
-    
     public WeaponObject WeaponObject;
     public WeaponAttackAnimation AttackAnimationSettings;
     public WeaponInfo WeaponInfo;

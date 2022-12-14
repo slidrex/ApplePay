@@ -5,9 +5,9 @@ public struct WeaponInfo
     public WeaponAnimationSettings AnimationParameters;
     public WeaponAnimationInfo AnimationInfo;
     public float GetAnimationTime() => AnimationParameters.AnimationTime;
-    public float GetAttackInterval() => AnimationParameters.AttackInterval;
-    public float GetVelocity() => AnimationParameters.VelocityMultiplier;
-    public float GetAngularVelocity() => AnimationParameters.AngularVelocityMultiplier;
+    public float GetAttackCooldown() => AnimationParameters.AttackCooldown;
+    public float GetVelocity() => AnimationParameters.Velocity;
+    public float GetAngularVelocity() => AnimationParameters.AngularVelocity;
 }
 public struct WeaponAnimationInfo
 {
@@ -20,8 +20,8 @@ public struct WeaponAnimationInfo
 [System.Serializable]
 public struct WeaponAnimationSettings
 {
-    public float AttackInterval;
+    public float AttackCooldown;
     public float AnimationTime;
-    public float VelocityMultiplier;
-    public float AngularVelocityMultiplier;
+    public float Velocity;
+    public float AngularVelocity;
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
+
 [CreateAssetMenu(menuName = "Marks/New Mob Mark")]
+
 public class MobMark : RoomMark
 {
     public byte MinMobCount;

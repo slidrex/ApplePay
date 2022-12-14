@@ -54,7 +54,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
             {
                 CollectableWeapon currentItem = (CollectableWeapon)Repository.Items[i];
 
-                if(currentItem.weapon.WeaponInfo.AnimationInfo.inAnimation || currentItem.weapon.WeaponInfo.AnimationInfo.timeSinceUse < currentItem.weapon.WeaponInfo.GetAttackInterval())
+                if(currentItem.weapon.WeaponInfo.AnimationInfo.inAnimation || currentItem.weapon.WeaponInfo.AnimationInfo.timeSinceUse < currentItem.weapon.WeaponInfo.GetAttackCooldown())
                 {
                     currentItem.weapon.WeaponInfo.AnimationInfo.timeSinceUse += currentItem.weapon.WeaponInfo.AnimationInfo.inAnimation ? 0 : Time.deltaTime;
                     currentItem.weapon.WeaponInfo.AnimationInfo.canActivate = false;
@@ -116,7 +116,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     private CollectableObject GetDroppedObject(CollectableWeapon instanceObject, Vector2 offsetDirection, Vector2 force)
     {
         Vector2 lossyScale = instanceObject.gameObject.transform.lossyScale;
-        instanceObject.AddConstraintCollider(DropSettings.droppedItemBlockTime, GetComponent<Collider2D>());
+        instanceObject.AddConstraintCollider(DropSettings.droppedItemBlockTime, Owner.HitShape.M_Collider);
         instanceObject.transform.position += (Vector3)offsetDirection;
         instanceObject.gameObject.SetActive(true);
         instanceObject.gameObject.transform.SetParent(null);

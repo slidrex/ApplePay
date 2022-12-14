@@ -8,18 +8,21 @@ public class WeaponPlace : MonoBehaviour
     public float Radius;
     public float WeaponScale = 1f;
     [HideInInspector] public WeaponPlaceAnimator animator = new WeaponPlaceAnimator();
-    public void WeaponActivate(Creature attacker, Vector2 origin, Vector2 attackPosition, Weapon weaponItem, Transform target, out Projectile projectile)
+    public void ActivateAnimation(Weapon weapon, GameObject animateObject, Vector2 attackPosition)
+    {   
+        AnimateObjectSetup(animateObject, out Transform container);
+        TranformPlaceSetup(container, weapon.AttackAnimationSettings.AttackType, attackPosition, out Vector2 _facing);
+        animator.StartAnimation(weapon, container);
+    }
+    private void AnimateObjectSetup(GameObject animateObject, out Transform container)
     {
-        weaponItem.Activate(attacker, origin, attackPosition, out GameObject weaponObject, target, out projectile);
-        
-        Transform container = new GameObject().transform;
+        container = new GameObject().transform;
         container.transform.position = transform.position;
         container.transform.SetParent(transform);
-        weaponObject.transform.position = transform.position;
-        weaponObject.transform.SetParent(container, true);
-        weaponObject.transform.localScale *= WeaponScale;
-        TranformPlaceSetup(container, weaponItem.AttackAnimationSettings.AttackType, attackPosition, out Vector2 _facing);
-        animator.StartAnimation(weaponItem, container);
+        animateObject.transform.position = transform.position;
+        animateObject.transform.SetParent(container, true);
+        animateObject.transform.localScale *= WeaponScale;
+
     }
     private void TranformPlaceSetup(Transform transform, AttackType type, Vector2 attackPosition, out Vector2 facing)
     {

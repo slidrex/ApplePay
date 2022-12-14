@@ -28,21 +28,24 @@ public abstract class WeaponHolder : MonoBehaviour
             return;
         };
         activeWeapon.WeaponInfo.AnimationInfo.timeSinceUse = 0;
+        attacker.Engage();
+        SetFacing(activeWeapon.WeaponInfo.GetAnimationTime(), beginTrajectory, endTrajectory, WeaponPlace.FreezeHorizontal, WeaponPlace.FreezeVertical);
 
-        SetFacing(beginTrajectory, endTrajectory, WeaponPlace.FreezeHorizontal, WeaponPlace.FreezeVertical);
-        WeaponPlace.WeaponActivate(attacker, beginTrajectory, endTrajectory, activeWeapon, target, out projectile);
+        activeWeapon.Activate(attacker, beginTrajectory, endTrajectory, out GameObject weaponObject, target, out projectile);
+        WeaponPlace.ActivateAnimation(activeWeapon, weaponObject, endTrajectory);
+        
         OnWeaponActivate(activeWeapon, true);
     }
     public virtual void OnWeaponActivate(Weapon weapon, bool status) {}
-    private void SetFacing(Vector2 beginPosition, Vector2 endPosition, bool freezeHorizontal, bool freezeVertical)
+    private void SetFacing(float freezeTime, Vector2 beginPosition, Vector2 endPosition, bool freezeHorizontal, bool freezeVertical)
     {
         Vector2 distance = endPosition - beginPosition;
-        float freezeTime = WeaponPlace.animator.GetRemainAnimationTime();
+        
         Vector2 facing = Mathf.Abs(distance.x) > Mathf.Abs(distance.y) ? Vector2.right * Mathf.Sign(distance.x) : Vector2.up * Mathf.Sign(distance.y);
         if(freezeHorizontal) facing = Vector2.up * Mathf.Sign(distance.y);
         if(freezeVertical) facing = Vector2.right * Mathf.Sign(distance.x);
         if(freezeHorizontal && freezeVertical) facing = Vector2.zero;
-        GetComponent<EntityMovement>().SetFacingState(facing, freezeTime + additionalFreezeStateTime, StateParameter.MirrorHorizontal);
+        Owner.Movement.SetFacingState(facing, freezeTime + additionalFreezeStateTime, StateParameter.MirrorHorizontal);
     }
     
 }

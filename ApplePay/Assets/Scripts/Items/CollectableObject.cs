@@ -8,7 +8,6 @@ public abstract class CollectableObject : ItemEntity
     [SerializeField] private Color32 constraintColor;
     private Color32 storedColor;
     private List<float> ConstraintList = new List<float>();
-    protected Dictionary<Collider2D, float > ConstraintColliders = new Dictionary<Collider2D, float>();
     public bool isCollectable { get; private set; } = true;
     [Header("Pick visual")]
     [SerializeField] private GameObject collectParticle;
@@ -40,46 +39,12 @@ public abstract class CollectableObject : ItemEntity
     }
     public void AddConstraintCollider(float duration, Collider2D collider)
     {
-        ConstraintColliders.Add(collider, duration);
-        Physics2D.IgnoreCollision(collider, GetComponent<Collider2D>(), true);
+        Pay.Functions.Physics.IgnoreCollision(duration, collider, HitShape.M_Collider);
     }
     public void StoreColor(Color32 color) => storedColor = color;
-    private void ConstraintHandler()
-    {
-        if(ConstraintList.Count > 0)
-        {
-            SpriteRenderer.color = constraintColor;
-            for(int i = 0; i < ConstraintList.Count; i++)
-            {
-                if(ConstraintList[i] > 0) ConstraintList[i] -= Time.deltaTime;
-                else ConstraintList.RemoveAt(i);
-            }
-        }
-        if(ConstraintList.Count == 0 && !isCollectable) 
-        {
-            isCollectable = true;
-            SpriteRenderer.color = storedColor;
-        }
-        
-        if(ConstraintColliders.Count > 0)
-        {
-            for(int i = 0; i < ConstraintColliders.Count; i++)
-            {
-                Collider2D currentCollider = ConstraintColliders.ElementAt(i).Key;
-                if(ConstraintColliders[currentCollider] > 0) ConstraintColliders[currentCollider] -= Time.deltaTime;
-                else 
-                {
-                    ConstraintColliders.Remove(currentCollider);
-                    Physics2D.IgnoreCollision(currentCollider, GetComponent<Collider2D>(), false);
-                    continue;
-                }
-            }
-        }
-    }
     protected override void Update()
     {
         base.Update();
-        ConstraintHandler();
         HitShape.CheckHit();
         Levitation();
     }
