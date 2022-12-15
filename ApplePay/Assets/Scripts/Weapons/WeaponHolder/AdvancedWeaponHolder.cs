@@ -92,6 +92,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     {
         if(DropSettings.currentDropIndicatorObject?.GetObject() == null) 
         {
+            OnDropStart();
             DropSettings.IndicatorStartup(transform);
         }
         
@@ -99,10 +100,16 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
         Pay.UI.UIManager.Indicator.UpdateIndicator(DropSettings.currentDropIndicatorObject, DropSettings.TargetForce, DropSettings.MaxForce - DropSettings.MinForce);
         DropSettings.TargetForce = Mathf.Clamp(DropSettings.TargetForce + DropSettings.ForceAddSpeed * Time.deltaTime, 0, DropSettings.MaxForce - DropSettings.MinForce);
     }
-    
+    protected virtual void DropCancel()
+    {
+        DropSettings.TargetForce = 0.0f;
+        DropSettings.currentDropIndicatorObject?.OnRemove();
+    }
+    protected virtual void OnDropStart() { }
     protected void DropRelease(byte index, int offset)
     {
         DropHandler(index);
+        
         Repository.Items[index] = null;
         OnActiveWeaponUpdate();
         OffsetActiveWeapon(1);
@@ -116,7 +123,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
     private CollectableObject GetDroppedObject(CollectableWeapon instanceObject, Vector2 offsetDirection, Vector2 force)
     {
         Vector2 lossyScale = instanceObject.gameObject.transform.lossyScale;
-        instanceObject.AddConstraintCollider(DropSettings.droppedItemBlockTime, Owner.HitShape.M_Collider);
+        instanceObject.AddConstraintCollider(DropSettings.droppedItemBlockTime, Owner.HitShape, true);
         instanceObject.transform.position += (Vector3)offsetDirection;
         instanceObject.gameObject.SetActive(true);
         instanceObject.gameObject.transform.SetParent(null);

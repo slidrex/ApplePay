@@ -1125,7 +1125,7 @@ MonoBehaviour:
   evasionEffect: {fileID: 0}
   CollisionHandler:
     rb: {fileID: 0}
-    resistance: 0
+    resistance: 0.2
     DragIntensity: 1
     Forces: []
   StoredHealth: 0
@@ -1198,6 +1198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 446314028}
+  collisionColliders: []
   Collider: {fileID: 446314034}
 --- !u!212 &446314032
 SpriteRenderer:
@@ -2041,6 +2042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 892326713}
+  collisionColliders: []
   Collider: {fileID: 892326714}
 --- !u!1 &931947516
 GameObject:
@@ -2586,6 +2588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 1014642742}
+  collisionColliders: []
   Collider: {fileID: 1014642748}
 --- !u!212 &1014642746
 SpriteRenderer:
@@ -2780,6 +2783,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042998792}
   m_CullTransparentMesh: 1
+--- !u!58 &1052133598 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1849077798889129522, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+  m_PrefabInstance: {fileID: 1849077798889129510}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1105521374
 GameObject:
   m_ObjectHideFlags: 0
@@ -3363,6 +3371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 1309111033}
+  collisionColliders: []
   Collider: {fileID: 1309111031}
 --- !u!1 &1321229240
 GameObject:
@@ -4183,6 +4192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 1619376349}
+  collisionColliders: []
   Collider: {fileID: 1619376352}
 --- !u!1 &1718022103
 GameObject:
@@ -4393,6 +4403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 1718022105}
+  collisionColliders: []
   Collider: {fileID: 1718022108}
 --- !u!1 &1750216184
 GameObject:
@@ -5090,6 +5101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 2120200233}
+  collisionColliders: []
   Collider: {fileID: 2120200239}
 --- !u!212 &2120200237
 SpriteRenderer:
@@ -5306,6 +5318,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4452132853288108545, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Radius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5767637346845011317, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: HealthBar
       value: 
@@ -5314,6 +5330,18 @@ PrefabInstance:
       propertyPath: EffectList
       value: 
       objectReference: {fileID: 1128235972}
+    - target: {fileID: 6376239100098354407, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0413
+      objectReference: {fileID: 0}
+    - target: {fileID: 6475928628708991697, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: collisionColliders.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6475928628708991697, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: collisionColliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1052133598}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: weaponPlaceSlot
       value: 
@@ -5324,11 +5352,11 @@ PrefabInstance:
       objectReference: {fileID: 1124329983}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: DropSettings.MaxForce
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: DropSettings.MinForce
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6659970789127294732, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: DropSettings.currentDropIndicatorObject.Holder

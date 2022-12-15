@@ -21,14 +21,14 @@ public abstract class WeaponHolder : MonoBehaviour
     public virtual void Activate(Creature attacker, ref Weapon activeWeapon, Vector2 beginTrajectory, Vector2 endTrajectory, Transform target) => ActivateHandler(attacker, beginTrajectory, endTrajectory, ref activeWeapon, target, out Projectile projectile);
     private void ActivateHandler(Creature attacker, Vector2 beginTrajectory , Vector2 endTrajectory, ref Weapon activeWeapon, Transform target, out Projectile projectile)
     {
-        if(activeWeapon == null || Disable || !activeWeapon.WeaponInfo.AnimationInfo.canActivate) 
+        if(activeWeapon == null || Disable || !activeWeapon.WeaponInfo.AnimationInfo.canActivate || attacker.IsFree() == false) 
         {
             projectile = null;
             OnWeaponActivate(activeWeapon, false);
             return;
         };
         activeWeapon.WeaponInfo.AnimationInfo.timeSinceUse = 0;
-        attacker.Engage();
+        attacker.Engage(activeWeapon.WeaponInfo.GetAnimationTime(), null);
         SetFacing(activeWeapon.WeaponInfo.GetAnimationTime(), beginTrajectory, endTrajectory, WeaponPlace.FreezeHorizontal, WeaponPlace.FreezeVertical);
 
         activeWeapon.Activate(attacker, beginTrajectory, endTrajectory, out GameObject weaponObject, target, out projectile);

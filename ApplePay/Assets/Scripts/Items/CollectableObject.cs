@@ -37,9 +37,15 @@ public abstract class CollectableObject : ItemEntity
         if(ConstraintList.Count == 0) StoreColor(SpriteRenderer.color);
         ConstraintList.Add(duration);
     }
-    public void AddConstraintCollider(float duration, Collider2D collider)
+    public void AddConstraintCollider(float duration, PayHitShape hitShape, bool disableCollision)
     {
-        Pay.Functions.Physics.IgnoreCollision(duration, collider, HitShape.M_Collider);
+        HitShape.IgnoreShapes.Add(hitShape.M_Collider, duration);
+
+        if(disableCollision)
+            foreach(Collider2D collider in hitShape.collisionColliders)
+            {
+                Pay.Functions.Physics.IgnoreCollision(duration, collider, HitShape.M_Collider);
+            }
     }
     public void StoreColor(Color32 color) => storedColor = color;
     protected override void Update()

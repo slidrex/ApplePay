@@ -7,6 +7,7 @@ public class PlayerMenuHandler : MonoBehaviour
     [SerializeField] private KeyCode activateKey;
     private Creature owner;
     private byte constraintID;
+    private Creature.EntityState engagingState;
     private void Start()
     {
         menuComponents.gameObject.SetActive(false);
@@ -36,11 +37,11 @@ public class PlayerMenuHandler : MonoBehaviour
     private void OnTabOpen()
     {
         PayWorld.EffectController.AddEffect(owner, out constraintID, new PayWorld.Effect.EffectProperty(PayWorld.Effect.EffectActionPresets.MoveConstraint()));
-        owner.Engage();
+        engagingState = owner.Engage(null);
     }
     private void OnTabClose()
     {
         PayWorld.EffectController.RemoveEffect(owner, ref constraintID);
-        owner.UnEngage();
+        engagingState.Remove();
     }
 }

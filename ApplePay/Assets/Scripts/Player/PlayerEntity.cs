@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Linq;
 
-public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable
+public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable, EntityChangeHealthCallaback
 {
     public new PlayerMovement Movement => (PlayerMovement)Movement;
     public int AttackDamage { get; set; } = 10;
@@ -23,7 +23,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     }
     protected override void Start()
     {
-        
+        Callback += BeforeDamageCallaback;
         AddDamageAttribute();
         
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
@@ -54,7 +54,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            PayWorld.EffectController.AddEffect(this, "slowness", 3, 5f);
+            Damage(1, DamageType.Physical, null);
         }
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);
     }
@@ -76,4 +76,10 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         SpriteRenderer.color = tempColor;
     }
     protected override void OnInvulnerabilityEnd() => SpriteRenderer.color = new Color32(255, 255, 255, 255);
+
+    public void BeforeDamageCallaback(ref int damage, ref DamageType damageType, ref Creature handler)
+    {
+        damage += 50;
+        print("damaged!");
+    }
 }

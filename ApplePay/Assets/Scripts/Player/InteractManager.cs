@@ -19,6 +19,7 @@ public class InteractManager : MonoBehaviour
     public InteractHint Hint;
     private InteractHint hint;
     private bool hintSpawned;
+    private Creature.EntityState engagingStatus;
     private void Awake()
     {
         entity = GetComponent<Creature>();
@@ -58,7 +59,7 @@ public class InteractManager : MonoBehaviour
         
         if(Input.GetKeyDown(interactKey) && hasInteractObjects)
         {
-            if(currentInteractObject.interactiveObject == null && InInteract == false)
+            if(currentInteractObject.interactiveObject == null && InInteract == false && entity.IsFree())
             {
                 currentInteractObject = GetNearestInteractiveObject(out currentInteractObjectIndex);
                 InInteract = true;
@@ -67,7 +68,7 @@ public class InteractManager : MonoBehaviour
         }
         if(Input.GetKey(interactKey) && hasInteractObjects)
         {
-            if(currentInteractObject.interactiveObject == null && InInteract == false)
+            if(currentInteractObject.interactiveObject == null && InInteract == false && entity.IsFree())
             {
                 CurrentInteractObject cur = GetNearestInteractiveObject(out currentInteractObjectIndex);
                 if(cur.interactiveObject.HoldFoundable == true)
@@ -76,7 +77,7 @@ public class InteractManager : MonoBehaviour
                     InInteract = true;
                 }
             }
-            if(currentInteractObject.interactiveObject != null)
+            if(currentInteractObject.interactiveObject != null && InInteract == true)
             {
                 bool firstInteraction = false;
                 if(currentInteractObject.interactInitiated == false)
@@ -89,7 +90,7 @@ public class InteractManager : MonoBehaviour
 
             }
         }
-        if(Input.GetKeyUp(interactKey) && hasInteractObjects)
+        if(Input.GetKeyUp(interactKey) && hasInteractObjects && InInteract == true)
         {
             if(InteractObjects[currentInteractObjectIndex].interactInitiated == true) InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyUp(this);
         }
@@ -180,19 +181,34 @@ public class InteractManager : MonoBehaviour
     }
     public void FinishInteract(InteractiveObject interactiveObject)
     {
-        currentInteractObject = new CurrentInteractObject();
-        currentInteractObjectIndex = 0;
         
         int index = InteractObjects.IndexOf(InteractObjects.Find(x => x.interactiveObject == interactiveObject));
         CurrentInteractObject obj = InteractObjects[index];
         obj.interactInitiated = false;
         InteractObjects[index] = obj;
+
+        SetDefaultInteractState();
+    }
+    private void SetDefaultInteractState()
+    {
+        currentInteractObject = new CurrentInteractObject();
+        currentInteractObjectIndex = 0;
         
-        entity.UnEngage();
+        engagingStatus.Remove();
         if(indicatorObject.GetObject() != null) RemoveIndicator();
         if(constraintId != 0)
             PayWorld.EffectController.RemoveEffect(entity, ref constraintId);
         InInteract = false;
+    }
+    private void CancelInteract()
+    {
+        SetDefaultInteractState();
+        for(int i = 0; i < InteractObjects.Count; i++)
+        {
+            CurrentInteractObject current = InteractObjects[i];
+            current.interactInitiated = false;
+            InteractObjects[i] = current;
+        }
     }
     public void CreateIndicator(Pay.UI.Indicator indicator)
     {
@@ -212,7 +228,7 @@ public class InteractManager : MonoBehaviour
     public void SetInteractState(InteractiveObject interactiveObj)
     {
         InInteract = true;
-        entity.Engage();
+        engagingStatus = entity.Engage(CancelInteract);
         Vector2 dist = interactiveObj.gameObject.transform.position - transform.position;
         Vector2 state = Mathf.Abs(dist.x) > Mathf.Abs(dist.y) ? Vector2.right * Mathf.Sign(dist.x) : Vector2.up * Mathf.Sign(dist.y);
         entity.Movement.SetFacingState(state, Time.deltaTime, StateParameter.MirrorHorizontal);

@@ -8,6 +8,8 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     [SerializeField] private KeyCode activateKey;
     [SerializeField] private WeaponPlaceSlot weaponPlaceSlot;
     protected override Vector2 DropDirection => (Pay.Functions.Generic.GetMousePos(Camera.main) - (Vector2)transform.position).normalized;
+    private Creature.EntityState state;
+    private bool dropping;
     override protected void Update()
     {
         base.Update();
@@ -17,23 +19,32 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     }
     private void InventoryController()
     {
-        if(Input.GetKeyDown(switchKey)) 
+        if(Input.GetKeyDown(switchKey) && Owner.IsFree()) 
         {
             CollectableWeapon old = GetActiveWeapon();
             OffsetActiveWeapon(1);
             if(old != null && old == GetActiveWeapon()) SetupText();
         }
-        if(Input.GetKey(activateKey)) 
+        if(Input.GetKey(activateKey) && Owner.IsFree())
         {
-            Weapon current = GetActiveWeapon().weapon;
-            
-            Activate(Owner, ref current, Pay.Functions.Generic.GetMousePos(Camera.main), null, out Projectile projectile);
+            Weapon current = GetActiveWeapon()?.weapon;
+            if(current != null)
+                Activate(Owner, ref current, Pay.Functions.Generic.GetMousePos(Camera.main), null, out Projectile projectile);
         }
         if(GetActiveWeapon() != null && Repository.Items.Length != 0)
         {
-            if(Input.GetKey(dropKey)) DropPreparation();
-            if(Input.GetKeyUp(dropKey)) DropRelease(ActiveWeaponIndex, -1);
+            if(Input.GetKey(dropKey) && ((dropping == false && Owner.IsFree()) || dropping == true)) DropPreparation();
+            if(Input.GetKeyUp(dropKey) && dropping)
+            {
+                DropRelease(ActiveWeaponIndex, -1);
+                state.Remove();
+            }
         }
+    }
+    protected override void OnDropStart()
+    {
+        dropping = true;
+        state = Owner.Engage(DropCancel);
     }
     
     private void UpdateSlotIndicator()

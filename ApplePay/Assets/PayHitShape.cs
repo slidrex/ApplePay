@@ -5,6 +5,7 @@ public abstract class PayHitShape : MonoBehaviour
 {
     public System.Collections.Generic.Dictionary<Collider2D, float> IgnoreShapes = new System.Collections.Generic.Dictionary<Collider2D, float>();
     public Entity Owner;
+    public Collider2D[] collisionColliders;
     public abstract Collider2D M_Collider {get;}
     private IHitResponder responder;
     ///<summary>Sets the object that will be triggered if hit is detected. </summary>

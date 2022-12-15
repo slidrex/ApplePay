@@ -2,25 +2,64 @@ using UnityEngine;
 
 public abstract class Creature : Entity, IKillHandler
 {
-    public enum InState
+    public struct EntityState
     {
-        Engaged,
-        ///<summary>State mark for states that fully removes control of the Entity.</summary>
-        Blocked
+        public enum InState
+        {
+            Engaged,
+            ///<summary>State mark for states that fully removes control of the Entity.</summary>
+            Blocked
+        }
+        public Creature entity;
+        public InState state;
+        public float time;
+        public bool temp;
+        private System.Action cancelAction;
+        public bool IsNotNull() => entity != null;
+        public void CancelAction() => cancelAction?.Invoke();
+        public void Remove()
+        {
+            entity.StateLayers.Remove(this);
+            this = default(EntityState);
+        }
+        public EntityState(Creature entity, InState state, System.Action cancelAction, float time, bool temp)
+        {
+            this.entity = entity;
+            this.cancelAction = cancelAction;
+            this.state = state;
+            this.time = time;
+            this.temp = temp;
+        }
     }
-    public System.Collections.Generic.List<InState> StateLayers = new System.Collections.Generic.List<InState>();
+    private System.Collections.Generic.List<EntityState> StateLayers = new System.Collections.Generic.List<EntityState>();
     public bool IsFree() => StateLayers.Count == 0;
-    public void Engage() => StateLayers.Add(InState.Engaged);
-    public bool IsBlocked() => StateLayers.Contains(InState.Blocked);
-    public void UnEngage() => StateLayers.Remove(InState.Engaged);
+    public EntityState Engage(float time, System.Action cancelAction) 
+    {
+        EntityState state = new EntityState(this, EntityState.InState.Engaged, cancelAction, time, true);
+        StateLayers.Add(state);
+        return state;
+    }
+    public EntityState Engage(System.Action cancelAction) 
+    {
+        EntityState state = new EntityState(this, EntityState.InState.Engaged, cancelAction, 0.0f, false);
+        StateLayers.Add(state);
+        return state;
+    }
+    public bool IsBlocked() 
+    {
+        foreach(EntityState state in StateLayers) if(state.state == EntityState.InState.Blocked) return true;
+        return false;
+    }
     
-    [HideInInspector] public InState State;
+    [HideInInspector] public EntityState.InState State;
     public EntityMovement Movement { get; set; }
     public InventorySystem InventorySystem { get; set; }
     public HealthBar HealthBar;
     public LootTable DropTable;
     public Room CurrentRoom;
     private Room oldRoom;
+    public delegate void DamageCallback(ref int damage, ref DamageType damageType, ref Creature creature);
+    public DamageCallback Callback;
     [SerializeField] private Color32 startColor;
     [SerializeField] private Color32 takeDamageColor;
     [SerializeField] internal float DamageInvulnerabilityDuration;
@@ -80,7 +119,25 @@ public abstract class Creature : Entity, IKillHandler
         base.Update();
         CollisionUpdate();
         Invulnerability();
+
         ChangeRoomCheck();
+        HandleStateLayers();
+    }
+    private void HandleStateLayers()
+    {
+        for(int i = 0; i < StateLayers.Count; i++)
+        {
+            if(StateLayers[i].temp)
+            {
+                if(StateLayers[i].time > 0)
+                {
+                    EntityState state = StateLayers[i];
+                    state.time -= Time.deltaTime;
+                    StateLayers[i] = state;
+                }
+                else StateLayers[i].Remove();
+            }
+        }
     }
     private void ChangeRoomCheck()
     {
@@ -109,6 +166,7 @@ public abstract class Creature : Entity, IKillHandler
     protected virtual void OnInvulnerabilityEnd() {}
     public override void Damage(int amount, DamageType damageType, Creature handler)
     {
+        Callback.Invoke(ref amount, ref damageType, ref handler);
         base.Damage(amount, damageType, handler);
         HealthBar?.IndicatorUpdate();
     }
