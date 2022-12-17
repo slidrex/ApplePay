@@ -5,5 +5,5 @@ using UnityEngine;
 public interface EntityChangeHealthCallaback
 {
     ///<summary>Calls before entity takes damage.</summary>
-    void BeforeDamageCallaback(ref int damage, ref DamageType damageType, ref Creature handler);
+    void BeforeDamageCallback(ref Creature handler, ref Damage[] damages);
 }

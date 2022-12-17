@@ -55,19 +55,47 @@ public abstract class Entity : MonoBehaviour, IHitResponder
         
         EffectsUpdate();
     }
-    public virtual void Damage(int amount, DamageType damageType, Creature handler)
+    public virtual void Damage(Creature handler, params Damage[] damage)
     {
-        bool evaded = Random.Range(0, 1f) < evasionRate && damageType == DamageType.Physical;
-        if(evaded) OnEvasion();
+        int physicalDamage = 0;
+        int magicalDamage = 0;
+        int pureDamage = 0;
+        foreach(Damage _damage in damage)
+        {
+            
+            switch(_damage.type)
+            {
+                case DamageType.Physical:
+                    physicalDamage += _damage.amount;
+                    break;
+                case DamageType.Magical:
+                    magicalDamage += _damage.amount;
+                    break;
+                case DamageType.Pure:
+                    pureDamage += _damage.amount;
+                    break;
+            }
+        }
+        bool evaded = physicalDamage > 0 && Random.Range(0, 1f) < evasionRate;
+        if(evaded)
+        {
+            OnEvasion();
+            physicalDamage = 0;
+        }
 
         float fixedMagicalDamage = 1 - Mathf.Clamp(magicResistance, Mathf.NegativeInfinity, 1);
-        if(damageType == DamageType.Magical) amount = (int)((float)amount * fixedMagicalDamage);
-        if(Immortal == false && evaded == false)
+        magicalDamage = (int)((float)magicalDamage * fixedMagicalDamage);
+        if(Immortal == false)
         {
-            CurrentHealth = Mathf.Clamp(CurrentHealth -amount, 0, MaxHealth);
+            int resultDamage = magicalDamage + physicalDamage + pureDamage;
+            CurrentHealth = Mathf.Clamp(CurrentHealth -resultDamage, 0, MaxHealth);
             ApplyDamage(handler);
         }
         if(CurrentHealth <= 0) Die(handler);
+    }
+    public void Damage(int amount, DamageType damageType, Creature handler)
+    {
+        Damage(handler, new Damage(amount, damageType));
     }
     protected virtual void OnEvasion()
     {
@@ -154,6 +182,16 @@ public abstract class Entity : MonoBehaviour, IHitResponder
     public virtual void OnHitDetected(HitInfo hitInfo)
     {
         
+    }
+}
+public struct Damage
+{
+    public DamageType type;
+    public int amount;
+    public Damage(int amount, DamageType type)
+    {
+        this.type = type;
+        this.amount = amount;
     }
 }
 public enum DamageType

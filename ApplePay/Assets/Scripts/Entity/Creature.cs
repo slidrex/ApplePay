@@ -58,8 +58,8 @@ public abstract class Creature : Entity, IKillHandler
     public LootTable DropTable;
     public Room CurrentRoom;
     private Room oldRoom;
-    public delegate void DamageCallback(ref int damage, ref DamageType damageType, ref Creature creature);
-    public DamageCallback Callback;
+    public delegate void DamageCallback(ref Creature handler, ref Damage[] damage);
+    public DamageCallback damageCallback;
     [SerializeField] private Color32 startColor;
     [SerializeField] private Color32 takeDamageColor;
     [SerializeField] internal float DamageInvulnerabilityDuration;
@@ -164,10 +164,10 @@ public abstract class Creature : Entity, IKillHandler
     }
     protected virtual void OnInvulnerability() {}
     protected virtual void OnInvulnerabilityEnd() {}
-    public override void Damage(int amount, DamageType damageType, Creature handler)
+    public override void Damage(Creature handler, params Damage[] damage)
     {
-        Callback.Invoke(ref amount, ref damageType, ref handler);
-        base.Damage(amount, damageType, handler);
+        damageCallback?.Invoke(ref handler, ref damage);
+        base.Damage(handler, damage);
         HealthBar?.IndicatorUpdate();
     }
     public override void ChangeHealth(int amount)

@@ -178,24 +178,26 @@ public class RoomSpawner : MonoBehaviour
     {
         for(int i = 0; i < FilledCells.Count; i++)
         {
-            DoorBehaviour[] unfilledDoors = FilledCells.ElementAt(i).Value.GetComponentsInChildren<DoorBehaviour>().Where(x => x.ConnectedDoor == null).ToArray();
-            foreach(DoorBehaviour door in unfilledDoors)
+            DoorBehaviour[] roomDoors = FilledCells.ElementAt(i).Value.GetComponentsInChildren<DoorBehaviour>().Where(x => x.ConnectedDoor == null).ToArray();
+            foreach(DoorBehaviour currentDoor in roomDoors)
             {
-                Vector2 direction = door.Direction;
+                Vector2 direction = currentDoor.Direction;
                 bool isRoomExist = FilledCells.TryGetValue(FilledCells.ElementAt(i).Key + direction, out Room wrappedRoom);
                 if(isRoomExist)
                 {
-                    DoorBehaviour suitableDoor = wrappedRoom.GetComponentsInChildren<DoorBehaviour>().FirstOrDefault(x => x.ConnectedDoor == null && x.Direction + door.Direction == Vector2.zero);
+                    DoorBehaviour dependentDoor = wrappedRoom.GetComponentsInChildren<DoorBehaviour>().FirstOrDefault(x => x.ConnectedDoor == null && x.Direction + currentDoor.Direction == Vector2.zero);
                     
-                    if(suitableDoor == null)
+                    if(dependentDoor == null)
                     {
-                        Destroy(door.gameObject);
+                        Destroy(currentDoor.gameObject);
                         continue;
                     }
-                    suitableDoor.ConnectedDoor = door;
-                    door.ConnectedDoor = suitableDoor;
+                    Sprite dependentDoorSprite = dependentDoor.GetSprite();
+                    Sprite currentDoorSprite = currentDoor.GetSprite();
+                    dependentDoor.SetConnectedDoor(currentDoor, dependentDoorSprite);
+                    currentDoor.SetConnectedDoor(dependentDoor, currentDoorSprite);
                 }
-                else Destroy(door.gameObject);
+                else Destroy(currentDoor.gameObject);
             }
         }
     }
