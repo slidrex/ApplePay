@@ -2,7 +2,7 @@
 
 public class Charm : CharmObject
 {
-    public EntityAttribute.TagAttribute[] TagAttributeCache;
+    [UnityEngine.HideInInspector] public EntityAttribute.TagAttribute[] TagAttributeCache;
     public System.Collections.Generic.Dictionary<int, VirtualBase> attributeFields = new System.Collections.Generic.Dictionary<int, VirtualBase>();
     public System.Collections.Generic.Dictionary<string, VirtualBase> additionalFields = new System.Collections.Generic.Dictionary<string, VirtualBase>();
 

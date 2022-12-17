@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 302943715760535466}
   - component: {fileID: 302943715760535467}
   m_Layer: 0
-  m_Name: WoodenBox
+  m_Name: WoodenCrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

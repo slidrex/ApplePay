@@ -16,6 +16,6 @@ public class MenuComponents : MonoBehaviour
     private void SetActive(bool isActive, params GameObject[] objects)
     {
         for(int i = 0 ; i < objects.Length; i++)
-            objects[i].SetActive(isActive);
+            objects[i].gameObject.SetActive(isActive);
     }
 }

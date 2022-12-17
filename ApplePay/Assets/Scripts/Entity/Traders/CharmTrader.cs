@@ -37,7 +37,6 @@ public class CharmTrader : InteractiveObject
         if(inTrade)
         {
             entity.FinishInteract(this);
-            print("finish interact");
         }
         inTrade = false;
         closed = true;

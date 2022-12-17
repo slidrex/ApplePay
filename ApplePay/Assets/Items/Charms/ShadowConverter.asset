@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7af2729242b3d4d9803075de4d59c6, type: 3}
+  m_Name: ShadowConverter
+  m_EditorClassIdentifier: 
+  TagAttributeCache: []
+  Attributes: []
+  Display:
+    Icon: {fileID: 21300000, guid: 9aa4c7b56b8c1864a9b077998f7a0cbb, type: 3}
+    Description:
+      Name: Shadow Catcher
+      Description: 'Converts incoming
+
+        magical damage into physical'
+    AdditionalFields:
+    - Color: 0
+      Text: '{1,0}% conversion'
+  CharmFields:
+  - name: conversion
+    value: 0.5
+    NumberType: 1

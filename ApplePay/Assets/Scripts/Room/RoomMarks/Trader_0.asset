@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd90ad49e4796145841c09709697799, type: 3}
+  m_Name: Trader_0
+  m_EditorClassIdentifier: 
+  SpawnDelay: 0
+  MinContractObjects: 1
+  MaxContractObjects: 1
+  contractObjects:
+  - Object: {fileID: 5772903313880149469, guid: beae4df46c3508a4b901aab903a35c2c, type: 3}
+    SpawnChance: 1
+    MinSpawnInterval: 0
+    MaxSpawnInterval: 0

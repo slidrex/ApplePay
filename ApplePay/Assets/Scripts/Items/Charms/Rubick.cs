@@ -1,13 +1,13 @@
-[UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Rubick", fileName = "new charm")]
+[UnityEngine.CreateAssetMenu(menuName = "Item/Charm/Other/Rubick", fileName = "new charm")]
 public class Rubick : Charm
 {
     private const string tag = "rubick_attribute-amplification";
     public override void UpdateFunction(Creature entity)
     {
         base.UpdateFunction(entity);
-        CharmRepository _repository = (CharmRepository)entity.InventorySystem.GetRepository("charms");
+        CharmRepository _repository = (CharmRepository)entity.InventorySystem.GetRepository("charm");
         
-        CollectableCharm[] charmItems = _repository.Items;
+        CollectableCharm[] charmItems = _repository.GetExistingItems();
         for(int i = 0; i < charmItems.Length; i++)
         {
             CharmObject charm = charmItems[i].charm;

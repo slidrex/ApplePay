@@ -16,15 +16,19 @@ MonoBehaviour:
   - SpawnerRoom:
       room: {fileID: 2949683388831534208, guid: c2275ca7af267734dbec0e049e134086, type: 3}
       availableRotations: 0100
-    spawnRate: 89
+    spawnRate: 50
   - SpawnerRoom:
       room: {fileID: 2873492361910506121, guid: 35ba26194e973e74cb65f1f182476fcc, type: 3}
       availableRotations: 0100
-    spawnRate: 39
-  RoomCount: 6
+    spawnRate: 50
+  - SpawnerRoom:
+      room: {fileID: 2873492361910506121, guid: 35ba26194e973e74cb65f1f182476fcc, type: 3}
+      availableRotations: 0100
+    spawnRate: 50
+  RoomCount: 8
   CellSize: 50
-  StartGridComplexity: 1
-  GridComplexityLimit: 1
+  StartGridComplexity: 2
+  GridComplexityLimit: 2
   GridComplexityIncreaseRate: 0
   ChangeDirectionRate: 0
   ContractRooms: []

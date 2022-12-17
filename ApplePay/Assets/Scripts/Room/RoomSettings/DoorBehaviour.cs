@@ -2,16 +2,32 @@ using UnityEngine;
 
 public class DoorBehaviour : KeyHoldingHack
 {
+    [HideInInspector] public SpriteRenderer spriteRenderer;
     public Room AttachedRoom { get; set; }
     [Header("Door Behaviour")]
     [SerializeField] private Transform TeleportPoint;
     [SerializeField] private DoorDirection direction;
-    public DoorBehaviour ConnectedDoor;
+    public DoorBehaviour ConnectedDoor { get; private set; }
     public Vector2 Direction {get 
     {
         directionConverter.TryGetValue(direction, out Vector2 val);
         return val;
     }
+    }
+    private void Awake()
+    {
+        if(spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    public Sprite GetSprite()
+    {
+        if(spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        return spriteRenderer.sprite;
+    }
+    public void SetConnectedDoor(DoorBehaviour door, Sprite connectedDoorSprite)
+    {
+        ConnectedDoor = door;
+        ConnectedDoor.spriteRenderer.sprite = connectedDoorSprite;
     }
     public void SwapDirection(int swap) => direction = (DoorDirection)Mathf.Repeat((int)direction + swap, 4);
     protected override void OnAfterHack(InteractManager interactEntity)

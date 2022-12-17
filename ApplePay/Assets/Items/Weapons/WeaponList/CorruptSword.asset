@@ -22,6 +22,6 @@ MonoBehaviour:
         Description: 
     AnimationParameters:
       AttackCooldown: 0.2
-      AnimationTime: 0.5
-      Velocity: 2
+      AnimationTime: 0.2
+      Velocity: 3
       AngularVelocity: 0

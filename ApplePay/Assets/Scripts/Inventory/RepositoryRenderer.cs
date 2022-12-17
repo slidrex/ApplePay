@@ -19,7 +19,7 @@ public abstract class RepositoryRenderer<ItemType> : MonoBehaviour
         get
         {
             System.Collections.Generic.List<InventoryDisplaySlot<ItemType>> slotList = new System.Collections.Generic.List<InventoryDisplaySlot<ItemType>>();
-            for(byte i = 0; i < transform.childCount; i++)
+            for(int i = 0; i < transform.childCount; i++)
             {
                 if(transform.GetChild(i).GetComponent<InventoryDisplaySlot<ItemType>>() != null) slotList.Add(transform.GetChild(i).GetComponent<InventoryDisplaySlot<ItemType>>());
             }
