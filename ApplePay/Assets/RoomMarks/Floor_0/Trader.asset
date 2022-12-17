@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdd90ad49e4796145841c09709697799, type: 3}
-  m_Name: Bee_0
+  m_Name: Trader
   m_EditorClassIdentifier: 
-  MarkType: 2
-  SpawnDelay: 1
+  SpawnDelay: 0
   MinContractObjects: 1
-  MaxContractObjects: 2
+  MaxContractObjects: 1
   contractObjects:
-  - Object: {fileID: 8223996091210863042, guid: 492c820c111025247bc463afc24f83fe, type: 3}
-    SpawnChance: 91.63
-    MinSpawnInterval: 1
-    MaxSpawnInterval: 1
+  - Object: {fileID: 5772903313880149469, guid: beae4df46c3508a4b901aab903a35c2c, type: 3}
+    SpawnChance: 1
+    MinSpawnInterval: 0
+    MaxSpawnInterval: 0

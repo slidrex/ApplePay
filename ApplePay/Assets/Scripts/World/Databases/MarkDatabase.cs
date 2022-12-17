@@ -8,7 +8,7 @@ public class MarkDatabase : Database
     [System.Serializable]
     public struct MarkSlot
     {
-        public RoomMark Mark;
+        public ActionMark Mark;
         [Range(0, 1f)] public float SpawnChance;
     }
 }

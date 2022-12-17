@@ -375,7 +375,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a90e84dc013d74d87c22913cee941d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FreeRoomSpace: []
+  FreeRoomSpace:
+  - localScale: {x: 5.16, y: 12.15}
+    offset: {x: 0, y: 0}
+    RelatedTransform: {fileID: 0}
   RoomConfiners:
     localScale: {x: 10, y: 15}
     offset: {x: 0, y: 0}
@@ -383,22 +386,10 @@ MonoBehaviour:
   EntityList: []
   MarkList:
   - {fileID: 0}
-  EnvironmentObjectList: []
-  MinObjectsCount: 0
-  MaxObjectsCount: 0
+  EnvironmentObjectLimit: 3
   isActive: 0
-  MobCountLimit: 10
-  MobList:
-  - Mob: {fileID: 5214477276859016875, guid: 71623b963fc6f074ca47f2642eb3a304, type: 3}
-    SpawnChance: 40
-  - Mob: {fileID: 3531907875103924218, guid: e4e708e767e9a0c4784c02b11eb291f3, type: 3}
-    SpawnChance: 30
-  - Mob: {fileID: 7227759541157514706, guid: c727acba76da6d248928dc58c5bd2a68, type: 3}
-    SpawnChance: 20
-  - Mob: {fileID: 377455623169758730, guid: db78a0d14c6ad9e479995ff5c8b36587, type: 3}
-    SpawnChance: 10
-  MinStageCount: 0
-  MaxStageCount: 0
+  MobCountLimit: 6
+  MobList: {fileID: 11400000, guid: 09d3e5d435c9fdd4186415f16930e383, type: 2}
 --- !u!1 &7417051529478944988
 GameObject:
   m_ObjectHideFlags: 0

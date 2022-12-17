@@ -4,17 +4,14 @@ public class Room : MonoBehaviour
 {
     [SerializeField, Tooltip("Specified space is free for spawn objects.")] private RoomBound[] FreeRoomSpace;
     [SerializeField, Tooltip("Used for checking if object inside the room.")] public RoomBound RoomConfiners;
-    public List<Creature> EntityList = new List<Creature>();
-    public List<RoomMark> MarkList = new List<RoomMark>();
+    [HideInInspector] public List<Creature> EntityList = new List<Creature>();
+    public List<ActionMark> MarkList = new List<ActionMark>();
     [Header("Environment settings")]
-    public List<EnvironmentObject> EnvironmentObjectList = new List<EnvironmentObject>();
-    public byte MinObjectsCount, MaxObjectsCount;
+    public byte EnvironmentObjectLimit;
     [HideInInspector] public bool isActive;
     public RoomSpawner spawner { get; set; }
-    [Header("Mob Room")]
     public byte MobCountLimit;
-    public SpawnMob[] MobList;
-    public byte MinStageCount, MaxStageCount;
+    public RateArrayMark MobList;
     private void Awake()
     {
         SetupBounds();
@@ -37,12 +34,6 @@ public class Room : MonoBehaviour
     }
     public bool IsInsideRoom(Vector2 position) =>  RoomConfiners.IsInsideBound(position);
     public Vector2 GetRandomFreeRoomSpace() => FreeRoomSpace[Random.Range(0, FreeRoomSpace.Length)].GetRandomSpace();
-    [System.Serializable]
-    public struct EnvironmentObject
-    {
-        public GameObject Object;
-        [Range(0, 1f)] public float SpawnChance;
-    }
     private void OnDrawGizmos()
     {
         Gizmos.matrix = transform.localToWorldMatrix;

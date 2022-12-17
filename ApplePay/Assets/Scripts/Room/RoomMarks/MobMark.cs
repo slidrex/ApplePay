@@ -1,8 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Marks/New Mob Mark")]
+[CreateAssetMenu(menuName = "Marks/Room/New Mob Spawn Manual Mark")]
 
-public class MobMark : RoomMark
+public class MobMark : ActionMark
 {
     public byte MinMobCount;
     public byte MaxMobCount;
@@ -22,10 +22,10 @@ public class MobMark : RoomMark
             while(!instantiated)
             {
                 int rand = Random.Range(1, 101);
-                int index = Random.Range(0, room.MobList.Length);
-                if(room.MobList[index].SpawnChance >= rand)
+                int index = Random.Range(0, room.MobList.Items.Length);
+                if(room.MobList.Items[index].rate >= rand)
                 {
-                    MonoBehaviour.Instantiate(room.MobList[index].Mob, room.GetRandomFreeRoomSpace(), Quaternion.identity);
+                    MonoBehaviour.Instantiate(room.MobList.Items[index].item, room.GetRandomFreeRoomSpace(), Quaternion.identity);
                     instantiated = true;
                 }
             }

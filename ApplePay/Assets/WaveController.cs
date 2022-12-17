@@ -12,7 +12,7 @@ public class WaveController : MonoBehaviour
     private Room wrappedRoom;
     private WaveStatus wrappedEntityWaveStatus;
     [SerializeField] private BindedWaveStatus bindedStatus;
-    private RoomMark[] wrappedRoomStages;
+    private ActionMark[] wrappedRoomStages;
     private void Start()
     {
         AssignWrappedEntity(WrappedCreature);
@@ -28,44 +28,6 @@ public class WaveController : MonoBehaviour
         
             if(curStatus.bindTime < 0) curStatus = new BindedWaveStatus();
             bindedStatus = curStatus;
-        }
-    }
-    private void OnRoomSwitched()
-    {
-        byte stageCount = (byte)Random.Range(WrappedCreature.CurrentRoom.MinStageCount, WrappedCreature.CurrentRoom.MaxStageCount);
-        wrappedRoomStages = new RoomMark[stageCount];
-        StageMarkAssign(wrappedRoomStages);
-        foreach(RoomMark roomMark in WrappedCreature.CurrentRoom.MarkList)
-        {
-            /*if(roomMark.MarkType == MarkDatabase.MarkType.Mob)
-            {
-                MobMark curMark = (MobMark)roomMark;
-                if(curMark.SpawnDelay > bindedStatus.bindTime)
-                {
-                    bindedStatus.status = WaveStatus.InWave;
-                    bindedStatus.bindTime = curMark.SpawnDelay + curMark.MaxSpawnInterval * (curMark.MinMobCount + curMark.MaxMobCount)/2;
-                }
-            }
-            */
-        }
-        
-    }
-    private void StageMarkAssign(RoomMark[] markArray)
-    {
-        for(int i = 0; i < markArray.Length; i++)
-        {
-            while(markArray[i] == null)
-            {
-                /*
-                int rand = Random.Range(0, 100);
-                MarkDatabase.MarkSlot currentRoomMark = markDatabase.MarkList[Random.Range(0, markDatabase.MarkList.Length)];
-                if(currentRoomMark.SpawnChance >= rand && currentRoomMark.Mark.MarkType == MarkDatabase.MarkType.Mob)
-                {
-                    markArray[i] = currentRoomMark.Mark;
-                    break;
-                }
-                */
-            }
         }
     }
     private void OnWaveBegin() => wrappedWaveComponent.SetWaveStatus(WaveStatus.InWave);

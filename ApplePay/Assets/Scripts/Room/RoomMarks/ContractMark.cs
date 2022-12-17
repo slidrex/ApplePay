@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Marks/New Contract Mark")]
-public class ContractMark : RoomMark
+[CreateAssetMenu(menuName = "Marks/Room/New Contract Mark")]
+public class ContractMark : ActionMark
 {
     public float SpawnDelay;
     public byte MinContractObjects;

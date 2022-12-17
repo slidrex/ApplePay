@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5777551608225268204}
+  - component: {fileID: 3411770347720805820}
   m_Layer: 0
   m_Name: TradingRoom
   m_TagString: Untagged
@@ -33,6 +34,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3411770347720805820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777551608225268205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47a90e84dc013d74d87c22913cee941d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FreeRoomSpace: []
+  RoomConfiners:
+    localScale: {x: 0, y: 0}
+    offset: {x: 0, y: 0}
+    RelatedTransform: {fileID: 0}
+  EntityList:
+  - {fileID: 0}
+  MarkList: []
+  EnvironmentObjectList: []
+  MinObjectsCount: 0
+  MaxObjectsCount: 0
+  isActive: 0
+  MobCountLimit: 0
+  MobList: []
+  MinStageCount: 0
+  MaxStageCount: 0
 --- !u!1 &5777551608873297547
 GameObject:
   m_ObjectHideFlags: 0
