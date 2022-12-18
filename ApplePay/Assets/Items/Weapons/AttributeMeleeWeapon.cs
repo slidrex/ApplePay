@@ -29,7 +29,11 @@ public abstract class AttributeMeleeWeapon : MeleeWeapon
         else
         {
             tagAttribute = _attribute.GetTagAttributes(tagName)[0];
-            if(tagAttribute.GetDestroyClocks().Count > 0) tagAttribute.GetDestroyClocks()[0].Remove();
+            
+            if(tagAttribute.GetDestroyClocks().Count > 0) 
+            {
+                tagAttribute.GetDestroyClocks()[0].Remove(false);
+            }
         }
         tagAttribute.SetDestroyClock(time);
     }

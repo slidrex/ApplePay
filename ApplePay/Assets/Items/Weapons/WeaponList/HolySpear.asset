@@ -14,3 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponObject: {fileID: 7876552633506993754, guid: e59ed223148030946bf8b43c01de7c2d, type: 3}
   AttackAnimationSettings: {fileID: 11400000, guid: 7d20b2e1da6a6f1409451a1223c84aaa, type: 2}
+  WeaponInfo:
+    Display:
+      Icon: {fileID: 21300000, guid: c05ce08778f8f01409668285d4fa6a6d, type: 3}
+      Description:
+        Name: Holy Spear
+        Description: 
+    AnimationParameters:
+      AttackCooldown: 0.2
+      AnimationTime: 0.2
+      Velocity: 3
+      AngularVelocity: 0

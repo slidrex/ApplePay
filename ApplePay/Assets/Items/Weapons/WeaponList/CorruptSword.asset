@@ -21,7 +21,7 @@ MonoBehaviour:
         Name: Corrupt Sword
         Description: 
     AnimationParameters:
-      AttackCooldown: 0.2
+      AttackCooldown: 0.1
       AnimationTime: 0.2
       Velocity: 3
       AngularVelocity: 0

@@ -32,8 +32,14 @@ public class EntityAttribute
             value.Remove();
             attachedAttribute.ApplyResult();
         }
-        public System.Collections.Generic.List<VirtualBase.BaseValue.DestroyClock> GetDestroyClocks() => value.DestroyClocks;
-        public VirtualBase.BaseValue.DestroyClock SetDestroyClock(float time) => value.SetDestroyClock(time);
+        public System.Collections.Generic.List<Pay.Functions.Generic.ActionClock> GetDestroyClocks() => value.DestroyClocks;
+        public Pay.Functions.Generic.ActionClock SetDestroyClock(float time)
+        {
+            Pay.Functions.Generic.ActionClock actionClock = value.SetDestroyClock(time);
+            actionClock.ReplaceAction(() => Remove());
+            
+            return actionClock;
+        }
         public TagAttribute(VirtualBase.BaseValue baseValue, EntityAttribute attribute)
         {
             value = baseValue;

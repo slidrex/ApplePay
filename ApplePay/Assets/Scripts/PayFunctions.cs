@@ -82,6 +82,53 @@ namespace Pay.Functions
     }
     public static class Generic
     {
+        ///<summary>
+        ///Represents actions that can be executed after time.
+        ///</summary>
+        public class ActionClock
+        {
+            public delegate void Action();
+            public float targetTime;
+            public float passedTime;
+            private Action action;
+            private Action removeAction;
+            private bool isPaused;
+            private System.Collections.IEnumerator coroutinedAction;
+            public bool IsNotNull() => coroutinedAction != null;
+            ///<summary>Sets the action that calls before clock termination.</summary>
+            public void SetOnRemoveAction(Action action) => removeAction = action;
+            ///<summary>Replaces the action that calls when the clock is over.</summary>
+            public void ReplaceAction(Action action) => this.action = action;
+            public void Pause(bool isPaused) => this.isPaused = isPaused;
+            public bool IsPaused() => isPaused;
+            public void Remove(bool executeEndAction)
+            {
+                removeAction?.Invoke();
+                if(executeEndAction) action.Invoke();
+                StaticCoroutine.EndCoroutine(coroutinedAction);
+            }
+            public void ExecuteAction() => action.Invoke();
+            public ActionClock(Action action, float time)
+            {
+                this.action = action;
+                passedTime = 0.0f;
+                targetTime = time;
+                coroutinedAction = null;
+                coroutinedAction = ClockHandler();
+                StaticCoroutine.BeginCoroutine(coroutinedAction);
+            }
+            private System.Collections.IEnumerator ClockHandler()
+            {
+                while(passedTime <= targetTime)
+                {
+                    yield return new WaitForEndOfFrame();
+                    if(isPaused) yield return new WaitUntil(() => isPaused == false);
+                    passedTime += Time.deltaTime;
+                }
+                removeAction?.Invoke();
+                ExecuteAction();
+            }
+        }
         ///<summary>Sorts elements of specified array either from min to max value or from max to min.</summary>
         public static void BubbleSort(bool minToMax, ref float[] array) => array = BubbleSort(minToMax, array.Select(x => (double)x).ToArray()).Select(x => (float)x).ToArray();
         ///<summary>Sorts elements of specified array either from min to max value or from max to min.</summary>

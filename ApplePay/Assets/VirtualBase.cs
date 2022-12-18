@@ -78,7 +78,7 @@ public struct VirtualBase
     {
         internal VirtualBase m_base;
         public System.Collections.Generic.List<string> Tags;
-        public System.Collections.Generic.List<DestroyClock> DestroyClocks;
+        public System.Collections.Generic.List<Pay.Functions.Generic.ActionClock> DestroyClocks;
         public VirtualFloatRef Multiplier;
         public VirtualFloatRef AdditionalValue;
         public VirtualFloatRef AdditionalSourcePercent;
@@ -89,20 +89,14 @@ public struct VirtualBase
             Multiplier = multiplier;
             AdditionalSourcePercent = sourcePercent;
             Tags = new System.Collections.Generic.List<string>();
-            DestroyClocks = new System.Collections.Generic.List<DestroyClock>();
+            DestroyClocks = new System.Collections.Generic.List<Pay.Functions.Generic.ActionClock>();
             Tags.AddRange(tags);
         }
+        public void Remove() => m_base.BaseModifiers.Remove(this);
         public struct DestroyClock
         {
-            internal BaseValue BaseValue;
-            internal System.Collections.IEnumerator Coroutine;
-            public void Remove() 
-            {
-                BaseValue.DestroyClocks.Remove(this);
-                StaticCoroutine.EndCoroutine(Coroutine);
-            }
+            public Pay.Functions.Generic.ActionClock Clock;
         }
-        public void Remove() => m_base.BaseModifiers.Remove(this);
     }
     ///<summary>
     ///Readonly referenced value.
@@ -130,24 +124,18 @@ public static class VirtualBaseExtension
 public static class DestroyClockExtension
 {
     ///<summary>Sets the tagged attribute termination time.</summary>
-    public static VirtualBase.BaseValue.DestroyClock SetDestroyClock(this VirtualBase.BaseValue baseValue, float time)
+    public static Pay.Functions.Generic.ActionClock SetDestroyClock(this VirtualBase.BaseValue baseValue, float time)
     {
-        UnityEngine.Debug.Log("Clock set!");
-        System.Collections.IEnumerator coroutine = null;
-        VirtualBase.BaseValue.DestroyClock clock = new VirtualBase.BaseValue.DestroyClock();
-        clock.BaseValue = baseValue;
-        coroutine = DestroyTagAttribute(clock, time);
-        clock.Coroutine = coroutine;
-        StaticCoroutine.BeginCoroutine(coroutine);
-        
+        Pay.Functions.Generic.ActionClock clock = new Pay.Functions.Generic.ActionClock
+        (
+            delegate
+            {
+                baseValue.Remove();
+            },
+            time
+        );
+        clock.SetOnRemoveAction(() => baseValue.DestroyClocks.Remove(clock));
         baseValue.DestroyClocks.Add(clock);
         return clock;
-    }
-    private static System.Collections.IEnumerator DestroyTagAttribute(VirtualBase.BaseValue.DestroyClock clock, float time)
-    {
-        yield return new UnityEngine.WaitForSeconds(time);
-        UnityEngine.Debug.Log(clock.BaseValue.DestroyClocks);
-        clock.BaseValue.DestroyClocks.Remove(clock);
-        clock.BaseValue.Remove();
     }
 }

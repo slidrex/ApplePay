@@ -2573,7 +2573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1014642742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2712,7 +2712,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014642741}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.32, y: -1.29, z: 1}
+  m_LocalPosition: {x: 0.03, y: -2.13, z: 1}
   m_LocalScale: {x: 7.2, y: 7.2, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5230,7 +5230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2120200233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5272,8 +5272,8 @@ MonoBehaviour:
   speed: 0
   damagePerForceUnit: 0
   hoverableObject:
-    contentPanel: {fileID: 0}
-  weapon: {fileID: 0}
+    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+  weapon: {fileID: 11400000, guid: b0d64e257ca2c5b488ba13d705bed82f, type: 2}
 --- !u!50 &2120200234
 Rigidbody2D:
   serializedVersion: 4
@@ -5388,7 +5388,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120200232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: -2.15, z: 1}
+  m_LocalPosition: {x: -1.46, y: -1.68, z: 1}
   m_LocalScale: {x: 6, y: 6, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
