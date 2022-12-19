@@ -1,20 +1,10 @@
 public class CharmRepository : InventoryRepository<CollectableCharm>
 {
     public override string Id => "charm";
-    public override bool AddItem(CollectableCharm item)
+    public override void OnItemAdded(CollectableCharm item, int index)
     {
-        bool success = IsValid(); 
-        if(success)
-        {
-            CollectableCharm charm = Instantiate(item);
-            base.AddItem(charm);
-            charm.gameObject.SetActive(false);
-            charm.gameObject.transform.SetParent(itemInstancesContainer);
-        }
-        return success;
-    }
-    public override void OnItemAdded(CollectableCharm item)
-    {
+        item.gameObject.SetActive(false);
+        item.gameObject.transform.SetParent(itemInstancesContainer);
         item.charm.BeginFunction(AttachedSystem.SystemOwner);
     }
     private void Update()

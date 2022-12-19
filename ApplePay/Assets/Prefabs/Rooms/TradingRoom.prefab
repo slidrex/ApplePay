@@ -53,15 +53,12 @@ MonoBehaviour:
     RelatedTransform: {fileID: 0}
   EntityList:
   - {fileID: 0}
-  MarkList: []
-  EnvironmentObjectList: []
-  MinObjectsCount: 0
-  MaxObjectsCount: 0
+  MarkList:
+  - {fileID: 11400000, guid: ee804215a8f323848b7ed64ae9bc97a8, type: 2}
+  EnvironmentObjectLimit: 0
   isActive: 0
   MobCountLimit: 0
-  MobList: []
-  MinStageCount: 0
-  MaxStageCount: 0
+  MobList: {fileID: 0}
 --- !u!1 &5777551608873297547
 GameObject:
   m_ObjectHideFlags: 0

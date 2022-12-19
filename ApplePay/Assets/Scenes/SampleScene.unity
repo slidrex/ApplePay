@@ -5473,6 +5473,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1462844902}
     - target: {fileID: 1849077798889129514, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: Capacity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849077798889129514, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: itemInstancesContainer
       value: 
       objectReference: {fileID: 458447081}

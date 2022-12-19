@@ -15,3 +15,5 @@ MonoBehaviour:
   MarkList:
   - Mark: {fileID: 11400000, guid: 5531a6a026fb64046bb3d51f4027f6fa, type: 2}
     SpawnChance: 1
+  - Mark: {fileID: 11400000, guid: ee804215a8f323848b7ed64ae9bc97a8, type: 2}
+    SpawnChance: 1

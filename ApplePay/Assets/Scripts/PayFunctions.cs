@@ -269,27 +269,26 @@ namespace Pay.Functions
         public static string SetRichTextTag(string text, string tagName, string tagContent) => "<" + tagName + "=" + tagContent + ">" + text + "</" + tagName +">";
         public static string SetRichTextTag(string text, string tagName) => "<" + tagName + ">" + text + "</" + tagName +">";
     }
-public class Physics
-{
-    public static void IgnoreCollision(float time, params UnityEngine.Collider2D[] colliders) => StaticCoroutine.BeginCoroutine(HandleIgnoreCollision(time, true, colliders));
-    private static void IgnoreCollision(bool ignore, UnityEngine.Collider2D[] colliders)
+    public class Physics
     {
-        for(int i = 0; i < colliders.Length; i++)
+        public static void IgnoreCollision(float time, params UnityEngine.Collider2D[] colliders) => StaticCoroutine.BeginCoroutine(HandleIgnoreCollision(time, true, colliders));
+        private static void IgnoreCollision(bool ignore, UnityEngine.Collider2D[] colliders)
         {
-            for(int j = i + 1; j < colliders.Length; j++)
+            for(int i = 0; i < colliders.Length; i++)
             {
-                if(colliders[i] != null && colliders[j] != null)
-                    Physics2D.IgnoreCollision(colliders[i], colliders[j], ignore);
+                for(int j = i + 1; j < colliders.Length; j++)
+                {
+                    if(colliders[i] != null && colliders[j] != null)
+                        Physics2D.IgnoreCollision(colliders[i], colliders[j], ignore);
+                }
             }
         }
+        
+        private static System.Collections.IEnumerator HandleIgnoreCollision(float time, bool ignore, UnityEngine.Collider2D[] colliders)
+        {
+            IgnoreCollision(ignore, colliders);
+            yield return new WaitForSecondsRealtime(time);
+            IgnoreCollision(!ignore, colliders);
+        }
     }
-    
-    private static System.Collections.IEnumerator HandleIgnoreCollision(float time, bool ignore, UnityEngine.Collider2D[] colliders)
-    {
-        IgnoreCollision(ignore, colliders);
-        yield return new WaitForSecondsRealtime(time);
-        IgnoreCollision(!ignore, colliders);
-    }
-}
-
 }

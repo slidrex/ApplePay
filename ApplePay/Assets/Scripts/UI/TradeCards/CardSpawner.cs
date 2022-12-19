@@ -41,8 +41,4 @@ public class CardSpawner : MonoBehaviour
             }
         }
     }
-    public Card GetCard(byte cardNumber)
-    {
-        return cards[cardNumber];
-    }
 }

@@ -14,7 +14,6 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     [SerializeField] private EffectCell effectCell;
     private UnityEngine.Rendering.Universal.Vignette vignette;
     public VirtualBase test = new VirtualBase(0f);
-    Pay.Functions.Generic.ActionClock actionClock;
     public void AddDamageAttribute()
     {
         this.AddAttribute("attackDamage", new FloatRef(
@@ -25,13 +24,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Start()
     {
         AddDamageAttribute();
-        actionClock = new Pay.Functions.Generic.ActionClock(
-            delegate
-            {
-                print("action is over");
-            },
-            5.0f
-        );
+        
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
         
         base.Start();

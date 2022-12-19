@@ -1,5 +1,6 @@
 public class CollectableCharm : CollectableItem<CollectableCharm>
 {
+    protected override bool DestroyOnCollect => false;
     public override CollectableCharm CollectableObject { get => this; }
     protected override string hoverableObjectHeader => charm.GetActiveCharm().Display.Description.Name;
     protected override string hoverableObjectDescription => charm.GetActiveCharm().Display.Description.Description;

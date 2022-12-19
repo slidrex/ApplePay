@@ -45,7 +45,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     private void Disable()
     {
         Instantiate(cardSpawner.charmDatabase.GetItem(cardSpawner.uniqueIndexes[cardNumber]),
-         FindObjectOfType<PlayerEntity>().transform.position, Quaternion.identity);
+            FindObjectOfType<PlayerEntity>().transform.position, Quaternion.identity);
         PayWorld.Particles.InstantiateParticles(applause, transform.position, Quaternion.identity, 2, cardSpawner.transform);
         sold.gameObject.SetActive(true);
         

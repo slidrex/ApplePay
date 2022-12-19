@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class AdvancedWeaponHolder : WeaponHolder
+public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCallback<CollectableWeapon>
 {
     [Header("Weapon display")]
     public InventorySystem InventorySystem;
@@ -19,26 +19,25 @@ public abstract class AdvancedWeaponHolder : WeaponHolder
             activeWeaponIndex = value;
         }
     }
+    public void OnBeforeRepositoryUpdate(InventoryRepository.UpdateType type, ref CollectableWeapon weapon)
+    {
+        if(type == InventoryRepository.UpdateType.Add)
+            if(Repository.IsFull()) DropRelease(ActiveWeaponIndex, 0);
+    }
     protected override void Start() 
     {
         base.Start();
         Repository = (WeaponRepository)InventorySystem.GetRepository(repositoryName);
+        Repository.RepositoryUpdateCallback += OnBeforeRepositoryUpdate;
+    }
+    private void OnDestroy()
+    {
+        Repository.RepositoryUpdateCallback -= OnBeforeRepositoryUpdate;
     }
     public virtual void OnAddItem(CollectableWeapon item, byte index)
     {
         activeWeaponIndex = index;
         OnActiveWeaponUpdate();
-    }
-    public void OnBeforeRepositoryUpdate()
-    {
-        if(Repository.IsFull()) DropRelease(ActiveWeaponIndex, 0);
-    }
-    public void OnRepositoryAdded(CollectableWeapon item, byte index)
-    {
-        Debug.Log("Weapon repository was updated! Item " + item + " was added + at index " + index + "!");
-        CollectableWeapon CollectableWeapon = (CollectableWeapon)item;
-        
-        OnAddItem(CollectableWeapon, index);
     }
     protected CollectableWeapon GetActiveWeapon()
     {

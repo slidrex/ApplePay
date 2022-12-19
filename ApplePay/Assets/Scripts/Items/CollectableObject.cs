@@ -4,6 +4,7 @@ using System.Linq;
 
 public abstract class CollectableObject : ItemEntity
 {
+    protected abstract bool DestroyOnCollect {get;}
     [Header("Pick Settings")]
     [SerializeField] private Color32 constraintColor;
     private Color32 storedColor;
@@ -81,7 +82,7 @@ public abstract class CollectableObject : ItemEntity
     protected virtual void OnCollect()
     {
         PayWorld.Particles.InstantiateParticles(collectParticle, transform.position, Quaternion.identity, 2);
-        
-        Destroy(gameObject);
+        if(DestroyOnCollect)
+            Destroy(gameObject);
     }
 }
