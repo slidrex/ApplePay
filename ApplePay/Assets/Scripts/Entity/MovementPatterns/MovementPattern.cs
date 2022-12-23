@@ -1,17 +1,23 @@
 using UnityEngine;
 
-public abstract class MovementPattern : MonoBehaviour
+public abstract class MovementPattern : MonoBehaviour, IHitResponder
 {
     public Transform Target => Movement.Target;
     protected Transform CurrentTransform;
     protected MobMovement Movement;
     protected Vector2 TargetDistance => Target.transform.position - CurrentTransform.position;
     public Vector2 MovementVector {get => Movement.MoveVector; protected set => Movement.MoveVector = value; }
-    public void Init(MobMovement movement, Transform current)
+    public void Init(MobMovement movement, Transform transform)
     {
         Movement = movement;
-        CurrentTransform = current;
+        CurrentTransform = transform;
+        movement.Entity.HitShape.AddResponder(this);
         OnStart();
+    }
+    public void Init(MobMovement movement)
+    {
+        Movement = movement;
+        CurrentTransform = movement.Entity.transform;
     }
     private void Update()
     {
@@ -37,4 +43,9 @@ public abstract class MovementPattern : MonoBehaviour
     public virtual void OnStart() { }
     public virtual void OnSpeedUpdate() { }
     public virtual void OnCollision(Collision2D collision) { }
+    ///<summary>Calls if entity collides with object.</summary>
+    public virtual void OnHitDetected(HitInfo hitInfo)
+    {
+        
+    }
 }

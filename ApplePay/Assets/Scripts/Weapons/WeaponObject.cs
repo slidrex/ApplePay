@@ -3,7 +3,7 @@ public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer, IHitRe
 {
     [Header("Collide settings")]
     public PayHitShape Collider;
-    private void Awake() => Collider.SetResponder(this);
+    private void Awake() => Collider.AddResponder(this);
     [SerializeField] private int collideDamage;
     public int CollideDamage {get => collideDamage; set => collideDamage = value;}
     public float Knockback;

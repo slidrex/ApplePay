@@ -4869,8 +4869,8 @@ GameObject:
   - component: {fileID: 7227759541157514714}
   - component: {fileID: 1088011555184934264}
   - component: {fileID: 8115246995756994378}
-  - component: {fileID: 1367820902}
-  - component: {fileID: 8350899720710395391}
+  - component: {fileID: 437634471067062616}
+  - component: {fileID: 1190869856170425090}
   m_Layer: 0
   m_Name: hopper
   m_TagString: Untagged
@@ -4990,6 +4990,7 @@ MonoBehaviour:
     resistance: 0.5
     DragIntensity: 1
     Forces: []
+  State: 0
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
   CurrentRoom: {fileID: 0}
@@ -5022,20 +5023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponPlace: {fileID: 7227759540910595431}
   Disables: []
-  ActiveWeapon:
-    Weapon: {fileID: 11400000, guid: 5799daf03c52dcb4483841aa37dfbf6a, type: 2}
-    DropPrefab: {fileID: 0}
-    WeaponInfo:
-      AnimationParameters:
-        AttackInterval: 0.5
-        AnimationTime: 1
-        VelocityMultiplier: 1
-        AngularVelocityMultiplier: 1
-      Display:
-        Icon: {fileID: 0}
-        Description:
-          Name: 
-          Description: 
+  ActiveWeapon: {fileID: 0}
 --- !u!50 &7227759541157514714
 Rigidbody2D:
   serializedVersion: 4
@@ -5090,9 +5078,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionEffect: {fileID: 7834434809057065935, guid: 14b5311582f928344badf0bca72ceb56, type: 3}
   collisionEffectDuration: 0.25
-  collisionDamage: 0
---- !u!61 &1367820902
-BoxCollider2D:
+--- !u!58 &437634471067062616
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5100,24 +5087,14 @@ BoxCollider2D:
   m_GameObject: {fileID: 7227759541157514706}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 756493e8ad7175d4ba2dc0d0a48477e2, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.006050553, y: -0.0070311297}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.08220712, y: 0.13787925}
-  m_EdgeRadius: 0
---- !u!114 &8350899720710395391
+  m_Radius: 0.080000006
+--- !u!114 &1190869856170425090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5126,8 +5103,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7227759541157514706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f4ed55dc1a900a48886c9da135b91b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 7227759541157514711}
-  Collider: {fileID: 1367820902}
+  collisionColliders: []
+  Collider: {fileID: 437634471067062616}

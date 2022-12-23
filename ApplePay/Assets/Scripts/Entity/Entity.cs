@@ -24,7 +24,7 @@ public abstract class Entity : MonoBehaviour, IHitResponder
     protected virtual void Awake()
     {
         HitShape = GetComponent<PayHitShape>();
-        HitShape?.SetResponder(this);
+        HitShape?.AddResponder(this);
         rb = GetComponent<Rigidbody2D>();
         CollisionHandler.rb = rb;
         

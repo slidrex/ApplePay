@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class PointMovement : MovementPattern
 {
-    protected Vector2 MovePoint;
-    public override void OnUpdate() => MoveTowardsPoint();
-    protected virtual void MoveTowardsPoint()
-    {
-        CurrentTransform.position = Vector2.MoveTowards(CurrentTransform.position, MovePoint, Mathf.Abs(Movement.CurrentSpeed) * Time.deltaTime);
-        if((Vector2)CurrentTransform.position == MovePoint)
-            OnPointReached();
-    }
+    private Vector2 MovePoint;
+    protected Vector2 GetMovementPoint() => MovePoint;
+    protected void SetMovementPoint(Vector2 point) => MovePoint = point;
     protected virtual void OnPointReached() {}
+    public override void OnSpeedUpdate()
+    {
+        MovementVector = (MovePoint - (Vector2)transform.position).normalized;
+        if(((Vector2)CurrentTransform.position - MovePoint).SqrMagnitude() < 1)
+            OnPointReached();
+        UpdateRigidbodyVector();
+    }
 }

@@ -13,10 +13,11 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
     protected byte ActiveWeaponIndex 
     { 
         get => activeWeaponIndex;
-        set 
+        private set 
         { 
             if(Repository.Items[activeWeaponIndex] != Repository.Items[value]) OnActiveWeaponUpdate();
             activeWeaponIndex = value;
+            OnActiveWeaponIndexSet();
         }
     }
     public void OnBeforeRepositoryUpdate(InventoryRepository.UpdateType type, ref CollectableWeapon weapon)
@@ -36,8 +37,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
     }
     public virtual void OnAddItem(CollectableWeapon item, byte index)
     {
-        activeWeaponIndex = index;
-        OnActiveWeaponUpdate();
+        ActiveWeaponIndex = index;
     }
     protected CollectableWeapon GetActiveWeapon()
     {
@@ -82,7 +82,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
             if(Repository.Items[i] != null) activeSlots.Add(i);
         }
         if(activeSlots.Count > 1)
-            ActiveWeaponIndex = activeSlots[(byte)Mathf.Repeat(activeSlots.IndexOf(activeWeaponIndex) + offset, activeSlots.Count)];
+            ActiveWeaponIndex = activeSlots[(byte)Mathf.Repeat(activeSlots.IndexOf(ActiveWeaponIndex) + offset, activeSlots.Count)];
         else ActiveWeaponIndex = 0;
     }
 
@@ -110,7 +110,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
         DropHandler(index);
         
         Repository.Items[index] = null;
-        OnActiveWeaponUpdate();
+        
         OffsetActiveWeapon(1);
     }
     private void DropHandler(byte index)
@@ -134,7 +134,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
     ///Calls when active weapon has changed (Not calls if replaced weapon is equal to current).
     ///</summary>
     protected virtual void OnActiveWeaponUpdate() {}
-
+    protected virtual void OnActiveWeaponIndexSet() {}
     [System.Serializable]
 
     protected internal struct DropIndicator

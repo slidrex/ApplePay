@@ -21,9 +21,9 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     {
         if(Input.GetKeyDown(switchKey) && Owner.IsFree()) 
         {
-            CollectableWeapon old = GetActiveWeapon();
             OffsetActiveWeapon(1);
-            if(old != null && old == GetActiveWeapon()) SetupText();
+            
+            if(GetActiveWeapon() != null) SetupText();
         }
         if(Input.GetKey(activateKey) && Owner.IsFree())
         {
@@ -57,11 +57,12 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
         weaponPlaceSlot.RemoveIndicator();
         if(weapon != null) weaponPlaceSlot.CreateSlotIndicator(DropSettings.Holder);
     }
-    protected override void OnActiveWeaponUpdate()
+    protected override void OnActiveWeaponIndexSet()
     {
         weaponPlaceSlot.RemoveSlotUI();
         
         CollectableWeapon currentItem = GetActiveWeapon();
+        print("update");
         if(currentItem != null)
         {
             weaponPlaceSlot.CreateSlotIndicator(DropSettings.Holder);

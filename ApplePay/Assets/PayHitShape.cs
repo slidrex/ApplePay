@@ -7,9 +7,10 @@ public abstract class PayHitShape : MonoBehaviour
     public Entity Owner;
     public Collider2D[] collisionColliders;
     public abstract Collider2D M_Collider {get;}
-    private IHitResponder responder;
+    private System.Collections.Generic.List<IHitResponder> responders = new System.Collections.Generic.List<IHitResponder>();
     ///<summary>Sets the object that will be triggered if hit is detected. </summary>
-    public void SetResponder(IHitResponder responder) => this.responder = responder;
+    public void AddResponder(IHitResponder responder) => responders.Add(responder);
+    public void RemoveResponder(IHitResponder responder) => responders.Remove(responder);
     public abstract void CheckHit();
     public void HandleHit(RaycastHit2D[] hits, Collider2D collider)
     {
@@ -26,7 +27,10 @@ public abstract class PayHitShape : MonoBehaviour
                         hitInfo.entity = hitBox.Owner;
                         hitInfo.collider = hitBox.M_Collider;
                         hitInfo.normal = hit.normal;
-                        responder?.OnHitDetected(hitInfo);
+                        for(int i = 0; i < responders.Count; i++)
+                        {
+                            responders[i].OnHitDetected(hitInfo);
+                        }
                     }
                 }
         }
