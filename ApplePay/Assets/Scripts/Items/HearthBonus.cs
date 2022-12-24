@@ -7,9 +7,16 @@ public class HearthBonus : CollectableBonus
     public int HealAmount;
     public override void CollisionRequest(HitInfo collision, ref bool collectStatus)
     {
-        Creature picker = collision.entity.GetComponent<Creature>();
-        if(picker == null) return;
-        collectStatus = true;
+        Creature picker = collision.entity?.GetComponent<Creature>();
+        if(picker == null)
+            collectStatus = false;
+        
+        base.CollisionRequest(collision, ref collectStatus);
+    }
+    protected override void OnCollect(HitInfo collision)
+    {
+        Creature picker = collision.entity?.GetComponent<Creature>();
+
         Transform magnitizeObj = null;
         Animator hbAnim = null;
         if(picker.HealthBar != null)
@@ -28,8 +35,8 @@ public class HearthBonus : CollectableBonus
         }
         else
         {
-            collision.entity.GetComponent<Creature>().ChangeHealth(HealAmount);
+            picker.ChangeHealth(HealAmount);
         }
-        SendCollectRequest(collision, collectStatus);
+        base.OnCollect(collision);
     }
 }

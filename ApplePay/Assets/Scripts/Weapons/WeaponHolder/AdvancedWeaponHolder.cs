@@ -122,7 +122,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
     private CollectableObject GetDroppedObject(CollectableWeapon instanceObject, Vector2 offsetDirection, Vector2 force)
     {
         Vector2 lossyScale = instanceObject.gameObject.transform.lossyScale;
-        instanceObject.AddConstraintCollider(DropSettings.droppedItemBlockTime, Owner.HitShape, true);
+        instanceObject.AddConstraintCollider(DropSettings.droppedItemBlockTime, Owner.HitShape);
         instanceObject.transform.position += (Vector3)offsetDirection;
         instanceObject.gameObject.SetActive(true);
         instanceObject.gameObject.transform.SetParent(null);

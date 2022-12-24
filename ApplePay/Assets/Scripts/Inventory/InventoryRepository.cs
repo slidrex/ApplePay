@@ -35,7 +35,7 @@ public abstract class InventoryRepository<ItemType> : InventoryRepository
         UnityEngine.Debug.LogWarning("Item hasn't been added!");
         return false;
     }
-    private void SendUpdateCallback(UpdateType type, ref ItemType actionItem) => RepositoryUpdateCallback.Invoke(type, ref actionItem);
+    private void SendUpdateCallback(UpdateType type, ref ItemType actionItem) => RepositoryUpdateCallback?.Invoke(type, ref actionItem);
     public virtual void OnItemAdded(ItemType item, int index) { }
     ///<summary>Returns true if inventory can add new item.</summary>
     public bool IsValid() => !IsFull();

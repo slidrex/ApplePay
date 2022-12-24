@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3449563532321743164}
   - component: {fileID: -811238856198127157}
   - component: {fileID: 877615169}
+  - component: {fileID: 272609306948123006}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
@@ -119,6 +120,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 60
+  HitShape: {fileID: 0}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -140,7 +142,6 @@ MonoBehaviour:
   collectParticle: {fileID: 0}
   amplitude: 0.1
   speed: 2
-  rb: {fileID: 0}
   damagePerForceUnit: 0
   BonusAnimObj: {fileID: 8569260527044943894, guid: 6573e4d362bc9dd4790388e00e6933af, type: 3}
   HealAmount: 20
@@ -184,3 +185,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &272609306948123006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3449563532321743154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4ed55dc1a900a48886c9da135b91b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 3449563532321743164}
+  collisionColliders: []
+  Collider: {fileID: 3449563532321743165}

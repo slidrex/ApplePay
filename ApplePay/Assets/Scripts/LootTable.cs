@@ -10,8 +10,9 @@ public class LootTable : MonoBehaviour
         for(int i = 0; i < DropItems.Count; i++)
         {
             float rand = Random.Range(0, 100f);
-            if(DropItems[i].DropChance >= rand) {
-                var obj = Instantiate(DropItems[i].Item, transform.position, Quaternion.identity);
+            if(DropItems[i].DropChance >= rand) 
+            {
+                Instantiate(DropItems[i].Item, transform.position, Quaternion.identity);
             }
         }
     }

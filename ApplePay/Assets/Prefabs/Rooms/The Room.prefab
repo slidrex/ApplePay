@@ -5066,11 +5066,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   MarkList:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 5531a6a026fb64046bb3d51f4027f6fa, type: 2}
   EnvironmentObjectLimit: 0
   isActive: 0
   MobCountLimit: 6
-  EnvironmentObjectList: {fileID: 0}
   MobList: {fileID: 11400000, guid: 09d3e5d435c9fdd4186415f16930e383, type: 2}
 --- !u!1 &4328661842956001855
 GameObject:

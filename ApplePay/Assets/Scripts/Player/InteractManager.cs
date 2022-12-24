@@ -19,6 +19,7 @@ public class InteractManager : MonoBehaviour
     public InteractHint Hint;
     private InteractHint hint;
     private bool hintSpawned;
+    private InteractiveObject hintedObject;
     private Creature.EntityState engagingStatus;
     private void Awake()
     {
@@ -44,13 +45,14 @@ public class InteractManager : MonoBehaviour
         InteractiveObject closestObject = null;
         if(hasInteractObjects) closestObject = GetNearestInteractiveObject(out int id).interactiveObject;
         
-        if(hintSpawned && (entity.IsFree() == false || closestObject == null))
+        if(hintSpawned && (entity.IsFree() == false || closestObject == null || closestObject != hintedObject))
         {
             RemoveInteractHint();
         }
         else if(hintSpawned == false && entity.IsFree() && closestObject != null)
         {
             CreateInteractHint(closestObject.InteractPointer);
+            hintedObject = closestObject;
         }
         
         

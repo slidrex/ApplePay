@@ -2,37 +2,39 @@ using UnityEngine;
 
 public class PlayerMenuHandler : MonoBehaviour
 {
-    [SerializeField] private MenuComponents menuComponents;
-    [SerializeField] private GameObject[] toggleActiveElements;
-    [SerializeField] private KeyCode activateKey;
+    [SerializeField] private GameObject[] ToggleMenuItems;
+    [SerializeField] private Transform menuComponents;
+    [SerializeField, Tooltip("objects that active while the menu is open")] private GameObject[] internalElements;
+    public bool IsOpen;
+    [SerializeField] private KeyCode menuActivateKey;
     private Creature owner;
     private byte constraintID;
     private Creature.EntityState engagingState;
     private void Start()
     {
-        menuComponents.gameObject.SetActive(false);
         owner = GetComponent<Creature>();
     }
     private void Update()
     {
-        if(Input.GetKeyDown(activateKey))
+        if(Input.GetKeyDown(menuActivateKey))
         {
-            if(menuComponents.IsOpen == false && owner.IsFree() == false) return;
+            if(IsOpen == false && owner.IsFree() == false) return;
             
-            SetComponentActive(!menuComponents.gameObject.activeSelf, toggleActiveElements);
+            ToggleMenu();
 
         }
     }
-    private void SetComponentActive(bool active, GameObject[] elements)
+    private void ToggleMenu()
     {
-        menuComponents.IsOpen = active;
-        menuComponents.gameObject.SetActive(true);
-        menuComponents.SetActiveElements(active, elements);
-        
+        IsOpen = !IsOpen;
+        menuComponents.gameObject.SetActive(IsOpen);
+        DeactivateChilds(menuComponents);
+        SetMenuElementsActive(IsOpen, internalElements);
+        SetMenuElementsActive(IsOpen, ToggleMenuItems);
         GetComponent<Animator>().SetBool("isMoving", false);
-        if(menuComponents.IsOpen == true) OnTabOpen();
-        else
-            OnTabClose();
+
+        if(IsOpen) OnTabOpen();
+        else OnTabClose();
     }
     private void OnTabOpen()
     {
@@ -43,5 +45,20 @@ public class PlayerMenuHandler : MonoBehaviour
     {
         PayWorld.EffectController.RemoveEffect(owner, ref constraintID);
         engagingState.Remove();
+    }
+    public void SetMenuElementsActive(bool isActive, GameObject[] objects)
+    {
+        foreach(GameObject gameObject in objects)
+        {
+            gameObject.SetActive(isActive);
+        }
+    }
+    ///<summary>Deactivates all transform childs.</summary>
+    public void DeactivateChilds(Transform transform)
+    {
+        foreach(Transform child in transform) 
+        {
+            child.gameObject.SetActive(false);
+        }
     }
 }
