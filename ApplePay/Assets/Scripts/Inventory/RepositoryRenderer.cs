@@ -1,16 +1,17 @@
 using UnityEngine;
 
 [System.Serializable]
-public abstract class RepositoryRenderer<ItemType> : MonoBehaviour
+public abstract class RepositoryRenderer<ItemType> : RepositoryRendererBase
 {
     public InventorySystem InventorySystem;
+    [SerializeField] private Transform slotsContainer;
     public InventoryRepository<ItemType> repository {get; set;}
     public abstract string RepositoryType {get;}
-    private void Awake()
+    protected virtual void Awake()
     {
         repository = (InventoryRepository<ItemType>)InventorySystem.GetRepository(RepositoryType);
     }
-    private void Start()
+    protected virtual void Start()
     {
         SetSlotsRenderer();
     }
@@ -19,9 +20,9 @@ public abstract class RepositoryRenderer<ItemType> : MonoBehaviour
         get
         {
             System.Collections.Generic.List<InventoryDisplaySlot<ItemType>> slotList = new System.Collections.Generic.List<InventoryDisplaySlot<ItemType>>();
-            for(int i = 0; i < transform.childCount; i++)
+            for(int i = 0; i < slotsContainer.childCount; i++)
             {
-                if(transform.GetChild(i).GetComponent<InventoryDisplaySlot<ItemType>>() != null) slotList.Add(transform.GetChild(i).GetComponent<InventoryDisplaySlot<ItemType>>());
+                if(slotsContainer.GetChild(i).GetComponent<InventoryDisplaySlot<ItemType>>() != null) slotList.Add(slotsContainer.GetChild(i).GetComponent<InventoryDisplaySlot<ItemType>>());
             }
             return slotList.ToArray();
         }

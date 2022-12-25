@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class PlayerMenuHandler : MonoBehaviour
 {
-    [SerializeField] private GameObject[] ToggleMenuItems;
     [SerializeField] private Transform menuComponents;
-    [SerializeField] private Transform repositoryList;
-    [SerializeField] private Transform repositoryContainer;
+    [SerializeField] private InventoryRepositoryList repositoryList;
+    [SerializeField] private InventoryRepositoryHandler repositoryContainer;
     [SerializeField, Tooltip("objects that active while the menu is open")] private GameObject[] internalElements;
     public bool IsOpen;
     [SerializeField] private KeyCode menuActivateKey;
@@ -27,9 +26,11 @@ public class PlayerMenuHandler : MonoBehaviour
     {
         if(Input.GetKeyDown(menuActivateKey))
         {
-            if(IsOpen == false && owner.IsFree() == false) return;
+            if(IsOpen == true || owner.IsFree() == true) 
+            {
+                ToggleMenu();
+            }
             
-            ToggleMenu();
 
         }
     }
@@ -37,9 +38,12 @@ public class PlayerMenuHandler : MonoBehaviour
     {
         IsOpen = !IsOpen;
         menuComponents.gameObject.SetActive(IsOpen);
+        
         DeactivateMenuComponents();
         SetMenuElementsActive(IsOpen, internalElements);
-        SetMenuElementsActive(IsOpen, ToggleMenuItems);
+        if(IsOpen)
+            repositoryList.Activate();
+        
         GetComponent<Animator>().SetBool("isMoving", false);
 
         if(IsOpen) OnMenuOpen();
@@ -72,25 +76,11 @@ public class PlayerMenuHandler : MonoBehaviour
         MenuState = InventoryMenuState.None;
     }
     ///<summary>Deactivates all transform children.</summary>
-    public void DeactivateChildren(Transform transform)
+    private void DeactivateChildren(Transform transform)
     {
         foreach(Transform child in transform) 
         {
             child.gameObject.SetActive(false);
         }
-    }
-    public void OpenRepositoryList()
-    {
-        DeactivateMenuComponents();
-        MenuState = InventoryMenuState.RepositoryList;
-        repositoryList.gameObject.SetActive(true);
-    }
-    public void OpenRepository(GameObject repository)
-    {
-        DeactivateMenuComponents();
-        DeactivateChildren(repositoryContainer);
-        repositoryContainer.gameObject.SetActive(true);
-        repository.gameObject.SetActive(true);
-        MenuState = InventoryMenuState.InRepository;
     }
 }

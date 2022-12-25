@@ -4,9 +4,12 @@ using UnityEngine;
 public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
 {
     [SerializeField] private Hoverboard hoverboard;
-
     public override string RepositoryType => "charm";
-    private void OnEnable() => Render();
+    private void OnEnable()
+    {
+        hoverboard.SetDefaultDescription();
+        Render();
+    }
     protected override void OnRepositoryUpdated(byte index) => Render();
     public override void OnCellTriggerEnter(CollectableCharm charm, InventoryDisplaySlot<CollectableCharm> slot)
     {
