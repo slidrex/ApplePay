@@ -3698,47 +3698,11 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1251727805}
           m_TargetAssemblyTypeName: PlayerMenuHandler, Assembly-CSharp
-          m_MethodName: DeactivateChilds
+          m_MethodName: OpenRepository
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 61019725}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 61019724}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 2140621628}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 769858619}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgument: {fileID: 2140621628}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -6258,9 +6222,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2116521017}
     - target: {fileID: 1860374726016421151, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: repositoryList
+      value: 
+      objectReference: {fileID: 769858620}
+    - target: {fileID: 1860374726016421151, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: menuActivateKey
       value: 102
       objectReference: {fileID: 0}
+    - target: {fileID: 1860374726016421151, guid: 721c73da4aaffa343818816891a322b0, type: 3}
+      propertyPath: repositoryContainer
+      value: 
+      objectReference: {fileID: 61019725}
     - target: {fileID: 1860374726016421151, guid: 721c73da4aaffa343818816891a322b0, type: 3}
       propertyPath: ToggleMenuItems.Array.size
       value: 1
