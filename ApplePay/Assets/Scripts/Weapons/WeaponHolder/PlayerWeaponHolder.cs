@@ -62,7 +62,6 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
         weaponPlaceSlot.RemoveSlotUI();
         
         CollectableWeapon currentItem = GetActiveWeapon();
-        print("update");
         if(currentItem != null)
         {
             weaponPlaceSlot.CreateSlotIndicator(DropSettings.Holder);

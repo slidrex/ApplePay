@@ -268,13 +268,14 @@ GameObject:
   - component: {fileID: 100337839314651114}
   - component: {fileID: 4220001795205278659}
   - component: {fileID: 2463848941344230661}
+  - component: {fileID: 1064830170}
   m_Layer: 0
   m_Name: Chains
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5602800900381002125
 Transform:
   m_ObjectHideFlags: 0
@@ -433,14 +434,16 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
+  HitShape: {fileID: 2463848941344230661}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
   CollisionHandler:
     rb: {fileID: 5111808536178740533}
-    resistance: 0.6
+    resistance: 1
     DragIntensity: 1
     Forces: []
+  State: 0
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
   CurrentRoom: {fileID: 0}
@@ -452,6 +455,7 @@ MonoBehaviour:
     rgba: 3503609087
   DamageInvulnerabilityDuration: 0.35
   isDead: 0
+  Animator: {fileID: 0}
   Tags: []
   target: {fileID: 0}
   DamageField: 15
@@ -473,7 +477,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionEffect: {fileID: 0}
   collisionEffectDuration: 0
-  collisionDamage: 0
 --- !u!61 &4220001795205278659
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -484,10 +487,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0025850087, y: -0.023911338}
+  m_Offset: {x: -0.00007632375, y: -0.003035225}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -498,7 +501,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.14163437, y: 0.2721773}
+  m_Size: {x: 0.110281825, y: 0.2304251}
   m_EdgeRadius: 0
 --- !u!114 &2463848941344230661
 MonoBehaviour:
@@ -513,4 +516,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 1821789806}
-  Collider: {fileID: 4220001795205278659}
+  collisionColliders: []
+  Collider: {fileID: 1064830170}
+--- !u!61 &1064830170
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3041076936036105730}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0017062575, y: -0.05852837}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.32}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.062856525, y: 0.085432604}
+  m_EdgeRadius: 0

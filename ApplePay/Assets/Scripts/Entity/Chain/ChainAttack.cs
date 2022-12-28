@@ -15,7 +15,6 @@ public class ChainAttack : StateMachineBehaviour
     }
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        chain.Movement.RemoveDisable(chain.DisableID);
         chain.AttackEnd();
     }
 }
