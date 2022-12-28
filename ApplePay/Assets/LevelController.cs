@@ -3,26 +3,6 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
     public RoomSpawner LevelRoomSpawner;
-    private void Awake()
-    {
-        TagsSetup();
-    }
-    public System.Collections.Generic.Dictionary<string, string[]> Tags;
-    [SerializeField] private EntityTag[] tags;
-    [System.Serializable]
-    public struct EntityTag
-    {
-        public string Tag;
-        public string[] HostileTags;
-    }
-    private void TagsSetup()
-    {
-        Tags = new System.Collections.Generic.Dictionary<string, string[]>(tags.Length);
-        for(int i = 0; i < tags.Length; i++)
-        {
-            Tags.Add(tags[i].Tag, tags[i].HostileTags);
-        }
-    }
     public void UpdateRoomEntityList()
     {
         Creature[] entities = MonoBehaviour.FindObjectsOfType<Creature>();
@@ -49,91 +29,32 @@ public class LevelController : MonoBehaviour
     }
     internal static class EntityTagHandler
     {
-        internal static bool AreHostiles(Creature first, Creature second)
-        {   
-            string[] firstTags = first.Tags;
-            foreach(string firstTag in firstTags)
-            {
-                string[] hostileTags;
-                first.LevelController.Tags.TryGetValue(firstTag, out hostileTags);
-                
-                    foreach(string secondTag in second.Tags)
-                    {
-                            foreach(string hostileTag in hostileTags)
-                            {
-                                if(secondTag.Equals(hostileTag))
-                                {
-                                    return true;
-                                }
-                            }
-                    }
-            }
-            return false;
-        }
-        internal static Creature GetNearestHostile(Room room, Creature creature)
+        ///<summary>
+        ///Gets the nearest entity that contains specified tag.
+        ///</summary>
+        internal static Creature GetNearestTagEntity(Room room, Creature creature, string tag)
         {
-            Creature[] hostiles = GetHostiles(room, creature);
-            if(hostiles.Length == 0) return null;
-            float closest = Vector2.Distance(creature.transform.position, hostiles[0].transform.position);
-            int closestIndex = 0;
-            for(int i = 1; i < hostiles.Length; i++)
-            {
-                float curDist = Vector2.Distance(creature.transform.position, hostiles[i].transform.position);
-                if(curDist < closest)
-                {
-                    closestIndex = i;
-                    closest = curDist;
-                }
-            }
-            return hostiles[closestIndex];
-        }
-        internal static Creature[] GetHostiles(Room room, Creature creature)
-        {
-            System.Collections.Generic.List<string> hostileTags = GetHostileTags(creature);
-            System.Collections.Generic.List<Creature> entities = room.EntityList;
-            System.Collections.Generic.List<Creature> hostiles = new System.Collections.Generic.List<Creature>();
-            entities.Remove(creature);
+            float closestSqr = -1;
+            Creature closestCreature = null;
 
-            foreach(Creature entity in entities)
+            foreach(Creature currentCreature in room.EntityList)
             {
-                foreach(string tag in entity.Tags)
+                foreach(string curTag in currentCreature.Tags)
                 {
-                    if(hostileTags.Contains(tag)) 
+                    if(curTag == tag)
                     {
-                        hostiles.Add(entity);
+                        float currentSqrDistance = Vector2.SqrMagnitude(currentCreature.transform.position - creature.transform.position);
+                        if(currentSqrDistance < closestSqr || closestSqr == -1)
+                        {
+                            closestCreature = currentCreature;
+                            closestSqr = currentSqrDistance;
+                        }
                         break;
                     }
                 }
             }
-            return hostiles.ToArray();
-        }
-        internal static bool ContainsHostiles(Creature creature)
-        {
-            System.Collections.Generic.List<string> hostileTags = GetHostileTags(creature);
-            foreach(Creature entity in creature.CurrentRoom.EntityList)
-            {
-                if(entity != creature)
-                {
-                    foreach(string tag in entity.Tags)
-                    {
-                        if(hostileTags.Contains(tag)) return true;
-                    }
-                }
-            }
-            return false;
-        }
-        private static System.Collections.Generic.List<string> GetHostileTags(Creature creature)
-        {
-            System.Collections.Generic.List<string> hostileTags = new System.Collections.Generic.List<string>();
-            foreach(string tag in creature.Tags)
-            {
-                if(creature.LevelController.Tags.TryGetValue(tag, out string[] _hostileTags))
-                {
-                    hostileTags.AddRange(_hostileTags); 
-                }
-
-            }
-            return hostileTags;
+            
+            return closestCreature;
         }
     } 
 }

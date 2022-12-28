@@ -1,7 +1,6 @@
 using UnityEngine;
 public class WaveController : MonoBehaviour
 {
-    //[SerializeField] private MarkDatabase markDatabase;
     internal struct BindedWaveStatus
     {
         internal WaveStatus status;
@@ -12,7 +11,6 @@ public class WaveController : MonoBehaviour
     private Room wrappedRoom;
     private WaveStatus wrappedEntityWaveStatus;
     [SerializeField] private BindedWaveStatus bindedStatus;
-    private ActionMark[] wrappedRoomStages;
     private void Start()
     {
         AssignWrappedEntity(WrappedCreature);
@@ -37,23 +35,7 @@ public class WaveController : MonoBehaviour
     }
     private void OnWaveEnd()
     {
-        bool released;
-        TryStageRelease(out released);
-        if(released) return;
-        wrappedWaveComponent.SetWaveStatus(WaveStatus.NoWave);
-    }
-    private void TryStageRelease(out bool released)
-    {
-        for(int i = 0; i < wrappedRoomStages.Length; i++)
-        {
-            if(wrappedRoomStages[i] == null) continue;
-
-            wrappedRoom.ApplyMark(wrappedRoomStages[i]);
-            wrappedRoomStages[i] = null;
-            released = true;
-            return;
-        }
-        released = false;
+        
     }
     public void AssignWrappedEntity(Creature wrappedCreature)
     {
@@ -65,6 +47,14 @@ public class WaveController : MonoBehaviour
             WrappedCreature = wrappedCreature;
         }
     }
+}
+public enum EntityWaveType
+{
+    ///<summary>
+    ///Wave is not over if BlockWave Entities are present in the room.
+    ///</summary>
+    BlockWave,
+    NotBlockWave
 }
 public enum WaveStatus
 {

@@ -34,7 +34,7 @@ public class MobMovement : EntityMovement
     {
         if(Target == null) 
         {
-            Target = Entity.Target != null ? Entity.Target.transform : LevelController.EntityTagHandler.GetNearestHostile(Entity.CurrentRoom, Entity).transform;
+            Target = Entity.Target != null ? Entity.Target.transform : LevelController.EntityTagHandler.GetNearestTagEntity(Entity.CurrentRoom, Entity, "").transform;
         }
         base.Update();
         if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.OnUpdate();

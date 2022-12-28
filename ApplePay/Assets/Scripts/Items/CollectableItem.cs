@@ -2,7 +2,9 @@ using UnityEngine;
 
 public abstract class CollectableItem<Item> : CollectableObject
 {
-    [UnityEngine.SerializeField] protected ItemHoverableObject hoverableObject;
+    [UnityEngine.SerializeField] protected DroppedItemHint hoverableObject;
+    private const float hintCreatingDistance = 3.0f;
+    private Transform hintTriggerObject;
     protected virtual string hoverableObjectHeader {get => null;}
     protected virtual string hoverableObjectDescription {get => null;}
     public abstract Item CollectableObject { get; }
@@ -10,29 +12,27 @@ public abstract class CollectableItem<Item> : CollectableObject
     protected override void Start()
     {
         base.Start();
+        hintTriggerObject = FindObjectOfType<PlayerEntity>().transform;
         if(hoverableObjectHeader != null && hoverableObjectDescription != null)
             hoverableObject.Init(transform);
     }
     protected override void Update()
     {
         base.Update();
-        if(hoverableObjectHeader != null && hoverableObjectDescription != null)
-            hoverableObject.Update(hoverableObjectHeader, hoverableObjectDescription);
-    }
-    private void OnMouseEnter()
-    {
-        if(hoverableObject.Initiated)
-            hoverableObject.OnMouseEnter(hoverableObjectHeader, hoverableObjectDescription);
-    }
-    private void OnMouseExit()
-    {
-        if(hoverableObject.Initiated)
-            hoverableObject.OnMouseExit();
+        bool isInside = Vector2.SqrMagnitude(hintTriggerObject.position - transform.position) <= hintCreatingDistance * hintCreatingDistance;
+        if(isInside && hoverableObject.HintCreated == false)
+        {
+            hoverableObject.CreateHint(hoverableObjectHeader, hoverableObjectDescription);
+        }
+        else if(isInside == false && hoverableObject.HintCreated == true)
+        {
+            hoverableObject.DestroyHint();
+        }
     }
     private void OnDestroy()
     {
-        if(hoverableObject.Initiated)
-            hoverableObject.OnDestroy();
+        if(hoverableObject.HintCreated)
+            hoverableObject.DestroyHint();
     }
     public override void CollisionRequest(HitInfo collision, ref bool collectStatus)
     {

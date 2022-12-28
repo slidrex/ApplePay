@@ -68,6 +68,7 @@ public abstract class Creature : Entity, IKillHandler
     public LevelController LevelController {get; set;}
     [Header("Entity Settings")]
     public string[] Tags;
+    public EntityWaveType WaveRelation;
     private byte disableID;
     protected override void Awake()
     {
@@ -79,7 +80,7 @@ public abstract class Creature : Entity, IKillHandler
     {
         base.Start();
         LevelController.UpdateRoomEntityList();
-        CheckTagsValidation();
+        
         if(Movement == null) Movement = GetComponent<EntityMovement>();
         if(Movement != null) 
         {
@@ -106,13 +107,6 @@ public abstract class Creature : Entity, IKillHandler
                 Movement.RemoveDisable(disableID);
                 disableID = 0;
             }
-    }
-    private void CheckTagsValidation()
-    {
-        foreach(string tag in Tags)
-        {
-            if(LevelController.Tags.ContainsKey(tag) == false) Debug.LogWarning("Tag \"" + tag +"\" " + "doesn't contain any definitions in Level Controller", this);
-        }
     }
     protected override void Update()
     {
