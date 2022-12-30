@@ -23,8 +23,10 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
             hoverboard.SetDefaultDescription();
             return;
         }
+        ItemRarityInfo rarity = ItemRarityExtension.GetRarityInfo(display.Rarity);
         hoverboard.RemoveAddditionalFields();
-        hoverboard.SetDescription(display.Description.Name, display.Description.Description);
+        hoverboard.SetHeader(display.Description.Name, rarity.color);
+        hoverboard.SetDescription(display.Description.Description);
 
         foreach(CharmDisplay.CharmAddtionalField addtionalField in display.AdditionalFields)
         {
@@ -59,6 +61,7 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
     public override void OnCellTriggerExit(CollectableCharm charm, InventoryDisplaySlot<CollectableCharm> slot) => hoverboard.SetDefaultDescription();
     private void Render()
     {
+        if(repository.Items.Length != Slots.Length) throw new Exception("Renderer slots list count and repository slots count are out of sync");
         CharmInventoryRenderItem[] renderItems = new CharmInventoryRenderItem[repository.Items.Length];
         for(int i = 0; i < repository.Items.Length; i++)
         {
@@ -85,7 +88,8 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
             {
                 InventoryDisplaySlot<CollectableCharm> slot = (InventoryDisplaySlot<CollectableCharm>)Slots[i];
                 bool switchable = renderItems[i].Type == CharmObject.CharmType.Base ? false : true;
-                
+                ItemRarityInfo info = ItemRarityExtension.GetRarityInfo(renderItems[i].Item.charm.Display.Rarity);
+                slot.SetRarityFrameColor(info.color);
                 slot.RenderIcon(renderItems[i].Item.charm.GetActiveCharm().Display.Icon);
                 slot.LinkItem(renderItems[i].Item);
             }

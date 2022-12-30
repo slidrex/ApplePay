@@ -6,9 +6,6 @@ public abstract class CollectableObject : ItemEntity
     public bool isCollectable { get; private set; } = true;
     [Header("Pick visual")]
     [SerializeField] private GameObject collectParticle;
-    [Header("Idle Levitation")]
-    public float amplitude;
-    [SerializeField] private float speed;
     [Header("Physics")]
     protected Vector2 TargetVelocity;
     [SerializeField, Tooltip("Force multiplier coefficient")] private float damagePerForceUnit;
@@ -41,15 +38,12 @@ public abstract class CollectableObject : ItemEntity
     {
         base.Update();
         HitShape.CheckHit();
-        Levitation();
     }
     protected override void Start()
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
     }
-    protected void Levitation() => transform.position = transform.position + Vector3.up * Time.deltaTime  * Mathf.Sin(Time.time * speed) * amplitude;
-
     public void AddForce(Vector2 force) => rb.AddForce(force, ForceMode2D.Impulse);
     protected virtual void FixedUpdate() => TargetVelocity = rb.velocity;
     protected virtual void OnCollectFail(HitInfo collision)
@@ -64,7 +58,6 @@ public abstract class CollectableObject : ItemEntity
     public virtual void CollisionRequest(HitInfo collision, ref bool collectStatus) => SendCollectRequest(collision, collectStatus);
     protected void SendCollectRequest(HitInfo collision, bool collectStatus)
     {
-        print("send collision request");
         if(collectStatus) OnCollect(collision);
         else OnCollectFail(collision);
     }

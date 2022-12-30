@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerMenuHandler : MonoBehaviour
 {
     [SerializeField] private Transform menuComponents;
-    [SerializeField] private InventoryRepositoryList repositoryList;
     [SerializeField] private InventoryRepositoryHandler repositoryContainer;
     [SerializeField, Tooltip("objects that active while the menu is open")] private GameObject[] internalElements;
     public bool IsOpen;
@@ -42,7 +41,7 @@ public class PlayerMenuHandler : MonoBehaviour
         DeactivateMenuComponents();
         SetMenuElementsActive(IsOpen, internalElements);
         if(IsOpen)
-            repositoryList.Activate();
+            repositoryContainer.ActiveRepository(0);
         
         GetComponent<Animator>().SetBool("isMoving", false);
 

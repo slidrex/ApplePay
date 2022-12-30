@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8223013048784590205}
   - component: {fileID: 8223013048784590207}
   - component: {fileID: 8223013048784590206}
-  - component: {fileID: 8223013048784590192}
+  - component: {fileID: 310525731339758086}
   m_Layer: 7
   m_Name: TextField
   m_TagString: Untagged
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Text: 'Increases
 
     movement speed'
---- !u!114 &8223013048784590192
+--- !u!114 &310525731339758086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,8 +91,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8223013048784590204}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ebd19c4f1a90614daf47bdac8a05269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 2
+  _rectTransform: {fileID: 8223013048784590205}
+  _text: {fileID: 8223013048784590206}

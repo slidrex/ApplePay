@@ -63,6 +63,7 @@ public abstract class Creature : Entity, IKillHandler
     [SerializeField] private Color32 startColor;
     [SerializeField] private Color32 takeDamageColor;
     [SerializeField] internal float DamageInvulnerabilityDuration;
+    protected Animator Animator;
     protected float TimeSinceInvulnerability;
     [HideInInspector] public bool isDead;
     public LevelController LevelController {get; set;}
@@ -80,7 +81,7 @@ public abstract class Creature : Entity, IKillHandler
     {
         base.Start();
         LevelController.UpdateRoomEntityList();
-        
+        Animator = GetComponent<Animator>();
         if(Movement == null) Movement = GetComponent<EntityMovement>();
         if(Movement != null) 
         {

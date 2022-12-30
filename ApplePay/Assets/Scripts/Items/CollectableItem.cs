@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class CollectableItem<Item> : CollectableObject
 {
     [UnityEngine.SerializeField] protected DroppedItemHint hoverableObject;
-    private const float hintCreatingDistance = 3.0f;
+    private const float hintCreatingDistance = 2.0f;
     private Transform hintTriggerObject;
     protected virtual string hoverableObjectHeader {get => null;}
     protected virtual string hoverableObjectDescription {get => null;}
@@ -18,7 +18,6 @@ public abstract class CollectableItem<Item> : CollectableObject
     }
     protected override void Update()
     {
-        base.Update();
         bool isInside = Vector2.SqrMagnitude(hintTriggerObject.position - transform.position) <= hintCreatingDistance * hintCreatingDistance;
         if(isInside && hoverableObject.HintCreated == false)
         {
@@ -28,11 +27,15 @@ public abstract class CollectableItem<Item> : CollectableObject
         {
             hoverableObject.DestroyHint();
         }
+        base.Update();
     }
-    private void OnDestroy()
+    protected override void OnCollect(HitInfo collision)
     {
         if(hoverableObject.HintCreated)
+        {
             hoverableObject.DestroyHint();
+        }
+        base.OnCollect(collision);
     }
     public override void CollisionRequest(HitInfo collision, ref bool collectStatus)
     {

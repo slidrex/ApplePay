@@ -9,10 +9,10 @@ public abstract class MovementPattern : MonoBehaviour, IHitResponder
     public Vector2 MovementVector {get => Movement.MoveVector; protected set => Movement.MoveVector = value; }
     public void Init(MobMovement movement, Transform transform)
     {
+        OnStart();
         Movement = movement;
         CurrentTransform = transform;
         movement.Entity.HitShape.AddResponder(this);
-        OnStart();
     }
     public void Init(MobMovement movement)
     {

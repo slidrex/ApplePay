@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7421337933622104218}
   - component: {fileID: 7421337933622104219}
   - component: {fileID: 5530288408314064570}
+  - component: {fileID: 2592160546945876760}
   m_Layer: 0
   m_Name: CorruptSword
   m_TagString: Untagged
@@ -143,10 +144,15 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 200
-  CurrentHealth: 0
+  HitShape: {fileID: 2592160546945876760}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
+  CollisionHandler:
+    rb: {fileID: 0}
+    resistance: 0
+    DragIntensity: 1
+    Forces: []
   StoredHealth: 0
   maxHealthColor:
     serializedVersion: 2
@@ -154,28 +160,14 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 2454210694
-  constraintColor:
-    serializedVersion: 2
-    rgba: 0
-  ConstraintList: []
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
-  rb: {fileID: 7421337933622104218}
-  TargetVelocity: {x: 0, y: 0}
   damagePerForceUnit: 0
-  itemHoverableObject: {fileID: 0}
-  WeaponItem:
-    Weapon: {fileID: 11400000, guid: ed996c9aac2479c4083a269def560f4b, type: 2}
-    DropPrefab: {fileID: 7421337933622104219}
-    WeaponInfo:
-      AnimationParameters:
-        AttackInterval: 0.5
-        AnimationTime: 1
-        VelocityMultiplier: 1
-        AngularVelocityMultiplier: 1
-      Display:
-        InventorySprite: {fileID: 21300000, guid: 5fdeaafa4d566eb4bac87952d9290b3a, type: 3}
+  hoverableObject:
+    contentPanel: {fileID: 3985452147203897461, guid: b82e4fb9f584e1b43b9801db47efd419, type: 3}
+    HintCreated: 0
+  weapon: {fileID: 11400000, guid: ed996c9aac2479c4083a269def560f4b, type: 2}
 --- !u!61 &5530288408314064570
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -202,3 +194,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.07124853, y: 0.14280011}
   m_EdgeRadius: 0
+--- !u!114 &2592160546945876760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7421337933622104216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 7421337933622104219}
+  collisionColliders: []
+  Collider: {fileID: 5530288408314064570}

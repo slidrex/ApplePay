@@ -230,9 +230,9 @@ MonoBehaviour:
     rgba: 3383273676
   DamageInvulnerabilityDuration: 0.2
   isDead: 0
-  Animator: {fileID: 0}
   Tags:
   - aggressive
+  WaveRelation: 0
   target: {fileID: 0}
   DamageField: 0
   DisableID: 0

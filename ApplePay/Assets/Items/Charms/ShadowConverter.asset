@@ -15,6 +15,7 @@ MonoBehaviour:
   TagAttributeCache: []
   Attributes: []
   Display:
+    Rarity: 2
     Icon: {fileID: 21300000, guid: 9aa4c7b56b8c1864a9b077998f7a0cbb, type: 3}
     Description:
       Name: Shadow Catcher

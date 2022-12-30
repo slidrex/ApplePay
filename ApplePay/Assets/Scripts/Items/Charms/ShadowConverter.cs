@@ -25,7 +25,6 @@ public class ShadowConverter : Charm, EntityChangeHealthCallaback
             damages = buffer;
         }
     }
-
     public override void BeginFunction(Creature entity)
     {
         base.BeginFunction(entity);

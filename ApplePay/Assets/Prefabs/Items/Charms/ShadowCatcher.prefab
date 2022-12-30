@@ -84,7 +84,7 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!95 &2216474018524394700
@@ -160,15 +160,13 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  constraintColor:
-    serializedVersion: 2
-    rgba: 0
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
   damagePerForceUnit: 1
   hoverableObject:
-    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+    contentPanel: {fileID: 3985452147203897461, guid: b82e4fb9f584e1b43b9801db47efd419, type: 3}
+    HintCreated: 0
   charm: {fileID: 11400000, guid: 70b1e3efbb4759b4c8292ffc6bd848c7, type: 2}
 --- !u!114 &2216474018524394737
 MonoBehaviour:

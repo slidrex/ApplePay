@@ -140,15 +140,13 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  constraintColor:
-    serializedVersion: 2
-    rgba: 0
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
   damagePerForceUnit: 1
   hoverableObject:
-    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+    contentPanel: {fileID: 3985452147203897461, guid: b82e4fb9f584e1b43b9801db47efd419, type: 3}
+    HintCreated: 0
   charm: {fileID: 11400000, guid: 15a82f6c7d8257a4dae74615180cb8fc, type: 2}
 --- !u!61 &6627422004362106139
 BoxCollider2D:

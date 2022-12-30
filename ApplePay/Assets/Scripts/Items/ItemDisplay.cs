@@ -3,12 +3,14 @@ using System.Text.RegularExpressions;
 [System.Serializable]
 public struct WeaponDisplay
 {
+    public ItemRarity Rarity;
     public UnityEngine.Sprite Icon;
     public ItemDescription Description;
 }
 [System.Serializable]
 public struct CharmDisplay
 {
+    public ItemRarity Rarity;
     public UnityEngine.Sprite Icon;
     public ItemDescription Description;
     public CharmAddtionalField[] AdditionalFields;
@@ -86,4 +88,44 @@ public struct ItemDescription
     public string Name;
     [UnityEngine.TextArea] public string Description;
 
+}
+public enum ItemRarity
+{
+    Ordinary,
+    ExtraOrdinary,
+    Mythical
+}
+public static class ItemRarityExtension
+{
+    public static System.Collections.Generic.Dictionary<ItemRarity, ItemRarityInfo> Rarity = new System.Collections.Generic.Dictionary<ItemRarity, ItemRarityInfo>
+    {
+        [ItemRarity.Ordinary] = new ItemRarityInfo(ItemRarity.Ordinary, new UnityEngine.Color(0.8f, 1.0f, 0.8f), "Ordinary"),
+        [ItemRarity.ExtraOrdinary] = new ItemRarityInfo(ItemRarity.Ordinary, new UnityEngine.Color(0.5f, 0f, 0.5f), "ExtraOrdinary"),
+        [ItemRarity.Mythical] = new ItemRarityInfo(ItemRarity.Ordinary, UnityEngine.Color.red, "Mythical")
+    };
+
+    public static ItemRarityInfo GetRarityInfo(ItemRarity rarity) 
+    {
+        if(Rarity.TryGetValue(rarity, out ItemRarityInfo info))
+        {
+            return info;
+        }
+        return default(ItemRarityInfo);
+    }
+}
+public struct ItemRarityInfo
+{
+    public ItemRarity rarity;
+    public UnityEngine.Color color;
+    public string name;
+    public ItemRarityInfo(ItemRarity rarity, UnityEngine.Color color, string name)
+    {
+        this.name = name;
+        this.rarity = rarity;
+        this.color = color;
+    }
+    public string GetRichTextRarity()
+    {
+        return "<" + "color=" + "#" + UnityEngine.ColorUtility.ToHtmlStringRGBA(color) + ">" + name + "<" + "/color" + ">";
+    }
 }

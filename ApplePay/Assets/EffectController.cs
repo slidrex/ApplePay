@@ -146,6 +146,7 @@ namespace PayWorld
                 for(int i = 0; i < EffectProperties.Length; i++)
                 {
                     baseValueArray[i] = EffectProperties[i].EffectAction.Value.AddMultiplier(multiplier, tags);
+                    
                     foreach(EntityAttribute attribute in Owner.Attributes.Values)
                     {
                         attribute.ApplyResult();

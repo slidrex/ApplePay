@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50692fcd9a50b54e8eec0980ee81f23, type: 3}
   m_Name: Rubick
   m_EditorClassIdentifier: 
+  TagAttributeCache: []
   Attributes: []
   Display:
+    Rarity: 1
     Icon: {fileID: 21300000, guid: f1c8b25ba96e40547b924d9069f8051d, type: 3}
     Description:
       Name: Rubick

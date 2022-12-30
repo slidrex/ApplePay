@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6665c162982aff64aa3c6af4101bf52a, type: 3}
   m_Name: BrokenTV
   m_EditorClassIdentifier: 
+  TagAttributeCache: []
   Attributes:
   - AttributeName: evasion
     AdditionalAttributeValue: 0.2
     Type: 1
     DisplayType: 1
   Display:
+    Rarity: 0
     Icon: {fileID: -6407655375219818683, guid: 611b30f189a9fd54ca426385d5955070, type: 3}
     Description:
       Name: Broken Television

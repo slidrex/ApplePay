@@ -15,7 +15,6 @@ public class DroppedItemHint
     public void CreateHint(string header, string description)
     {
         HintCreated = true;
-        
         tempPanel = MonoBehaviour.Instantiate(contentPanel, (Vector2)sourceTransform.position + sourceOffset, Quaternion.identity);
         tempPanel.UpdateContentPanel();
         SetPosition();

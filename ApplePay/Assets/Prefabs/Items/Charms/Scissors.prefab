@@ -157,15 +157,13 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  constraintColor:
-    serializedVersion: 2
-    rgba: 0
   collectParticle: {fileID: 0}
   amplitude: 0
   speed: 0
   damagePerForceUnit: 0
   hoverableObject:
-    contentPanel: {fileID: 7660972345793568711, guid: ffb389f32698395439d6712666a71692, type: 3}
+    contentPanel: {fileID: 3985452147203897461, guid: b82e4fb9f584e1b43b9801db47efd419, type: 3}
+    HintCreated: 0
   charm: {fileID: 11400000, guid: 229b480149731d34d8aca467879d8659, type: 2}
 --- !u!61 &4417553884787125545
 BoxCollider2D:
@@ -206,4 +204,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 4193517530701323216}
+  collisionColliders: []
   Collider: {fileID: 4417553884787125545}
