@@ -103,7 +103,6 @@ public static class ItemRarityExtension
         [ItemRarity.ExtraOrdinary] = new ItemRarityInfo(ItemRarity.Ordinary, new UnityEngine.Color(0.5f, 0f, 0.5f), "ExtraOrdinary"),
         [ItemRarity.Mythical] = new ItemRarityInfo(ItemRarity.Ordinary, UnityEngine.Color.red, "Mythical")
     };
-
     public static ItemRarityInfo GetRarityInfo(ItemRarity rarity) 
     {
         if(Rarity.TryGetValue(rarity, out ItemRarityInfo info))

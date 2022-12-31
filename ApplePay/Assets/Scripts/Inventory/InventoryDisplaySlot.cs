@@ -14,17 +14,17 @@ public class InventoryDisplaySlot<ItemType> : HoverableObject
         if(sprite == null)
         {
             Slot.enabled = false;
-            SetRarityFrameColor(Color.white, true);
+
             return;
         }
         Slot.enabled = true;
         Slot.sprite = sprite;
     }
-    public void SetRarityFrameColor(Color color, bool off = false)
+    public void RenderRarityFrame(Color color, bool on = true)
     {
         rarityFrame.color = color;
-        if(off) rarityFrame.gameObject.SetActive(false);
-        else rarityFrame.gameObject.SetActive(true);
+        if(on) rarityFrame.gameObject.SetActive(true);
+        else rarityFrame.gameObject.SetActive(false);
     }
     public override void OnPointerEnter(PointerEventData pointerData)
     {
