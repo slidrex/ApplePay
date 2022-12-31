@@ -1,6 +1,8 @@
 using UnityEngine;
 public class Violet : AttackingMob
 {
+    [SerializeField] private GameObject dust;
+    [SerializeField] private ParticleSystem swordParticles;
     private Attacks attacks;
     private States states = States.Free;
     public byte DisableID;
@@ -65,12 +67,12 @@ public class Violet : AttackingMob
     private void Dash()
     {
         rb.velocity = Movement.MoveVector * 25;
+        PayWorld.Particles.InstantiateParticles(dust, new Vector2(transform.position.x, transform.position.y - 1.1f), Quaternion.identity, 0.5f, transform);
     }
-    private void RandomizeAttack() => attacks = Pay.Functions.Generic.GetRandomizedEnum<Attacks>(attacks, 0, System.Enum.GetValues(attacks.GetType()).Length - 1);
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, attackDistance);
-    }
+    private void ActivatePartcles() => swordParticles.Play();
+    private void DeactivatePartcles() => swordParticles.Stop();
+    private void RandomizeAttack() => attacks = (Attacks)Pay.Functions.Generic.GetRandomizedEnum(attacks, 0, System.Enum.GetValues(attacks.GetType()).Length - 1);
+    private void OnDrawGizmos() => Gizmos.DrawWireSphere(transform.position, attackDistance);
 }
 enum Attacks
 {
