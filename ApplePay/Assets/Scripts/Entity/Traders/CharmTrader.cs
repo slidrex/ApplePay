@@ -3,15 +3,16 @@ using UnityEngine;
 public class CharmTrader : InteractiveObject
 {
     public override bool HoldFoundable => false;
-    [SerializeField] private GameObject cards;
+    [SerializeField] private GameObject cardCanvas;
     private Animator animator;
-    private GameObject obj;
+    private GameObject currentCardCanvas;
     private bool closed;
     private bool inTrade = false;
     private void Start()
     {
         animator = GetComponent<Animator>();
-        obj = Instantiate(cards, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform.position, Quaternion.identity, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform);
+        currentCardCanvas = Instantiate(cardCanvas, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform.position, Quaternion.identity, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform);
+        currentCardCanvas.SetActive(false);
     }
     public override void OnInteractZoneLeft(InteractManager interactEntity)
     {
@@ -24,7 +25,7 @@ public class CharmTrader : InteractiveObject
             interactEntity.SetBlockedState(this);
             closed = false;
             inTrade = true;
-            obj.SetActive(true);
+            currentCardCanvas.SetActive(true);
             animator.SetBool("isOpen", true);
         }
         else if(inTrade == true)
@@ -41,6 +42,6 @@ public class CharmTrader : InteractiveObject
         inTrade = false;
         closed = true;
         animator.SetBool("isOpen", false);
-        if (obj != null) obj.SetActive(false);
+        if (currentCardCanvas != null) currentCardCanvas.SetActive(false);
     }
 }

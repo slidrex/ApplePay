@@ -11,7 +11,7 @@ public class Hoverboard : MonoBehaviour
     public System.Collections.Generic.List<Text> InstantiatedFields = new System.Collections.Generic.List<Text>();
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
+        if(rectTransform == null) rectTransform = GetComponent<RectTransform>();
     }
     private void Start()
     {
@@ -46,6 +46,7 @@ public class Hoverboard : MonoBehaviour
     public void RemoveAddditionalFields()
     {
         foreach(Text text in InstantiatedFields) Destroy(text.gameObject);
+        if(rectTransform == null) rectTransform = GetComponent<RectTransform>();
         UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
         InstantiatedFields.Clear();
     }

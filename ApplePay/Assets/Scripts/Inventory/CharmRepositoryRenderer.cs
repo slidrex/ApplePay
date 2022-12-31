@@ -84,14 +84,17 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
         }
         for(int i = 0; i < Slots.Length; i++)
         {
+            InventoryDisplaySlot<CollectableCharm> slot = (InventoryDisplaySlot<CollectableCharm>)Slots[i];
             if(renderItems[i].Item != null)
             {
-                InventoryDisplaySlot<CollectableCharm> slot = (InventoryDisplaySlot<CollectableCharm>)Slots[i];
                 bool switchable = renderItems[i].Type == CharmObject.CharmType.Base ? false : true;
                 ItemRarityInfo info = ItemRarityExtension.GetRarityInfo(renderItems[i].Item.charm.Display.Rarity);
-                slot.SetRarityFrameColor(info.color);
+                slot.RenderRarityFrame(info.color);
                 slot.RenderIcon(renderItems[i].Item.charm.GetActiveCharm().Display.Icon);
                 slot.LinkItem(renderItems[i].Item);
+            } else
+            {
+                slot.RenderRarityFrame(Color.white, false);
             }
         }
     }

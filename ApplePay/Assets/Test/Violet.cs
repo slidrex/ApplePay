@@ -66,7 +66,7 @@ public class Violet : AttackingMob
     {
         rb.velocity = Movement.MoveVector * 25;
     }
-    private void RandomizeAttack() => attacks = (Attacks)Pay.Functions.Generic.GetRandomizedEnum(attacks, 0, System.Enum.GetValues(attacks.GetType()).Length - 1);
+    private void RandomizeAttack() => attacks = Pay.Functions.Generic.GetRandomizedEnum<Attacks>(attacks, 0, System.Enum.GetValues(attacks.GetType()).Length - 1);
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, attackDistance);
