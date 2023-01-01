@@ -127,14 +127,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractPointer: {fileID: 220575294388390606}
-  NonInteractable: 0
-  InInteract: 0
   CurrentProgress: 0
   MaxProgress: 3
   saveProgess: 0
+  spriteRenderer: {fileID: 0}
   TeleportPoint: {fileID: 5700289274774262292}
   direction: 0
-  ConnectedDoor: {fileID: 0}
 --- !u!58 &1158779213165607459
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -208,7 +206,7 @@ GameObject:
   m_Layer: 0
   m_Name: hintPosition
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -220,7 +218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6146841800640898613}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.044499993, z: 0}
+  m_LocalPosition: {x: 0, y: -0.07574999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1761367053801621389}

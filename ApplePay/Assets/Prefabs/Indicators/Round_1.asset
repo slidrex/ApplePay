@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94451ee82499ff544a30d0c1f15ca0f5, type: 3}
   m_Name: Round_1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: a6860c1313301754c88a7db8c2d7560e, type: 3}
+  sprite: {fileID: 21300000, guid: 434731f7caa4d064695f1d78cffbdab9, type: 3}
   fillMethod: 4

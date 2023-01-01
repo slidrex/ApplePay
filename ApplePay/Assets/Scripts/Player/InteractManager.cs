@@ -55,10 +55,6 @@ public class InteractManager : MonoBehaviour
             hintedObject = closestObject;
         }
         
-        
-        
-        
-        
         if(Input.GetKeyDown(interactKey) && hasInteractObjects)
         {
             if(currentInteractObject.interactiveObject == null && InInteract == false && entity.IsFree())
@@ -216,7 +212,7 @@ public class InteractManager : MonoBehaviour
     {
         indicatorObject = Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.FollowCanvas, indicator,
             Pay.UI.Options.Transform.StaticProperty.Position(transform.position + Vector3.up / 1.2f),
-            Pay.UI.Options.Transform.DynamicProperty.LocalScale(Vector3.one / 3, Vector3.one / 4, true, 0.5f)
+            Pay.UI.Options.Transform.DynamicProperty.LocalScale(Vector3.one / 4, Vector3.one / 4.5f, true, 0.1f)
         );
     }
     public void UpdateIndicator(float currentAmount, float maxAmount)
@@ -249,9 +245,10 @@ public class InteractManager : MonoBehaviour
     }
     private void RemoveInteractHint()
     {
-        Destroy(hint.gameObject);
+        hint.DisappearInteractHint();
         hintSpawned = false;
     }
+
     [System.Serializable]
     public struct CurrentInteractObject
     {
