@@ -30,13 +30,13 @@ public class CardSpawner : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKey(KeyCode.RightArrow) && cardAnimation.InAnimation() == false && (selectedCardIndex < CardCount - 1)) 
+        if(Input.GetKeyDown(KeyCode.RightArrow) && cardAnimation.InAnimation() == false && (selectedCardIndex < CardCount - 1)) 
         {
             int target = selectedCardIndex + 1;
             
             BeginAnimation(cardHolder.position - (cards[target].transform.position - transform.position), selectedCardIndex, target);
         }
-        if(Input.GetKey(KeyCode.LeftArrow) && cardAnimation.InAnimation() == false && (selectedCardIndex > 0))
+        if(Input.GetKeyDown(KeyCode.LeftArrow) && cardAnimation.InAnimation() == false && (selectedCardIndex > 0))
         {
             int target = selectedCardIndex - 1;
             
