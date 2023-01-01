@@ -7,6 +7,7 @@ namespace PayWorld.Effect
     }
     public class EffectAction
     {
+        public bool IsModifiable;
         public struct TickImplementation
         {
             public TickImplementation(EffectActionHandler action, float tickScale)
@@ -26,8 +27,15 @@ namespace PayWorld.Effect
         public delegate void EffectActionHandler(Entity entity);
         public EffectActionHandler BeginAction;
         public EffectActionHandler EndAction;
-        public EffectAction(float targetValue) => Value = new VirtualBase(targetValue);
-        public EffectAction() {}
+        public EffectAction(float targetValue)
+        {
+            Value = new VirtualBase(targetValue);
+            IsModifiable = true;
+        }
+        public EffectAction()
+        {
+            IsModifiable = false;
+        }
         private void Init(EffectActionHandler beginAction, EffectActionHandler endAction, TickImplementation tick, VirtualBase value)
         {
             BeginAction = beginAction;

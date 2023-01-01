@@ -30,7 +30,7 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
 
         foreach(CharmDisplay.CharmAddtionalField addtionalField in display.AdditionalFields)
         {
-            hoverboard.AddField(addtionalField.Text, addtionalField.GetColor());
+            hoverboard.AddField(addtionalField.Text, addtionalField.GetColor(), Vector2.one/2);
         }
 
     }

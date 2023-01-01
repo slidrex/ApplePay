@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 5208956990352950897}
   - component: {fileID: 5208956990352950899}
   - component: {fileID: 5208956990352950898}
+  - component: {fileID: -8496313204263286542}
   m_Layer: 0
   m_Name: Telik
   m_TagString: Untagged
@@ -175,7 +176,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
-  HitShape: {fileID: 0}
+  HitShape: {fileID: -8496313204263286542}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
@@ -191,15 +192,11 @@ MonoBehaviour:
   minHealthColor:
     serializedVersion: 2
     rgba: 4278190080
-  constraintColor:
-    serializedVersion: 2
-    rgba: 0
   collectParticle: {fileID: 0}
-  amplitude: 0
-  speed: 0
   damagePerForceUnit: 1
   hoverableObject:
-    contentPanel: {fileID: 0}
+    contentPanel: {fileID: 3985452147203897461, guid: b82e4fb9f584e1b43b9801db47efd419, type: 3}
+    HintCreated: 0
   charm: {fileID: 11400000, guid: d285c630a8e574448b44a9757ff6df0d, type: 2}
 --- !u!50 &5208956990352950899
 Rigidbody2D:
@@ -248,3 +245,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.15, y: 0.13214612}
   m_EdgeRadius: 0
+--- !u!114 &-8496313204263286542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5208956990352950908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 5208956990352950897}
+  collisionColliders: []
+  Collider: {fileID: 5208956990352950898}

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TraderCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class TraderCard : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private GameObject applause;
     [SerializeField] private Text itemName;
@@ -13,7 +13,7 @@ public class TraderCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField] private Image qualityFrame;
     private CardSpawner cardSpawner;
     private byte itemIndex;
-    private Animator anim;
+    public Animator anim;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -43,17 +43,6 @@ public class TraderCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         _text.text = text;
         _text.color = color;
     }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        anim.SetTrigger("Enter");
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        anim.SetTrigger("Exit");
-    }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         anim.SetTrigger("Click");
@@ -61,9 +50,9 @@ public class TraderCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private void SetActive(bool isActive) => gameObject.SetActive(isActive);
     private void Disable()
     {
-        int hardcode;
+        PlayerEntity entity = FindObjectOfType<PlayerEntity>();
         Instantiate(cardSpawner.charmDatabase.GetItem(itemIndex),
-            FindObjectOfType<PlayerEntity>().transform.position, Quaternion.identity, FindObjectOfType<Pay.UI.UIHolder>().HUDCanvas.transform);
+            entity.transform.position, Quaternion.identity, entity.GetHolder().HUDCanvas.transform);
         PayWorld.Particles.InstantiateParticles(applause, transform.position, Quaternion.identity, 2, cardSpawner.transform);
         
         gameObject.SetActive(false);

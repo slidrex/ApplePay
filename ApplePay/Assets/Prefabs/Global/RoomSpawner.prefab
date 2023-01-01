@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2435458689832673923}
   - component: {fileID: 2435458689832673917}
   - component: {fileID: 2435458689832673922}
-  - component: {fileID: 2435458689832673916}
   - component: {fileID: 2435458689832673918}
   - component: {fileID: 2435458689832673919}
   m_Layer: 0
@@ -63,26 +62,6 @@ MonoBehaviour:
   Scenario: {fileID: 11400000, guid: 425929747d12dd440ab89e70cff7b5ac, type: 2}
   StartObjects: []
   RoomContainer: {fileID: 0}
---- !u!114 &2435458689832673916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2435458689832673921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9eb929995b60a4c833ad3aab9d6f2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ReturnKey: 13
-  ConsoleToggleKey: 96
-  IsActive: 0
-  defaultExecuter: {fileID: 0}
-  CloseAfterExecute: 0
-  SaveReturn: 0
-  ConsoleList: []
-  MaxConsoleSize: 8
 --- !u!114 &2435458689832673918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,7 +77,7 @@ MonoBehaviour:
 --- !u!114 &2435458689832673919
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0]
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2435458689832673921}
@@ -107,4 +86,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b32c7f1185fdc4abf78f358d5e96ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelRoomSpawner: {fileID: 2435458689832673922}
+  LevelRoomSpawner: {fileID: 0}

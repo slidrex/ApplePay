@@ -10,7 +10,7 @@ public class InteractManager : MonoBehaviour
     private byte constraintId;
     public float HackSpeed = 1;
     public Creature entity {get; set;}
-    [SerializeField] private Pay.UI.UIHolder holder;
+    private Pay.UI.UIHolder holder;
     public Pay.UI.Indicator DefaultIndicator;
     [HideInInspector] public Pay.UI.IndicatorObject indicatorObject;
     private CurrentInteractObject currentInteractObject;
@@ -25,11 +25,10 @@ public class InteractManager : MonoBehaviour
     {
         entity = GetComponent<Creature>();
         anim = GetComponent<Animator>();
-        
+        holder = entity.GetComponent<IUIHolder>()?.GetHolder();
         entity.AddAttribute("hackSpeed", new FloatRef(
             () => HackSpeed, val => HackSpeed = val), HackSpeed
         );
-        
     }
     public void ChangeHackSpeed(float amount) => HackSpeed += amount;
     private bool IsValidate()
@@ -248,7 +247,6 @@ public class InteractManager : MonoBehaviour
         hint.DisappearInteractHint();
         hintSpawned = false;
     }
-
     [System.Serializable]
     public struct CurrentInteractObject
     {

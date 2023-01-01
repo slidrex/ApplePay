@@ -17,7 +17,7 @@ public class Hoverboard : MonoBehaviour
     {
         SetDefaultDescription();
     }
-    public void SetDescription(string description) => AddField(description, Color.white);
+    public void SetDescription(string description) => AddField(description, Color.white, Vector2.one / 1.5f);
     public void SetHeader(string text, Color color)
     {
         _header.text = text;
@@ -29,13 +29,13 @@ public class Hoverboard : MonoBehaviour
         SetDescription(defaultDescription.Description);
         SetHeader(defaultDescription.Name, Color.white);
     }
-    public void AddField(string text, Color color)
+    public void AddField(string text, Color color, Vector2 scale)
     {
         Text obj = Instantiate(_additionalFieldObject, transform.position, Quaternion.identity);
         InstantiatedFields.Add(obj);
         Vector2 sourceScale = obj.transform.localScale;
         obj.transform.SetParent(additionalFieldList);
-        obj.transform.localScale = sourceScale;
+        obj.transform.localScale = sourceScale * scale;
         
         
         obj.text = text;

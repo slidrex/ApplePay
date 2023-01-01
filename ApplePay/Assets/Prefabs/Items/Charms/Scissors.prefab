@@ -158,8 +158,6 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4278190080
   collectParticle: {fileID: 0}
-  amplitude: 0
-  speed: 0
   damagePerForceUnit: 0
   hoverableObject:
     contentPanel: {fileID: 3985452147203897461, guid: b82e4fb9f584e1b43b9801db47efd419, type: 3}

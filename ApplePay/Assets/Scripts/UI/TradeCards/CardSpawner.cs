@@ -11,39 +11,55 @@ public class CardSpawner : MonoBehaviour
     [SerializeField] private byte maxCardCount;
     [HideInInspector] public byte CardCount;
     private int selectedCardIndex;
-    private bool inAnimation;
-    private Vector2 TargetDistance;
+    private CardAnimation cardAnimation;
     private void Start()
     {
         CardCount = (byte)Random.Range(minCardCount, maxCardCount + 1);
         cards = new TraderCard[CardCount];
+        cardAnimation = new CardAnimation();
         SpawnCards();
-        selectedCardIndex = CardCount / 2;
-        cardHolder.transform.position  += (cards[selectedCardIndex].transform.position - transform.position);
+        StartCoroutine(InitPosition());
+        selectedCardIndex = 0;
+    }
+    private System.Collections.IEnumerator InitPosition()
+    {
+        yield return new WaitForEndOfFrame();
+        
+        Vector3 offset = (cards[0].transform.position - transform.position);
+        cardHolder.position -= offset;
     }
     private void Update()
     {
-        if(Input.GetKey(KeyCode.RightArrow) && selectedCardIndex < CardCount - 1 && inAnimation == false) 
+        if(Input.GetKey(KeyCode.RightArrow) && cardAnimation.InAnimation() == false && (selectedCardIndex < CardCount - 1)) 
         {
-            selectedCardIndex++;
-            BeginAnimation(cardHolder.position - (cards[selectedCardIndex].transform.position - transform.position));
+            int target = selectedCardIndex + 1;
+            
+            BeginAnimation(cardHolder.position - (cards[target].transform.position - transform.position), selectedCardIndex, target);
         }
-        if(Input.GetKey(KeyCode.LeftArrow) && selectedCardIndex > 0 && inAnimation == false)
+        if(Input.GetKey(KeyCode.LeftArrow) && cardAnimation.InAnimation() == false && (selectedCardIndex > 0))
         {
-            selectedCardIndex--;
-            BeginAnimation(cardHolder.position - (cards[selectedCardIndex].transform.position - transform.position));
+            int target = selectedCardIndex - 1;
+            
+            BeginAnimation(cardHolder.position - (cards[target].transform.position - transform.position), selectedCardIndex, target);
         }
-        if(inAnimation) OnAnimation();
+        if(cardAnimation.InAnimation()) OnAnimation();
     }
-    private void BeginAnimation(Vector2 targetDistance)
+    private void BeginAnimation(Vector2 targetDistance, int currentIndex, int targetIndex)
     {
-        inAnimation = true;
-        TargetDistance = targetDistance;
+        cardAnimation.StartAnimation(targetDistance, currentIndex, targetIndex);
     }
     private void OnAnimation()
     {
-        cardHolder.transform.position = Vector3.MoveTowards(cardHolder.transform.position, TargetDistance, 10f * Time.deltaTime);
-        if((Vector2)cardHolder.transform.position == TargetDistance) inAnimation = false;
+        cardHolder.transform.position = Vector2.MoveTowards(cardHolder.transform.position, cardAnimation.TargetDistance, 10f * Time.deltaTime);
+        if((Vector2)cardHolder.transform.position == cardAnimation.TargetDistance) 
+        {
+            OnAnimationEnd();
+        }
+    }
+    private void OnAnimationEnd()
+    {
+        cardAnimation.StopAnimation();
+        selectedCardIndex = cardAnimation.targetCardIndex;
     }
     private void SpawnCards()
     {
@@ -54,16 +70,18 @@ public class CardSpawner : MonoBehaviour
             cards[i].transform.localPosition = Vector3.zero;
             cards[i].LoadItem(index);
             CollectableCharm collectableItem = charmDatabase.GetItem(index);
+            Charm databaseCharm = Instantiate(collectableItem.charm);
             usedCardIndeces.Add(index);
-            ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(collectableItem.charm.Display.Rarity);
-            cards[i].SetHeader(collectableItem.charm.Display.Description.Name, rarityInfo.color, collectableItem.charm.Display.Icon);
-            cards[i].SetDescription(collectableItem.charm.Display.Description.Description);
-            cards[i].SetQuality(collectableItem.charm.Display.Rarity);
-            for(int j = 0; j < collectableItem.charm.Display.AdditionalFields.Length; j++)
+            ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(databaseCharm.Display.Rarity);
+            cards[i].SetHeader(databaseCharm.Display.Description.Name, rarityInfo.color, databaseCharm.Display.Icon);
+            cards[i].SetDescription(databaseCharm.Display.Description.Description);
+            cards[i].SetQuality(databaseCharm.Display.Rarity);
+            for(int j = 0; j < databaseCharm.Display.AdditionalFields.Length; j++)
             {
                 
-                cards[i].AddField(collectableItem.charm.GetActiveCharm().Display.AdditionalFields[j].Text, collectableItem.charm.Display.AdditionalFields[j].GetColor());
+                cards[i].AddField(CharmDisplay.FormatCharmField(databaseCharm.Display.AdditionalFields[j].Text, databaseCharm.GetActiveCharm()), collectableItem.charm.GetActiveCharm().Display.AdditionalFields[j].GetColor());
             }
+            Destroy(databaseCharm);
         }
     }
     private byte GetUniqueIndex()
@@ -76,5 +94,24 @@ public class CardSpawner : MonoBehaviour
             if(usedCardIndeces.Contains(index) == false) return index;
         }
         return 0;
+    }
+    internal struct CardAnimation
+    {
+        private bool inAnimation;
+        public Vector2 TargetDistance;
+        public int swappingCardIndex;
+        public int targetCardIndex;
+        public void StartAnimation(Vector2 targetDistance ,int current, int target)
+        {
+            swappingCardIndex = current;
+            targetCardIndex = target;
+            TargetDistance = targetDistance;
+            inAnimation = true;
+        }
+        public void StopAnimation()
+        {
+            inAnimation = false;
+        }
+        public bool InAnimation() => inAnimation;
     }
 }

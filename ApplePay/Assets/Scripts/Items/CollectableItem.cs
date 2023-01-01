@@ -9,6 +9,7 @@ public abstract class CollectableItem<Item> : CollectableObject
     protected virtual string hoverableObjectDescription {get => null;}
     public abstract Item CollectableObject { get; }
     protected abstract string TargetRepository { get; }
+
     protected override void Start()
     {
         base.Start();
@@ -16,6 +17,7 @@ public abstract class CollectableItem<Item> : CollectableObject
         if(hoverableObjectHeader != null && hoverableObjectDescription != null)
             hoverableObject.Init(transform);
     }
+
     protected override void Update()
     {
         bool isInside = Vector2.SqrMagnitude(hintTriggerObject.position - transform.position) <= hintCreatingDistance * hintCreatingDistance;
@@ -23,7 +25,7 @@ public abstract class CollectableItem<Item> : CollectableObject
         {
             hoverableObject.CreateHint(hoverableObjectHeader, hoverableObjectDescription);
         }
-        else if(isInside == false && hoverableObject.HintCreated == true)
+        else if((isInside == false) && hoverableObject.HintCreated == true)
         {
             hoverableObject.DestroyHint();
         }

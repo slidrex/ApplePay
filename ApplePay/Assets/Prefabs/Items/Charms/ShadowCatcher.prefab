@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 1120820663
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 056d39c90413dd64dacbd3dbb06a1408, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9aa4c7b56b8c1864a9b077998f7a0cbb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!95 &2216474018524394700
@@ -161,8 +161,6 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4278190080
   collectParticle: {fileID: 0}
-  amplitude: 0
-  speed: 0
   damagePerForceUnit: 1
   hoverableObject:
     contentPanel: {fileID: 3985452147203897461, guid: b82e4fb9f584e1b43b9801db47efd419, type: 3}

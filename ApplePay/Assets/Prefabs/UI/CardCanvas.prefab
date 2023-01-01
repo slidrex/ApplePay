@@ -54,8 +54,8 @@ MonoBehaviour:
   card: {fileID: 7262808408451565294, guid: 3b6c26efef08e0b4e8d6e6a4ad3d7798, type: 3}
   charmDatabase: {fileID: 11400000, guid: 3daacf6962abfd047bfd8defff1f13a0, type: 2}
   cardHolder: {fileID: 73275821093201940}
-  minCardCount: 5
-  maxCardCount: 6
+  minCardCount: 3
+  maxCardCount: 4
   CardCount: 0
 --- !u!222 &3873437001238198406
 CanvasRenderer:

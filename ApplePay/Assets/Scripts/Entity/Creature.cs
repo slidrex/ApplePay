@@ -39,7 +39,7 @@ public abstract class Creature : Entity, IKillHandler
         StateLayers.Add(state);
         return state;
     }
-    public EntityState Engage(System.Action cancelAction) 
+    public EntityState Engage(System.Action cancelAction)
     {
         EntityState state = new EntityState(this, EntityState.InState.Engaged, cancelAction, 0.0f, false);
         StateLayers.Add(state);

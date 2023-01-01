@@ -9,11 +9,12 @@ public class Charm : CharmObject
     public AdditionalItemAttributes[] Attributes;
     public CharmDisplay Display;
     public CharmField[] CharmFields;
+    [UnityEngine.HideInInspector] public bool FieldsInitialized;
     private void Awake()
     {
-        Init();
+        InitFields();
     }
-    private void Init()
+    private void InitFields()
     {
         for(int i = 0; i < Attributes.Length; i++)
         {
@@ -23,6 +24,7 @@ public class Charm : CharmObject
         {
             additionalFields.Add(CharmFields[i].name, new VirtualBase(CharmFields[i].value));
         }
+        FieldsInitialized = true;
     }
     
     private void RemoveCharmTagAttributes(Creature entity)

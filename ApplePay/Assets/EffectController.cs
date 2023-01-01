@@ -145,11 +145,14 @@ namespace PayWorld
                 VirtualBase.BaseValue[] baseValueArray = new VirtualBase.BaseValue[EffectProperties.Length];
                 for(int i = 0; i < EffectProperties.Length; i++)
                 {
-                    baseValueArray[i] = EffectProperties[i].EffectAction.Value.AddMultiplier(multiplier, tags);
-                    
-                    foreach(EntityAttribute attribute in Owner.Attributes.Values)
+                    if(EffectProperties[i].EffectAction.IsModifiable)
                     {
-                        attribute.ApplyResult();
+                        baseValueArray[i] = EffectProperties[i].EffectAction.Value.AddMultiplier(multiplier, tags);
+                        
+                        foreach(EntityAttribute attribute in Owner.Attributes.Values)
+                        {
+                            attribute.ApplyResult();
+                        }
                     }
                 }
                 Modifier modifier = new Modifier(baseValueArray, default(VirtualBase.BaseValue), Owner);

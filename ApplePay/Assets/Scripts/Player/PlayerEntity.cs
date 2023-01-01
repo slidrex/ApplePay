@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Linq;
+using Pay.UI;
 
-public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable
+public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable, IUIHolder
 {
     public new PlayerMovement Movement => (PlayerMovement)Movement;
     public int AttackDamage { get; set; } = 10;
@@ -13,6 +14,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     public WaveStatus WaveStatus { get; private set; }
     [SerializeField] private EffectCell effectCell;
     private UnityEngine.Rendering.Universal.Vignette vignette;
+    [SerializeField] private UIHolder holder;
     public VirtualBase test = new VirtualBase(0f);
     public void AddDamageAttribute()
     {
@@ -24,10 +26,10 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Start()
     {
         AddDamageAttribute();
-        
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
         
         base.Start();
+        PayWorld.EffectController.AddEffect(this, "slowness", 4, 10f);
     }
     public void SetWaveStatus(WaveStatus waveStatus) => WaveStatus = waveStatus;
     public void OnEffectUpdated()
@@ -71,4 +73,9 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         SpriteRenderer.color = tempColor;
     }
     protected override void OnInvulnerabilityEnd() => SpriteRenderer.color = new Color32(255, 255, 255, 255);
+
+    public UIHolder GetHolder()
+    {
+        return holder;
+    }
 }
