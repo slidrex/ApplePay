@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5050138468918239409}
   - component: {fileID: 2618962766695991204}
   - component: {fileID: 6503411922167605338}
+  - component: {fileID: -5412089630376114102}
   m_Layer: 5
   m_Name: Interact hint
   m_TagString: Untagged
@@ -83,7 +84,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2618962766695991204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +117,25 @@ MonoBehaviour:
   canvas: {fileID: 8738094525707601057}
   image: {fileID: 2268612272666964396}
   text: {fileID: 4795660956970100662}
+--- !u!95 &-5412089630376114102
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928968932941819674}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 14f95311da792804799d136efa557dbc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5119700886706325804
 GameObject:
   m_ObjectHideFlags: 0
