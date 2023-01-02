@@ -20,19 +20,7 @@ public abstract class CollectableObject : ItemEntity
     }
     public void AddConstraintCollider(float duration, PayHitShape hitShape)
     {
-        if(HitShape.IgnoreShapes.ContainsKey(hitShape.M_Collider))
-        {
-            HitShape.IgnoreShapes[hitShape.M_Collider] = duration;
-        }
-        else
-        {
-            HitShape.IgnoreShapes.Add(hitShape.M_Collider, duration);
-
-            foreach(Collider2D collider in hitShape.collisionColliders)
-            {
-                Pay.Functions.Physics.IgnoreCollision(duration, collider, HitShape.M_Collider);
-            }
-        }
+        HitShape.IgnoreShape(hitShape, duration);
     }
     protected override void Update()
     {

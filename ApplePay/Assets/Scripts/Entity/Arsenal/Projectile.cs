@@ -28,6 +28,10 @@ public class Projectile : MonoBehaviour, IHitResponder
         SetMoveVector(moveVector);
         Target = target;
     }
+    public void DisableOwnerCollisions()
+    {
+        HitBox.IgnoreShape(ProjectileOwner.HitShape);
+    }
     public void SetTarget(Transform target) => Target = target;
     public void SetOwner(Creature owner) => ProjectileOwner = owner;
     public void SetMoveVector(Vector2 vector) => MoveVector = vector;
@@ -65,7 +69,10 @@ public class Projectile : MonoBehaviour, IHitResponder
 
     public void OnHitDetected(HitInfo hitInfo)
     {
-        hitInfo.entity.Damage(Damage, damageType, ProjectileOwner);
-        Destroy(gameObject);
+        if(hitInfo.entity != ProjectileOwner)
+        {
+            hitInfo.entity.Damage(Damage, damageType, ProjectileOwner);
+            Destroy(gameObject);
+        }
     }
 }

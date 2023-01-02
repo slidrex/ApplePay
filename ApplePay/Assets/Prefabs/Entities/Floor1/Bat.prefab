@@ -5053,9 +5053,9 @@ MonoBehaviour:
     rgba: 3432223718
   DamageInvulnerabilityDuration: 0.1
   isDead: 0
-  Tags:
-  - aggressive
-  target: {fileID: 0}
+  EntityTags: 0000000002000000
+  WaveRelation: 0
+  Target: {fileID: 0}
   DamageField: 0
   seenRadius: 4
 --- !u!114 &5788186651065888758
@@ -5087,7 +5087,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponPlace: {fileID: 1142398846128229639}
   Disables: []
-  ActiveWeapon: {fileID: 0}
+  ActiveWeapon: {fileID: 11400000, guid: d9ee7c48a03713a43867f668641f5c08, type: 2}
 --- !u!114 &932523071
 MonoBehaviour:
   m_ObjectHideFlags: 0

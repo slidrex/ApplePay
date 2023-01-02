@@ -14,3 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponObject: {fileID: 4827665070227471201, guid: 5b8cdc7b309ac3e46a15cd493781a063, type: 3}
   AttackAnimationSettings: {fileID: 11400000, guid: e4921215974f9064a86c7c0c8211cb9b, type: 2}
+  WeaponInfo:
+    Display:
+      Rarity: 0
+      Icon: {fileID: 0}
+      Description:
+        Name: 
+        Description: 
+    AnimationParameters:
+      AttackCooldown: 0.5
+      AnimationTime: 0
+      Velocity: 0
+      AngularVelocity: 0

@@ -9,7 +9,6 @@ public class SlimeBehaviour : AttackingMob
     protected override void Start()
     {
         base.Start();
-        SetTarget(FindObjectOfType<PlayerEntity>());
         RotateEulerAngles();
         anim = GetComponent<Animator>();
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class DroppedItemHint
 {
-    [SerializeField] private DroppedItemContentPanel contentPanel;
+    public DroppedItemContentPanel contentPanel;
     private DroppedItemContentPanel tempPanel;
     private Vector2 sourceOffset = Vector2.up;
     private Transform sourceTransform;

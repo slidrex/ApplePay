@@ -18,7 +18,10 @@ public class BatBehaviour : AttackingMob
         {
             if(objec.GetComponent<Creature>() != null) //&& LevelController.EntityTagHandler.AreHostiles(objec.GetComponent<Creature>(), this))
             {
-                weaponHolder.Activate(this, ref weaponHolder.ActiveWeapon, objec.gameObject.transform.position, objec.transform, out Projectile projectile);
+                if(weaponHolder.Activate(this, ref weaponHolder.ActiveWeapon, objec.gameObject.transform.position, objec.transform, out Projectile projectile))
+                {
+                    projectile.DisableOwnerCollisions();
+                }
             }
         }
     }

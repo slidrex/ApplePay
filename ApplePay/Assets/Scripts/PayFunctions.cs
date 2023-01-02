@@ -271,6 +271,16 @@ namespace Pay.Functions
     }
     public class Physics
     {
+        public static void IgnoreCollision(params UnityEngine.Collider2D[] colliders) 
+        {
+            for(int i = 0; i < colliders.Length; i++)
+            {
+                for(int j = i + 1; j < colliders.Length; j++)
+                {
+                    Physics2D.IgnoreCollision(colliders[i], colliders[j], true);
+                }
+            }
+        }
         public static void IgnoreCollision(float time, params UnityEngine.Collider2D[] colliders) => StaticCoroutine.BeginCoroutine(HandleIgnoreCollision(time, true, colliders));
         private static void IgnoreCollision(bool ignore, UnityEngine.Collider2D[] colliders)
         {

@@ -20,19 +20,11 @@ MonoBehaviour:
   - SpawnerRoom:
       room: {fileID: 2873492361910506121, guid: 35ba26194e973e74cb65f1f182476fcc, type: 3}
       availableRotations: 0100
-    spawnRate: 50
-  - SpawnerRoom:
-      room: {fileID: 3411770347720805820, guid: 6e84e688ebc7fa946b01132662b0c236, type: 3}
-      availableRotations: 0100
-    spawnRate: 40
-  - SpawnerRoom:
-      room: {fileID: 8706466383603602942, guid: 7598b82322464d044a688c0304c42878, type: 3}
-      availableRotations: 
     spawnRate: 41
   - SpawnerRoom:
       room: {fileID: 6914875276987880685, guid: a0fe5391aebf91f4396189bddfb0bb90, type: 3}
       availableRotations: 
-    spawnRate: 47
+    spawnRate: 33
   RoomCount: 8
   CellSize: 50
   StartGridComplexity: 2

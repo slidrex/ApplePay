@@ -3,7 +3,7 @@ public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer, IHitRe
 {
     [Header("Collide settings")]
     public PayHitShape Collider;
-    private void Awake() => Collider.AddResponder(this);
+    private void Awake() => Collider?.AddResponder(this);
     [SerializeField] private int collideDamage;
     public int CollideDamage {get => collideDamage; set => collideDamage = value;}
     public float Knockback;
@@ -31,7 +31,7 @@ public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer, IHitRe
         if(hitInfo.entity != Owner)
         {
             OnEntityHitEnter(hitInfo.collider, hitInfo.entity);
-            Collider.IgnoreShapes.Add(hitInfo.collider, 1f);
+            Collider.IgnoreShape(hitInfo.entity.HitShape);
         }
         else
             OnMissColliderHit(hitInfo.collider);

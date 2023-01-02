@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9003773339576143479}
   - component: {fileID: 3014990333986140520}
-  - component: {fileID: 8091383026226005942}
   - component: {fileID: 1854350503808313883}
   - component: {fileID: -3869696613368500709}
+  - component: {fileID: 6619755679829043033}
+  - component: {fileID: 7098636814709671264}
   m_Layer: 0
   m_Name: BatBullet
   m_TagString: Untagged
@@ -85,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &8091383026226005942
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5256489477666852841}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.025000004
 --- !u!50 &1854350503808313883
 Rigidbody2D:
   serializedVersion: 4
@@ -140,6 +125,48 @@ MonoBehaviour:
   Speed: 4
   MinSpeed: 0
   MaxSpeed: 4
-  ignoreCollision: []
+  HitBox: {fileID: 7098636814709671264}
   destroyParticle: {fileID: 4133290780092584788, guid: f14308dd6bb0a294f8565dbeacf18395, type: 3}
+  damageType: 0
   SetMoveRotation: 0
+--- !u!61 &6619755679829043033
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5256489477666852841}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.05, y: 0.05}
+    newSize: {x: 0.05, y: 0.05}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.05}
+  m_EdgeRadius: 0
+--- !u!114 &7098636814709671264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5256489477666852841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 0}
+  collisionColliders: []
+  Collider: {fileID: 6619755679829043033}

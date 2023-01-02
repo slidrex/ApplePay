@@ -13,8 +13,10 @@ public class ReflectMovement : MovementPattern
     }
     public override void OnCollision(Collision2D collision)
     {
-        Vector2 contact = collision.contacts[0].normal;
-        HandleCollision(contact);
+        foreach(ContactPoint2D contact in collision.contacts)
+        {
+            HandleCollision(contact.normal);
+        }
     }
     public override void OnHitDetected(HitInfo hitInfo)
     {
@@ -25,6 +27,7 @@ public class ReflectMovement : MovementPattern
     {
         Vector2 inNormal = ((Vector2)transform.position - contactNormal).normalized;
         MovementVector = Vector2.Reflect(lastVelocity, inNormal).normalized;
+        UpdateRigidbodyVector();
         PayWorld.Particles.InstantiateParticles(collisionEffect, contactNormal, Quaternion.identity, collisionEffectDuration);
     }
 }

@@ -21,7 +21,7 @@ public abstract class CollectableItem<Item> : CollectableObject
     protected override void Update()
     {
         bool isInside = Vector2.SqrMagnitude(hintTriggerObject.position - transform.position) <= hintCreatingDistance * hintCreatingDistance;
-        if(isInside && hoverableObject.HintCreated == false)
+        if(hoverableObject.contentPanel != null && isInside && hoverableObject.HintCreated == false)
         {
             hoverableObject.CreateHint(hoverableObjectHeader, hoverableObjectDescription);
         }

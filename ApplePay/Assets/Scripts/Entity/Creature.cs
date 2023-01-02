@@ -68,19 +68,12 @@ public abstract class Creature : Entity, IKillHandler
     [HideInInspector] public bool isDead;
     public LevelController LevelController {get; set;}
     [Header("Entity Settings")]
-    public string[] Tags;
+    public PayTagHandler.EntityTag[] EntityTags;
     public EntityWaveType WaveRelation;
     private byte disableID;
     protected override void Awake()
     {
         LevelController = FindObjectOfType<LevelController>();
-        base.Awake();
-        HealthBar?.IndicatorSetup();
-    }
-    protected override void Start()
-    {
-        base.Start();
-        LevelController.UpdateRoomEntityList();
         Animator = GetComponent<Animator>();
         if(Movement == null) Movement = GetComponent<EntityMovement>();
         if(Movement != null) 
@@ -95,6 +88,13 @@ public abstract class Creature : Entity, IKillHandler
             ),
             Movement.CurrentSpeed);
         }
+        HealthBar?.IndicatorSetup();
+        base.Awake();
+    }
+    protected override void Start()
+    {
+        base.Start();
+        LevelController.UpdateRoomEntityList();
     }
     private void CollisionUpdate()
     {

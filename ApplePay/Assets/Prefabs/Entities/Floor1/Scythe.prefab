@@ -123,14 +123,16 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 40
-  CurrentHealth: 0
+  HitShape: {fileID: 0}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
   CollisionHandler:
     rb: {fileID: 3690851434413449922}
     resistance: 0.2
-  InventorySystem: {fileID: 0}
+    DragIntensity: 1
+    Forces: []
+  State: 0
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
   CurrentRoom: {fileID: 0}
@@ -142,7 +144,9 @@ MonoBehaviour:
     rgba: 3837367493
   DamageInvulnerabilityDuration: 0.1
   isDead: 0
-  Hostiles: []
+  EntityTags: 0000000002000000
+  WaveRelation: 0
+  Target: {fileID: 0}
   DamageField: 15
   speed: 6
   obstacleHitDist: 1

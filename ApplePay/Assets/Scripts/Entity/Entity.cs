@@ -116,12 +116,15 @@ public abstract class Entity : MonoBehaviour, IHitResponder
     }
     protected virtual void Die(Creature killer)
     {   
-        IKillHandler killHandler = killer?.GetComponent<IKillHandler>();
-        
-        if(killer != null && killHandler != null) 
+        if(killer != null)
         {
-            killer.GetComponent<IKillHandler>().OnBeforeKill(killer);
-            StaticCoroutine.BeginCoroutine(OnAfterKill(killHandler));
+            IKillHandler killHandler = killer?.GetComponent<IKillHandler>();
+            
+            if(killHandler != null) 
+            {
+                killer.GetComponent<IKillHandler>().OnBeforeKill(killer);
+                StaticCoroutine.BeginCoroutine(OnAfterKill(killHandler));
+            }
         }
         Destroy(gameObject);
     }
