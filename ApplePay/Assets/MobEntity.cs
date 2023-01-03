@@ -7,14 +7,17 @@ public abstract class MobEntity : Creature
     {
         foreach(PayTagHandler.EntityTag selfTag in EntityTags)
         {
-            PayTagHandler.HunterTargets.TryGetValue(selfTag, out PayTagHandler.EntityTag tag);
-                    
-            foreach(PayTagHandler.EntityTag selectedEntityTag in entity.EntityTags)
+            if(PayTagHandler.HunterTargets.ContainsKey(selfTag))
             {
+                PayTagHandler.HunterTargets.TryGetValue(selfTag, out PayTagHandler.EntityTag tag);
+                foreach(PayTagHandler.EntityTag selectedEntityTag in entity.EntityTags)
+                {
                     if(tag == selectedEntityTag)
                     {
                         return true;
                     }
+                }
+
             }
         }
         return false;

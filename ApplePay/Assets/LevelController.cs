@@ -9,7 +9,7 @@ public class LevelController : MonoBehaviour
         Room[] rooms = LevelRoomSpawner.ActiveLevelRooms;
 
         foreach(Room room in rooms) room.EntityList = new System.Collections.Generic.List<Creature>();
-
+        
         foreach(Creature entity in entities) DefineCurrentRoom(entity);
         
     }

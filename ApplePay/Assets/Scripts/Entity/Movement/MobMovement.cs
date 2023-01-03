@@ -45,6 +45,14 @@ public class MobMovement : EntityMovement
     }
     private void OnCollisionEnter2D(Collision2D collision) 
     {
-        if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.OnCollision(collision);
+        if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.CollisionBegin(collision);
+    }
+    private void OnCollisionStay2D(Collision2D collision) 
+    {
+        if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.CollisionState(collision);
+    }
+    private void OnCollisionExit2D(Collision2D collision) 
+    {
+        if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.CollisionEnd(collision);
     }
 }

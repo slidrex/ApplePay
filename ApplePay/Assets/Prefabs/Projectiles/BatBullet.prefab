@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3869696613368500709}
   - component: {fileID: 6619755679829043033}
   - component: {fileID: 7098636814709671264}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BatBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5256489477666852841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.26056, y: 7.26056, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -122,9 +122,9 @@ MonoBehaviour:
   LifeTime: 10
   Damage: 30
   Acceleration: 0
-  Speed: 4
+  Speed: 6
   MinSpeed: 0
-  MaxSpeed: 4
+  MaxSpeed: 6
   HitBox: {fileID: 7098636814709671264}
   destroyParticle: {fileID: 4133290780092584788, guid: f14308dd6bb0a294f8565dbeacf18395, type: 3}
   damageType: 0

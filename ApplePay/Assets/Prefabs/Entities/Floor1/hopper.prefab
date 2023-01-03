@@ -5055,7 +5055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0bfcc93cc1ce744859610b7f249ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentSpeed: 3.8
+  CurrentSpeed: 9.42
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
@@ -5089,9 +5089,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0037480327, y: 0}
   serializedVersion: 2
-  m_Radius: 0.080000006
+  m_Radius: 0.049122058
 --- !u!114 &1190869856170425090
 MonoBehaviour:
   m_ObjectHideFlags: 0

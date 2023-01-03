@@ -6,10 +6,13 @@ public class StraightProjectileWeapon : RangeWeapon
     public override void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out Projectile projectile)
     {
         LinkAttacker(attacker);
-        projectile = Instantiate(FireObject.gameObject, GetFirePointPos(), Quaternion.Euler(0, 0, Vector2.Angle(originPosition, attackPosition))).GetComponent<Projectile>();
-        projectile.Setup((attackPosition - originPosition).normalized, attacker, target);
+        projectile = Instantiate(FireObject, GetFirePointPos(), Quaternion.Euler(0, 0, Vector2.Angle(originPosition, attackPosition)));
         
-        Physics2D.IgnoreCollision(Owner.gameObject.GetComponent<Collider2D>(), projectile.gameObject.GetComponent<Collider2D>());
+        Vector2 projectileMoveVector = (attackPosition - originPosition).normalized;
+        
+        projectile.Setup(projectileMoveVector, attacker, target);
+        
+        Owner.HitShape.IgnoreShape(projectile.HitBox);
         
     }
 }

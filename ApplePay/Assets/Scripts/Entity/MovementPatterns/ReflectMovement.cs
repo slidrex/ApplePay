@@ -4,6 +4,7 @@ public class ReflectMovement : MovementPattern
 {
     [SerializeField] private GameObject collisionEffect;
     [SerializeField] private float collisionEffectDuration;
+    protected override float CollisionTimeTreshold => 0.25f;
     private Vector2 lastVelocity;
     public override void OnSpeedUpdate()
     {
@@ -11,23 +12,14 @@ public class ReflectMovement : MovementPattern
         lastVelocity = Movement.Rigidbody.velocity;
         UpdateRigidbodyVector();
     }
-    public override void OnCollision(Collision2D collision)
+    protected override void OnCollisionBegin(Collision2D collision)
     {
-        foreach(ContactPoint2D contact in collision.contacts)
-        {
-            HandleCollision(contact.normal);
-        }
+        Vector2 inNormal = collision.contacts[0].normal;
+        MovementVector = Vector2.Reflect(MovementVector, inNormal);
+        PayWorld.Particles.InstantiateParticles(collisionEffect, transform.position - (Vector3)inNormal/2, Quaternion.identity, collisionEffectDuration);
     }
-    public override void OnHitDetected(HitInfo hitInfo)
+    protected override void OnCollisionTimeOut()
     {
-        Vector2 contact = hitInfo.normal;
-        HandleCollision(contact);
-    }
-    private void HandleCollision(Vector2 contactNormal)
-    {
-        Vector2 inNormal = ((Vector2)transform.position - contactNormal).normalized;
-        MovementVector = Vector2.Reflect(lastVelocity, inNormal).normalized;
-        UpdateRigidbodyVector();
-        PayWorld.Particles.InstantiateParticles(collisionEffect, contactNormal, Quaternion.identity, collisionEffectDuration);
+        MovementVector = Pay.Functions.Math.GetRandomFixedVector();
     }
 }

@@ -39,7 +39,6 @@ public class Projectile : MonoBehaviour, IHitResponder
     {
         rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
-        Physics2D.IgnoreLayerCollision(12, 12);
         if(SetMoveRotation) Pay.Functions.Math.Atan3(MoveVector.y, MoveVector.x);
     }
     protected virtual void Update()
@@ -58,7 +57,8 @@ public class Projectile : MonoBehaviour, IHitResponder
         float a = Acceleration * Time.fixedDeltaTime;
         Vector2 resultVec = MoveVector * Speed;
         Speed += a;
-        Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed); 
+        Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed);
+
         rb.velocity = resultVec;
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)

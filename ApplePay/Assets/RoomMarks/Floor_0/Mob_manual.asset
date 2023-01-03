@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mob_manual
   m_EditorClassIdentifier: 
   MinMobCount: 3
-  MaxMobCount: 6
+  MaxMobCount: 5
   SpawnDelay: 0.4
   MinSpawnInterval: 1
   MaxSpawnInterval: 2
