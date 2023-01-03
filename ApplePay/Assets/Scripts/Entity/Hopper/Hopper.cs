@@ -17,7 +17,7 @@ public class Hopper : AttackingMob, ICollideDamageDealer
     public override void OnHitDetected(HitInfo hitInfo)
     {
         Creature entity = hitInfo.entity as Creature;
-        if(entity != null && IsHostile(entity))
+        if(entity != null && PayTagHandler.IsHostile(this, entity))
         {
             DealCollideDamage(hitInfo.entity, CollideDamage, this);
             hitInfo.entity.HitShape.IgnoreShape(HitShape, hitIgnoreCollisionTime);

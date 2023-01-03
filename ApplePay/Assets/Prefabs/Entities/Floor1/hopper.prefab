@@ -5002,7 +5002,9 @@ MonoBehaviour:
     rgba: 3314322629
   DamageInvulnerabilityDuration: 0.1
   isDead: 0
-  EntityTags: 0000000002000000
+  Tags: 00000000
+  EnemyTags: 02000000
+  AllyTags: 00000000
   WaveRelation: 0
   Target: {fileID: 0}
   DamageField: 20

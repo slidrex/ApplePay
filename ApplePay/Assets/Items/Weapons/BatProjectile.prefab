@@ -48,4 +48,4 @@ MonoBehaviour:
   Knockback: 0
   DamageType: 0
   FirePoint: {fileID: 2937875184297961134}
-  FireObject: {fileID: -3869696613368500709, guid: 85dec86b4f1c75e4486d3d0abb2abc1b, type: 3}
+  FireObject: {fileID: 7210567842108586610, guid: 85dec86b4f1c75e4486d3d0abb2abc1b, type: 3}

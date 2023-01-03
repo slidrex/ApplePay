@@ -71,8 +71,11 @@ public class Projectile : MonoBehaviour, IHitResponder
     {
         if(hitInfo.entity != ProjectileOwner)
         {
-            hitInfo.entity.Damage(Damage, damageType, ProjectileOwner);
+            int resultDamage = Damage;
+            OnBeforeDamage(hitInfo.entity, ref resultDamage);
+            hitInfo.entity.Damage(resultDamage, damageType, ProjectileOwner);
             Destroy(gameObject);
         }
     }
+    protected virtual void OnBeforeDamage(Entity damageEntity, ref int damage) { }
 }

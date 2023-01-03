@@ -3,25 +3,7 @@ public abstract class MobEntity : Creature
     [UnityEngine.HideInInspector] public Entity Target;
     public new MobMovement Movement => (MobMovement)base.Movement;
     public void SetTarget(Entity entity) => Target = entity;
-    public bool IsHostile(Creature entity)
-    {
-        foreach(PayTagHandler.EntityTag selfTag in EntityTags)
-        {
-            if(PayTagHandler.HunterTargets.ContainsKey(selfTag))
-            {
-                PayTagHandler.HunterTargets.TryGetValue(selfTag, out PayTagHandler.EntityTag tag);
-                foreach(PayTagHandler.EntityTag selectedEntityTag in entity.EntityTags)
-                {
-                    if(tag == selectedEntityTag)
-                    {
-                        return true;
-                    }
-                }
-
-            }
-        }
-        return false;
-    }
+    
     public Creature GetNearestHostileTarget()
     {
         float closestSqr = 0.0f;
@@ -31,19 +13,18 @@ public abstract class MobEntity : Creature
         {
             if(entity != this)
             {
-                foreach(PayTagHandler.EntityTag selfTag in EntityTags)
+                foreach(PayTagHandler.EntityTag selfTag in EnemyTags)
                 {
-                    PayTagHandler.HunterTargets.TryGetValue(selfTag, out PayTagHandler.EntityTag tag);
-                    
-                    foreach(PayTagHandler.EntityTag selectedEntityTag in entity.EntityTags)
+                    foreach(PayTagHandler.EntityTag selectedEntityTag in entity.Tags)
                     {
-                        if(tag == selectedEntityTag)
+                        if(selfTag == selectedEntityTag)
                         {
                             UnityEngine.Vector2 distance = entity.transform.position - transform.position;
-                            float currentEntityDistance = distance.sqrMagnitude;
-                            if(closestEntity == null || distance.sqrMagnitude < closestSqr)
+                            float currentEntitySqrDistance = distance.sqrMagnitude;
+
+                            if(closestEntity == null || currentEntitySqrDistance < closestSqr)
                             {
-                                closestSqr = currentEntityDistance;
+                                closestSqr = currentEntitySqrDistance;
                                 closestEntity = entity;
                             }
                         }

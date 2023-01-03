@@ -68,7 +68,9 @@ public abstract class Creature : Entity, IKillHandler
     [HideInInspector] public bool isDead;
     public LevelController LevelController {get; set;}
     [Header("Entity Settings")]
-    public PayTagHandler.EntityTag[] EntityTags;
+    public PayTagHandler.EntityTag[] Tags;
+    public PayTagHandler.EntityTag[] EnemyTags;
+    public PayTagHandler.EntityTag[] AllyTags;
     public EntityWaveType WaveRelation;
     private byte disableID;
     protected override void Awake()

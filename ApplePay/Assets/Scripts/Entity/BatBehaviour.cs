@@ -18,7 +18,7 @@ public class BatBehaviour : AttackingMob
         foreach(Collider2D objec in obj)
         {
             Creature currentEntity = objec.GetComponent<Creature>();
-            if(currentEntity != null && currentEntity != this && IsHostile(currentEntity))
+            if(currentEntity != null && currentEntity != this && PayTagHandler.IsHostile(this, currentEntity))
             {
                 if(weaponHolder.Activate(this, ref weaponHolder.ActiveWeapon, objec.gameObject.transform.position, objec.transform, out Projectile projectile))
                 {

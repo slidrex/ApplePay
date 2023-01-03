@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 9003773339576143479}
   - component: {fileID: 3014990333986140520}
   - component: {fileID: 1854350503808313883}
-  - component: {fileID: -3869696613368500709}
   - component: {fileID: 6619755679829043033}
   - component: {fileID: 7098636814709671264}
+  - component: {fileID: 7210567842108586610}
   m_Layer: 7
   m_Name: BatBullet
   m_TagString: Untagged
@@ -107,28 +107,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-3869696613368500709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5256489477666852841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd622efef9f118249be0d110bdef9da2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LifeTime: 10
-  Damage: 30
-  Acceleration: 0
-  Speed: 6
-  MinSpeed: 0
-  MaxSpeed: 6
-  HitBox: {fileID: 7098636814709671264}
-  destroyParticle: {fileID: 4133290780092584788, guid: f14308dd6bb0a294f8565dbeacf18395, type: 3}
-  damageType: 0
-  SetMoveRotation: 0
 --- !u!61 &6619755679829043033
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -170,3 +148,27 @@ MonoBehaviour:
   Owner: {fileID: 0}
   collisionColliders: []
   Collider: {fileID: 6619755679829043033}
+--- !u!114 &7210567842108586610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5256489477666852841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c25fd3fd56460e43bd4348de773a7fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeTime: 10
+  Damage: 30
+  Acceleration: 0
+  Speed: 6
+  MinSpeed: 0
+  MaxSpeed: 6
+  HitBox: {fileID: 7098636814709671264}
+  destroyParticle: {fileID: 4133290780092584788, guid: f14308dd6bb0a294f8565dbeacf18395, type: 3}
+  damageType: 0
+  SetMoveRotation: 0
+  allyDamageMultiplier: 0.2
+  hostileDamageMultiplier: 1
