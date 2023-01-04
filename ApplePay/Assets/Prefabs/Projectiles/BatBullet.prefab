@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6619755679829043033}
   - component: {fileID: 7098636814709671264}
   - component: {fileID: 7210567842108586610}
+  - component: {fileID: 5316351759777955308}
   m_Layer: 7
   m_Name: BatBullet
   m_TagString: Untagged
@@ -167,8 +168,27 @@ MonoBehaviour:
   MinSpeed: 0
   MaxSpeed: 6
   HitBox: {fileID: 7098636814709671264}
+  ForceHandler: {fileID: 5316351759777955308}
   destroyParticle: {fileID: 4133290780092584788, guid: f14308dd6bb0a294f8565dbeacf18395, type: 3}
   damageType: 0
   SetMoveRotation: 0
+  KnockbackForce: 0
+  KnockbackDamping: 0
   allyDamageMultiplier: 0.2
   hostileDamageMultiplier: 1
+--- !u!114 &5316351759777955308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5256489477666852841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5017a57678c4194468ef182291bd884b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 1854350503808313883}
+  PhysicalCollisionsResistance: 5
+  resistance: 0
+  DragIntensity: 1

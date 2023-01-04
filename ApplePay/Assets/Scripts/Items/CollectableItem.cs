@@ -51,12 +51,14 @@ public abstract class CollectableItem<Item> : CollectableObject
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        for(int i = 0; i < CollisionHandler.Forces.Count; i++)
+        PayForce[] forces = ForceHandler.GetCurrentForces();
+        for(int i = 0; i < forces.Length; i++)
         {
-            PayKnock knock = CollisionHandler.Forces[i];
+            PayForce knock = forces[i];
             knock.CurrentSpeed = Vector2.Reflect(knock.CurrentSpeed, collision.GetContact(0).normal);
-            CollisionHandler.Forces[i] = knock;
+            forces[i] = knock;
         }
+        ForceHandler.SetResultanForce(forces);
     }
     protected bool AddItem(InventoryRepository<Item> repository, Item item) => repository.AddItem(item);
 }

@@ -9,6 +9,7 @@ public abstract class CollectableObject : ItemEntity
     [Header("Physics")]
     protected Vector2 TargetVelocity;
     [SerializeField, Tooltip("Force multiplier coefficient")] private float damagePerForceUnit;
+    private const float onCollectFailCollisionIgnoreTime = 1.0f;
     ///<summary>
     ///Item cannot be accessible during the constraint time (constraints are able to stack).
     ///</summary>
@@ -27,20 +28,15 @@ public abstract class CollectableObject : ItemEntity
         base.Update();
         HitShape.CheckHit();
     }
-    protected override void Start()
-    {
-        base.Start();
-        rb = GetComponent<Rigidbody2D>();
-    }
-    public void AddForce(Vector2 force) => rb.AddForce(force, ForceMode2D.Impulse);
     protected virtual void FixedUpdate() => TargetVelocity = rb.velocity;
     protected virtual void OnCollectFail(HitInfo collision)
     {
-        DealCollideDamage(collision.entity, (int)(damagePerForceUnit * TargetVelocity.magnitude), null);
         
-        Rigidbody2D targetRB = collision.entity.GetComponent<Rigidbody2D>();
-        if(targetRB != null) targetRB.AddForce(-collision.normal * TargetVelocity.magnitude / targetRB.mass, ForceMode2D.Impulse); 
-        AddForce(Vector2.Reflect(TargetVelocity, collision.normal));
+        Rigidbody2D targetRB = collision.entity.ForceHandler?.Rigidbody;
+        if(targetRB != null)
+            ForceHandler.Knock(collision.normal, ForceHandler.DragIntensity, true);
+        DealCollideDamage(collision.entity, (int)(damagePerForceUnit * TargetVelocity.magnitude), null);
+        HitShape.IgnoreShape(collision.entity.HitShape, onCollectFailCollisionIgnoreTime);
     }
     public void DealCollideDamage(Entity entity, int damage, Creature dealer) => entity.Damage(damage, DamageType.Physical, dealer);
     public virtual void CollisionRequest(HitInfo collision, ref bool collectStatus) => SendCollectRequest(collision, collectStatus);

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6627422004362106133}
   - component: {fileID: 6627422004362106139}
   - component: {fileID: -2958511229677332152}
+  - component: {fileID: 7061560539006352384}
   m_Layer: 0
   m_Name: Rubick
   m_TagString: Untagged
@@ -98,11 +99,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 5
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 756493e8ad7175d4ba2dc0d0a48477e2, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -123,16 +124,12 @@ MonoBehaviour:
   deathParticle: {fileID: 0}
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
-  MaxHealth: 50
-  HitShape: {fileID: 0}
+  MaxHealth: 150
+  HitShape: {fileID: -2958511229677332152}
+  ForceHandler: {fileID: 7061560539006352384}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
-  CollisionHandler:
-    rb: {fileID: 0}
-    resistance: 0
-    DragIntensity: 1
-    Forces: []
   StoredHealth: 0
   maxHealthColor:
     serializedVersion: 2
@@ -141,8 +138,6 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4278190080
   collectParticle: {fileID: 0}
-  amplitude: 0
-  speed: 0
   damagePerForceUnit: 1
   hoverableObject:
     contentPanel: {fileID: 3985452147203897461, guid: b82e4fb9f584e1b43b9801db47efd419, type: 3}
@@ -189,3 +184,19 @@ MonoBehaviour:
   Owner: {fileID: 6627422004362106133}
   collisionColliders: []
   Collider: {fileID: 6627422004362106139}
+--- !u!114 &7061560539006352384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6627422004362106138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5017a57678c4194468ef182291bd884b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 6627422004362106134}
+  PhysicalCollisionsResistance: 10
+  resistance: 0
+  DragIntensity: 1

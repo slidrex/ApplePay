@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PayHitBox), typeof(PayForceHandler))]
 public class Projectile : MonoBehaviour, IHitResponder
 {
     public Creature ProjectileOwner { get; private set; }
@@ -13,11 +14,14 @@ public class Projectile : MonoBehaviour, IHitResponder
     protected Rigidbody2D rb;
     protected Animator Animator;
     public PayHitBox HitBox;
+    public PayForceHandler ForceHandler;
     public Transform Target {get; private set;}
     [SerializeField] private GameObject destroyParticle;
     [SerializeField] private DamageType damageType;
     [HideInInspector] public Vector2 MoveVector { get; private set; }
     public bool SetMoveRotation;
+    public float KnockbackForce;
+    public float KnockbackDamping;
     private void Awake()
     {
         HitBox.AddResponder(this);
@@ -72,10 +76,14 @@ public class Projectile : MonoBehaviour, IHitResponder
         if(hitInfo.entity != ProjectileOwner)
         {
             int resultDamage = Damage;
-            OnBeforeDamage(hitInfo.entity, ref resultDamage);
+            OnBeforeHit(hitInfo.entity, ref resultDamage);
+            
+            if(hitInfo.entity.ForceHandler != null && KnockbackForce != 0)
+                hitInfo.entity.ForceHandler.Knock(hitInfo.normal * KnockbackForce, KnockbackDamping, true);
+
             hitInfo.entity.Damage(resultDamage, damageType, ProjectileOwner);
             Destroy(gameObject);
         }
     }
-    protected virtual void OnBeforeDamage(Entity damageEntity, ref int damage) { }
+    protected virtual void OnBeforeHit(Entity damageEntity, ref int damage) { }
 }

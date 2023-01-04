@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class PayHitShape : MonoBehaviour
 {
     private System.Collections.Generic.List<IgnoreShapeObject> IgnoreShapes = new System.Collections.Generic.List<IgnoreShapeObject>();
-    public Entity Owner;
+    [HideInInspector] public Entity Owner;
     public Collider2D[] collisionColliders;
     public abstract Collider2D M_Collider {get;}
     private System.Collections.Generic.List<IHitResponder> responders = new System.Collections.Generic.List<IHitResponder>();
@@ -31,7 +31,7 @@ public abstract class PayHitShape : MonoBehaviour
                             responders[i].OnHitDetected(hitInfo);
                         }
                     }
-            }
+                }
         }
         for(int i = 0; i < IgnoreShapes.Count; i++)
         {
@@ -95,7 +95,6 @@ public abstract class PayHitShape : MonoBehaviour
     ///</summary>
     public void IgnoreShape(PayHitShape shape, float time)
     {
-        print("ignore");
         IgnoreShapeObject ignoreObject = new IgnoreShapeObject(shape, time, false);
         IgnoreShapes.Add(ignoreObject);
         Pay.Functions.Physics.IgnoreCollision(time, shape.M_Collider, M_Collider);

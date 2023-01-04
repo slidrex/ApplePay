@@ -127,7 +127,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
         instanceObject.gameObject.SetActive(true);
         instanceObject.gameObject.transform.SetParent(null);
         instanceObject.gameObject.transform.localScale = lossyScale;
-        instanceObject.CollisionHandler.Knock(force, Mathf.PI);
+        instanceObject.ForceHandler.Knock(force, Mathf.PI, true);
         return instanceObject;
     }
     ///<summary>

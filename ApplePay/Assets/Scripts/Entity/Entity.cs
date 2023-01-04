@@ -11,22 +11,24 @@ public abstract class Entity : MonoBehaviour, IHitResponder
     public bool Immortal;
     public bool isKnockable {get => !Immortal;}
     [SerializeField] private GameObject deathParticle, takeDamageParticle, appearParticle;
-    [Header("Health")]
     public int MaxHealth = 100;
+    [Header("Event polling")]
     public PayHitShape HitShape;
-    public int CurrentHealth {get ;set;}
+    public PayForceHandler ForceHandler;
+    [Header("Attributes")]
     [SerializeField] private float evasionRate;
     [SerializeField] private float magicResistance;
     [SerializeField] private GameObject evasionEffect;
+    public int CurrentHealth {get ;set;}
     public System.Collections.Generic.Dictionary<string, EntityAttribute> Attributes = new System.Collections.Generic.Dictionary<string, EntityAttribute>();
-    public PayCollisionHandler CollisionHandler;
     protected Rigidbody2D rb;
     protected virtual void Awake()
     {
         HitShape = GetComponent<PayHitShape>();
+        HitShape.Owner = this;
         HitShape?.AddResponder(this);
         rb = GetComponent<Rigidbody2D>();
-        CollisionHandler.rb = rb;
+        if(ForceHandler != null) ForceHandler.Rigidbody = rb;
         
         if(SpriteRenderer == null) SpriteRenderer = GetComponent<SpriteRenderer>();
         Particles.InstantiateParticles(appearParticle, transform.position, Quaternion.identity, 2);
@@ -51,8 +53,6 @@ public abstract class Entity : MonoBehaviour, IHitResponder
     }
     protected virtual void Update()
     {
-        CollisionHandler.OnUpdate();
-        
         EffectsUpdate();
     }
     public virtual void Damage(Creature handler, params Damage[] damage)

@@ -9,4 +9,5 @@ public class HitInfo
 public interface IHitResponder
 {
     public void OnHitDetected(HitInfo hitInfo);
+    
 }

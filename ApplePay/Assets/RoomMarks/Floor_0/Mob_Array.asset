@@ -17,3 +17,5 @@ MonoBehaviour:
     rate: 50
   - item: {fileID: 5214477276859016875, guid: 71623b963fc6f074ca47f2642eb3a304, type: 3}
     rate: 50
+  - item: {fileID: 377455623169758730, guid: db78a0d14c6ad9e479995ff5c8b36587, type: 3}
+    rate: 50

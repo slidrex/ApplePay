@@ -100,12 +100,12 @@ public abstract class Creature : Entity, IKillHandler
     }
     private void CollisionUpdate()
     {
-        if(Movement != null)
-            if(CollisionHandler.disabled && disableID == 0)
+        if(Movement != null && ForceHandler != null)
+            if(ForceHandler.disabled && disableID == 0)
             {
                 disableID = Movement.AddDisable();
             }
-            else if(CollisionHandler.disabled == false && disableID != 0)
+            else if(ForceHandler.disabled == false && disableID != 0)
             {
                 Movement.RemoveDisable(disableID);
                 disableID = 0;

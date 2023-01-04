@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3690851434413449926}
   - component: {fileID: 3690851434413449922}
   - component: {fileID: 3690851434413449917}
+  - component: {fileID: 1540730999904554912}
+  - component: {fileID: 3595347050247290077}
   m_Layer: 0
   m_Name: Scythe
   m_TagString: Untagged
@@ -123,15 +125,11 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 40
-  HitShape: {fileID: 0}
+  HitShape: {fileID: 1540730999904554912}
+  ForceHandler: {fileID: 3595347050247290077}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
-  CollisionHandler:
-    rb: {fileID: 3690851434413449922}
-    resistance: 0.2
-    DragIntensity: 1
-    Forces: []
   State: 0
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
@@ -144,7 +142,9 @@ MonoBehaviour:
     rgba: 3837367493
   DamageInvulnerabilityDuration: 0.1
   isDead: 0
-  EntityTags: 0000000002000000
+  Tags: 
+  EnemyTags: 
+  AllyTags: 
   WaveRelation: 0
   Target: {fileID: 0}
   DamageField: 15
@@ -189,6 +189,37 @@ CircleCollider2D:
   m_Offset: {x: 0.0047175586, y: -0.004141234}
   serializedVersion: 2
   m_Radius: 0.055377834
+--- !u!114 &1540730999904554912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3690851434413449927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4ed55dc1a900a48886c9da135b91b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 0}
+  collisionColliders: []
+  Collider: {fileID: 3690851434413449917}
+--- !u!114 &3595347050247290077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3690851434413449927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5017a57678c4194468ef182291bd884b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 3690851434413449922}
+  PhysicalCollisionsResistance: 5
+  resistance: 0
+  DragIntensity: 1
 --- !u!1 &3690851434532924802
 GameObject:
   m_ObjectHideFlags: 0

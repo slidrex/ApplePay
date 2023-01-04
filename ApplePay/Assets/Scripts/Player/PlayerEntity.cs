@@ -28,7 +28,6 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         AddDamageAttribute();
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
         
-
         base.Start();
         CurrentRoom.DefineRoom();
     }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8631333552440265198}
   - component: {fileID: 2399445941235736370}
   - component: {fileID: -8638449275897969817}
+  - component: {fileID: -7277985051345408804}
   m_Layer: 0
   m_Name: ThiefGlove
   m_TagString: Untagged
@@ -115,7 +116,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 5
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -140,16 +141,12 @@ MonoBehaviour:
   deathParticle: {fileID: 0}
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
-  MaxHealth: 50
+  MaxHealth: 150
   HitShape: {fileID: -8638449275897969817}
+  ForceHandler: {fileID: -7277985051345408804}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
-  CollisionHandler:
-    rb: {fileID: 0}
-    resistance: 0
-    DragIntensity: 1
-    Forces: []
   StoredHealth: 0
   maxHealthColor:
     serializedVersion: 2
@@ -172,7 +169,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 8631333552440265192}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 756493e8ad7175d4ba2dc0d0a48477e2, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -204,3 +201,19 @@ MonoBehaviour:
   Owner: {fileID: 8631333552440265198}
   collisionColliders: []
   Collider: {fileID: 2399445941235736370}
+--- !u!114 &-7277985051345408804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631333552440265192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5017a57678c4194468ef182291bd884b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 8631333552440265199}
+  PhysicalCollisionsResistance: 10
+  resistance: 0
+  DragIntensity: 1

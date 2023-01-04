@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 377455623169758770}
   - component: {fileID: 1064510856}
   - component: {fileID: 1064510863}
+  - component: {fileID: 6458310048550210525}
+  - component: {fileID: 7784219908061505744}
   m_Layer: 0
   m_Name: Reaper
   m_TagString: Untagged
@@ -100,7 +102,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0050538406, y: -0.016329177}
@@ -184,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SaveDistance: 6
-  MinObstacleDist: 3
+  MinObstacleDist: 4
 --- !u!114 &1064510856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,15 +204,11 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
   MaxHealth: 100
-  HitShape: {fileID: 0}
+  HitShape: {fileID: 6458310048550210525}
+  ForceHandler: {fileID: 7784219908061505744}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
-  CollisionHandler:
-    rb: {fileID: 377455623169758731}
-    resistance: 0.5
-    DragIntensity: 1
-    Forces: []
   State: 0
   HealthBar: {fileID: 0}
   DropTable: {fileID: 377455623169758768}
@@ -223,7 +221,9 @@ MonoBehaviour:
     rgba: 3080165321
   DamageInvulnerabilityDuration: 0.1
   isDead: 0
-  EntityTags: 0000000002000000
+  Tags: 00000000
+  EnemyTags: 02000000
+  AllyTags: 00000000
   WaveRelation: 0
   Target: {fileID: 0}
   DamageField: 0
@@ -242,13 +242,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0bfcc93cc1ce744859610b7f249ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentSpeed: 3.1415927
+  CurrentSpeed: 6.283186
   MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
   Patterns:
   - {fileID: 377455623169758770}
   activePatterns: 00
+--- !u!114 &6458310048550210525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377455623169758730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 1064510856}
+  collisionColliders: []
+  Collider: {fileID: 377455623169758772}
+--- !u!114 &7784219908061505744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377455623169758730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5017a57678c4194468ef182291bd884b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 377455623169758731}
+  PhysicalCollisionsResistance: 5
+  resistance: 0
+  DragIntensity: 1
 --- !u!1 &1907055790724745402
 GameObject:
   m_ObjectHideFlags: 0

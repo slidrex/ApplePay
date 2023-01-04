@@ -4905,6 +4905,7 @@ GameObject:
   - component: {fileID: 242449599305595777}
   - component: {fileID: 5956250027060946533}
   - component: {fileID: 5907139530763051458}
+  - component: {fileID: 6081998483519053519}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -4990,7 +4991,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 756493e8ad7175d4ba2dc0d0a48477e2, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0015185699, y: 0.019859843}
@@ -5031,16 +5032,12 @@ MonoBehaviour:
   deathParticle: {fileID: 0}
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
-  MaxHealth: 50
-  HitShape: {fileID: 0}
+  MaxHealth: 30
+  HitShape: {fileID: 5956250027060946533}
+  ForceHandler: {fileID: 6081998483519053519}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
-  CollisionHandler:
-    rb: {fileID: 242449599305595777}
-    resistance: 0.2
-    DragIntensity: 10
-    Forces: []
   State: 0
   HealthBar: {fileID: 0}
   DropTable: {fileID: 5788186651065888758}
@@ -5157,6 +5154,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 583ef321141f92f479d06a772119c2c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6081998483519053519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214477276859016875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5017a57678c4194468ef182291bd884b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 0}
+  PhysicalCollisionsResistance: 5
+  resistance: 0
+  DragIntensity: 1
 --- !u!1 &6006621946491845973
 GameObject:
   m_ObjectHideFlags: 0

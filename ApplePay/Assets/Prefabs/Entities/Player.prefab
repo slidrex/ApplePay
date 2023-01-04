@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 7396770341887057190}
   - component: {fileID: 1849077798889129522}
   - component: {fileID: 1860374726016421151}
+  - component: {fileID: 2014184007174316711}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -288,15 +289,10 @@ MonoBehaviour:
   appearParticle: {fileID: 0}
   MaxHealth: 500
   HitShape: {fileID: 0}
+  CollisionHandler: {fileID: 0}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 2891188614314171647, guid: 954f520504525bf43b6bb04b77b565a9, type: 3}
-  CollisionHandler:
-    rb: {fileID: 2788200553323671119}
-    resistance: 0
-    DragIntensity: 1
-    Forces: []
-  StateLayers: 
   State: 0
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
@@ -309,12 +305,15 @@ MonoBehaviour:
     rgba: 2865219583
   DamageInvulnerabilityDuration: 1
   isDead: 0
-  Tags:
-  - player
+  Tags: 00000000
+  EnemyTags: 
+  AllyTags: 
+  WaveRelation: 0
   EffectList: {fileID: 0}
   ChangeAmount: -10
   ChangeHealthKey: 103
   effectCell: {fileID: 5231069705747123276, guid: 0e846913c595c3c44a676e3ea63f75d4, type: 3}
+  holder: {fileID: 0}
 --- !u!114 &1849077798739181968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +329,6 @@ MonoBehaviour:
   interactKey: 101
   interactDistance: 1
   HackSpeed: 2
-  holder: {fileID: 0}
   DefaultIndicator: {fileID: 11400000, guid: 5282dbe45d1ccee4283598cedb4009ae, type: 2}
   indicatorObject:
     Holder: {fileID: 0}
@@ -441,6 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Owner: {fileID: 5767637346845011317}
+  collisionColliders: []
   Collider: {fileID: 7396770341887057190}
 --- !u!61 &7396770341887057190
 BoxCollider2D:
@@ -497,8 +496,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuComponents: {fileID: 0}
-  toggleActiveElements: []
-  activateKey: 0
+  repositoryContainer: {fileID: 0}
+  internalElements: []
+  IsOpen: 0
+  menuActivateKey: 0
+  MenuState: 0
+--- !u!114 &2014184007174316711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5017a57678c4194468ef182291bd884b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  resistance: 0
+  DragIntensity: 1
 --- !u!1 &4454439995575299210
 GameObject:
   m_ObjectHideFlags: 0
