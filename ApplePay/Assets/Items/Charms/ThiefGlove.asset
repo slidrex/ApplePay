@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6665c162982aff64aa3c6af4101bf52a, type: 3}
   m_Name: ThiefGlove
   m_EditorClassIdentifier: 
+  TagAttributeCache: []
   Attributes:
   - AttributeName: hackSpeed
     AdditionalAttributeValue: 0.5
@@ -22,6 +23,7 @@ MonoBehaviour:
     Type: 0
     DisplayType: 1
   Display:
+    Rarity: 0
     Icon: {fileID: 21300000, guid: 3f1fbd2c0686a634a9121c6447ffcf22, type: 3}
     Description:
       Name: Thief's glove
@@ -34,3 +36,4 @@ MonoBehaviour:
     - Color: 1
       Text: +{0,1}% movement speed
   CharmFields: []
+  FieldsInitialized: 1

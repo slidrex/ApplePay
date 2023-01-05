@@ -6,8 +6,6 @@ public abstract class CollectableObject : ItemEntity
     public bool isCollectable { get; private set; } = true;
     [Header("Pick visual")]
     [SerializeField] private GameObject collectParticle;
-    [Header("Physics")]
-    protected Vector2 TargetVelocity;
     [SerializeField, Tooltip("Force multiplier coefficient")] private float damagePerForceUnit;
     private const float onCollectFailCollisionIgnoreTime = 1.0f;
     ///<summary>
@@ -28,14 +26,13 @@ public abstract class CollectableObject : ItemEntity
         base.Update();
         HitShape.CheckHit();
     }
-    protected virtual void FixedUpdate() => TargetVelocity = rb.velocity;
+    protected virtual void FixedUpdate() { }
     protected virtual void OnCollectFail(HitInfo collision)
     {
-        
         Rigidbody2D targetRB = collision.entity.ForceHandler?.Rigidbody;
         if(targetRB != null)
             ForceHandler.Knock(collision.normal, ForceHandler.DragIntensity, true);
-        DealCollideDamage(collision.entity, (int)(damagePerForceUnit * TargetVelocity.magnitude), null);
+        DealCollideDamage(collision.entity, (int)(damagePerForceUnit * rb.velocity.magnitude), null);
         HitShape.IgnoreShape(collision.entity.HitShape, onCollectFailCollisionIgnoreTime);
     }
     public void DealCollideDamage(Entity entity, int damage, Creature dealer) => entity.Damage(damage, DamageType.Physical, dealer);

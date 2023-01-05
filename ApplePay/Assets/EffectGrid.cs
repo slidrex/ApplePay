@@ -5,7 +5,6 @@ public class EffectGrid : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private EffectPanel effectPanel;
     [HideInInspector] public EffectPanel CurrentEffectPanel;
-    private float offset = 0.5f;
     public void OnCellEnter(EffectCell cell)
     {
         PanelSet(cell);
@@ -20,22 +19,16 @@ public class EffectGrid : MonoBehaviour
         if(cell.EffectDisplay.Additionals != null)
             for(int i = 0; i < cell.EffectDisplay.Additionals.Length; i++) CurrentEffectPanel.CreateTextField(cell.EffectDisplay.Additionals[i].TextConfiguration, cell.EffectDisplay.Additionals[i].Text, 1);
     }
-    private Vector2 GetFixedOffset(RectTransform rectTransform, Vector2 direction, float offset)
-    {
-        Vector3[] verteces = new Vector3[4];
-        rectTransform.GetWorldCorners(verteces);
-        Vector2 mousePos = Pay.Functions.Generic.GetMousePos(Camera.main);
-        return mousePos + Mathf.Abs((Screen.width - rectTransform.rect.width)/2) * Vector2.right * 0.01f;
-    }
     public void OnCellOver(EffectCell cell)
     {
         
         
         CurrentEffectPanel.SetMain(cell.EffectDisplay.FormatDescription(cell.EffectDisplay.Description));
         
+        float aspectRatio = (float)Screen.width/Screen.height;
+        CurrentEffectPanel.transform.position = cell.transform.position;
         
-        
-        CurrentEffectPanel.transform.position = GetFixedOffset(CurrentEffectPanel.GetComponent<RectTransform>(), Vector2.right, offset);
+        CurrentEffectPanel.transform.position = cell.transform.position - Vector3.up * 0.45f * aspectRatio;
     }
     public void OnCellExit(EffectCell cell)
     {

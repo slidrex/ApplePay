@@ -29,6 +29,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
         
         base.Start();
+        
         CurrentRoom.DefineRoom();
     }
     public void SetWaveStatus(WaveStatus waveStatus) => WaveStatus = waveStatus;
@@ -43,10 +44,10 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
             if(ActiveEffects.ElementAt(i).Value.EffectDisplay.Equals(new PayWorld.EffectController.EffectDisplay()))
                 continue;
                 
-            var obj = Instantiate(effectCell.gameObject, Vector3.zero, Quaternion.identity);
+            var obj = Instantiate(effectCell, Vector3.zero, Quaternion.identity);
             obj.transform.SetParent(EffectList.transform);
             obj.transform.localScale = Vector3.one;
-            obj.GetComponent<EffectCell>().EffectDisplay = ActiveEffects.ElementAt(i).Value.EffectDisplay;
+            obj.EffectDisplay = ActiveEffects.ElementAt(i).Value.EffectDisplay;
         }
     }
     protected override void Update()
