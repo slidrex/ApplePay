@@ -176,11 +176,16 @@ public abstract class Creature : Entity, IKillHandler
     {
         base.ApplyDamage(handler);
         StartImmortality();
+        print("я Lох");
         SpriteRenderer.color = takeDamageColor;
         Invoke("StartColor", 0.2f);
         HealthBar?.Animator.SetTrigger("TakeDamage");
     }
-    protected void StartImmortality() => TimeSinceInvulnerability = 0;
+    protected void StartImmortality()
+    {
+        Immortal = true;
+        TimeSinceInvulnerability = 0;
+    }
     protected override void Die(Creature killer)
     {
         DropTable?.DropLoot();
