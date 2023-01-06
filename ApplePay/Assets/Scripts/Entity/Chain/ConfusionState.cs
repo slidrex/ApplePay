@@ -14,7 +14,7 @@ public class ConfusionState : StateMachineBehaviour
             movement = animator.GetComponent<MobMovement>();
             awaken = true;
         }
-        movement.CurrentSpeed = Mathf.PI;
+        movement.SetCurrentSpeed(Mathf.PI, true);
         Physics2D.IgnoreCollision(movement.Target.GetComponent<Collider2D>(), animator.GetComponent<Collider2D>(), false);
         oldHealth = chain.CurrentHealth;
     }

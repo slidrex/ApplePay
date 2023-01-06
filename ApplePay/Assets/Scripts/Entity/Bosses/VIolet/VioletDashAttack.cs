@@ -11,7 +11,7 @@ public class VioletDashAttack : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         int random = (int)Random.Range(0, 2);
-        if(random > 0 && violet.DistanceToTarget() < violet.attackDistance)
+        if(random > 0 && violet.SquareDistanceToTarget() < (violet.attackDistance * violet.attackDistance))
         {
             violet.Movement.RemoveDisable(violet.DisableID);
             violet.Movement.animator.SetTrigger("SpinAttack");

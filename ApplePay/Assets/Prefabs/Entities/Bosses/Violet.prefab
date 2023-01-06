@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 0
   m_Name: SwordParticles
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4904,6 +4904,7 @@ GameObject:
   - component: {fileID: 1005304590}
   - component: {fileID: 1005304591}
   - component: {fileID: 4140391180511596865}
+  - component: {fileID: 1534391055}
   m_Layer: 0
   m_Name: Violet
   m_TagString: Untagged
@@ -4919,7 +4920,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7952931579770171900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.72, y: -0.77, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 1245056971}
@@ -5015,14 +5016,10 @@ MonoBehaviour:
   appearParticle: {fileID: 0}
   MaxHealth: 100
   HitShape: {fileID: 7858024455101826432}
+  ForceHandler: {fileID: 1534391055}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
-  CollisionHandler:
-    rb: {fileID: 0}
-    resistance: 1
-    DragIntensity: 0
-    Forces: []
   State: 0
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
@@ -5035,15 +5032,18 @@ MonoBehaviour:
     rgba: 3383273676
   DamageInvulnerabilityDuration: 0.2
   isDead: 0
-  Tags:
-  - aggressive
+  Tags: 00000000
+  EnemyTags: 02000000
+  AllyTags: 
   WaveRelation: 0
-  target: {fileID: 0}
-  DamageField: 0
+  Target: {fileID: 0}
+  DamageField: 25
+  bossBar: {fileID: 6520420130857660902, guid: eaee2b9d5d28c5c47b9817c7961d68b9, type: 3}
   dust: {fileID: 6033997494879645477, guid: 4057d3241241a1744bffab77433486ea, type: 3}
   swordParticles: {fileID: 219491866}
   DisableID: 0
   attackDistance: 3.21
+  attackRange: 1
 --- !u!61 &6744548689395574925
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5164,3 +5164,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1534391055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952931579770171900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5017a57678c4194468ef182291bd884b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 4140391180511596865}
+  PhysicalCollisionsResistance: 7
+  resistance: 0.89
+  DragIntensity: 1

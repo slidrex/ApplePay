@@ -71,8 +71,8 @@ public class Chain : AttackingMob
         Collider2D[] col = Physics2D.OverlapCircleAll(attackPoint.position, radius);
         foreach (Collider2D enemy in col)
         {
-            if(enemy.GetComponent<Creature>() != null && enemy.GetComponent<Chain>() == null) 
-                enemy.GetComponent<Creature>().Damage(DamageField, DamageType.Physical, this);
+            if(enemy.GetComponent<Entity>() != null && enemy.gameObject != gameObject)
+                enemy.GetComponent<Entity>().Damage(DamageField, DamageType.Physical, this);
         }
     }
     private void Dash()

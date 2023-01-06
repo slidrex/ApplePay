@@ -892,6 +892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
+  knockbackResponse: 0
   PhysicalCollisionsResistance: 0
   resistance: 0
   DragIntensity: 1
@@ -2012,6 +2013,14 @@ PrefabInstance:
       propertyPath: Rigidbody
       value: 
       objectReference: {fileID: 874118735}
+    - target: {fileID: 6896836961394028687, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+      propertyPath: resistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6896836961394028687, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+      propertyPath: knockbackResponse
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6896836961394028687, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
       propertyPath: PhysicalCollisionsResistance
       value: 5

@@ -1,7 +1,7 @@
 public class AttackingMob : MobEntity, IDamageDealable
 {
     public int DamageField;
-    public int AttackDamage 
+    public int AttackDamage
     {
         get => DamageField;
         set

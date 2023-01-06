@@ -18,7 +18,7 @@ public class UltimateAttack : StateMachineBehaviour
         chain.UltimateTrail.SetActive(true);
         maxTime = Random.Range(5, 7);
         mobMovement.SetActivePatterns(1);
-        mobMovement.CurrentSpeed = 37;
+        mobMovement.SetCurrentSpeed(37, true);
     }
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -38,7 +38,7 @@ public class UltimateAttack : StateMachineBehaviour
             timeUpdateVector += Time.deltaTime;
             if(timeUpdateVector > timeToUpdateVector)
             {
-                mobMovement.MoveVector = (mobMovement.Target.position - animator.transform.position).normalized;
+                mobMovement.SetMovementVector((mobMovement.Target.position - animator.transform.position).normalized, true);
                 timeUpdateVector = 0;
             }
         }

@@ -7,8 +7,8 @@ abstract public class EntityMovement : MonoBehaviour
     public bool isDisabled {get; private set;}
     public Animator animator {get; private set;}
     [Header("Entity Movement")]
-    public float CurrentSpeed = Mathf.PI;
-    public Vector2 MoveVector;
+    [SerializeField] private float CurrentSpeed = Mathf.PI;
+    protected Vector2 MoveVector;
     [HideInInspector] public Rigidbody2D Rigidbody;
     [HideInInspector] public bool ConstraintRotation;
     private float curConstraintDuration;
@@ -18,6 +18,10 @@ abstract public class EntityMovement : MonoBehaviour
         if(Rigidbody == null) Rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
+    public float GetCurrentSpeed() => CurrentSpeed;
+    public Vector2 GetMovementVector() => MoveVector;
+    public void SetMovementVector(Vector2 vector, bool disableChanges) => MoveVector = vector;
+    public void SetCurrentSpeed(float speed, bool disableChanges) => CurrentSpeed = speed;
     public bool ContainsDisable(byte id) => Disables.ContainsKey(id);
     public bool RemoveDisable(byte id) => Disables.Remove(id);
     public byte AddDisable(float time) => AddDisable(time, false);

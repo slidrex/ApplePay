@@ -6,7 +6,7 @@ public abstract class MovementPattern : MonoBehaviour, IHitResponder
     protected Transform CurrentTransform;
     protected MobMovement Movement;
     protected Vector2 TargetDistance => Target.transform.position - CurrentTransform.position;
-    public Vector2 MovementVector {get => Movement.MoveVector; protected set => Movement.MoveVector = value; }
+    public Vector2 MovementVector {get => Movement.GetMovementVector(); protected set => Movement.SetMovementVector(value, false); }
     protected virtual float CollisionTimeTreshold { get; }
     private float currentCollisionTime;
     public void Init(MobMovement movement, Transform transform)
@@ -39,7 +39,7 @@ public abstract class MovementPattern : MonoBehaviour, IHitResponder
             Movement.animator.SetInteger("Horizontal", (int)TargetDistance.x);
         }
     }
-    protected void UpdateRigidbodyVector() => SetRigidbodyVelocity(MovementVector * Movement.CurrentSpeed);
+    protected void UpdateRigidbodyVector() => SetRigidbodyVelocity(MovementVector * Movement.GetCurrentSpeed());
     public void SetRigidbodyVelocity(Vector2 velocity) => Movement.Rigidbody.velocity = velocity;
     public virtual void OnUpdate() {UpdateMovementAnimator(); }
     public virtual void OnStart() { }

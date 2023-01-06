@@ -1,16 +1,18 @@
 using UnityEngine;
-public class Violet : AttackingMob
+using System.Linq;
+public class Violet : BossEntity
 {
     [SerializeField] private GameObject dust;
     [SerializeField] private ParticleSystem swordParticles;
+    [HideInInspector] public byte DisableID;
     private Attacks attacks;
     private States states = States.Free;
-    public byte DisableID;
     private float maxTime = 2, curTime;
-    public float attackDistance;
+    public float attackDistance, attackRange;
     protected override void Update()
     {
         base.Update();
+        if(Target == null) Target = GetNearestHostileTarget();
         Timer();
     }
     private void Timer()
@@ -18,12 +20,12 @@ public class Violet : AttackingMob
         if(curTime < maxTime && states == States.Free)
         {
             curTime += Time.deltaTime;
-            if(curTime > maxTime && DistanceToTarget() < attackDistance)
+            if(curTime > maxTime && SquareDistanceToTarget() < (attackDistance * attackDistance))
             {
                 RandomizeAttack();
                 ResetTimer(1.25f, 2f);
             }
-            else if(curTime > maxTime && DistanceToTarget() > attackDistance)
+            else if(curTime > maxTime && SquareDistanceToTarget() > (attackDistance * attackDistance))
             {
                 attacks = Attacks.DashAttack;
                 ResetTimer(1f, 1.4f);
@@ -36,7 +38,7 @@ public class Violet : AttackingMob
         curTime = 0;
         maxTime = Random.Range(max, min);
     }
-    public float DistanceToTarget() => Vector2.Distance(Target.transform.position, transform.position);
+    public float SquareDistanceToTarget() => Vector2.SqrMagnitude(Target.transform.position - transform.position);
     private void UpdateAttackState()
     {
         states = States.Busy;
@@ -59,6 +61,15 @@ public class Violet : AttackingMob
             }
         }
     }
+    private void Attack()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(swordParticles.transform.position, attackRange);
+        foreach (Collider2D entity in colliders)
+        {
+            if(entity.GetComponent<Entity>() != null && entity.gameObject != gameObject)
+                entity.GetComponent<Entity>().Damage(DamageField, DamageType.Physical, this);
+        }
+    }
     public void AttackEnd()
     {
         Movement.RemoveDisable(DisableID);
@@ -66,13 +77,18 @@ public class Violet : AttackingMob
     }
     private void Dash()
     {
-        rb.velocity = Movement.MoveVector * 25;
+        rb.velocity = Movement.GetMovementVector() * 25;
         PayWorld.Particles.InstantiateParticles(dust, new Vector2(transform.position.x, transform.position.y - 1.1f), Quaternion.identity, 0.5f, transform);
     }
     private void ActivatePartcles() => swordParticles.Play();
     private void DeactivatePartcles() => swordParticles.Stop();
     private void RandomizeAttack() => attacks = (Attacks)Pay.Functions.Generic.GetRandomizedEnum(attacks, 0, System.Enum.GetValues(attacks.GetType()).Length - 1);
-    private void OnDrawGizmos() => Gizmos.DrawWireSphere(transform.position, attackDistance);
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(swordParticles.transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, attackDistance);
+    } 
+        
 }
 enum Attacks
 {

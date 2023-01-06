@@ -15,6 +15,7 @@ public class EvasionMovement : MovementPattern
                 break;
             } 
         } 
+        UpdateRigidbodyVector();
     }
     private Vector2 GetVector(Vector2 current, Vector2 avoid)
     {
@@ -38,5 +39,4 @@ public class EvasionMovement : MovementPattern
         if(dirList.Count == 0) return MovementVector;
         return dirList[Random.Range(0, dirList.Count)];
     }
-    public override void OnSpeedUpdate() => UpdateRigidbodyVector();
 }

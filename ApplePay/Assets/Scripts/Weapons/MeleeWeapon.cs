@@ -13,7 +13,7 @@ public class MeleeWeapon : WeaponObject
         base.OnEntityHitEnter(collision, hitEntity);
         if(hitEntity.isKnockable == true)
         {
-            hitEntity.ForceHandler?.Knock(transform.up.normalized * Knockback, Knockback, true);
+            hitEntity.ForceHandler?.Knock(transform.up.normalized * Knockback, Knockback, KnockbackTime);
             
             
         }

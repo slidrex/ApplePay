@@ -85,10 +85,10 @@ public abstract class Creature : Entity, IKillHandler
             this.AddAttribute(
             "movementSpeed",
             new FloatRef(
-            () => Movement.CurrentSpeed,
-            val => Movement.CurrentSpeed = val
+            () => Movement.GetCurrentSpeed(),
+            val => Movement.SetCurrentSpeed(val, false)
             ),
-            Movement.CurrentSpeed);
+            Movement.GetCurrentSpeed());
         }
         HealthBar?.IndicatorSetup();
         base.Awake();
@@ -101,7 +101,7 @@ public abstract class Creature : Entity, IKillHandler
     private void CollisionUpdate()
     {
         if(Movement != null && ForceHandler != null)
-            if(ForceHandler.disabled && disableID == 0)
+            if(ForceHandler.disabled && disableID == 0 && ForceHandler.knockbackResponse == PayForceHandler.KnockbackResponse.Disable)
             {
                 disableID = Movement.AddDisable();
             }
@@ -176,11 +176,16 @@ public abstract class Creature : Entity, IKillHandler
     {
         base.ApplyDamage(handler);
         StartImmortality();
+        print("я Lох");
         SpriteRenderer.color = takeDamageColor;
         Invoke("StartColor", 0.2f);
         HealthBar?.Animator.SetTrigger("TakeDamage");
     }
-    protected void StartImmortality() => TimeSinceInvulnerability = 0;
+    protected void StartImmortality()
+    {
+        Immortal = true;
+        TimeSinceInvulnerability = 0;
+    }
     protected override void Die(Creature killer)
     {
         DropTable?.DropLoot();

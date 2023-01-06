@@ -7,6 +7,7 @@ public abstract class WeaponObject : MonoBehaviour, ICollideDamageDealer, IHitRe
     [SerializeField] private int collideDamage;
     public int CollideDamage {get => collideDamage; set => collideDamage = value;}
     public float Knockback;
+    public float KnockbackTime;
     [Header("Weapon settings")]
     protected Creature Owner;
     public DamageType DamageType;

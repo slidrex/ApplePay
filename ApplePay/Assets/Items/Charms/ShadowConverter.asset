@@ -29,3 +29,4 @@ MonoBehaviour:
   - name: conversion
     value: 0.5
     NumberType: 1
+  FieldsInitialized: 1

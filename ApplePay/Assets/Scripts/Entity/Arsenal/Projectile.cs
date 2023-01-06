@@ -79,7 +79,7 @@ public class Projectile : MonoBehaviour, IHitResponder
             OnBeforeHit(hitInfo.entity, ref resultDamage);
             
             if(hitInfo.entity.ForceHandler != null && KnockbackForce != 0)
-                hitInfo.entity.ForceHandler.Knock(hitInfo.normal * KnockbackForce, KnockbackDamping, true);
+                hitInfo.entity.ForceHandler.Knock(hitInfo.normal * KnockbackForce, KnockbackDamping);
 
             hitInfo.entity.Damage(resultDamage, damageType, ProjectileOwner);
             Destroy(gameObject);

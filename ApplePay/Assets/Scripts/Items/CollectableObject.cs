@@ -31,7 +31,7 @@ public abstract class CollectableObject : ItemEntity
     {
         Rigidbody2D targetRB = collision.entity.ForceHandler?.Rigidbody;
         if(targetRB != null)
-            ForceHandler.Knock(collision.normal, ForceHandler.DragIntensity, true);
+            ForceHandler.Knock(collision.normal, ForceHandler.DragIntensity);
         DealCollideDamage(collision.entity, (int)(damagePerForceUnit * rb.velocity.magnitude), null);
         HitShape.IgnoreShape(collision.entity.HitShape, onCollectFailCollisionIgnoreTime);
     }

@@ -11,11 +11,11 @@ public class VioletSpinAttack : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         int random = (int)Random.Range(0, 2);
-        if(random > 0 && violet.DistanceToTarget() < violet.attackDistance)
+        if(random > 0 && violet.SquareDistanceToTarget() < (violet.attackDistance * violet.attackDistance))
         {
             violet.Movement.RemoveDisable(violet.DisableID);
             Vector2 dist = violet.Target.transform.position - animator.transform.position;
-            violet.Movement.MoveVector = Mathf.Abs(dist.x) > Mathf.Abs(dist.y) ? Vector2.right * Mathf.Sign(dist.x) : Vector2.up * Mathf.Sign(dist.y);
+            violet.Movement.SetMovementVector(Mathf.Abs(dist.x) > Mathf.Abs(dist.y) ? Vector2.right * Mathf.Sign(dist.x) : Vector2.up * Mathf.Sign(dist.y), true);
             violet.Movement.animator.SetTrigger("LiteAttack");
         }
         else violet.AttackEnd(); 
