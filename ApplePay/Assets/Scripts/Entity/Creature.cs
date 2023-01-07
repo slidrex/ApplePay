@@ -176,7 +176,6 @@ public abstract class Creature : Entity, IKillHandler
     {
         base.ApplyDamage(handler);
         StartImmortality();
-        print("я Lох");
         SpriteRenderer.color = takeDamageColor;
         Invoke("StartColor", 0.2f);
         HealthBar?.Animator.SetTrigger("TakeDamage");

@@ -142,8 +142,8 @@ MonoBehaviour:
     rgba: 3837367493
   DamageInvulnerabilityDuration: 0.1
   isDead: 0
-  Tags: 
-  EnemyTags: 
+  Tags: 00000000
+  EnemyTags: 02000000
   AllyTags: 
   WaveRelation: 0
   Target: {fileID: 0}
@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 3690851434413449922}
+  knockbackResponse: 0
   PhysicalCollisionsResistance: 5
   resistance: 0
   DragIntensity: 1

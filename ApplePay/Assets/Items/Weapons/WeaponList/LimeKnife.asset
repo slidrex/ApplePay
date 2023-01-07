@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e95284b4214d03749b76c3f4b5ea9291, type: 3}
+  m_Name: LimeKnife
+  m_EditorClassIdentifier: 
+  WeaponObject: {fileID: 4859012949614324252, guid: 94f47634815607748842005360c93b59, type: 3}
+  AttackAnimationSettings: {fileID: 11400000, guid: 1059c154ce0fb234fa804d3a3c9b2907, type: 2}
+  WeaponInfo:
+    Display:
+      Rarity: 0
+      Icon: {fileID: 21300000, guid: 76534ab57e0248f4e865aa873068b33d, type: 3}
+      Description:
+        Name: Lime Knife
+        Description: Round
+    AnimationParameters:
+      AttackCooldown: 0.6
+      AnimationTime: 0.6
+      Velocity: 2
+      AngularVelocity: 1

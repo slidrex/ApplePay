@@ -101,7 +101,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 377455623169758730}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 756493e8ad7175d4ba2dc0d0a48477e2, type: 2}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -130,14 +130,14 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 120
+  m_Mass: 50
   m_LinearDrag: 10
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &377455623169758775
 Animator:
@@ -203,7 +203,7 @@ MonoBehaviour:
   deathParticle: {fileID: 0}
   takeDamageParticle: {fileID: 0}
   appearParticle: {fileID: 0}
-  MaxHealth: 100
+  MaxHealth: 50
   HitShape: {fileID: 6458310048550210525}
   ForceHandler: {fileID: 7784219908061505744}
   evasionRate: 0
@@ -243,7 +243,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSpeed: 6.283186
-  MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
   Patterns:
@@ -277,8 +276,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 377455623169758731}
+  knockbackResponse: 0
   PhysicalCollisionsResistance: 5
-  resistance: 0
+  resistance: 0.26
   DragIntensity: 1
 --- !u!1 &1907055790724745402
 GameObject:

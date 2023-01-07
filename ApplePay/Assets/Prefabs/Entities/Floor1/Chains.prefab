@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5602800900381002125
 Transform:
   m_ObjectHideFlags: 0
@@ -397,7 +397,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSpeed: 3.1415927
-  MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
   Patterns:
@@ -435,14 +434,10 @@ MonoBehaviour:
   appearParticle: {fileID: 0}
   MaxHealth: 100
   HitShape: {fileID: 2463848941344230661}
+  ForceHandler: {fileID: 0}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
-  CollisionHandler:
-    rb: {fileID: 5111808536178740533}
-    resistance: 1
-    DragIntensity: 1
-    Forces: []
   State: 0
   HealthBar: {fileID: 0}
   DropTable: {fileID: 0}
@@ -455,9 +450,11 @@ MonoBehaviour:
     rgba: 3503609087
   DamageInvulnerabilityDuration: 0.35
   isDead: 0
-  Animator: {fileID: 0}
-  Tags: []
-  target: {fileID: 0}
+  Tags: 
+  EnemyTags: 
+  AllyTags: 
+  WaveRelation: 0
+  Target: {fileID: 0}
   DamageField: 15
   UltimateTrail: {fileID: 830950115}
   attackPoint: {fileID: 1970636236}
