@@ -7,7 +7,6 @@ public class MeleeWeapon : WeaponObject
         LinkAttacker(attacker);
         projectile = null;
     }
-
     protected override void OnEntityHitEnter(Collider2D collision, Entity hitEntity)
     {
         base.OnEntityHitEnter(collision, hitEntity);

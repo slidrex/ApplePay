@@ -13,7 +13,6 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     override protected void Update()
     {
         base.Update();
-        
         if(!Disable) InventoryController();
         UpdateSlotIndicator();
     }
@@ -50,7 +49,7 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     private void UpdateSlotIndicator()
     {
         if(GetActiveWeapon() != null && weaponPlaceSlot.IndicatorBuffer != null)
-            weaponPlaceSlot.SlotIndicatorUpdate(DropSettings.Holder, GetActiveWeapon().weapon.WeaponInfo.AnimationInfo.timeSinceUse, GetActiveWeapon().weapon.WeaponInfo.GetAttackCooldown());
+            weaponPlaceSlot.SlotIndicatorUpdate(DropSettings.Holder, GetActiveWeapon().weapon.weaponInfo.timeSinceUse, GetActiveWeapon().weapon.weaponInfo.AttackCooldown);
     }
     public override void OnWeaponActivate(Weapon weapon, bool status)
     {
@@ -65,13 +64,13 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
         if(currentItem != null)
         {
             weaponPlaceSlot.CreateSlotIndicator(DropSettings.Holder);
-            weaponPlaceSlot.SetItem(currentItem.weapon.WeaponInfo.Display.Icon);
-            weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().weapon.WeaponInfo.Display.Description.Name);
+            weaponPlaceSlot.SetItem(currentItem.weapon.display.Icon);
+            weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().weapon.display.Description.Name);
         }
     }
     private void SetupText()
     {
         weaponPlaceSlot.RemoveText();
-        weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().weapon.WeaponInfo.Display.Description.Name);
+        weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().weapon.display.Description.Name);
     }
 }

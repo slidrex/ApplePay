@@ -30,7 +30,6 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         
         base.Start();
         
-        CurrentRoom.DefineRoom();
     }
     public void SetWaveStatus(WaveStatus waveStatus) => WaveStatus = waveStatus;
     public void OnEffectUpdated()

@@ -8,10 +8,10 @@ public class WeaponPlace : MonoBehaviour
     public float Radius;
     public float WeaponScale = 1f;
     [HideInInspector] public WeaponPlaceAnimator animator = new WeaponPlaceAnimator();
-    public void ActivateAnimation(Weapon weapon, GameObject animateObject, Vector2 attackPosition)
+    public void ActivateAnimation(InstantiateWeapon weapon, GameObject animateObject, Vector2 attackPosition)
     {   
         AnimateObjectSetup(animateObject, out Transform container);
-        TranformPlaceSetup(container, weapon.AttackAnimationSettings.AttackType, attackPosition, out Vector2 _facing);
+        TranformPlaceSetup(container, weapon.attackType, attackPosition, out Vector2 _facing);
         animator.StartAnimation(weapon, container);
     }
     private void AnimateObjectSetup(GameObject animateObject, out Transform container)
@@ -24,11 +24,11 @@ public class WeaponPlace : MonoBehaviour
         animateObject.transform.localScale *= WeaponScale;
 
     }
-    private void TranformPlaceSetup(Transform transform, AttackType type, Vector2 attackPosition, out Vector2 facing)
+    private void TranformPlaceSetup(Transform transform, Weapon.AttackType type, Vector2 attackPosition, out Vector2 facing)
     {
         Vector2 dist = attackPosition - (Vector2)transform.position;
         Vector2 offset, attackDirection;
-        if(type == AttackType.AllDir)
+        if(type == Weapon.AttackType.Radial)
         {
             attackDirection = dist.normalized;
             offset = Radius * attackDirection;
@@ -45,5 +45,4 @@ public class WeaponPlace : MonoBehaviour
         transform.position += (Vector3)offset;
     }
     private void Update() => animator.Update();
-    
 }

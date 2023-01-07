@@ -21,24 +21,36 @@ public abstract class WeaponHolder : MonoBehaviour
     public virtual bool Activate(Creature attacker, ref Weapon activeWeapon, Vector2 beginTrajectory, Vector2 endTrajectory, Transform target) => ActivateHandler(attacker, beginTrajectory, endTrajectory, ref activeWeapon, target, out Projectile projectile);
     private bool ActivateHandler(Creature attacker, Vector2 beginTrajectory , Vector2 endTrajectory, ref Weapon activeWeapon, Transform target, out Projectile projectile)
     {
-        if(activeWeapon == null || Disable || !activeWeapon.WeaponInfo.AnimationInfo.canActivate || attacker.IsFree() == false) 
+        if(activeWeapon == null || Disable || activeWeapon.weaponInfo.isActivatable == false || attacker.IsFree() == false) 
         {
             projectile = null;
             OnWeaponActivate(activeWeapon, false);
             return false;
         };
-        activeWeapon.WeaponInfo.AnimationInfo.timeSinceUse = 0;
-        attacker.Engage(activeWeapon.WeaponInfo.GetAnimationTime(), null);
-        SetFacing(activeWeapon.WeaponInfo.GetAnimationTime(), beginTrajectory, endTrajectory, WeaponPlace.FreezeHorizontal, WeaponPlace.FreezeVertical);
-
+        InstantiateWeapon animatableWeapon = activeWeapon as InstantiateWeapon;
+        float facingTime = activeWeapon.weaponInfo.AdditionalFacingTime;
+        if(animatableWeapon != null) facingTime += animatableWeapon.animationInfo.animationTime;
+        Vector2 facing = SetFacing(facingTime, beginTrajectory, endTrajectory, WeaponPlace.FreezeHorizontal, WeaponPlace.FreezeVertical);
         activeWeapon.Activate(attacker, beginTrajectory, endTrajectory, out GameObject weaponObject, target, out projectile);
-        WeaponPlace.ActivateAnimation(activeWeapon, weaponObject, endTrajectory);
+        if(animatableWeapon != null)
+        {
+            float animationTime = animatableWeapon.animationInfo.animationTime;
+            attacker.Engage(animationTime, null);
+            WeaponPlace.ActivateAnimation(animatableWeapon, weaponObject, endTrajectory);
+            if(facing == Vector2.down) weaponObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            activeWeapon.weaponInfo.timeSinceUse = 0.0f;
+            activeWeapon.weaponInfo.isActivatable = false;
+        }
+        else
+        {
+            activeWeapon.weaponInfo.SetCooldown();
+        }
         
         OnWeaponActivate(activeWeapon, true);
         return true;
     }
     public virtual void OnWeaponActivate(Weapon weapon, bool status) {}
-    private void SetFacing(float freezeTime, Vector2 beginPosition, Vector2 endPosition, bool freezeHorizontal, bool freezeVertical)
+    private Vector2 SetFacing(float freezeTime, Vector2 beginPosition, Vector2 endPosition, bool freezeHorizontal, bool freezeVertical)
     {
         Vector2 distance = endPosition - beginPosition;
         
@@ -46,7 +58,9 @@ public abstract class WeaponHolder : MonoBehaviour
         if(freezeHorizontal) facing = Vector2.up * Mathf.Sign(distance.y);
         if(freezeVertical) facing = Vector2.right * Mathf.Sign(distance.x);
         if(freezeHorizontal && freezeVertical) facing = Vector2.zero;
+
         Owner.Movement.SetFacingState(facing, freezeTime + additionalFreezeStateTime, StateParameter.MirrorHorizontal);
+        return facing;
     }
     
 }

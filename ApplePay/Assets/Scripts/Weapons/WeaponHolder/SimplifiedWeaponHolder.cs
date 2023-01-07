@@ -5,13 +5,15 @@ public class SimplifiedWeaponHolder : WeaponHolder
     public Weapon ActiveWeapon;
     protected override void UpdateWeaponList()
     {
-        if(ActiveWeapon == null) return;
-        if(ActiveWeapon.WeaponInfo.AnimationInfo.inAnimation || ActiveWeapon.WeaponInfo.AnimationInfo.timeSinceUse < ActiveWeapon.WeaponInfo.GetAttackCooldown())
+        if(ActiveWeapon != null)
         {
-            ActiveWeapon.WeaponInfo.AnimationInfo.canActivate = false;
-            ActiveWeapon.WeaponInfo.AnimationInfo.timeSinceUse += Time.deltaTime;
+            if(ActiveWeapon.weaponInfo.OnCooldown && ActiveWeapon.weaponInfo.timeSinceUse < ActiveWeapon.weaponInfo.AttackCooldown)
+            {
+                ActiveWeapon.weaponInfo.isActivatable = false;
+                ActiveWeapon.weaponInfo.timeSinceUse += Time.deltaTime;
+            }
+            else
+                ActiveWeapon.weaponInfo.isActivatable = true;
         }
-        else
-            ActiveWeapon.WeaponInfo.AnimationInfo.canActivate = true;
     }
 }

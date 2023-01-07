@@ -40,5 +40,4 @@ public class WeaponPlaceSlot : MonoBehaviour
     }
     public void RemoveText() => Pay.UI.UIManager.RemoveUI(textBuffer);
     public void RemoveIndicator() => Pay.UI.UIManager.RemoveUI(IndicatorBuffer);
-    
 }

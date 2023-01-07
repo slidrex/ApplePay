@@ -52,13 +52,17 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
             if(Repository.Items[i] != null)
             {
                 CollectableWeapon currentItem = (CollectableWeapon)Repository.Items[i];
-
-                if(currentItem.weapon.WeaponInfo.AnimationInfo.inAnimation || currentItem.weapon.WeaponInfo.AnimationInfo.timeSinceUse < currentItem.weapon.WeaponInfo.GetAttackCooldown())
+                
+                if(currentItem.weapon.weaponInfo.OnCooldown && currentItem.weapon.weaponInfo.timeSinceUse < currentItem.weapon.weaponInfo.AttackCooldown)
                 {
-                    currentItem.weapon.WeaponInfo.AnimationInfo.timeSinceUse += currentItem.weapon.WeaponInfo.AnimationInfo.inAnimation ? 0 : Time.deltaTime;
-                    currentItem.weapon.WeaponInfo.AnimationInfo.canActivate = false;
+                    currentItem.weapon.weaponInfo.timeSinceUse += Time.deltaTime;
+                    currentItem.weapon.weaponInfo.isActivatable = false;
                 }
-                else currentItem.weapon.WeaponInfo.AnimationInfo.canActivate = true;
+                else if(currentItem.weapon.weaponInfo.timeSinceUse >= currentItem.weapon.weaponInfo.AttackCooldown && currentItem.weapon.weaponInfo.OnCooldown)
+                {
+                    currentItem.weapon.weaponInfo.isActivatable = true;
+                    currentItem.weapon.weaponInfo.OnCooldown = false;    
+                }
                 Repository.Items[i] = currentItem;
             }
         }
