@@ -5,10 +5,10 @@ using UnityEngine;
 public class StraightProjectileWeapon : Weapon
 {
     [SerializeField] protected Projectile FireObject;
-    public override void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, out GameObject weaponObject, Transform target, out Projectile projectile)
+    public override void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out GameObject output)
     {
-        projectile = Instantiate(FireObject, originPosition, Quaternion.Euler(0, 0, Vector2.Angle(originPosition, attackPosition)));
-        weaponObject = FireObject.gameObject;
+        Projectile projectile = Instantiate(FireObject, originPosition, Quaternion.Euler(0, 0, Vector2.Angle(originPosition, attackPosition)));
+        output = FireObject.gameObject;
         Vector2 projectileMoveVector = (attackPosition - originPosition).normalized;
         
         projectile.Setup(projectileMoveVector, attacker, target);

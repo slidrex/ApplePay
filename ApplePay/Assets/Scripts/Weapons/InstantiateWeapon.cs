@@ -6,11 +6,11 @@ public class InstantiateWeapon : Weapon
     public WeaponObject WeaponObject;
     public WeaponAnimation animationPreset;
     public AnimationInfo animationInfo;
-    public override void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, out GameObject weaponObject, Transform target, out Projectile projectile)
+    public override void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out GameObject output)
     {
         WeaponObject _weaponObject = Instantiate(WeaponObject, originPosition, Quaternion.identity);
-        _weaponObject.Activate(attacker, originPosition, attackPosition, target, out projectile);
-        weaponObject = _weaponObject.gameObject;
+        _weaponObject.Activate(attacker, originPosition, attackPosition, target, out Projectile projectile);
+        output = _weaponObject.gameObject;
     }
     [System.Serializable]
     public struct AnimationInfo

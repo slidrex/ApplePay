@@ -5066,7 +5066,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   MarkList:
-  - {fileID: 11400000, guid: 5531a6a026fb64046bb3d51f4027f6fa, type: 2}
+  - {fileID: 0}
   EnvironmentObjectLimit: 0
   isActive: 0
   MobCountLimit: 6

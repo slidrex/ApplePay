@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public static class RoomDefiner
 {
     public static void ActivateRoomMarks(this Room room)

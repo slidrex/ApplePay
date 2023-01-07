@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: VioletBoss
   m_EditorClassIdentifier: 
   SpawnDelay: 0
-  MinContractObjects: 0
-  MaxContractObjects: 0
-  contractObjects: []
+  MinContractObjects: 1
+  MaxContractObjects: 1
+  contractObjects:
+  - Object: {fileID: 7952931579770171900, guid: 046a1ac3bce926a409b8132ea05df597, type: 3}
+    SpawnChance: 1
+    MinSpawnInterval: 0
+    MaxSpawnInterval: 0

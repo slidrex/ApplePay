@@ -29,7 +29,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
         
         base.Start();
-        
+        CurrentRoom.DefineRoom();
     }
     public void SetWaveStatus(WaveStatus waveStatus) => WaveStatus = waveStatus;
     public void OnEffectUpdated()

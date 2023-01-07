@@ -28,7 +28,7 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
         {
             Weapon current = GetActiveWeapon()?.weapon;
             if(current != null)
-                Activate(Owner, ref current, Pay.Functions.Generic.GetMousePos(Camera.main), null, out Projectile projectile);
+                Activate(Owner, ref current, Pay.Functions.Generic.GetMousePos(Camera.main), null, out GameObject output);
         }
         if(GetActiveWeapon() != null && Repository.Items.Length != 0)
         {

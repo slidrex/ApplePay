@@ -6,7 +6,7 @@ public abstract class Weapon : ScriptableObject
     public WeaponDisplay display;
     public WeaponInfo weaponInfo;
     protected virtual void Awake() => weaponInfo.SetCooldown();
-    public abstract void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, out GameObject weaponObject, Transform target, out Projectile projectile);
+    public abstract void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out GameObject output);
     public enum AttackType
     {
         Radial,
