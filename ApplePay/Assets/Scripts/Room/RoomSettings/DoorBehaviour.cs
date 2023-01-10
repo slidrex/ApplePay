@@ -29,6 +29,13 @@ public class DoorBehaviour : KeyHoldingHack
         ConnectedDoor = door;
         ConnectedDoor.spriteRenderer.sprite = connectedDoorSprite;
     }
+    public override bool IsValidInteract(InteractManager interactManager)
+    {
+        IWavedepent waveImplementation = interactManager.entity.GetComponent<IWavedepent>();
+        if(interactManager.entity.GetComponent<IWavedepent>() != null && waveImplementation.WaveStatus == WaveStatus.InWave) return false;
+        
+        return true;
+    }
     public void SwapDirection(int swap) => direction = (DoorDirection)Mathf.Repeat((int)direction + swap, 4);
     protected override void OnAfterHack(InteractManager interactEntity)
     {
@@ -36,7 +43,13 @@ public class DoorBehaviour : KeyHoldingHack
         if(ConnectedDoor.isUnlocked == false) 
         {
             ConnectedDoor.OnUnlock();
-            ConnectedDoor.AttachedRoom.DefineRoom();
+            
+            IWavedepent waveImplementation = interactEntity.GetComponent<IWavedepent>();
+            if(waveImplementation != null && ConnectedDoor.AttachedRoom.IsRedifinable())
+            {
+                WaveController.InitWave();
+            }
+            ConnectedDoor.AttachedRoom.NextRoomStage();
         }
     }
     protected override void OnInteractAction(InteractManager interactEntity)
@@ -47,12 +60,6 @@ public class DoorBehaviour : KeyHoldingHack
             interactEntity.transform.position = ConnectedDoor.TeleportPoint.position;
             interactEntity.entity.LevelController.UpdateRoomEntityList();
         }
-    }
-    private WaveStatus WaveStatusCheck(Creature entity)
-    {
-        IWavedepent wavedepentComponent = entity.GetComponent<IWavedepent>();
-        if(wavedepentComponent == null) return WaveStatus.NoWave;
-        return wavedepentComponent.WaveStatus;
     }
     protected override void OnInteractBegin(InteractManager interactEntity)
     {

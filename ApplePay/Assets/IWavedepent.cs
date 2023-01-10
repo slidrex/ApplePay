@@ -1,5 +1,4 @@
 public interface IWavedepent
 {
-    public WaveStatus WaveStatus { get; }
-    void SetWaveStatus(WaveStatus waveStatus);
+    public WaveStatus WaveStatus { get; set; }
 }

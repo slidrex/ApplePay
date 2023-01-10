@@ -1,51 +1,46 @@
-using UnityEngine;
-public class WaveController : MonoBehaviour
+public static class WaveController
 {
-    internal struct BindedWaveStatus
+    private static float WaveEndDelayTime;
+    public static Creature WaveCreature;
+    public static IWavedepent WaveImplementation;
+    public static void OnWaveBegin() { }
+    public static void OnWaveEnd() { }
+    public static void SetupWaveEntity(Creature wrappedEntity, IWavedepent waveImplementation, float waveEndDelayTime)
     {
-        internal WaveStatus status;
-        internal float bindTime;
+        WaveCreature = wrappedEntity;
+        WaveImplementation = waveImplementation;
+        WaveEndDelayTime = waveEndDelayTime;
     }
-    [SerializeField] private Creature WrappedCreature;
-    private IWavedepent wrappedWaveComponent;
-    private Room wrappedRoom;
-    private WaveStatus wrappedEntityWaveStatus;
-    [SerializeField] private BindedWaveStatus bindedStatus;
-    private void Start()
+    public static void InitWave()
     {
-        AssignWrappedEntity(WrappedCreature);
-        if(WrappedCreature == null)
-            throw new System.NullReferenceException("Wrapped Creature hasn't been assigned.");
+        OnWaveBegin();
+        SetWaveStatus(WaveStatus.InWave);
     }
-    private void Update()
+    public static void UpdateWaveStatus()
     {
-        if(bindedStatus.bindTime > 0) 
+        Room currentRoom = WaveCreature.CurrentRoom;
+        foreach(Creature entity in currentRoom.EntityList)
         {
-            BindedWaveStatus curStatus = bindedStatus;
-            curStatus.bindTime -= Time.deltaTime;
-        
-            if(curStatus.bindTime < 0) curStatus = new BindedWaveStatus();
-            bindedStatus = curStatus;
+            if(entity.WaveRelation == EntityWaveType.BlockWave)
+            {
+                return;
+            }
+        }
+        if(currentRoom.IsRedifinable() == true && currentRoom.IsExecutingMark() == false)
+        {
+            currentRoom.NextRoomStage();
+        }
+        else if(currentRoom.IsReleased())
+        {
+            StaticCoroutine.BeginCoroutine(DelayWaveEnd());
         }
     }
-    private void OnWaveBegin() => wrappedWaveComponent.SetWaveStatus(WaveStatus.InWave);
-    public void UpdateWaveStatus()
+    public static void SetWaveStatus(WaveStatus waveStatus) => WaveImplementation.WaveStatus = waveStatus;
+    public static System.Collections.IEnumerator DelayWaveEnd()
     {
-        
-    }
-    private void OnWaveEnd()
-    {
-        
-    }
-    public void AssignWrappedEntity(Creature wrappedCreature)
-    {
-        if(wrappedCreature.GetComponent<IWavedepent>() == null)
-            throw new System.NullReferenceException("Wrapped entity doesn't contain \"IWavedepent\" interface.");
-        else
-        {
-            wrappedWaveComponent = wrappedCreature.GetComponent<IWavedepent>();
-            WrappedCreature = wrappedCreature;
-        }
+        yield return new UnityEngine.WaitForSeconds(WaveEndDelayTime);
+        WaveImplementation.WaveStatus = WaveStatus.NoWave;
+        OnWaveEnd();
     }
 }
 public enum EntityWaveType

@@ -14,6 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnRooms:
   - SpawnerRoom:
+      minStageCount: 3
+      maxStageCount: 4
+      stages:
+      - minStage: 1
+        maxStage: 4
+        onlyOne: 0
+        marks:
+        - Mark: {fileID: 11400000, guid: 5531a6a026fb64046bb3d51f4027f6fa, type: 2}
+          SpawnRate: 1
+      endMark: []
+      room: {fileID: 2949683388831534208, guid: c2275ca7af267734dbec0e049e134086, type: 3}
+      availableRotations: 0100
+    spawnRate: 50
+  - SpawnerRoom:
+      minStageCount: 1
+      maxStageCount: 2
+      stages:
+      - minStage: 1
+        maxStage: 2
+        onlyOne: 0
+        marks:
+        - Mark: {fileID: 11400000, guid: 5531a6a026fb64046bb3d51f4027f6fa, type: 2}
+          SpawnRate: 1
+      endMark: []
       room: {fileID: 2949683388831534208, guid: c2275ca7af267734dbec0e049e134086, type: 3}
       availableRotations: 0100
     spawnRate: 50
@@ -23,4 +47,15 @@ MonoBehaviour:
   GridComplexityLimit: 2
   GridComplexityIncreaseRate: 0.14
   ChangeDirectionRate: 0.2
-  ContractRooms: []
+  ContractRooms:
+  - SpawnerRoom:
+      minStageCount: 1
+      maxStageCount: 1
+      stages: []
+      endMark:
+      - Mark: {fileID: 11400000, guid: da65e072c8673bf4bb174cdf8ba6e803, type: 2}
+        SpawnRate: 1
+      room: {fileID: 4698656440879316678, guid: 93466e9076201354ba6cc934022b3c35, type: 3}
+      availableRotations: 
+    MinRoom: 8
+    MaxRoom: 8

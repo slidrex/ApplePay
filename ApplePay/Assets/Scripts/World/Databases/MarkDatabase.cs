@@ -9,6 +9,6 @@ public class MarkDatabase : Database
     public struct MarkSlot
     {
         public ActionMark Mark;
-        [Range(0, 1f)] public float SpawnChance;
+        [Range(0, 1f)] public float SpawnRate;
     }
 }

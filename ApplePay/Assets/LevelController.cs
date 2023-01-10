@@ -6,9 +6,9 @@ public class LevelController : MonoBehaviour
     public void UpdateRoomEntityList()
     {
         Creature[] entities = MonoBehaviour.FindObjectsOfType<Creature>();
-        Room[] rooms = LevelRoomSpawner.ActiveLevelRooms;
-
-        foreach(Room room in rooms) room.EntityList = new System.Collections.Generic.List<Creature>();
+        RoomSpawner.SpawnerRoom[] rooms = LevelRoomSpawner.ActiveLevelRooms;
+        
+        foreach(RoomSpawner.SpawnerRoom room in rooms) room.room.EntityList = new System.Collections.Generic.List<Creature>();
         
         foreach(Creature entity in entities) DefineCurrentRoom(entity);
         
@@ -17,12 +17,12 @@ public class LevelController : MonoBehaviour
     {
         creature.CurrentRoom = null;
         
-        foreach(Room room in LevelRoomSpawner.ActiveLevelRooms)
+        foreach(RoomSpawner.SpawnerRoom room in LevelRoomSpawner.ActiveLevelRooms)
         {
-            if(!room.EntityList.Contains(creature) && room.RoomConfiners.IsInsideBound(creature.transform.position) && !creature.isDead)
+            if(!room.room.EntityList.Contains(creature) && room.room.RoomConfiners.IsInsideBound(creature.transform.position) && !creature.isDead)
             {
-                room.EntityList.Add(creature);
-                creature.CurrentRoom = room;
+                room.room.EntityList.Add(creature);
+                creature.CurrentRoom = room.room;
                 
             }
         }

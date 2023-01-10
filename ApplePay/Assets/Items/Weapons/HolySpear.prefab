@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Collider: {fileID: 5062544414722703039}
-  collideDamage: 10
+  collideDamage: 100
   Knockback: 8
   KnockbackTime: 0.1
   DamageType: 0

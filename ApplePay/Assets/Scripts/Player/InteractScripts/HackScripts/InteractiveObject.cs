@@ -8,6 +8,8 @@ public abstract class InteractiveObject : MonoBehaviour
     public abstract bool HoldFoundable {get;}
     public InteractPointer InteractPointer;
     private void Awake() => InteractPointer.AttachedInteractive = this;
+    ///<summary>Additional entry condition for interact entity.</summary>
+    public virtual bool IsValidInteract(InteractManager interactManager) => true;
     public virtual void OnInteractZoneEntered(InteractManager interactEntity) { }
     public virtual void OnInteractZoneLeft(InteractManager interactEntity) { }
     ///<summary>Calls when interact entity presses interact key down. </summary>
