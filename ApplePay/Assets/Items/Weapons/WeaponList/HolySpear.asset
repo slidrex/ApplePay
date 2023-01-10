@@ -18,7 +18,7 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: c05ce08778f8f01409668285d4fa6a6d, type: 3}
     Description:
       Name: Holy Spear
-      Description: 
+      Description: HOLY!!
   weaponInfo:
     AttackCooldown: 0
     AdditionalFacingTime: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4022463295020868822}
   - component: {fileID: 2857355086325226236}
   - component: {fileID: 5164016447967738670}
-  - component: {fileID: 8517536321206808552}
+  - component: {fileID: -6391665185260238843}
   m_Layer: 0
   m_Name: FireProjectile
   m_TagString: Untagged
@@ -148,7 +148,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &5164016447967738670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
   PhysicalCollisionsResistance: 5
   resistance: 0
   DragIntensity: 1
---- !u!114 &8517536321206808552
+--- !u!114 &-6391665185260238843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,15 +175,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 554103902625920001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c25fd3fd56460e43bd4348de773a7fc, type: 3}
+  m_Script: {fileID: 11500000, guid: fd622efef9f118249be0d110bdef9da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LifeTime: 1.3
+  LifeTime: 1
   Damage: 5
-  Acceleration: -3
-  Speed: 8
-  MinSpeed: 4
-  MaxSpeed: 8
+  Acceleration: -2
+  Speed: 5
+  MinSpeed: 3
+  MaxSpeed: 5
   HitBox: {fileID: 4022463295020868822}
   ForceHandler: {fileID: 5164016447967738670}
   destroyParticle: {fileID: 7591042851755057405, guid: 7d3b20fafa6a99847aeabf2c90873404, type: 3}
@@ -191,5 +191,3 @@ MonoBehaviour:
   SetMoveRotation: 0
   KnockbackForce: 0
   KnockbackDamping: 0
-  allyDamageMultiplier: 1
-  hostileDamageMultiplier: 1

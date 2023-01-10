@@ -53,7 +53,7 @@ public abstract class CollectableItem<Item> : CollectableObject
     {
         if(hoverableObject.contentPanel != null && hoverableObject.HintCreated)
         {
-            hoverableObject.DestroyHint();
+            Destroy(hoverableObject.contentPanel.gameObject);
         }
     }
     public override void CollisionRequest(HitInfo collision, ref bool collectStatus)

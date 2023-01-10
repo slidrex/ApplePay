@@ -5048,7 +5048,7 @@ MonoBehaviour:
   takeDamageColor:
     serializedVersion: 2
     rgba: 3432223718
-  DamageInvulnerabilityDuration: 0.1
+  DamageInvulnerabilityDuration: 0.05
   isDead: 0
   Tags: 00000000
   EnemyTags: 02000000
@@ -5100,7 +5100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSpeed: 5
-  MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
   ConstraintRotation: 0
   Patterns:
@@ -5167,6 +5166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
+  knockbackResponse: 0
   PhysicalCollisionsResistance: 5
   resistance: 0
   DragIntensity: 1

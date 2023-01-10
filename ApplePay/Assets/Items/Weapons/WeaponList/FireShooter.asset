@@ -9,20 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e95284b4214d03749b76c3f4b5ea9291, type: 3}
+  m_Script: {fileID: 11500000, guid: 2141524fee2942849ad2c376c28566f6, type: 3}
   m_Name: FireShooter
   m_EditorClassIdentifier: 
-  WeaponObject: {fileID: 4416367329647071391, guid: fc9dbf678995a2549850f8895f42737b, type: 3}
-  AttackAnimationSettings: {fileID: 11400000, guid: e4921215974f9064a86c7c0c8211cb9b, type: 2}
-  WeaponInfo:
-    Display:
-      Rarity: 0
-      Icon: {fileID: 0}
-      Description:
-        Name: 
-        Description: 
-    AnimationParameters:
-      AttackCooldown: 0.2
-      AnimationTime: 0.2
-      Velocity: 0
-      AngularVelocity: 0
+  attackType: 0
+  display:
+    Rarity: 0
+    Icon: {fileID: 21300000, guid: 4f60bfaa063d7c84eb066b5cc31cd8b7, type: 3}
+    Description:
+      Name: fire shooter
+      Description: FIRE!!!
+  weaponInfo:
+    AttackCooldown: 1
+    AdditionalFacingTime: 0.3
+  WeaponObject: {fileID: 9062759103273147470, guid: fc9dbf678995a2549850f8895f42737b, type: 3}
+  animationPreset: {fileID: 11400000, guid: 48b3f08bf727933418dcc797df22a36e, type: 2}
+  animationInfo:
+    animationTime: 0.7
+    linearVelocity: 0
+    angularVelocity: 0
+    inAnimation: 0

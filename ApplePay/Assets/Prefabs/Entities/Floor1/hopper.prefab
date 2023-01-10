@@ -4997,7 +4997,7 @@ MonoBehaviour:
   takeDamageColor:
     serializedVersion: 2
     rgba: 3314322629
-  DamageInvulnerabilityDuration: 0.1
+  DamageInvulnerabilityDuration: 0.05
   isDead: 0
   Tags: 00000000
   EnemyTags: 02000000
