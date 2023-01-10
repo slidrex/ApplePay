@@ -10,7 +10,6 @@ public class ContractMark : ActionMark
     public override void ApplyMark(Room room) => StaticCoroutine.BeginCoroutine(SpawnContractObjects(room));
     private System.Collections.IEnumerator SpawnContractObjects(Room room)
     {
-        Debug.Log("mark activate");
         yield return new WaitForSeconds(SpawnDelay);
         byte contractObjectCount = (byte)Random.Range(MinContractObjects, MaxContractObjects);
         for(int i = 0; i < contractObjectCount; i++)
@@ -27,6 +26,7 @@ public class ContractMark : ActionMark
                 }
             }
         }
+        room.OnMarkReleased(this);
     }
     [System.Serializable]
     public struct ContractObject

@@ -194,6 +194,8 @@ public abstract class Creature : Entity, IKillHandler
     public virtual void OnAfterKill()
     {
         LevelController.UpdateRoomEntityList();
+
+        WaveController.UpdateWaveStatus();
     }
     private void OnDestroy()
     {

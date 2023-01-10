@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1120820663
   m_SortingLayer: 1
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: 73255ecc36e57814891861f29a5563e1, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.48235294}
   m_FlipX: 0
@@ -159,7 +159,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1120820663
   m_SortingLayer: 1
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 73255ecc36e57814891861f29a5563e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b597fb3422f683341993a7e31d892527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hintPosition: {fileID: 0}
+  hintPosition: {fileID: 2143227080239537006}
   AttachedInteractive: {fileID: 337219425}
   rangeCollider: {fileID: 164508151393583281}
 --- !u!1 &6559198460965625251

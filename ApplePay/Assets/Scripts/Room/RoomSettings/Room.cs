@@ -1,17 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Room : MonoBehaviour
 {
     [SerializeField, Tooltip("Specified space is free for spawn objects.")] private RoomBound[] FreeRoomSpace;
     [SerializeField, Tooltip("Used for checking if object inside the room.")] public RoomBound RoomConfiners;
     [HideInInspector] public List<Creature> EntityList = new List<Creature>();
-    public List<ActionMark> MarkList = new List<ActionMark>();
+    public ActionMark[] MarkList;
+    public int CurrentStageIndex;
     [Header("Environment settings")]
     public byte EnvironmentObjectLimit;
-    [HideInInspector] public bool isActive;
     public RoomSpawner spawner { get; set; }
     public byte MobCountLimit;
     public RateArrayMark MobList;
+    private bool executingMark;
+    private bool released;
     private void Awake()
     {
         SetupBounds();
@@ -27,11 +30,24 @@ public class Room : MonoBehaviour
         DoorBehaviour[] doors =  GetComponentsInChildren<DoorBehaviour>();
         foreach(DoorBehaviour door in doors) door.AttachedRoom = this;
     }
-    public void DefineRoom()
+    public bool NextRoomStage()
     {
-        isActive = true;
-        RoomDefiner.ActivateRoomMarks(this);
+        if(!IsRedifinable())
+        {
+            return false;
+        } 
+        else
+        {
+            ActivateWaveMark(MarkList[CurrentStageIndex]);
+            print(CurrentStageIndex  + " stage number");
+            CurrentStageIndex++;
+            return true;
+        }
     }
+    ///<summary>Returns true if all the mark actions are completely taken.</summary>
+    public bool IsExecutingMark() => executingMark;
+    public bool IsReleased() => released;
+    public bool IsRedifinable() => MarkList.Length > CurrentStageIndex;
     public bool IsInsideRoom(Vector2 position) =>  RoomConfiners.IsInsideBound(position);
     public Vector2 GetRandomFreeRoomSpace() => FreeRoomSpace[Random.Range(0, FreeRoomSpace.Length)].GetRandomSpace();
     private void OnDrawGizmos()
@@ -45,6 +61,18 @@ public class Room : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube((Vector2)RoomConfiners.GetOffset(), RoomConfiners.localScale);
     }
+    public void OnMarkReleased(RoomMark mark)
+    {
+        if(IsRedifinable() == false) released = true;
+        executingMark = false;
+        WaveController.UpdateWaveStatus();
+    }
+    public void ActivateWaveMark(ActionMark mark)
+    {
+        executingMark = true;
+        mark.ApplyMark(this);
+    }
+
     [System.Serializable]
     public struct RoomBound
     {

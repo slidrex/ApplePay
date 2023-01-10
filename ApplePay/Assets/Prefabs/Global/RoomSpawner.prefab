@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2435458689832673923}
-  - component: {fileID: 2435458689832673917}
   - component: {fileID: 2435458689832673922}
   - component: {fileID: 2435458689832673918}
   - component: {fileID: 2435458689832673919}
@@ -34,19 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2435458689832673917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2435458689832673921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38bc0104a7168b84f97742686b8dec2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WrappedCreature: {fileID: 0}
 --- !u!114 &2435458689832673922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,4 +72,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b32c7f1185fdc4abf78f358d5e96ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelRoomSpawner: {fileID: 0}
+  LevelRoomSpawner: {fileID: 2435458689832673922}

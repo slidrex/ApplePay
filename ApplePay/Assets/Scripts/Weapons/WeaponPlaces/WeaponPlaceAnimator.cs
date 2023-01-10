@@ -43,7 +43,6 @@ public class WeaponPlaceAnimator
         InAnimation = false;
         passedTime = 0;
         activeWeaponInfo.animationInfo.inAnimation = false;
-        Debug.Log("on animation is over");
     }
     public float GetRemainAnimationTime() => animationTime - passedTime;
 }

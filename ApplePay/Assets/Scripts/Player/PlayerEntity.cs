@@ -11,11 +11,16 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     [HideInInspector] public float ChangeAmount;
     [HideInInspector] public KeyCode ChangeHealthKey;
     private float vignetteIntensity;
-    public WaveStatus WaveStatus { get; private set; }
+    public WaveStatus WaveStatus { get; set; }
     [SerializeField] private EffectCell effectCell;
     private UnityEngine.Rendering.Universal.Vignette vignette;
     [SerializeField] private UIHolder holder;
     public VirtualBase test = new VirtualBase(0f);
+    protected override void Awake()
+    {
+        WaveController.SetupWaveEntity(this, this, 2.0f);
+        base.Awake();
+    }
     public void AddDamageAttribute()
     {
         this.AddAttribute("attackDamage", new FloatRef(
@@ -29,9 +34,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
         
         base.Start();
-        CurrentRoom.DefineRoom();
     }
-    public void SetWaveStatus(WaveStatus waveStatus) => WaveStatus = waveStatus;
     public void OnEffectUpdated()
     {
         for(int i = 0; i < EffectList.transform.childCount; i++)
@@ -52,7 +55,6 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Update()
     {
         base.Update();
-        
         if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);
     }
     public override void ChangeHealth(int changeAmount)

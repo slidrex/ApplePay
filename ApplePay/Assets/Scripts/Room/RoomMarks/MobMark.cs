@@ -30,6 +30,7 @@ public class MobMark : ActionMark
                 }
             }
         }
+        room.OnMarkReleased(this);
     }
 
 }

@@ -23,14 +23,14 @@ public class RoomSpawner : MonoBehaviour
     private Vector2 zeroRoomPos;
     private List<walker> walkers;
     [Header("Grid generation settings")]
-    private Dictionary<Vector2, Room> FilledCells;
+    private Dictionary<Vector2, SpawnerRoom> FilledCells;
 
     [Header("Contracts")]
     private Dictionary<int, SpawnerRoom> contractedRooms;
     [HideInInspector] public System.Collections.Generic.List<Transform> StartObjects;
     private int spawnedRoomCount;
     [HideInInspector] public Transform RoomContainer;
-    public Room[] ActiveLevelRooms { get; set; }
+    public SpawnerRoom[] ActiveLevelRooms { get; set; }
     private void Awake()
     {
         GenerateLevel();
@@ -48,10 +48,11 @@ public class RoomSpawner : MonoBehaviour
         spawnedRoomCount = 0;
         walkers = new List<walker>();
         StartObjects = new List<Transform>();
-        FilledCells = new Dictionary<Vector2, Room>();
+        FilledCells = new Dictionary<Vector2, SpawnerRoom>();
         contractedRooms = new Dictionary<int, SpawnerRoom>();
         RoomContainer = new GameObject("Room container").transform;
-        ActiveLevelRooms = new Room[Scenario.RoomCount + Scenario.ContractRooms.Count()];
+        ActiveLevelRooms = new SpawnerRoom[Scenario.RoomCount];
+        
         if(Scenario == null) throw new System.NullReferenceException("Scenario hasn't been specified!");
         FillContracts();
         if(spawnedRoomCount < Scenario.RoomCount) SpawnRoom(Vector2.zero, 0);
@@ -59,7 +60,7 @@ public class RoomSpawner : MonoBehaviour
     }
     private void FillMarks()
     {
-        foreach(Room room in FilledCells.Values) FillMark(room);
+        foreach(SpawnerRoom room in FilledCells.Values) FillMark(room);
     }
     private void SpawnWalker() => walkers.Add(new walker(Vector2.zero));
     private void GridGeneration() 
@@ -98,7 +99,7 @@ public class RoomSpawner : MonoBehaviour
     {
         for(int i = 0; i < Scenario.ContractRooms.Length; i++)
         {
-            contractedRooms.Add((byte)Random.Range(Scenario.ContractRooms[i].MinRoom, Scenario.ContractRooms[i].MaxRoom), Scenario.ContractRooms[i].SpawnerRoom);
+            contractedRooms.Add((byte)Random.Range(Scenario.ContractRooms[i].MinRoom - 1, Scenario.ContractRooms[i].MaxRoom + 1 - 1), Scenario.ContractRooms[i].SpawnerRoom);
         }
     }
     private Room SpawnRoom(Vector2 walkerPosition, int spawnedRoomIndex)
@@ -121,7 +122,7 @@ public class RoomSpawner : MonoBehaviour
                 
                 
                 
-                return InstantiateRoom(room.room, rotation, spawnPosition , walkerPosition);
+                return InstantiateRoom(room, rotation, spawnPosition , walkerPosition);
             }
             
             byte random = (byte)Random.Range(min, max + 1);
@@ -130,62 +131,87 @@ public class RoomSpawner : MonoBehaviour
             {
                 spawned = true;
                 if(Scenario.SpawnRooms[index].SpawnerRoom.availableRotations.Length != 0) rotation = Scenario.SpawnRooms[index].SpawnerRoom.availableRotations[Random.Range(0, Scenario.SpawnRooms[index].SpawnerRoom.availableRotations.Length)];
-                Room room = InstantiateRoom(Scenario.SpawnRooms[index].SpawnerRoom.room, rotation, spawnPosition, walkerPosition);
+                Room room = InstantiateRoom(Scenario.SpawnRooms[index].SpawnerRoom, rotation, spawnPosition, walkerPosition);
                 room.spawner = this;
                 return room;
             }
         }
         return null;
     }
-    private Room InstantiateRoom(Room room, byte rotations, Vector2 spawnPosition, Vector2 walkerPosition)
+    private Room InstantiateRoom(SpawnerRoom room, byte rotations, Vector2 spawnPosition, Vector2 walkerPosition)
     {
-        Room obj = Instantiate(room, spawnPosition, Quaternion.identity);
+        Room obj = Instantiate(room.room, spawnPosition, Quaternion.identity);
+        SpawnerRoom spawnerRoomInstance = room;
+        spawnerRoomInstance.room = obj;
         obj.gameObject.transform.SetParent(RoomContainer.transform);
-        FilledCells.Add(walkerPosition, obj);
+        FilledCells.Add(walkerPosition, spawnerRoomInstance);
         obj.transform.eulerAngles = obj.transform.eulerAngles - Vector3.forward * rotations * 90f;
         DoorBehaviour[] doors = obj.GetComponentsInChildren<DoorBehaviour>();
         foreach(DoorBehaviour door in doors) door.SwapDirection(rotations);
         
         for(int i = 0; i < ActiveLevelRooms.Length; i++)
         {
-            if(ActiveLevelRooms[i] == null) 
+            if(ActiveLevelRooms[i].Equals(default(SpawnerRoom))) 
             {
-                ActiveLevelRooms[i] = obj;
+                ActiveLevelRooms[i] = spawnerRoomInstance;
                 break;
             }
         }
         spawnedRoomCount++;
         return obj;
     }
-    private void FillMark(Room room)
+    private void FillMark(SpawnerRoom room)
     {
-        MarkDatabase markDatabase = (MarkDatabase)PayDatabase.GetDatabase("mark");
-        for(int i = 0; i < room.MarkList.Count; i++)
+        byte stageCount = (byte)Random.Range(room.minStageCount, room.maxStageCount + 1);
+        room.room.MarkList = new ActionMark[stageCount];
+        List<int> exclusiveStages = new List<int>();
+
+        for(int i = 0; i < stageCount; i++)
         {
-            while(room.MarkList[i] == null)
+            System.Collections.Generic.List<MarkDatabase.MarkSlot> targetMarks = GetTargetRoomMarks(ref exclusiveStages, stageCount, (byte)i, room);
+            
+            while(targetMarks.Count != 0 && room.room.MarkList[i] == null)
             {
-                int index = Random.Range(0, markDatabase.MarkList.Length);
-                if(markDatabase.MarkList[index].SpawnChance > Random.Range(0, 1f))
+                int index = Random.Range(0, targetMarks.Count);
+                if(targetMarks.Count == 1 || targetMarks[index].SpawnRate >= Random.Range(0, 1f))
                 {
-                    room.MarkList[i] = markDatabase.MarkList[index].Mark;
+                    ActionMark mark = Instantiate(targetMarks[index].Mark);
+                    room.room.MarkList[i] = mark;
                     break;
                 }
                     
             }
         }
     }
+    private System.Collections.Generic.List<MarkDatabase.MarkSlot> GetTargetRoomMarks(ref List<int> exclusiveStages, byte stageCount, byte currentStage, SpawnerRoom room)
+    {
+        System.Collections.Generic.List<MarkDatabase.MarkSlot> targetMarks = new List<MarkDatabase.MarkSlot>();
+        if(stageCount != 0 && currentStage == stageCount - 1 && room.endMark.Length > 0) return room.endMark.ToList();
+        else
+        {
+            for(int i = 0; i < room.stages.Length; i++)
+            {
+                if(room.stages[i].minStage <= currentStage + 1 && room.stages[i].maxStage >= currentStage + 1 && exclusiveStages.Contains(i) == false)
+                {
+                    targetMarks.AddRange(room.stages[i].marks);
+                    if(room.stages[i].onlyOne == true) exclusiveStages.Add(i);
+                }
+            }
+            return targetMarks;
+        }
+    }
     private void DoorsSetup()
     {
         for(int i = 0; i < FilledCells.Count; i++)
         {
-            DoorBehaviour[] roomDoors = FilledCells.ElementAt(i).Value.GetComponentsInChildren<DoorBehaviour>().Where(x => x.ConnectedDoor == null).ToArray();
+            DoorBehaviour[] roomDoors = FilledCells.ElementAt(i).Value.room.GetComponentsInChildren<DoorBehaviour>().Where(x => x.ConnectedDoor == null).ToArray();
             foreach(DoorBehaviour currentDoor in roomDoors)
             {
                 Vector2 direction = currentDoor.Direction;
-                bool isRoomExist = FilledCells.TryGetValue(FilledCells.ElementAt(i).Key + direction, out Room wrappedRoom);
+                bool isRoomExist = FilledCells.TryGetValue(FilledCells.ElementAt(i).Key + direction, out SpawnerRoom wrappedRoom);
                 if(isRoomExist)
                 {
-                    DoorBehaviour dependentDoor = wrappedRoom.GetComponentsInChildren<DoorBehaviour>().FirstOrDefault(x => x.ConnectedDoor == null && x.Direction + currentDoor.Direction == Vector2.zero);
+                    DoorBehaviour dependentDoor = wrappedRoom.room.GetComponentsInChildren<DoorBehaviour>().FirstOrDefault(x => x.ConnectedDoor == null && x.Direction + currentDoor.Direction == Vector2.zero);
                     
                     if(dependentDoor == null)
                     {
@@ -205,7 +231,7 @@ public class RoomSpawner : MonoBehaviour
     {
         foreach(Transform gameObject in StartObjects) 
         {
-            gameObject.position = FilledCells.ElementAt(0).Value.gameObject.transform.position;
+            gameObject.position = FilledCells.ElementAt(0).Value.room.gameObject.transform.position;
         }
     }
 
@@ -220,8 +246,20 @@ public class RoomSpawner : MonoBehaviour
     [System.Serializable]
     public struct SpawnerRoom
     {
+        public byte minStageCount;
+        public byte maxStageCount;
+        public ScenarioStage[] stages;
+        public MarkDatabase.MarkSlot[] endMark;
         public Room room;
         [Tooltip("1 turn = rotate 90 degrees clockwise"), Range(0, 3)] public byte[] availableRotations;
+    }
+    [System.Serializable]
+    public struct ScenarioStage
+    {
+        public byte minStage;
+        public byte maxStage;
+        public bool onlyOne;
+        public MarkDatabase.MarkSlot[] marks;
     }
 
     [System.Serializable]

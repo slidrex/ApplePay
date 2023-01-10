@@ -39,7 +39,7 @@ public class InteractManager : MonoBehaviour
     }
     private void Update()
     {
-        bool hasInteractObjects = UpdateInteractiveObjectList();
+        bool hasInteractObjects = UpdatePotentialInteractiveObjectList();
         
         InteractiveObject closestObject = null;
         if(hasInteractObjects) closestObject = GetNearestInteractiveObject(out int id).interactiveObject;
@@ -53,18 +53,25 @@ public class InteractManager : MonoBehaviour
             CreateInteractHint(closestObject.InteractPointer);
             hintedObject = closestObject;
         }
+        if(hasInteractObjects && (currentInteractObject.interactiveObject == null || currentInteractObject.interactiveObject.IsValidInteract(this)))
+        {
+            HandleInteractInputs();
+        }
+    }
+    private void HandleInteractInputs()
+    {
         
-        if(Input.GetKeyDown(interactKey) && hasInteractObjects)
+        if(Input.GetKeyDown(interactKey))
         {
             if(currentInteractObject.interactiveObject == null && InInteract == false && entity.IsFree())
             {
                 currentInteractObject = GetNearestInteractiveObject(out currentInteractObjectIndex);
                 InInteract = true;
             }
-            InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyDown(this);
+                InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyDown(this);
         }
-        if(Input.GetKey(interactKey) && hasInteractObjects)
-        {
+        if(Input.GetKey(interactKey))
+            {
             if(currentInteractObject.interactiveObject == null && InInteract == false && entity.IsFree())
             {
                 CurrentInteractObject cur = GetNearestInteractiveObject(out currentInteractObjectIndex);
@@ -87,29 +94,30 @@ public class InteractManager : MonoBehaviour
 
             }
         }
-        if(Input.GetKeyUp(interactKey) && hasInteractObjects && InInteract == true)
+        if(Input.GetKeyUp(interactKey) && InInteract == true)
         {
             if(InteractObjects[currentInteractObjectIndex].interactInitiated == true) InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyUp(this);
         }
+
     }
     private CurrentInteractObject GetNearestInteractiveObject(out int associatedIndex) 
     {
         associatedIndex = 0;
         float sqrMinDist = Vector2.SqrMagnitude(InteractObjects[0].collider.transform.position - transform.position);
-            for(int i = 1; i < InteractObjects.Count; i++)
+        for(int i = 1; i < InteractObjects.Count; i++)
+        {
+            float dist = Vector2.SqrMagnitude(InteractObjects[i].collider.transform.position - transform.position);
+            if(dist < sqrMinDist)
             {
-                float dist = Vector2.SqrMagnitude(InteractObjects[i].collider.transform.position - transform.position);
-                if(dist < sqrMinDist)
-                {
-                    sqrMinDist = dist;
-                    associatedIndex = i;
-                }
+                sqrMinDist = dist;
+                associatedIndex = i;
             }
-            
+        }
+        
         return InteractObjects[associatedIndex];
     }
     
-    private bool UpdateInteractiveObjectList()
+    private bool UpdatePotentialInteractiveObjectList()
     {
         InteractPointer[] colliders = Physics2D.OverlapCircleAll(transform.position, interactDistance).Select(x => x.GetComponent<InteractPointer>()).ToArray();
         for(int i = 0; i < colliders.Length; i++)
@@ -149,7 +157,7 @@ public class InteractManager : MonoBehaviour
             bool valid = false;
             foreach(InteractPointer pointer in colliders)
             {
-                if(pointer != null && pointer.rangeCollider == currentKey.collider) 
+                if(pointer != null && pointer.rangeCollider == currentKey.collider && pointer.AttachedInteractive.IsValidInteract(this) == true) 
                 {
                     valid = true;
                     break;
