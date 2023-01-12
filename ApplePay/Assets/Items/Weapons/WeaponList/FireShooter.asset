@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 0
   display:
-    Rarity: 0
+    Rarity: 1
     Icon: {fileID: 21300000, guid: 4f60bfaa063d7c84eb066b5cc31cd8b7, type: 3}
     Description:
       Name: fire shooter
-      Description: FIRE!!!
+      Description: free FIRE!!!
   weaponInfo:
-    AttackCooldown: 1
+    AttackCooldown: 0.8
     AdditionalFacingTime: 0.3
-  WeaponObject: {fileID: 9062759103273147470, guid: fc9dbf678995a2549850f8895f42737b, type: 3}
+  WeaponObject: {fileID: 1188501788576410036, guid: fc9dbf678995a2549850f8895f42737b, type: 3}
   animationPreset: {fileID: 11400000, guid: 48b3f08bf727933418dcc797df22a36e, type: 2}
   animationInfo:
-    animationTime: 0.7
+    animationTime: 1
     linearVelocity: 0
     angularVelocity: 0
     inAnimation: 0

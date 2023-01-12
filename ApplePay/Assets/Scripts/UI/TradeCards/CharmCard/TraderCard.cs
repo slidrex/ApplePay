@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TraderCard : MonoBehaviour, IPointerClickHandler
+public class TraderCard : MonoBehaviour
 {
     [SerializeField] private GameObject applause;
     [SerializeField] private Text itemName;
@@ -14,7 +13,8 @@ public class TraderCard : MonoBehaviour, IPointerClickHandler
     private CardSpawner cardSpawner;
     private byte itemIndex;
     public Animator anim;
-    private void Start()
+    [HideInInspector] public bool selected;
+    private void Awake()
     {
         anim = GetComponent<Animator>();
         cardSpawner = GetComponentInParent<CardSpawner>();
@@ -42,10 +42,6 @@ public class TraderCard : MonoBehaviour, IPointerClickHandler
         _text.transform.localScale = Vector3.one;
         _text.text = text;
         _text.color = color;
-    }
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        anim.SetTrigger("Click");
     }
     private void SetActive(bool isActive) => gameObject.SetActive(isActive);
     private void Disable()

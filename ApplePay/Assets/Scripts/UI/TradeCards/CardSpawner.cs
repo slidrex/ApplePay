@@ -12,54 +12,83 @@ public class CardSpawner : MonoBehaviour
     [HideInInspector] public byte CardCount;
     private int selectedCardIndex;
     private CardAnimation cardAnimation;
-    private void Start()
+    private const string animationSelectTrigger = "Select";
+    private const string animationDeselectTrigger = "Deselect";
+    private bool initAmbigous;
+    private void Awake()
     {
         CardCount = (byte)Random.Range(minCardCount, maxCardCount + 1);
         cards = new TraderCard[CardCount];
         cardAnimation = new CardAnimation();
         SpawnCards();
-        StartCoroutine(InitPosition());
-        selectedCardIndex = 0;
     }
-    private System.Collections.IEnumerator InitPosition()
+    private void OnEnable() => InitPosition();
+    private void InitPosition()
     {
-        yield return new WaitForEndOfFrame();
-        
-        Vector3 offset = (cards[0].transform.position - transform.position);
-        cardHolder.position -= offset;
+        cardHolder.position = transform.position;
+        selectedCardIndex = selectedCardIndex = CardCount / 2;
+        if(CardCount % 2 == 0) initAmbigous = true;
+        else cards[selectedCardIndex].anim.SetTrigger(animationSelectTrigger);
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.RightArrow) && cardAnimation.InAnimation() == false && (selectedCardIndex < CardCount - 1)) 
+        if(Input.GetKeyDown(KeyCode.RightArrow)) 
         {
-            int target = selectedCardIndex + 1;
+            int previousIndex = selectedCardIndex;
+            SwitchActiveCard(true);
             
-            BeginAnimation(cardHolder.position - (cards[target].transform.position - transform.position), selectedCardIndex, target);
+            if(selectedCardIndex != previousIndex || initAmbigous)
+            {
+                StartAnimation(previousIndex);
+            }
         }
-        if(Input.GetKeyDown(KeyCode.LeftArrow) && cardAnimation.InAnimation() == false && (selectedCardIndex > 0))
+        if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            int target = selectedCardIndex - 1;
-            
-            BeginAnimation(cardHolder.position - (cards[target].transform.position - transform.position), selectedCardIndex, target);
+            int previousIndex = selectedCardIndex;
+            SwitchActiveCard(false);
+            if(selectedCardIndex != previousIndex || initAmbigous) 
+            {
+                StartAnimation(previousIndex);
+            }
         }
         if(cardAnimation.InAnimation()) OnAnimation();
     }
-    private void BeginAnimation(Vector2 targetDistance, int currentIndex, int targetIndex)
+    private void SwitchActiveCard(bool right)
     {
-        cardAnimation.StartAnimation(targetDistance, currentIndex, targetIndex);
+        if(initAmbigous == false)
+        {
+            if(right && selectedCardIndex < CardCount - 1) selectedCardIndex++;
+            else if(right == false && selectedCardIndex > 0) selectedCardIndex--;
+        }
+        else
+        {
+            if(right == false) selectedCardIndex --; 
+        }
+
+    }
+    private Vector2 GetTargetDistance() 
+    {
+        return cardHolder.transform.position - (cards[selectedCardIndex].transform.position - transform.position);
+    }
+    private void StartAnimation(int previousIndex)
+    {
+        if(cards[previousIndex].selected) cards[previousIndex].anim.SetTrigger(animationDeselectTrigger);
+        cards[selectedCardIndex].anim.SetTrigger(animationSelectTrigger);
+        cardAnimation.StartAnimation(GetTargetDistance());
+        initAmbigous = false;
     }
     private void OnAnimation()
     {
-        cardHolder.transform.position = Vector2.MoveTowards(cardHolder.transform.position, cardAnimation.TargetDistance, 10f * Time.deltaTime);
+        cardHolder.transform.position = Vector2.MoveTowards(cardHolder.transform.position, cardAnimation.TargetDistance, 30f * Time.deltaTime);
         if((Vector2)cardHolder.transform.position == cardAnimation.TargetDistance) 
         {
+            cardAnimation.StopAnimation();
             OnAnimationEnd();
         }
     }
     private void OnAnimationEnd()
     {
-        cardAnimation.StopAnimation();
-        selectedCardIndex = cardAnimation.targetCardIndex;
+        
     }
     private void SpawnCards()
     {
@@ -99,19 +128,12 @@ public class CardSpawner : MonoBehaviour
     {
         private bool inAnimation;
         public Vector2 TargetDistance;
-        public int swappingCardIndex;
-        public int targetCardIndex;
-        public void StartAnimation(Vector2 targetDistance ,int current, int target)
+        public void StartAnimation(Vector2 targetDistance)
         {
-            swappingCardIndex = current;
-            targetCardIndex = target;
             TargetDistance = targetDistance;
             inAnimation = true;
         }
-        public void StopAnimation()
-        {
-            inAnimation = false;
-        }
+        public void StopAnimation() => inAnimation = false;
         public bool InAnimation() => inAnimation;
     }
 }
