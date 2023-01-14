@@ -99,7 +99,7 @@ public class CardSpawner : MonoBehaviour
             cards[i].transform.localPosition = Vector3.zero;
             cards[i].LoadItem(index);
             CollectableCharm collectableItem = charmDatabase.GetItem(index);
-            Charm databaseCharm = Instantiate(collectableItem.charm);
+            Charm databaseCharm = Instantiate(collectableItem.charm.GetActiveCharm());
             usedCardIndeces.Add(index);
             ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(databaseCharm.Display.Rarity);
             cards[i].SetHeader(databaseCharm.Display.Description.Name, rarityInfo.color, databaseCharm.Display.Icon);

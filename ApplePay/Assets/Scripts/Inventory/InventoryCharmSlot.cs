@@ -10,7 +10,7 @@ public class InventoryCharmSlot : InventoryDisplaySlot<CollectableCharm>
     }
     public void RenderItem(CollectableCharm item, bool switchable)
     {
-        RenderIcon(item.charm.Display.Icon);
+        RenderIcon(item.charm.GetActiveCharm().Display.Icon);
         LinkItem(item);
         SwitchIcon.SetActive(false);
         if(switchable) SwitchIcon.SetActive(true);

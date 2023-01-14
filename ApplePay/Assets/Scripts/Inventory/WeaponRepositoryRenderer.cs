@@ -10,17 +10,18 @@ public class WeaponRepositoryRenderer : RepositoryRenderer<CollectableWeapon>
     {
         for(int i = 0; i < repository.Items.Length; i++)
         {
+            InventoryDisplaySlot<CollectableWeapon> slot = Slots[i];
             if(repository.Items[i] != null)
             {
                 ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(repository.Items[i].weapon.display.Rarity);
                 
-                Slots[i].RenderIcon(repository.Items[i].weapon.display.Icon);
-                Slots[i].RenderRarityFrame(rarityInfo.color);
+                slot.RenderIcon(repository.Items[i].weapon.display.Icon);
+                slot.RenderSlotFrame(rarityInfo.color);
             }
             else 
             {
-                Slots[i].RenderRarityFrame(UnityEngine.Color.white, false);
-                Slots[i].RenderIcon(null);
+                slot.RenderSlotFrame(UnityEngine.Color.white, false);
+                slot.RenderIcon(null);
             }
         }
     }

@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
 {
     [SerializeField] private Hoverboard hoverboard;
     public override string RepositoryType => "charm";
+    private bool isDragging;
+    private DraggingItem dragging;
     private void OnEnable()
     {
         hoverboard.SetDefaultDescription();
@@ -13,24 +16,34 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
     protected override void OnRepositoryUpdated(byte index) => Render();
     public override void OnCellTriggerEnter(CollectableCharm charm, InventoryDisplaySlot<CollectableCharm> slot)
     {
-        CharmDisplay charmDisplay = charm.charm.Display;
-        UpdateHoverboard(charmDisplay);
+        if(charm != null)
+        {
+            CharmDisplay charmDisplay = charm.charm.GetActiveCharm().Display;
+            UpdateHoverboard(charmDisplay);
+        }
+        else hoverboard.SetDefaultDescription();
+    }
+    public override void OnCellTriggerExit(CollectableCharm charm, InventoryDisplaySlot<CollectableCharm> slot)
+    {
+        hoverboard.SetDefaultDescription();
     }
     private void UpdateHoverboard(CharmDisplay display)
     {
-        if(display.Equals(new CharmDisplay()))
+        if(display.Equals(default(CharmDisplay)))
         {
             hoverboard.SetDefaultDescription();
-            return;
         }
-        ItemRarityInfo rarity = ItemRarityExtension.GetRarityInfo(display.Rarity);
-        hoverboard.RemoveAddditionalFields();
-        hoverboard.SetHeader(display.Description.Name, rarity.color);
-        hoverboard.SetDescription(display.Description.Description);
-
-        foreach(CharmDisplay.CharmAddtionalField addtionalField in display.AdditionalFields)
+        else
         {
-            hoverboard.AddField(addtionalField.Text, addtionalField.GetColor(), Vector2.one/2);
+            ItemRarityInfo rarity = ItemRarityExtension.GetRarityInfo(display.Rarity);
+            hoverboard.RemoveAddditionalFields();
+            hoverboard.SetHeader(display.Description.Name, rarity.color);
+            hoverboard.SetDescription(display.Description.Description);
+
+            foreach(CharmDisplay.CharmAddtionalField addtionalField in display.AdditionalFields)
+            {
+                hoverboard.AddField(addtionalField.Text, addtionalField.GetColor(), Vector2.one/2);
+            }
         }
 
     }
@@ -38,7 +51,7 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
     {
         for(int i = 0; i < Slots.Length; i++)
         {
-            if(slot == Slots[i] && slot.Item.charm.Display.Equals(new CharmDisplay()) == false)
+            if(slot == Slots[i] && slot.Item.charm.GetActiveCharm().Display.Equals(new CharmDisplay()) == false)
             {
                 CharmObject item = repository.Items[i].charm;
                 
@@ -58,7 +71,36 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
             }
         }
     }
-    public override void OnCellTriggerExit(CollectableCharm charm, InventoryDisplaySlot<CollectableCharm> slot) => hoverboard.SetDefaultDescription();
+    public override void OnItemDragBegin(InventoryDisplaySlot<CollectableCharm> slot, PointerEventData eventData)
+    {
+        dragging = new DraggingItem(slot.Index, slot.Slot.transform);
+        dragging.draggingItem.transform.SetParent(transform.parent.parent);
+        slot.RenderSlotFrame(Color.white, false);
+        isDragging = true;
+    }
+    public override void OnItemDrag(InventoryDisplaySlot<CollectableCharm> slot, PointerEventData eventData)
+    {
+        dragging.draggingItem.transform.position = Pay.Functions.Generic.GetMousePos(Camera.main);
+    }
+    public override void OnItemDrop(InventoryDisplaySlot<CollectableCharm> slot, PointerEventData eventData)
+    {
+        byte source = dragging.sourceSlot;
+        byte current = slot.Index;
+        CollectableCharm tempItem = repository.Items[source];
+        repository.Items[source] = repository.Items[current];
+        repository.Items[current] = tempItem;
+        dragging.draggingItem.SetParent(Slots[source].transform);
+        dragging.draggingItem.localPosition = Vector3.zero;
+        CharmDisplay dispay = repository.Items[current].charm?.GetActiveCharm() == null ? default(CharmDisplay) : repository.Items[current].charm.GetActiveCharm().Display;
+        
+        UpdateHoverboard(dispay);
+        
+        Render();
+    }
+    public override void OnItemDragEnd(InventoryDisplaySlot<CollectableCharm> slot, PointerEventData eventData)
+    {
+        isDragging = false;
+    }
     private void Render()
     {
         if(repository.Items.Length != Slots.Length) throw new Exception("Renderer slots list count and repository slots count are out of sync");
@@ -84,18 +126,30 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
         }
         for(int i = 0; i < Slots.Length; i++)
         {
-            InventoryDisplaySlot<CollectableCharm> slot = (InventoryDisplaySlot<CollectableCharm>)Slots[i];
+            InventoryDisplaySlot<CollectableCharm> slot = Slots[i];
             if(renderItems[i].Item != null)
             {
                 bool switchable = renderItems[i].Type == CharmObject.CharmType.Base ? false : true;
-                ItemRarityInfo info = ItemRarityExtension.GetRarityInfo(renderItems[i].Item.charm.Display.Rarity);
-                slot.RenderRarityFrame(info.color);
+                ItemRarityInfo info = ItemRarityExtension.GetRarityInfo(renderItems[i].Item.charm.GetActiveCharm().Display.Rarity);
+                slot.RenderSlotFrame(info.color);
                 slot.RenderIcon(renderItems[i].Item.charm.GetActiveCharm().Display.Icon);
                 slot.LinkItem(renderItems[i].Item);
             } else
             {
-                slot.RenderRarityFrame(Color.white, false);
+                slot.RenderSlotFrame(Color.white, false);
+                slot.RenderIcon(null);
+                slot.LinkItem(null);
             }
+        }
+    }
+    internal struct DraggingItem
+    {
+        internal byte sourceSlot;
+        internal Transform draggingItem;
+        internal DraggingItem(byte source, Transform dragging)
+        {
+            sourceSlot = source;
+            draggingItem = dragging;
         }
     }
     private struct CharmInventoryRenderItem

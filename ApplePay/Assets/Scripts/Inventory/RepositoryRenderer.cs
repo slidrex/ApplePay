@@ -13,7 +13,7 @@ public abstract class RepositoryRenderer<ItemType> : RepositoryRendererBase
     }
     protected virtual void Start()
     {
-        SetSlotsRenderer();
+        SetupSlots();
     }
     public InventoryDisplaySlot<ItemType>[] Slots
     {
@@ -27,10 +27,29 @@ public abstract class RepositoryRenderer<ItemType> : RepositoryRendererBase
             return slotList.ToArray();
         }
     }
-    protected virtual void OnRepositoryUpdated(byte index) {}
-    private void SetSlotsRenderer()
+    public virtual void OnItemDragBegin(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData)
     {
-        foreach(InventoryDisplaySlot<ItemType> slot in Slots) slot.LinkRender(this);
+        
+    }
+    public virtual void OnItemDragEnd(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData)
+    {
+        
+    }
+    public virtual void OnItemDrag(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData)
+    {
+        
+    }
+    public virtual void OnItemDrop(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData)
+    {
+        
+    }
+    protected virtual void OnRepositoryUpdated(byte index) {}
+    private void SetupSlots()
+    {
+        for(int i = 0; i < Slots.Length; i++)
+        {
+            Slots[i].InitSlot(this, (byte)i);
+        }
     }
     public virtual void OnCellTriggerEnter(ItemType display, InventoryDisplaySlot<ItemType> slot) {}
     public virtual void OnCellTrigger(ItemType display, InventoryDisplaySlot<ItemType> slot) {}

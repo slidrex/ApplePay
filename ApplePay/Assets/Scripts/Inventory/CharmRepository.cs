@@ -5,7 +5,7 @@ public class CharmRepository : InventoryRepository<CollectableCharm>
     {
         item.gameObject.SetActive(false);
         item.gameObject.transform.SetParent(itemInstancesContainer);
-        item.charm.BeginFunction(AttachedSystem.SystemOwner);
+        item.charm.GetActiveCharm().BeginFunction(AttachedSystem.SystemOwner);
     }
     private void Update()
     {
@@ -18,6 +18,6 @@ public class CharmRepository : InventoryRepository<CollectableCharm>
     public override void OnItemRemoved(CollectableCharm item)
     {
         base.OnItemRemoved(item);
-        item.charm.EndFunction(AttachedSystem.SystemOwner); 
+        item.charm.GetActiveCharm().EndFunction(AttachedSystem.SystemOwner); 
     }
 }
