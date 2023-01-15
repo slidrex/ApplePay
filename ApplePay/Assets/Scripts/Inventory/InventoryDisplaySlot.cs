@@ -43,7 +43,6 @@ public class InventoryDisplaySlot<ItemType> : HoverableObject, IBeginDragHandler
     }
     public override void OnPointerExit(PointerEventData pointerData)
     {
-        if(Item == null) return;
         base.OnPointerExit(pointerData);
         attachedRenderer.OnCellTriggerExit(Item, this);
     }

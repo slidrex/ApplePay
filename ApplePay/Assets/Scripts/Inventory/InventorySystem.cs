@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class InventorySystem : MonoBehaviour
 {
+    public float dropItemOffset;
+    public float dropItemBlockTime;
     private void Awake()
     {
         SystemOwner.InventorySystem = this;

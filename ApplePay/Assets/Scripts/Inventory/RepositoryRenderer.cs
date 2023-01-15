@@ -10,40 +10,26 @@ public abstract class RepositoryRenderer<ItemType> : RepositoryRendererBase
     protected virtual void Awake()
     {
         repository = (InventoryRepository<ItemType>)InventorySystem.GetRepository(RepositoryType);
-    }
-    protected virtual void Start()
-    {
+        InitSlotArray();
         SetupSlots();
     }
-    public InventoryDisplaySlot<ItemType>[] Slots
+    private void InitSlotArray()
     {
-        get
+        int slotsCount = slotsContainer.childCount;
+        Slots = new InventoryDisplaySlot<ItemType>[slotsCount];
+        int index = 0;
+
+        while(index < slotsContainer.childCount)
         {
-            System.Collections.Generic.List<InventoryDisplaySlot<ItemType>> slotList = new System.Collections.Generic.List<InventoryDisplaySlot<ItemType>>();
-            for(int i = 0; i < slotsContainer.childCount; i++)
+            InventoryDisplaySlot<ItemType> slot = slotsContainer.GetChild(index).GetComponent<InventoryDisplaySlot<ItemType>>();
+            if(slot != null)
             {
-                if(slotsContainer.GetChild(i).GetComponent<InventoryDisplaySlot<ItemType>>() != null) slotList.Add(slotsContainer.GetChild(i).GetComponent<InventoryDisplaySlot<ItemType>>());
+                Slots[index] = slot;
+                index++;
             }
-            return slotList.ToArray();
+            else slotsCount--;
         }
     }
-    public virtual void OnItemDragBegin(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData)
-    {
-        
-    }
-    public virtual void OnItemDragEnd(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData)
-    {
-        
-    }
-    public virtual void OnItemDrag(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData)
-    {
-        
-    }
-    public virtual void OnItemDrop(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData)
-    {
-        
-    }
-    protected virtual void OnRepositoryUpdated(byte index) {}
     private void SetupSlots()
     {
         for(int i = 0; i < Slots.Length; i++)
@@ -51,6 +37,13 @@ public abstract class RepositoryRenderer<ItemType> : RepositoryRendererBase
             Slots[i].InitSlot(this, (byte)i);
         }
     }
+    public InventoryDisplaySlot<ItemType>[] Slots { get; private set; }
+    protected virtual void Start() {}
+    public virtual void OnItemDragBegin(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData) {}
+    public virtual void OnItemDragEnd(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData) {}
+    public virtual void OnItemDrag(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData) {}
+    public virtual void OnItemDrop(InventoryDisplaySlot<ItemType> slot, UnityEngine.EventSystems.PointerEventData eventData) {}
+    protected virtual void OnRepositoryUpdated(byte index) {}
     public virtual void OnCellTriggerEnter(ItemType display, InventoryDisplaySlot<ItemType> slot) {}
     public virtual void OnCellTrigger(ItemType display, InventoryDisplaySlot<ItemType> slot) {}
     public virtual void OnCellTriggerExit(ItemType display, InventoryDisplaySlot<ItemType> slot) {}

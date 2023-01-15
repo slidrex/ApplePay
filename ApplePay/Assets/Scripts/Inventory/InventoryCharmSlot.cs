@@ -8,11 +8,5 @@ public class InventoryCharmSlot : InventoryDisplaySlot<CollectableCharm>
     {
         attachedRenderer.OnCharmSwitched(this);
     }
-    public void RenderItem(CollectableCharm item, bool switchable)
-    {
-        RenderIcon(item.charm.GetActiveCharm().Display.Icon);
-        LinkItem(item);
-        SwitchIcon.SetActive(false);
-        if(switchable) SwitchIcon.SetActive(true);
-    }
+    public void RenderSwitchIcon(bool active) => SwitchIcon.SetActive(active);
 }

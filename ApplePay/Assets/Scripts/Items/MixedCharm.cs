@@ -3,5 +3,12 @@
 public class MixedCharm : CharmObject
 {
     public Charm[] Charms;
-    public byte ActiveIndex;
+    private void Awake()
+    {
+        for(int i = 0; i < Charms.Length; i++)
+        {
+            Charms[i] = Instantiate(Charms[i]);
+        }
+    }
+    [UnityEngine.HideInInspector] public byte ActiveIndex;
 }

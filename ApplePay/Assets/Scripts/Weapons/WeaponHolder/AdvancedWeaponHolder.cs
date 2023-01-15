@@ -126,7 +126,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
     private CollectableObject GetDroppedObject(CollectableWeapon instanceObject, Vector2 offsetDirection, Vector2 force)
     {
         Vector2 lossyScale = instanceObject.gameObject.transform.lossyScale;
-        instanceObject.AddConstraintCollider(DropSettings.droppedItemBlockTime, Owner.HitShape);
+        instanceObject.AddConstraintCollider(InventorySystem.dropItemBlockTime, Owner.HitShape);
         instanceObject.transform.position += (Vector3)offsetDirection;
         instanceObject.gameObject.SetActive(true);
         instanceObject.gameObject.transform.SetParent(null);
@@ -146,12 +146,10 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
         [SerializeField] internal float MinForce;
         [SerializeField] internal float MaxForce;
         [SerializeField] internal float ForceAddSpeed;
-        [SerializeField] internal float dropOffset;
         [SerializeField] internal Pay.UI.UIHolder Holder;
         internal float TargetForce;
         [SerializeField] internal Pay.UI.Indicator dropIndicator;
         [SerializeField] internal Pay.UI.IndicatorObject currentDropIndicatorObject;
-        [SerializeField] internal float droppedItemBlockTime;
         internal void IndicatorStartup(Transform transform)
         {
             Pay.UI.UIManager.RemoveUI(currentDropIndicatorObject);
