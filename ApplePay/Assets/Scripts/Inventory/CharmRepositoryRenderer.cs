@@ -2,17 +2,17 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
+public class CharmRepositoryRenderer : DragRepositoryRenderer<CollectableCharm>
 {
     [SerializeField] private Hoverboard hoverboard;
     public override string RepositoryType => "charm";
-    private DraggingItem dragging;
+    protected override Action<int> RenderSlotCall => RenderSlot;
     private void OnEnable()
     {
         hoverboard.SetDefaultDescription();
         Render();
     }
-    protected override void OnRepositoryUpdated(byte index) { }
+    protected override void OnRepositoryUpdated(int index) => RenderSlot(index);
     public override void OnCellTriggerEnter(CollectableCharm charm, InventoryDisplaySlot<CollectableCharm> slot)
     {
         if(charm != null)
@@ -21,7 +21,7 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
             UpdateHoverboard(charmDisplay);
         }
         else hoverboard.SetDefaultDescription();
-        if(dragging.isDragging)
+        if(draggingImplementation.isDragging)
         {
             slot.RenderSlotFrame(Color.white, true);
         }
@@ -29,9 +29,9 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
     public override void OnCellTriggerExit(CollectableCharm charm, InventoryDisplaySlot<CollectableCharm> slot)
     {
         hoverboard.SetDefaultDescription();
-        if(dragging.isDragging)
+        if(draggingImplementation.isDragging)
         {
-            RenderSlot(slot as InventoryCharmSlot);
+            RenderSlot(slot.Index);
         }
     }
     private void UpdateHoverboard(CharmDisplay display)
@@ -80,71 +80,30 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
             }
         }
     }
-    public override void OnItemDragBegin(InventoryDisplaySlot<CollectableCharm> slot, PointerEventData eventData)
+    protected override void OnSlotDragEnd(InventoryDisplaySlot<CollectableCharm> slot, PointerEventData eventData)
     {
-        dragging = new DraggingItem(slot.Index, slot.Slot.transform);
-        dragging.draggingItem.transform.SetParent(transform.parent.parent);
-        dragging.isDragging = true;
-    }
-    public override void OnItemDrag(InventoryDisplaySlot<CollectableCharm> slot, PointerEventData eventData)
-    {
-        dragging.draggingItem.transform.position = Pay.Functions.Generic.GetMousePos(Camera.main);
-    }
-    public override void OnItemDrop(InventoryDisplaySlot<CollectableCharm> slot, PointerEventData eventData)
-    {
-        byte source = dragging.sourceSlot;
-        byte current = slot.Index;
-        CollectableCharm tempItem = repository.Items[source];
-        repository.Items[source] = repository.Items[current];
-        repository.Items[current] = tempItem;
-        
-        
-        CharmDisplay dispay = repository.Items[current]?.charm?.GetActiveCharm() == null ? default(CharmDisplay) : repository.Items[current].charm.GetActiveCharm().Display;
-        
-        
-        dragging.newSlot = slot.Index;
-        dragging.isDragging = false;
-        dragging.slotPlaced = true;
-        RenderSlot(slot as InventoryCharmSlot);
-    }
-    public override void OnItemDragEnd(InventoryDisplaySlot<CollectableCharm> slot, PointerEventData eventData)
-    {
-        if(dragging.slotPlaced == false)
-        {
-            InventorySystem system = repository.AttachedSystem;
-            CollectableCharm charm = repository.Items[slot.Index];
-            charm.charm.GetActiveCharm().EndFunction(system.SystemOwner);
-            charm.transform.SetParent(null);
-            charm.transform.rotation = Quaternion.identity;
-            Vector2 movementVector = (Pay.Functions.Generic.GetMousePos(Camera.main) - (Vector2)slot.transform.position).normalized;
-            charm.transform.position = system.SystemOwner.transform.position + (Vector3)movementVector * system.dropItemOffset;
-            charm.AddConstraintCollider(1.0f, system.SystemOwner.HitShape);
-            charm.gameObject.SetActive(true);
-            charm.ForceHandler.Knock(movementVector, system.dropItemBlockTime);
-            repository.Items[slot.Index] = null;
-        }
-        dragging.draggingItem.SetParent(Slots[dragging.sourceSlot].transform);
-        dragging.draggingItem.localPosition = Vector3.zero;
-        dragging.isDragging = false;
-        RenderSlot(Slots[dragging.sourceSlot] as InventoryCharmSlot);
-
-        if(dragging.newSlot == DraggingItem.NoTargetSlot)
+        base.OnSlotDragEnd(slot, eventData);
+        if(draggingImplementation.newSlot == DraggingImplementation.NoTargetSlot)
             hoverboard.SetDefaultDescription();
         else
         {
-            CharmDisplay display = repository.Items[dragging.newSlot].charm.GetActiveCharm().Display;
+            CharmDisplay display = repository.Items[draggingImplementation.newSlot].charm.GetActiveCharm().Display;
             UpdateHoverboard(display);
         }
     }
-    private void Render()
+    protected override void OnItemDrop(CollectableCharm item, InventoryDisplaySlot<CollectableCharm> slot)
     {
-        if(repository.Items.Length != Slots.Length) throw new Exception("Renderer slots list count and repository slots count are out of sync");
-        
-        for(int i = 0; i < Slots.Length; i++)
-        {
-            InventoryCharmSlot slot = Slots[i] as InventoryCharmSlot;
-            RenderSlot(slot);
-        }
+        InventorySystem system = repository.AttachedSystem;
+        CollectableCharm charm = repository.Items[slot.Index];
+        charm.charm.GetActiveCharm().EndFunction(system.SystemOwner);
+        charm.transform.SetParent(null);
+        charm.transform.rotation = Quaternion.identity;
+        Vector2 movementVector = (Pay.Functions.Generic.GetMousePos(Camera.main) - (Vector2)slot.transform.position).normalized;
+        charm.transform.position = system.SystemOwner.transform.position + (Vector3)movementVector * system.dropItemOffset;
+        charm.AddConstraintCollider(1.0f, system.SystemOwner.HitShape);
+        charm.gameObject.SetActive(true);
+        charm.ForceHandler.Knock(movementVector, system.dropItemBlockTime);
+        repository.Items[slot.Index] = null;
     }
     private void RenderSlot(InventoryCharmSlot slot, Sprite icon, CollectableCharm item, Color frameColor, bool renderFrame, bool renderSwitchIcon)
     {
@@ -164,9 +123,9 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
         }
     }
     ///<summary>Renders slot using repository item data.</summary>
-    private void RenderSlot(InventoryCharmSlot slot)
+    private void RenderSlot(int index)
     {
-        byte index = slot.Index;
+        InventoryCharmSlot slot = Slots[index] as InventoryCharmSlot;
         if(repository.Items[index] == null) 
         {
             RenderSlot(slot, null, null, Color.white, false, false);
@@ -177,22 +136,5 @@ public class CharmRepositoryRenderer : RepositoryRenderer<CollectableCharm>
         Sprite sprite = charm.charm.GetActiveCharm().Display.Icon;
         Color colorFrame = ItemRarityExtension.GetRarityInfo(charm.charm.GetActiveCharm().Display.Rarity).color;
         RenderSlot(slot, sprite, charm, colorFrame, true, repository.Items[index].charm.charmType == CharmObject.CharmType.Switchable);
-    }
-    internal struct DraggingItem
-    {
-        internal const int NoTargetSlot = -1;
-        internal bool isDragging;
-        internal byte sourceSlot;
-        internal int newSlot;
-        internal bool slotPlaced;
-        internal Transform draggingItem;
-        internal DraggingItem(byte source, Transform dragging)
-        {
-            newSlot = NoTargetSlot;
-            isDragging = false;
-            slotPlaced = false;
-            sourceSlot = source;
-            draggingItem = dragging;
-        }
     }
 }

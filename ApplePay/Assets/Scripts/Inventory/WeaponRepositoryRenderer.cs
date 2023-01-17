@@ -1,28 +1,28 @@
-public class WeaponRepositoryRenderer : RepositoryRenderer<CollectableWeapon>
+using System;
+using UnityEngine;
+
+public class WeaponRepositoryRenderer : DragRepositoryRenderer<CollectableWeapon>
 {
     public override string RepositoryType => "weapon";
-    protected override void Start()
-    {
-        base.Start();
-    }
+    protected override Action<int> RenderSlotCall => RenderSlot;
     private void OnEnable() => Render();
-    private void Render()
+    private void RenderSlot(int index)
     {
-        for(int i = 0; i < repository.Items.Length; i++)
+        CollectableWeapon weapon = repository.Items[index];
+        InventoryWeaponSlot slot = Slots[index] as InventoryWeaponSlot;
+        if(weapon == null)
         {
-            InventoryDisplaySlot<CollectableWeapon> slot = Slots[i];
-            if(repository.Items[i] != null)
-            {
-                ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(repository.Items[i].weapon.display.Rarity);
+            slot.RenderSlotFrame(Color.white, false);
+            slot.LinkItem(null);
+            slot.RenderIcon(null);
+        }
+        else
+        {
+            ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(repository.Items[index].weapon.display.Rarity);
                 
-                slot.RenderIcon(repository.Items[i].weapon.display.Icon);
-                slot.RenderSlotFrame(rarityInfo.color);
-            }
-            else 
-            {
-                slot.RenderSlotFrame(UnityEngine.Color.white, false);
-                slot.RenderIcon(null);
-            }
+            slot.RenderIcon(repository.Items[index].weapon.display.Icon);
+            slot.LinkItem(repository.Items[index]);
+            slot.RenderSlotFrame(rarityInfo.color);
         }
     }
 }

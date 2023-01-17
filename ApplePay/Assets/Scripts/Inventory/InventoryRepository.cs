@@ -13,8 +13,12 @@ public abstract class InventoryRepository : UnityEngine.MonoBehaviour
 }
 public abstract class InventoryRepository<ItemType> : InventoryRepository
 {
+    public delegate void OnItemAddedCallback(int index);
+    public delegate void OnRepositoryChangeCallback(int index);
     public delegate void BeforeRepositoryUpdateCallback(UpdateType updateType, ref ItemType actionItem);
     public BeforeRepositoryUpdateCallback RepositoryUpdateCallback;
+    public OnRepositoryChangeCallback RepositoryChangeCallback;
+    public OnItemAddedCallback ItemAddCallback;
     public UnityEngine.Transform itemInstancesContainer;
     public byte Capacity;
     public ItemType[] Items;
@@ -29,6 +33,8 @@ public abstract class InventoryRepository<ItemType> : InventoryRepository
             {
                 Items[i] = item;
                 OnItemAdded(item, i);
+                ItemAddCallback?.Invoke(i);
+                RepositoryChangeCallback?.Invoke(i);
                 return true;
             }
         }
@@ -62,6 +68,7 @@ public abstract class InventoryRepository<ItemType> : InventoryRepository
             if(Items[i].Equals(item)) 
             {
                 OnItemRemoved(item);
+                RepositoryChangeCallback?.Invoke(i);
                 Items[i] = default(ItemType);
                 return true;
             }

@@ -50,23 +50,23 @@ public class InventoryDisplaySlot<ItemType> : HoverableObject, IBeginDragHandler
     public void OnBeginDrag(PointerEventData eventData)
     {
         if(Item != null)
-            attachedRenderer.OnItemDragBegin(this, eventData);
+            attachedRenderer.ItemDragBegin(this, eventData);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         if(Item != null)
-            attachedRenderer.OnItemDragEnd(this, eventData);
+            attachedRenderer.ItemDragEnd(this, eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if(Item != null)
-            attachedRenderer.OnItemDrag(this, eventData);
+            attachedRenderer.ItemDrag(this, eventData);
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        attachedRenderer.OnItemDrop(this, eventData);
+        attachedRenderer.ItemDrop(this, eventData);
     }
 }
