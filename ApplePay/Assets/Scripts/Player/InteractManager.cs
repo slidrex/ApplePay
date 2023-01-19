@@ -21,6 +21,7 @@ public class InteractManager : MonoBehaviour
     private bool hintSpawned;
     private InteractiveObject hintedObject;
     private Creature.EntityState engagingStatus;
+    public Transform currentTransform;
     private void Awake()
     {
         entity = GetComponent<Creature>();
@@ -29,6 +30,11 @@ public class InteractManager : MonoBehaviour
         entity.AddAttribute("hackSpeed", new FloatRef(
             () => HackSpeed, val => HackSpeed = val), HackSpeed
         );
+    }
+    private void Start()
+    {
+        if(entity != null) currentTransform = entity.transform;
+        else currentTransform = transform;
     }
     public void ChangeHackSpeed(float amount) => HackSpeed += amount;
     private bool IsValidate()
@@ -103,10 +109,10 @@ public class InteractManager : MonoBehaviour
     private CurrentInteractObject GetNearestInteractiveObject(out int associatedIndex) 
     {
         associatedIndex = 0;
-        float sqrMinDist = Vector2.SqrMagnitude(InteractObjects[0].collider.transform.position - transform.position);
+        float sqrMinDist = Vector2.SqrMagnitude(InteractObjects[0].collider.transform.position - currentTransform.position);
         for(int i = 1; i < InteractObjects.Count; i++)
         {
-            float dist = Vector2.SqrMagnitude(InteractObjects[i].collider.transform.position - transform.position);
+            float dist = Vector2.SqrMagnitude(InteractObjects[i].collider.transform.position - currentTransform.position);
             if(dist < sqrMinDist)
             {
                 sqrMinDist = dist;
@@ -119,7 +125,7 @@ public class InteractManager : MonoBehaviour
     
     private bool UpdatePotentialInteractiveObjectList()
     {
-        InteractPointer[] colliders = Physics2D.OverlapCircleAll(transform.position, interactDistance).Select(x => x.GetComponent<InteractPointer>()).ToArray();
+        InteractPointer[] colliders = Physics2D.OverlapCircleAll(currentTransform.position, interactDistance).Select(x => x.GetComponent<InteractPointer>()).ToArray();
         for(int i = 0; i < colliders.Length; i++)
         {
             if(colliders[i] != null)
@@ -218,7 +224,7 @@ public class InteractManager : MonoBehaviour
     public void CreateIndicator(Pay.UI.Indicator indicator)
     {
         indicatorObject = Pay.UI.UIManager.Indicator.CreateIndicator(holder, holder.FollowCanvas, indicator,
-            Pay.UI.Options.Transform.StaticProperty.Position(transform.position + Vector3.up / 1.2f),
+            Pay.UI.Options.Transform.StaticProperty.Position(currentTransform.position + Vector3.up / 1.2f),
             Pay.UI.Options.Transform.DynamicProperty.LocalScale(Vector3.one / 4, Vector3.one / 4.5f, true, 0.1f)
         );
     }

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 302943715760535470}
   - component: {fileID: 302943715760535466}
   - component: {fileID: 302943715760535467}
+  - component: {fileID: 3769174406286974084}
+  - component: {fileID: 529163294602255651}
   m_Layer: 0
   m_Name: WoodenCrate
   m_TagString: Untagged
@@ -129,14 +131,11 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 7245892650030494661, guid: b687c8c9b2647c74f96dca3ebb7b7f33, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 10
+  HitShape: {fileID: 529163294602255651}
+  ForceHandler: {fileID: 3769174406286974084}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 0}
-  CollisionHandler:
-    rb: {fileID: 0}
-    resistance: 0.5
-    DragIntensity: 2
-    Forces: []
   charmDatabase: {fileID: 11400000, guid: 3daacf6962abfd047bfd8defff1f13a0, type: 2}
   droppedItemVelocity: 7
 --- !u!50 &302943715760535466
@@ -179,3 +178,35 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3769174406286974084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302943715760535469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5017a57678c4194468ef182291bd884b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rigidbody: {fileID: 302943715760535466}
+  knockbackResponse: 0
+  PhysicalCollisionsResistance: 5
+  resistance: 0
+  DragIntensity: 1
+--- !u!114 &529163294602255651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302943715760535469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 0}
+  collisionColliders: []
+  Collider: {fileID: 302943715760535471}

@@ -57,7 +57,7 @@ public class DoorBehaviour : KeyHoldingHack
         base.OnInteractAction(interactEntity);
         if(interactEntity != null) 
         {
-            interactEntity.transform.position = ConnectedDoor.TeleportPoint.position;
+            interactEntity.currentTransform.position = ConnectedDoor.TeleportPoint.position;
             interactEntity.entity.LevelController.UpdateRoomEntityList();
         }
     }

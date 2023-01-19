@@ -16,7 +16,7 @@ public class ReflectMovement : MovementPattern
     {
         Vector2 inNormal = collision.contacts[0].normal;
         MovementVector = Vector2.Reflect(MovementVector, inNormal);
-        PayWorld.Particles.InstantiateParticles(collisionEffect, transform.position - (Vector3)inNormal/2, Quaternion.identity, collisionEffectDuration);
+        PayWorld.Particles.InstantiateParticles(collisionEffect, CurrentTransform.position - (Vector3)inNormal/2, Quaternion.identity, collisionEffectDuration);
     }
     protected override void OnCollisionTimeOut()
     {

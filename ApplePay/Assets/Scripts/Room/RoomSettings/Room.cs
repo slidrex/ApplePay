@@ -15,15 +15,17 @@ public class Room : MonoBehaviour
     public RateArrayMark MobList;
     private bool executingMark;
     private bool released;
+    public Transform currentTransform;
     private void Awake()
     {
+        currentTransform = transform;
         SetupBounds();
         LinkDoors();
     }
     private void SetupBounds()
     {
-        for(int i = 0; i < FreeRoomSpace.Length; i++) FreeRoomSpace[i].RelatedTransform = transform;
-        RoomConfiners.RelatedTransform = transform;
+        for(int i = 0; i < FreeRoomSpace.Length; i++) FreeRoomSpace[i].RelatedTransform = currentTransform;
+        RoomConfiners.RelatedTransform = currentTransform;
     }
     private void LinkDoors()
     {
@@ -52,7 +54,8 @@ public class Room : MonoBehaviour
     public Vector2 GetRandomFreeRoomSpace() => FreeRoomSpace[Random.Range(0, FreeRoomSpace.Length)].GetRandomSpace();
     private void OnDrawGizmos()
     {
-        Gizmos.matrix = transform.localToWorldMatrix;
+        if(currentTransform == null) currentTransform = transform;
+        Gizmos.matrix = currentTransform.localToWorldMatrix;
         for(int i = 0; i < FreeRoomSpace.Length; i++)
         {
             Gizmos.color = Color.white;
@@ -81,7 +84,7 @@ public class Room : MonoBehaviour
         public Transform RelatedTransform;
         public Vector2 GetScale() => localScale * (Vector2)RelatedTransform.lossyScale;
         public Vector2 GetOffset() => (Vector3)offset;
-        public Vector2 GetZeroBoundPosition() => offset + (Vector2)RelatedTransform.transform.position;
+        public Vector2 GetZeroBoundPosition() => offset + (Vector2)RelatedTransform.position;
         ///<summary>
         ///<code> Gets the corners of the bounds in the following order: </code>
         ///<code> 0 - Top Left</code>

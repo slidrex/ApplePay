@@ -4,7 +4,7 @@ public class CharmRepository : InventoryRepository<CollectableCharm>
     public override void OnItemAdded(CollectableCharm item, int index)
     {
         item.gameObject.SetActive(false);
-        item.gameObject.transform.SetParent(itemInstancesContainer);
+        item.transform.SetParent(itemInstancesContainer);
         item.charm.GetActiveCharm().BeginFunction(AttachedSystem.SystemOwner);
     }
     private void Update()

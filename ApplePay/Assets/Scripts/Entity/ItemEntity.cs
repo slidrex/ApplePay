@@ -1,5 +1,5 @@
 using UnityEngine;
-public class ItemEntity : Entity
+public abstract class ItemEntity : Entity
 {
     [HideInInspector] public int StoredHealth;
     [SerializeField] protected Color32 maxHealthColor = Color.white;

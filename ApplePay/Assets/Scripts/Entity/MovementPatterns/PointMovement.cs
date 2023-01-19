@@ -8,7 +8,7 @@ public class PointMovement : MovementPattern
     protected virtual void OnPointReached() {}
     public override void OnSpeedUpdate()
     {
-        MovementVector = (MovePoint - (Vector2)transform.position).normalized;
+        MovementVector = (MovePoint - (Vector2)CurrentTransform.position).normalized;
         if(((Vector2)CurrentTransform.position - MovePoint).SqrMagnitude() < 1)
             OnPointReached();
         UpdateRigidbodyVector();

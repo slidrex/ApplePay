@@ -20,14 +20,14 @@ public class CrossMovement : MovementPattern
     protected override void UpdateMovementAnimator()
     {
         Movement.animator.SetInteger("Vertical", (int)MovementVector.y);
-        if(transform.position.x < Target.position.x)
+        if(CurrentTransform.position.x < Target.position.x)
         {
-            transform.eulerAngles = new Vector2(0, 0);
+            CurrentTransform.eulerAngles = new Vector2(0, 0);
             Movement.animator.SetInteger("Horizontal", (int)MovementVector.x);
         }
         else
         {
-            transform.eulerAngles = new Vector2(0, 180);
+            CurrentTransform.eulerAngles = new Vector2(0, 180);
             Movement.animator.SetInteger("Horizontal", (int)MovementVector.x);
         }
     }

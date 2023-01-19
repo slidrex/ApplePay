@@ -80,9 +80,10 @@ namespace Pay.UI
                 
                 indicatorImage.fillMethod = indicator.fillMethod;
                 indicatorImage.sprite = indicator.sprite;
-                indicatorImage.transform.SetParent(canvas.transform);
-                indicatorImage.transform.localPosition = Vector3.zero;
-                indicatorImage.transform.localScale = Vector3.one;
+                Transform indicatorTransform = indicatorImage.transform;
+                indicatorTransform.SetParent(canvas.transform);
+                indicatorTransform.localPosition = Vector3.zero;
+                indicatorTransform.localScale = Vector3.one;
                 
                 IndicatorObject container = new IndicatorObject(holder, indicatorImage);
                 holder.InstantiatedUI.Add(container);

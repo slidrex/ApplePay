@@ -143,9 +143,10 @@ public class RoomSpawner : MonoBehaviour
         Room obj = Instantiate(room.room, spawnPosition, Quaternion.identity);
         SpawnerRoom spawnerRoomInstance = room;
         spawnerRoomInstance.room = obj;
-        obj.gameObject.transform.SetParent(RoomContainer.transform);
+        Transform objTransform = obj.transform;
+        objTransform.SetParent(RoomContainer);
         FilledCells.Add(walkerPosition, spawnerRoomInstance);
-        obj.transform.eulerAngles = obj.transform.eulerAngles - Vector3.forward * rotations * 90f;
+        objTransform.eulerAngles = objTransform.eulerAngles - Vector3.forward * rotations * 90f;
         DoorBehaviour[] doors = obj.GetComponentsInChildren<DoorBehaviour>();
         foreach(DoorBehaviour door in doors) door.SwapDirection(rotations);
         
@@ -231,7 +232,7 @@ public class RoomSpawner : MonoBehaviour
     {
         foreach(Transform gameObject in StartObjects) 
         {
-            gameObject.position = FilledCells.ElementAt(0).Value.room.gameObject.transform.position;
+            gameObject.position = FilledCells.ElementAt(0).Value.room.transform.position;
         }
     }
 

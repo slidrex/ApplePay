@@ -57,8 +57,9 @@ public abstract class InventoryRepository<ItemType> : InventoryRepository
     {
         UnityEngine.GameObject gameObject = Instantiate(instance);
         gameObject.SetActive(false);
-        gameObject.transform.position = itemInstancesContainer.transform.position;
-        gameObject.transform.SetParent(itemInstancesContainer);
+        UnityEngine.Transform objTransform = gameObject.transform;
+        objTransform.position = itemInstancesContainer.position;
+        objTransform.SetParent(itemInstancesContainer);
     }
     public bool RemoveItem(ItemType item)
     {

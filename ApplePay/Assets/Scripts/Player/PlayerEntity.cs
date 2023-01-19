@@ -7,7 +7,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     public new PlayerMovement Movement => (PlayerMovement)Movement;
     public int AttackDamage { get; set; } = 10;
     [Header("Player Entity")]
-    [SerializeField] private GameObject EffectList;
+    [SerializeField] private Transform EffectList;
     [HideInInspector] public float ChangeAmount;
     [HideInInspector] public KeyCode ChangeHealthKey;
     private float vignetteIntensity;
@@ -37,9 +37,9 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     }
     public void OnEffectUpdated()
     {
-        for(int i = 0; i < EffectList.transform.childCount; i++)
+        for(int i = 0; i < EffectList.childCount; i++)
         {
-            Destroy(EffectList.transform.GetChild(i).gameObject);
+            Destroy(EffectList.GetChild(i).gameObject);
         }
         for(int i = 0; i < ActiveEffects.Count; i++)
         {
@@ -47,7 +47,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
                 continue;
                 
             var obj = Instantiate(effectCell, Vector3.zero, Quaternion.identity);
-            obj.transform.SetParent(EffectList.transform);
+            obj.transform.SetParent(EffectList);
             obj.transform.localScale = Vector3.one;
             obj.EffectDisplay = ActiveEffects.ElementAt(i).Value.EffectDisplay;
         }
