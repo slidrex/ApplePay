@@ -11,7 +11,7 @@ public abstract class AdvancedWeaponHolder : WeaponHolder, IRepositoryUpdateCall
     private byte activeWeaponIndex;
     [SerializeField] protected DropIndicator DropSettings;
     protected byte ActiveWeaponIndex 
-    { 
+    {
         get => activeWeaponIndex;
         private set 
         { 

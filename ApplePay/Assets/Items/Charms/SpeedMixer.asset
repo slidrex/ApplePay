@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SpeedMixer
   m_EditorClassIdentifier: 
   Charms:
-  - {fileID: 11400000, guid: 7e74c561f7468784ba88d782d4adac2f, type: 2}
   - {fileID: 11400000, guid: e5e8bca678b170b4199ff1985e897cc0, type: 2}
+  - {fileID: 11400000, guid: 7e74c561f7468784ba88d782d4adac2f, type: 2}
   ActiveIndex: 0

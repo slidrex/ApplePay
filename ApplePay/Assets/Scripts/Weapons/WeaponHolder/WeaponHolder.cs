@@ -49,7 +49,7 @@ public abstract class WeaponHolder : MonoBehaviour
         return true;
     }
     public virtual void OnWeaponActivate(Weapon weapon, bool status) {}
-    private Vector2 SetFacing(float freezeTime, Vector2 beginPosition, Vector2 endPosition, bool freezeHorizontal, bool freezeVertical)
+    protected Vector2 SetFacing(float freezeTime, Vector2 beginPosition, Vector2 endPosition, bool freezeHorizontal, bool freezeVertical)
     {
         Vector2 distance = endPosition - beginPosition;
         
@@ -58,7 +58,7 @@ public abstract class WeaponHolder : MonoBehaviour
         if(freezeVertical) facing = Vector2.right * Mathf.Sign(distance.x);
         if(freezeHorizontal && freezeVertical) facing = Vector2.zero;
 
-        Owner.Movement.SetFacingState(facing, freezeTime + additionalFreezeStateTime, StateParameter.MirrorHorizontal);
+        Owner.Movement.SetFacing(facing, freezeTime + additionalFreezeStateTime, StateParameter.MirrorHorizontal);
         return facing;
     }
     

@@ -2,11 +2,24 @@ using UnityEngine;
 
 public class PlayerMovement : EntityMovement
 {
-    
+    public bool cursorFollow;
+    [SerializeField] private Transform facingTransform;
     protected override void Update()
     {
         base.Update();
+        if(cursorFollow)
+        {
+            SetFacing(GetCurrentFacing(), 0.0f, StateParameter.MirrorHorizontal);
+        }
         if(GetCurrentSpeed() != 0) MoveInput();
+    }
+    private Vector2 GetCurrentFacing()
+    {
+        Vector2 facing = Vector2.zero;
+        Vector2 distance = Pay.Functions.Generic.GetMousePos(Camera.main) - (Vector2)facingTransform.transform.position;
+        if(Mathf.Abs(distance.x) > Mathf.Abs(distance.y)) facing = Vector2.right * Mathf.Sign(distance.x);
+        else facing = Vector2.up * Mathf.Sign(distance.y);
+        return facing;
     }
     private void MoveInput()
     {
@@ -14,17 +27,7 @@ public class PlayerMovement : EntityMovement
         MoveVector.y = Input.GetAxisRaw("Vertical");
         if(GetMovementVector().x != 0 || GetMovementVector().y != 0) animator.SetBool("isMoving", true);
         else if(GetMovementVector() == Vector2.zero) animator.SetBool("isMoving", false);
-        if(!ConstraintRotation) PolarityChange();
-    }
-    private void PolarityChange()
-    {
-        animator.SetInteger("Vertical", (int)GetMovementVector().y);
-        animator.SetInteger("Horizontal", (int)GetMovementVector().x);
-
-        if(GetMovementVector().x > 0)
-            transform.eulerAngles = new Vector2(0, 0);
-        else if(GetMovementVector().x < 0)
-            transform.eulerAngles = new Vector2(0, -180);
+        if(cursorFollow == false) SetFacing(MoveVector, 0.0f);
     }
     protected override void FixedUpdate()
     {

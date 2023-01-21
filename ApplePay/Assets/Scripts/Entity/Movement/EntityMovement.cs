@@ -10,7 +10,7 @@ abstract public class EntityMovement : MonoBehaviour
     [SerializeField] private float CurrentSpeed = Mathf.PI;
     protected Vector2 MoveVector;
     [HideInInspector] public Rigidbody2D Rigidbody;
-    [HideInInspector] public bool ConstraintRotation;
+    [HideInInspector] public bool FacingBlock;
     private float curConstraintDuration;
     public Creature Entity {get; set;}
     protected virtual void Start()
@@ -62,18 +62,18 @@ abstract public class EntityMovement : MonoBehaviour
     }
     protected void RotationConstraintHandler()
     {
-        if(curConstraintDuration >= 0)
+        if(curConstraintDuration > 0)
         {
+            FacingBlock = true;
             curConstraintDuration -= Time.deltaTime;
-            ConstraintRotation = true;
+            if(curConstraintDuration <= 0) FacingBlock = false;
         }
-        else if(ConstraintRotation) ConstraintRotation = false;
     }
     public void SetMoveMod(bool isMoving) => animator.SetBool("isMoving", isMoving);
     public void SetRotationConstraint(float duration) => curConstraintDuration = duration;
-    public void SetFacingState(Vector2 state, float duration, params StateParameter[] parameters)
+    public void SetFacing(Vector2 state, float bindTime, params StateParameter[] parameters)
     {   
-        SetRotationConstraint(duration);
+        SetRotationConstraint(bindTime);
         animator.SetInteger("Horizontal", (int)state.x);
         animator.SetInteger("Vertical", (int)state.y);
         foreach(StateParameter param in parameters)
