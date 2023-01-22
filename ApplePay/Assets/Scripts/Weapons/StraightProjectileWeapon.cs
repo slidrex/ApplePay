@@ -9,7 +9,7 @@ public class StraightProjectileWeapon : Weapon
     {
         Projectile projectile = Instantiate(FireObject, originPosition, Quaternion.Euler(0, 0, Vector2.Angle(originPosition, attackPosition)));
         output = FireObject.gameObject;
-        Vector2 projectileMoveVector = (attackPosition - originPosition).normalized;
+        Vector2 projectileMoveVector = GetAttackVector(originPosition, attackPosition);
         
         projectile.Setup(projectileMoveVector, attacker, target);
         

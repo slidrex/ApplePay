@@ -31,11 +31,14 @@ public abstract class WeaponHolder : MonoBehaviour
         if(animatableWeapon != null) facingTime += animatableWeapon.animationInfo.animationTime;
         Vector2 facing = SetFacing(facingTime, beginTrajectory, endTrajectory, WeaponPlace.FreezeHorizontal, WeaponPlace.FreezeVertical);
         activeWeapon.Activate(attacker, beginTrajectory, endTrajectory, target, out output);
+        if(WeaponPlace.FreezeHorizontal) activeWeapon.FreezeHorizontalAttackAxis();
+        else if(WeaponPlace.FreezeVertical) activeWeapon.FreezeVerticalAttackAxis();
+        
         if(animatableWeapon != null)
         {
             float animationTime = animatableWeapon.animationInfo.animationTime;
             attacker.Engage(animationTime, null);
-            WeaponPlace.ActivateAnimation(animatableWeapon, output, endTrajectory);
+            WeaponPlace.ActivateAnimation(animatableWeapon, output, activeWeapon.GetAttackVector(beginTrajectory, endTrajectory));
             if(facing == Vector2.down) output.GetComponent<SpriteRenderer>().sortingOrder = 1;
             activeWeapon.weaponInfo.timeSinceUse = 0.0f;
             activeWeapon.weaponInfo.isActivatable = false;

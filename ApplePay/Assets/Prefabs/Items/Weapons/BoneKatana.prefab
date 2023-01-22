@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6468942382177335941}
   - component: {fileID: 6468942382177335942}
   - component: {fileID: 6468942382177335943}
-  - component: {fileID: 6468942382177335936}
   - component: {fileID: 6468942382177335937}
   - component: {fileID: 6468942382177335938}
   - component: {fileID: 6468942382177335939}
@@ -129,32 +128,6 @@ MonoBehaviour:
   Owner: {fileID: 0}
   collisionColliders: []
   Collider: {fileID: 6468942382177335942}
---- !u!61 &6468942382177335936
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6468942382177335948}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0049313386, y: -0.00588993}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.21, y: 0.21}
-    newSize: {x: 0.21, y: 0.21}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.006091251, y: 0.1709824}
-  m_EdgeRadius: 0
 --- !u!50 &6468942382177335937
 Rigidbody2D:
   serializedVersion: 4
@@ -227,4 +200,4 @@ MonoBehaviour:
   hoverableObject:
     contentPanel: {fileID: 0}
     HintCreated: 0
-  weapon: {fileID: 11400000, guid: b5a80f58342fdcd4898cd298cd272222, type: 2}
+  weapon: {fileID: 0}

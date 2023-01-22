@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public abstract class WeaponObject : MonoBehaviour
 {    
     protected Creature Owner;

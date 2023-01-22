@@ -8,10 +8,10 @@ public class WeaponPlace : MonoBehaviour
     public float Radius;
     public float WeaponScale = 1f;
     [HideInInspector] public WeaponPlaceAnimator animator = new WeaponPlaceAnimator();
-    public void ActivateAnimation(InstantiateWeapon weapon, GameObject animateObject, Vector2 attackPosition)
+    public void ActivateAnimation(InstantiateWeapon weapon, GameObject animateObject, Vector2 attackDirection)
     {   
         AnimateObjectSetup(animateObject, out Transform container);
-        TranformPlaceSetup(container, weapon.attackType, attackPosition, out Vector2 _facing);
+        TranformPlaceSetup(container, weapon.attackType, attackDirection);
         animator.StartAnimation(weapon, container);
     }
     private void AnimateObjectSetup(GameObject animateObject, out Transform container)
@@ -24,22 +24,18 @@ public class WeaponPlace : MonoBehaviour
         animateObject.transform.localScale *= WeaponScale;
 
     }
-    private void TranformPlaceSetup(Transform transform, Weapon.AttackType type, Vector2 attackPosition, out Vector2 facing)
+    private void TranformPlaceSetup(Transform transform, Weapon.AttackType type, Vector2 attackDirection)
     {
-        Vector2 dist = attackPosition - (Vector2)transform.position;
-        Vector2 offset, attackDirection;
+        Vector2 offset;
         if(type == Weapon.AttackType.Radial)
         {
-            attackDirection = dist.normalized;
             offset = Radius * attackDirection;
         }
         else
         {
-            if(!FreezeHorizontal && !FreezeVertical) attackDirection = Mathf.Abs(dist.x) > Mathf.Abs(dist.y) ?  Vector2.right * Mathf.Sign(dist.x) : Vector2.up * Mathf.Sign(dist.y);
-            else attackDirection = FreezeHorizontal && !FreezeVertical ? Vector2.up * Mathf.Sign(dist.y) : Vector2.right * Mathf.Sign(dist.x);
             offset = attackDirection.x == 0 ? attackDirection.y * VerticalOffset : attackDirection.x * HorizontalOffset;
         }
-        facing = Mathf.Abs(attackDirection.x) > Mathf.Abs(attackDirection.y) ? Vector2.right * Mathf.Sign(attackDirection.x) : Vector2.up * Mathf.Sign(attackDirection.y);
+
         float rotation = Pay.Functions.Math.Atan3(attackDirection.y, attackDirection.x);
         transform.eulerAngles = Vector3.forward * rotation;
         transform.position += (Vector3)offset;
