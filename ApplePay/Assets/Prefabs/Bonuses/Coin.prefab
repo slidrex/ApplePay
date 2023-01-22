@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollectEffect: {fileID: 0}
+  TrackAnim: {fileID: 688108528113913118, guid: f2ad5382a130c0344a2abfb514968e07, type: 3}
   ForceHandler: {fileID: -4049257195660867450}
   HitShape: {fileID: 5623910881927765622}
   CurrencyType: 0

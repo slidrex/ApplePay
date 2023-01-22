@@ -375,6 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a90e84dc013d74d87c22913cee941d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WaveCompleteEffect: {fileID: 4752983371986300403, guid: b81541b4f6542724baa5d545f285a256, type: 3}
   FreeRoomSpace:
   - localScale: {x: 5.16, y: 12.15}
     offset: {x: 0, y: 0}
@@ -386,8 +387,8 @@ MonoBehaviour:
   EntityList: []
   MarkList:
   - {fileID: 0}
+  CurrentStageIndex: 0
   EnvironmentObjectLimit: 3
-  isActive: 0
   MobCountLimit: 6
   MobList: {fileID: 11400000, guid: 09d3e5d435c9fdd4186415f16930e383, type: 2}
 --- !u!1 &7417051529478944988

@@ -260,7 +260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 67.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 135, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5878487061284216883
@@ -589,7 +589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 67.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 135, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5878487061993765642
@@ -760,10 +760,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491bb8a9cf1fbfe4fa7bf6a23a15547c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  applause: {fileID: 5878487061284216887}
+  applause: {fileID: 2176250291187317976, guid: 42cfbd949cbd31e40aa658b04d19d2ed, type: 3}
   itemName: {fileID: 5878487061284216882}
   description: {fileID: 5878487061993765641}
   textField: {fileID: 8223013048784590206, guid: c048c8310ba5b334bafefef26d0050bc, type: 3}
   additionalFields: {fileID: 5878487060551479337}
   icon: {fileID: 5878487061731582050}
   qualityFrame: {fileID: 2487623871143539755}
+  anim: {fileID: 0}
+  selected: 0
