@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-
-public class TraderCard : MonoBehaviour
+using UnityEngine.EventSystems;
+public class TraderCard : MonoBehaviour, IPointerClickHandler, IPointerExitHandler, IPointerEnterHandler
 {
     [SerializeField] private GameObject applause;
     [SerializeField] private Text itemName;
@@ -10,9 +10,9 @@ public class TraderCard : MonoBehaviour
     [SerializeField] private Transform additionalFields;
     [SerializeField] private Image icon;
     [SerializeField] private Image qualityFrame;
+    [HideInInspector] public Animator anim;
     private CardSpawner cardSpawner;
     private byte itemIndex;
-    public Animator anim;
     [HideInInspector] public bool selected;
     private void Awake()
     {
@@ -44,13 +44,25 @@ public class TraderCard : MonoBehaviour
         _text.color = color;
     }
     private void SetActive(bool isActive) => gameObject.SetActive(isActive);
-    private void Disable()
+    private void OnCardSold()
     {
         PlayerEntity entity = FindObjectOfType<PlayerEntity>();
         Instantiate(cardSpawner.charmDatabase.GetItem(itemIndex),
             entity.transform.position, Quaternion.identity, entity.GetHolder().HUDCanvas.transform);
         PayWorld.Particles.InstantiateParticles(applause, transform.position, Quaternion.identity, 2, cardSpawner.transform);
-        
         gameObject.SetActive(false);
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        anim.SetTrigger("Deselect");
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        anim.SetTrigger("Click");
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        anim.SetTrigger("Select");
     }
 }

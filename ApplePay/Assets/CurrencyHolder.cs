@@ -4,7 +4,7 @@ public class CurrencyHolder : MonoBehaviour
 {
     public delegate void AccountValueChangeCallback(Currency changedAccount, int value);
     public AccountValueChangeCallback AccountChangeCallback;
-    [SerializeField] private CurrencyAccount[] openAccounts;
+    public CurrencyAccount[] openAccounts;
     public bool ContainsAccount(Currency currecncyType)
     {
         foreach(CurrencyAccount acc in openAccounts)
@@ -39,6 +39,8 @@ public class CurrencyHolder : MonoBehaviour
     {
         public Currency currencyType;
         public int Amount;
+        public Transform MagnitizedObject;
+        public Animator Animator;
     }
     public enum Currency
     {

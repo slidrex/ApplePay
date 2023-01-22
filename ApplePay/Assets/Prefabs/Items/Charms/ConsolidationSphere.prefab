@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 5824225410495748239}
   - component: {fileID: 5824225410495748233}
   - component: {fileID: 5824225410495748234}
-  - component: {fileID: -6768461060181449715}
-  - component: {fileID: 5720225388027393382}
   - component: {fileID: 2420184678774258409}
+  - component: {fileID: 2552566032223010630}
   m_Layer: 0
   m_Name: ConsolidationSphere
   m_TagString: Untagged
@@ -103,7 +102,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.07
 --- !u!50 &5824225410495748233
 Rigidbody2D:
   serializedVersion: 4
@@ -142,7 +141,7 @@ MonoBehaviour:
   takeDamageParticle: {fileID: 1114161033533732100, guid: 1a49732fde3ba4f41baa96bff3c33514, type: 3}
   appearParticle: {fileID: 0}
   MaxHealth: 150
-  HitShape: {fileID: 5720225388027393382}
+  HitShape: {fileID: 0}
   ForceHandler: {fileID: 2420184678774258409}
   evasionRate: 0
   magicResistance: 0
@@ -160,47 +159,6 @@ MonoBehaviour:
     contentPanel: {fileID: 3985452147203897461, guid: b82e4fb9f584e1b43b9801db47efd419, type: 3}
     HintCreated: 0
   charm: {fileID: 11400000, guid: dafe9bf7e256ee448b2a406e867b3662, type: 2}
---- !u!61 &-6768461060181449715
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5824225410495748228}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.15, y: 0.15}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.15, y: 0.15}
-  m_EdgeRadius: 0
---- !u!114 &5720225388027393382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5824225410495748228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9500607fceb6647a967daf2011d147, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Owner: {fileID: 5824225410495748234}
-  collisionColliders: []
-  Collider: {fileID: -6768461060181449715}
 --- !u!114 &2420184678774258409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +172,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 5824225410495748233}
+  knockbackResponse: 0
   PhysicalCollisionsResistance: 10
   resistance: 0
   DragIntensity: 1
+--- !u!114 &2552566032223010630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5824225410495748228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4ed55dc1a900a48886c9da135b91b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 0}
+  collisionColliders: []
+  Collider: {fileID: 5824225410495748239}

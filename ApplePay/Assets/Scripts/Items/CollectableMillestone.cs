@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class CollectableMillestone : MonoBehaviour, IHitResponder
 {
     public GameObject CollectEffect;
+    public TrackAnim TrackAnim;
     public PayForceHandler ForceHandler;
     public PayHitShape HitShape;
     protected virtual void Awake() => HitShape.AddResponder(this);

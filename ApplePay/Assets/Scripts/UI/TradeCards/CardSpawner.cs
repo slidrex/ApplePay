@@ -6,7 +6,7 @@ public class CardSpawner : MonoBehaviour
     [SerializeField] private TraderCard card;
     public CharmDatabase charmDatabase;
     [SerializeField] private Transform cardHolder;
-    private System.Collections.Generic.List<byte> usedCardIndeces = new System.Collections.Generic.List<byte>();
+    public System.Collections.Generic.List<byte> usedCardIndeces = new System.Collections.Generic.List<byte>();
     [SerializeField] private byte minCardCount;
     [SerializeField] private byte maxCardCount;
     [HideInInspector] public byte CardCount;
@@ -107,7 +107,6 @@ public class CardSpawner : MonoBehaviour
             cards[i].SetQuality(databaseCharm.Display.Rarity);
             for(int j = 0; j < databaseCharm.Display.AdditionalFields.Length; j++)
             {
-                
                 cards[i].AddField(CharmDisplay.FormatCharmField(databaseCharm.Display.AdditionalFields[j].Text, databaseCharm.GetActiveCharm()), collectableItem.charm.GetActiveCharm().Display.AdditionalFields[j].GetColor());
             }
             Destroy(databaseCharm);
@@ -116,7 +115,6 @@ public class CardSpawner : MonoBehaviour
     private byte GetUniqueIndex()
     {
         bool generated = false;
-        
         while(generated == false)
         {
             byte index = (byte)Random.Range(0, charmDatabase.GetLength());
