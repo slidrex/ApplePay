@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4052374972910474484}
   - component: {fileID: 5107638221152411335}
   - component: {fileID: -4049257195660867450}
-  - component: {fileID: -1941157112062465027}
   - component: {fileID: 8775763759110233123}
   - component: {fileID: 5623910881927765622}
+  - component: {fileID: 5611208713982094737}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -125,24 +125,6 @@ MonoBehaviour:
   PhysicalCollisionsResistance: 5
   resistance: 0
   DragIntensity: 1
---- !u!114 &-1941157112062465027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2786148623701003486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8dcec1547264949a87a4c05a7895b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollectEffect: {fileID: 0}
-  TrackAnim: {fileID: 688108528113913118, guid: f2ad5382a130c0344a2abfb514968e07, type: 3}
-  ForceHandler: {fileID: -4049257195660867450}
-  HitShape: {fileID: 5623910881927765622}
-  CurrencyType: 0
-  Amount: 1
 --- !u!58 &8775763759110233123
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -174,3 +156,21 @@ MonoBehaviour:
   Owner: {fileID: 0}
   collisionColliders: []
   Collider: {fileID: 8775763759110233123}
+--- !u!114 &5611208713982094737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2786148623701003486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3420ed1dbd613046a4d64e41016ca3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollectEffect: {fileID: 0}
+  TrackAnim: {fileID: 688108528113913118, guid: f2ad5382a130c0344a2abfb514968e07, type: 3}
+  ForceHandler: {fileID: -4049257195660867450}
+  HitShape: {fileID: 5623910881927765622}
+  CurrencyType: 0
+  Amount: 1

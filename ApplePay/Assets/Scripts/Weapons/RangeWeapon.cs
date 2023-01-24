@@ -5,12 +5,13 @@ public class RangeWeapon : WeaponObject
     [SerializeField] protected Projectile Projectile;
     [SerializeField] protected Transform FirePoint;
 
-    public override void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out Projectile projectile)
+    protected override GameObject[] OnActivate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target)
     {
-        projectile = Instantiate(Projectile, GetFirePointPos(), Quaternion.identity);
+        Projectile projectile = Instantiate(Projectile, GetFirePointPos(), Quaternion.identity);
         Vector2 moveVector = (attackPosition - originPosition).normalized;
         projectile.Setup(moveVector, attacker, target);
         projectile.DisableOwnerCollisions();
+        return new GameObject[1] { projectile.gameObject };
     }
     public Vector2 GetFirePointPos()
     {

@@ -6,6 +6,7 @@ public abstract class Weapon : ScriptableObject
     public WeaponDisplay display;
     public WeaponInfo weaponInfo;
     private Vector2 freezedAxises;
+    protected virtual void Awake() => weaponInfo.SetCooldown();
     public Vector2 GetAttackVector(Vector2 originPosition, Vector2 attackPosition)
     {
         Vector2 distance = (attackPosition - originPosition);
@@ -21,7 +22,6 @@ public abstract class Weapon : ScriptableObject
         }
         return Vector2.zero;
     }
-    protected virtual void Awake() => weaponInfo.SetCooldown();
     ///<summary>Vector2.up - freeze Y; Vector2.right - freeze X;</summary>
     public void FreezeHorizontalAttackAxis()
     {
@@ -31,7 +31,7 @@ public abstract class Weapon : ScriptableObject
     {
         freezedAxises = Vector2.up;
     }
-    public abstract void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out GameObject output);
+    public abstract void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out GameObject[] output);
     public enum AttackType
     {
         Radial,

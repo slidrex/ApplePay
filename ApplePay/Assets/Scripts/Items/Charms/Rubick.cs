@@ -10,7 +10,7 @@ public class Rubick : Charm
         CollectableCharm[] charmItems = _repository.GetExistingItems();
         for(int i = 0; i < charmItems.Length; i++)
         {
-            CharmObject charm = charmItems[i].charm;
+            CharmObject charm = charmItems[i].Charm;
             if(charm != null && charm.GetActiveCharm() != this)
             {
                 for(int j = 0; j < charm.GetActiveCharm().attributeFields.Count; j++)

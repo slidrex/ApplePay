@@ -15,7 +15,7 @@ public class CardSpawner : MonoBehaviour
     private const string animationSelectTrigger = "Select";
     private const string animationDeselectTrigger = "Deselect";
     private bool initAmbigous;
-    private void Awake()
+    private void Start()
     {
         CardCount = (byte)Random.Range(minCardCount, maxCardCount + 1);
         cards = new TraderCard[CardCount];
@@ -99,7 +99,7 @@ public class CardSpawner : MonoBehaviour
             cards[i].transform.localPosition = Vector3.zero;
             cards[i].LoadItem(index);
             CollectableCharm collectableItem = charmDatabase.GetItem(index);
-            Charm databaseCharm = Instantiate(collectableItem.charm.GetActiveCharm());
+            Charm databaseCharm = Instantiate(collectableItem.Charm.GetActiveCharm());
             usedCardIndeces.Add(index);
             ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(databaseCharm.Display.Rarity);
             cards[i].SetHeader(databaseCharm.Display.Description.Name, rarityInfo.color, databaseCharm.Display.Icon);
@@ -107,7 +107,7 @@ public class CardSpawner : MonoBehaviour
             cards[i].SetQuality(databaseCharm.Display.Rarity);
             for(int j = 0; j < databaseCharm.Display.AdditionalFields.Length; j++)
             {
-                cards[i].AddField(CharmDisplay.FormatCharmField(databaseCharm.Display.AdditionalFields[j].Text, databaseCharm.GetActiveCharm()), collectableItem.charm.GetActiveCharm().Display.AdditionalFields[j].GetColor());
+                cards[i].AddField(CharmDisplay.FormatCharmField(databaseCharm.Display.AdditionalFields[j].Text, databaseCharm.GetActiveCharm()), collectableItem.Charm.GetActiveCharm().Display.AdditionalFields[j].GetColor());
             }
             Destroy(databaseCharm);
         }

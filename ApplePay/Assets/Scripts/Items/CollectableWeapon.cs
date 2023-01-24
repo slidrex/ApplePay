@@ -3,10 +3,11 @@ public class CollectableWeapon : CollectableItem<CollectableWeapon>
     protected override bool DestroyOnCollect => false;
     protected override string TargetRepository { get => "weapon"; }
     public override CollectableWeapon CollectableObject {get => this; }
-    public Weapon weapon;
+    [UnityEngine.SerializeField] private Weapon weapon;
+    public Weapon Weapon { get; set; }
     protected override void Awake()
     {
-        weapon = Instantiate(weapon);
+        Weapon = Instantiate(weapon);
         base.Awake();
     }
 }

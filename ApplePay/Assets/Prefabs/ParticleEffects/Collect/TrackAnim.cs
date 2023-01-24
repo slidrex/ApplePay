@@ -28,9 +28,9 @@ public abstract class TrackAnim : MonoBehaviour
     {
         speed += Acceleration;
         transform.position = Vector2.MoveTowards(transform.position, DestinationPoint.position, speed * Time.deltaTime);
-        if((Vector2)transform.position == (Vector2)DestinationPoint.position) AimDestinate();
+        if((Vector2)transform.position == (Vector2)DestinationPoint.position) OnAimDestinate();
     }
-    protected virtual void AimDestinate()
+    protected virtual void OnAimDestinate()
     {
         Destroy(gameObject);
     }

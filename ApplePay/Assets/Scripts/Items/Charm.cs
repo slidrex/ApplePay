@@ -10,8 +10,9 @@ public class Charm : CharmObject
     public CharmDisplay Display;
     public CharmField[] CharmFields;
     [UnityEngine.HideInInspector] public bool FieldsInitialized;
-    private void Awake()
+    public override void OnInstantiate()
     {
+        base.OnInstantiate();
         InitFields();
     }
     private void InitFields()

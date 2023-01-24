@@ -26,7 +26,7 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
         }
         if(Input.GetKey(activateKey) && Owner.IsFree())
         {
-            Weapon current = GetActiveWeapon()?.weapon;
+            Weapon current = GetActiveWeapon()?.Weapon;
             if(current != null)
                 Activate(Owner, ref current, Owner.transform.position, Pay.Functions.Generic.GetMousePos(Camera.main), null);
         }
@@ -49,7 +49,7 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     private void UpdateSlotIndicator()
     {
         if(GetActiveWeapon() != null && weaponPlaceSlot.IndicatorBuffer != null)
-            weaponPlaceSlot.SlotIndicatorUpdate(DropSettings.Holder, GetActiveWeapon().weapon.weaponInfo.timeSinceUse, GetActiveWeapon().weapon.weaponInfo.AttackCooldown);
+            weaponPlaceSlot.SlotIndicatorUpdate(DropSettings.Holder, GetActiveWeapon().Weapon.weaponInfo.timeSinceUse, GetActiveWeapon().Weapon.weaponInfo.AttackCooldown);
     }
     public override void OnWeaponActivate(Weapon weapon, bool status)
     {
@@ -64,13 +64,13 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
         if(currentItem != null)
         {
             weaponPlaceSlot.CreateSlotIndicator(DropSettings.Holder);
-            weaponPlaceSlot.SetItem(currentItem.weapon.display.Icon);
-            weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().weapon.display.Description.Name);
+            weaponPlaceSlot.SetItem(currentItem.Weapon.display.Icon);
+            weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().Weapon.display.Description.Name);
         }
     }
     private void SetupText()
     {
         weaponPlaceSlot.RemoveText();
-        weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().weapon.display.Description.Name);
+        weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().Weapon.display.Description.Name);
     }
 }

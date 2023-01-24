@@ -20,13 +20,17 @@ public class BatBehaviour : AttackingMob
             Creature currentEntity = objec.GetComponent<Creature>();
             if(currentEntity != null && currentEntity != this && PayTagHandler.IsHostile(this, currentEntity))
             {
-                if(weaponHolder.Activate(this, ref weaponHolder.ActiveWeapon, objec.gameObject.transform.position, objec.transform, out GameObject output))
+                if(weaponHolder.Activate(this, ref weaponHolder.ActiveWeapon, objec.gameObject.transform.position, objec.transform, out GameObject[] output))
                 {
-                    Projectile projectile = output.GetComponent<Projectile>();
-                    if(projectile != null)
+                    foreach(var _obj in output)
                     {
-                        projectile.DisableOwnerCollisions();
-                        projectile.gameObject.layer = bulletLayer;
+                        Projectile projectile = _obj.GetComponent<Projectile>();
+                        if(projectile != null)
+                        {
+                            projectile.DisableOwnerCollisions();
+                            projectile.gameObject.layer = bulletLayer;
+                        }
+
                     }
                 }
             }

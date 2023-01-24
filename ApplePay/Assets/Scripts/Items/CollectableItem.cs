@@ -60,6 +60,7 @@ public abstract class CollectableItem<Item> : CollectableObject
     {
         collectStatus = false;
         Creature entity = collision.entity.GetComponent<Creature>();
+        
         if(entity != null && entity.InventorySystem != null && entity.InventorySystem.ContainsRepository(TargetRepository))
         {
             collectStatus = AddItem((InventoryRepository<Item>)entity.InventorySystem.GetRepository(TargetRepository), CollectableObject);

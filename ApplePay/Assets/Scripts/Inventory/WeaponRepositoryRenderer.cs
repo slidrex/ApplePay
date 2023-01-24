@@ -18,9 +18,9 @@ public class WeaponRepositoryRenderer : DragRepositoryRenderer<CollectableWeapon
         }
         else
         {
-            ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(repository.Items[index].weapon.display.Rarity);
+            ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(repository.Items[index].Weapon.display.Rarity);
                 
-            slot.RenderIcon(repository.Items[index].weapon.display.Icon);
+            slot.RenderIcon(repository.Items[index].Weapon.display.Icon);
             slot.LinkItem(repository.Items[index]);
             slot.RenderSlotFrame(rarityInfo.color);
         }

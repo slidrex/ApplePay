@@ -9,16 +9,4 @@ public class CollectableCurrency : CollectableMillestone
         
         return requestStatus; 
     }
-    protected override void OnCollect(HitInfo hitInfo)
-    {
-        if(hitInfo.entity.GetComponent<PlayerEntity>() != null && TrackAnim != null)
-        {
-            CurrencyHolder holder = hitInfo.entity.GetComponent<CurrencyHolder>();
-            CoinTrack obj = Instantiate((CoinTrack)TrackAnim, transform.position, UnityEngine.Quaternion.identity);
-            obj.DestinationPoint = holder.openAccounts[0].MagnitizedObject;
-            obj.CurrencyRendererAnim = holder.openAccounts[0].Animator;
-            base.OnCollect(hitInfo);
-        }
-        else base.OnCollect(hitInfo);
-    }
 }

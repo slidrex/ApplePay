@@ -1,9 +1,10 @@
 public class CharmObject : UnityEngine.ScriptableObject 
 {
+    public virtual void OnInstantiate() {}
         public enum CharmType
         {
-        Base,
-        Switchable
+            Base,
+            Switchable
         }
     public CharmType charmType 
     {
@@ -25,6 +26,7 @@ public class CharmObject : UnityEngine.ScriptableObject
         }
         if(charmType == CharmType.Switchable)
         {
+            UnityEngine.Debug.Log("Error start");
             MixedCharm charm = (MixedCharm)this;
             return charm.Charms[charm.ActiveIndex];
         }

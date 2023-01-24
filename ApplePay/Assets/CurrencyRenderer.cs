@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CurrencyRenderer : MonoBehaviour, ICurrencyAccountUpdateCallback
 {
+    public UnityEngine.UI.Image CurrencyIcon;
     [SerializeField] private CurrencyHolder holder;
     [SerializeField] private CurrencyHolder.Currency currencyType;
     [SerializeField] private UnityEngine.UI.Text currencyAmount;
@@ -13,7 +14,7 @@ public class CurrencyRenderer : MonoBehaviour, ICurrencyAccountUpdateCallback
     {
         if(accountType == currencyType) UpdateCurrencyCounter();
     }
-    private void UpdateCurrencyCounter()
+    public void UpdateCurrencyCounter()
     {
         currencyAmount.text = holder.GetAccountValue(currencyType).ToString();
     }

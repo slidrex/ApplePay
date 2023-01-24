@@ -10,10 +10,10 @@ public class MeleeWeapon : WeaponObject, ICollideDamageDealer, IHitResponder
     public float Knockback;
     public float KnockbackTime;
     public DamageType DamageType;
-    public override void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out Projectile projectile)
+    protected override GameObject[] OnActivate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target)
     {
         LinkAttacker(attacker);
-        projectile = null;
+        return null;
     }
     protected virtual Vector2 GetCollisionNormal(Collider2D collider) => collider.ClosestPoint(transform.position) - (Vector2)transform.position;
     protected virtual void OnColliderHit(Collider2D collider) {}

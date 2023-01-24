@@ -4,10 +4,10 @@ using UnityEngine;
 public class FireShooter : RangeWeapon
 {
     [SerializeField] private float spread;
-    public override void Activate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, out Projectile projectile)
+    protected override GameObject[] OnActivate(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target)
     {
-        projectile = Projectile;
-        StartCoroutine(Shoot(attacker, originPosition, attackPosition, target, projectile));
+        StartCoroutine(Shoot(attacker, originPosition, attackPosition, target, Projectile));
+        return new GameObject[1] { Projectile.gameObject };
     }
     private IEnumerator Shoot(Creature attacker, Vector2 originPosition, Vector2 attackPosition, Transform target, Projectile projectile)
     {

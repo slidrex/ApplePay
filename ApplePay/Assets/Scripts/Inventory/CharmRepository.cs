@@ -5,19 +5,19 @@ public class CharmRepository : InventoryRepository<CollectableCharm>
     {
         item.gameObject.SetActive(false);
         item.transform.SetParent(itemInstancesContainer);
-        item.charm.GetActiveCharm().BeginFunction(AttachedSystem.SystemOwner);
+        item.Charm.GetActiveCharm().BeginFunction(AttachedSystem.SystemOwner);
     }
     private void Update()
     {
-        foreach(CollectableCharm charm in Items)
+        foreach(CollectableCharm Charm in Items)
         {
-            if(charm != null)
-                charm.charm.GetActiveCharm().UpdateFunction(AttachedSystem.SystemOwner);
+            if(Charm != null)
+                Charm.Charm.GetActiveCharm().UpdateFunction(AttachedSystem.SystemOwner);
         }
     }
     public override void OnItemRemoved(CollectableCharm item)
     {
         base.OnItemRemoved(item);
-        item.charm.GetActiveCharm().EndFunction(AttachedSystem.SystemOwner); 
+        item.Charm.GetActiveCharm().EndFunction(AttachedSystem.SystemOwner); 
     }
 }

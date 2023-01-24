@@ -3,9 +3,12 @@ using UnityEngine;
 public class CoinTrack : TrackAnim
 {
     [HideInInspector] public Animator CurrencyRendererAnim;
-    protected override void AimDestinate()
+    public CurrencyHolder holder;
+    public CollectableCoin coin;
+    protected override void OnAimDestinate()
     {
         CurrencyRendererAnim.SetTrigger("Collected");
-        base.AimDestinate();
+        holder.AddAmount(CurrencyHolder.Currency.Money, coin.Amount);
+        base.OnAimDestinate();
     }
 }

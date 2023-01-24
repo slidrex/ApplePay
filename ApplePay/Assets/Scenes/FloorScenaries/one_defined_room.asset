@@ -14,10 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnRooms:
   - SpawnerRoom:
+      minStageCount: 0
+      maxStageCount: 0
+      stages:
+      - minStage: 0
+        maxStage: 0
+        onlyOne: 0
+        marks:
+        - Mark: {fileID: 0}
+          SpawnRate: 0
+      endMark: []
       room: {fileID: 2949683388831534208, guid: c2275ca7af267734dbec0e049e134086, type: 3}
       availableRotations: 0001
     spawnRate: 0
-  RoomCount: 1
+  RoomCount: 6
   CellSize: 50
   StartGridComplexity: 1
   GridComplexityLimit: 1

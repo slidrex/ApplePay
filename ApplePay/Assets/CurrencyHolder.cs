@@ -4,7 +4,7 @@ public class CurrencyHolder : MonoBehaviour
 {
     public delegate void AccountValueChangeCallback(Currency changedAccount, int value);
     public AccountValueChangeCallback AccountChangeCallback;
-    public CurrencyAccount[] openAccounts;
+    [SerializeField] private CurrencyAccount[] openAccounts;
     public bool ContainsAccount(Currency currecncyType)
     {
         foreach(CurrencyAccount acc in openAccounts)
@@ -12,6 +12,15 @@ public class CurrencyHolder : MonoBehaviour
             if(acc.currencyType == currecncyType) return true;
         }
         return false;
+    }
+    public CurrencyAccount GetAccount(Currency currency)
+    {
+        for(int i = 0; i < openAccounts.Length; i++)
+        {
+            CurrencyAccount account = openAccounts[i];
+            if(account.currencyType == currency) return account;
+        }
+        return default(CurrencyAccount);
     }
     public bool AddAmount(Currency account, int amount)
     {
@@ -39,8 +48,7 @@ public class CurrencyHolder : MonoBehaviour
     {
         public Currency currencyType;
         public int Amount;
-        public Transform MagnitizedObject;
-        public Animator Animator;
+        public CurrencyRenderer OnCurrencyCollect;
     }
     public enum Currency
     {

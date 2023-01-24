@@ -17,7 +17,7 @@ public class CharmRepositoryRenderer : DragRepositoryRenderer<CollectableCharm>
     {
         if(charm != null)
         {
-            CharmDisplay charmDisplay = charm.charm.GetActiveCharm().Display;
+            CharmDisplay charmDisplay = charm.Charm.GetActiveCharm().Display;
             UpdateHoverboard(charmDisplay);
         }
         else hoverboard.SetDefaultDescription();
@@ -57,9 +57,9 @@ public class CharmRepositoryRenderer : DragRepositoryRenderer<CollectableCharm>
     {
         for(int i = 0; i < Slots.Length; i++)
         {
-            if(slot == Slots[i] && slot.Item.charm.GetActiveCharm().Display.Equals(default(CharmDisplay)) == false)
+            if(slot == Slots[i] && slot.Item.Charm.GetActiveCharm().Display.Equals(default(CharmDisplay)) == false)
             {
-                CharmObject item = repository.Items[i].charm;
+                CharmObject item = repository.Items[i].Charm;
                 
                 MixedCharm mixeedCharm = (MixedCharm)item;
                 
@@ -70,11 +70,11 @@ public class CharmRepositoryRenderer : DragRepositoryRenderer<CollectableCharm>
                 
                 item.GetActiveCharm().BeginFunction(InventorySystem.SystemOwner);
                 CollectableCharm collectableCharm = repository.Items[i];
-                collectableCharm.charm = item;
+                collectableCharm.Charm = item;
                 repository.Items[i] = collectableCharm;
                 UpdateHoverboard(item.GetActiveCharm().Display);
-                ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(collectableCharm.charm.GetActiveCharm().Display.Rarity);
-                RenderSlot(slot, collectableCharm.charm.GetActiveCharm().Display.Icon, collectableCharm, rarityInfo.color, true, true);
+                ItemRarityInfo rarityInfo = ItemRarityExtension.GetRarityInfo(collectableCharm.Charm.GetActiveCharm().Display.Rarity);
+                RenderSlot(slot, collectableCharm.Charm.GetActiveCharm().Display.Icon, collectableCharm, rarityInfo.color, true, true);
                 
                 OnRepositoryUpdated((byte)i);
             }
@@ -87,7 +87,7 @@ public class CharmRepositoryRenderer : DragRepositoryRenderer<CollectableCharm>
             hoverboard.SetDefaultDescription();
         else
         {
-            CharmDisplay display = repository.Items[draggingImplementation.newSlot].charm.GetActiveCharm().Display;
+            CharmDisplay display = repository.Items[draggingImplementation.newSlot].Charm.GetActiveCharm().Display;
             UpdateHoverboard(display);
         }
     }
@@ -95,7 +95,7 @@ public class CharmRepositoryRenderer : DragRepositoryRenderer<CollectableCharm>
     {
         InventorySystem system = repository.AttachedSystem;
         CollectableCharm charm = repository.Items[slot.Index];
-        charm.charm.GetActiveCharm().EndFunction(system.SystemOwner);
+        charm.Charm.GetActiveCharm().EndFunction(system.SystemOwner);
         charm.transform.SetParent(null);
         charm.transform.rotation = Quaternion.identity;
         Vector2 movementVector = (Pay.Functions.Generic.GetMousePos(Camera.main) - (Vector2)slot.transform.position).normalized;
@@ -113,7 +113,7 @@ public class CharmRepositoryRenderer : DragRepositoryRenderer<CollectableCharm>
         slot.LinkItem(item);
         if(item != null)
         {
-            Charm charm = item.charm.GetActiveCharm();
+            Charm charm = item.Charm.GetActiveCharm();
             for(int i = 0; i < charm.Display.AdditionalFields.Length; i++)
             {
                 charm.Display.AdditionalFields[i].Color = charm.Display.AdditionalFields[i].Color;
@@ -133,8 +133,8 @@ public class CharmRepositoryRenderer : DragRepositoryRenderer<CollectableCharm>
         }
         CollectableCharm charm = repository.Items[index];
         
-        Sprite sprite = charm.charm.GetActiveCharm().Display.Icon;
-        Color colorFrame = ItemRarityExtension.GetRarityInfo(charm.charm.GetActiveCharm().Display.Rarity).color;
-        RenderSlot(slot, sprite, charm, colorFrame, true, repository.Items[index].charm.charmType == CharmObject.CharmType.Switchable);
+        Sprite sprite = charm.Charm.GetActiveCharm().Display.Icon;
+        Color colorFrame = ItemRarityExtension.GetRarityInfo(charm.Charm.GetActiveCharm().Display.Rarity).color;
+        RenderSlot(slot, sprite, charm, colorFrame, true, repository.Items[index].Charm.charmType == CharmObject.CharmType.Switchable);
     }
 }
