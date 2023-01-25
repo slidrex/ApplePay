@@ -11,7 +11,7 @@ public class RoomSpawner : MonoBehaviour
             this.position = position;
             lastDirection = Pay.Functions.Math.GetRandomCrossVector();
         }
-        internal Vector2 position;
+        internal Vector2 position { get; private set; }
         internal Vector2 lastDirection { get; private set; }
         internal void Move(Vector2 direction)
         {
@@ -20,11 +20,14 @@ public class RoomSpawner : MonoBehaviour
         }
     }
     public FloorLevelScenario Scenario;
+    public Vector2Int GridSize { get; set; }
+    private int limitWalkerPositionX;
+    private int limitWalkerPositionY;
     private Vector2 zeroRoomPos;
     private List<walker> walkers;
     [Header("Grid generation settings")]
-    private Dictionary<Vector2, SpawnerRoom> FilledCells;
-
+    public Dictionary<Vector2, SpawnerRoom> FilledCells;
+    
     [Header("Contracts")]
     private Dictionary<int, SpawnerRoom> contractedRooms;
     [HideInInspector] public System.Collections.Generic.List<Transform> StartObjects;
@@ -45,55 +48,70 @@ public class RoomSpawner : MonoBehaviour
     }
     private void Setup() 
     {
-        spawnedRoomCount = 0;
+        GridSize = Scenario.GridSize;
+        limitWalkerPositionX = GridSize.x/2;
+        limitWalkerPositionY = GridSize.y/2;
         walkers = new List<walker>();
         StartObjects = new List<Transform>();
         FilledCells = new Dictionary<Vector2, SpawnerRoom>();
         contractedRooms = new Dictionary<int, SpawnerRoom>();
         RoomContainer = new GameObject("Room container").transform;
         ActiveLevelRooms = new SpawnerRoom[Scenario.RoomCount];
-        
         if(Scenario == null) throw new System.NullReferenceException("Scenario hasn't been specified!");
         FillContracts();
+        spawnedRoomCount = 1;
         if(spawnedRoomCount < Scenario.RoomCount) SpawnRoom(Vector2.zero, 0);
-        for(int i = 0; i < Scenario.StartGridComplexity; i++) SpawnWalker();
+        for(int i = 0; i < Scenario.StartGridComplexity; i++) SpawnWalker(Vector2.zero);
     }
     private void FillMarks()
     {
         foreach(SpawnerRoom room in FilledCells.Values) FillMark(room);
     }
-    private void SpawnWalker() => walkers.Add(new walker(Vector2.zero));
+    private void SpawnWalker(Vector2 position) => walkers.Add(new walker(position));
     private void GridGeneration() 
     {
         while(spawnedRoomCount < Scenario.RoomCount)
         {
             for(int j = 0; j < walkers.Count; j++)
             {
-                walker thiswalker = walkers[j];
-                bool isMoved = false;
-                while(isMoved == false)
-                {
-                    Vector2 moveVector = Random.Range(0f, 1f) < Scenario.ChangeDirectionRate ? Pay.Functions.Math.GetRandomCrossVector() : thiswalker.lastDirection;;
-                    thiswalker.Move(moveVector);
-                    
-                    if(FilledCells.ContainsKey(thiswalker.position) == false)
-                        isMoved = true;
-                    walkers[j] = thiswalker;
-                }
+                if(spawnedRoomCount >= Scenario.RoomCount) return;
+                walker thisWalker = walkers[j];
+                Vector2 walkerMoveVector = Vector2.zero;
 
-            }
-            for(int i = 0; i < walkers.Count; i++) 
-            {
-                walker thisWalker = walkers[i];
-                if(spawnedRoomCount >= Scenario.RoomCount) break;
-                if(FilledCells.ContainsKey(thisWalker.position) == false)
+                if(Scenario.ChangeDirectionRate < Random.Range(0, 1.0f) && IsValidWalkerPosition(thisWalker.position + thisWalker.lastDirection, out bool side))
                 {
-                    SpawnRoom(thisWalker.position, spawnedRoomCount);
-                    walkers[i] = thisWalker;
+                    walkerMoveVector = thisWalker.lastDirection;
                 }
+                else walkerMoveVector = GetValidWalkerMoveVector(thisWalker.position);
+                
+                thisWalker.Move(walkerMoveVector);
+                SpawnRoom(thisWalker.position, spawnedRoomCount);
+                spawnedRoomCount++;
+                if(Random.Range(0f, 1f) < Scenario.GridComplexityIncreaseRate && walkers.Count < Scenario.GridComplexityLimit) SpawnWalker(thisWalker.position);
+                walkers[j] = thisWalker;
+                
             }
-            if(Random.Range(0f, 1f) < Scenario.GridComplexityIncreaseRate && walkers.Count < Scenario.GridComplexityLimit) SpawnWalker();
         }
+    }
+    private Vector2 GetValidWalkerMoveVector(Vector2 sourcePosition)
+    {
+        Vector2 moveVector = Vector2.zero;
+        
+        bool vectorGenerated = false;
+        while(vectorGenerated == false)
+        {
+            Vector2 currentVector = moveVector + Pay.Functions.Math.GetRandomCrossVector();
+            
+            
+            if(IsValidWalkerPosition(sourcePosition + currentVector, out bool outsideGrid)) return currentVector;
+            if(outsideGrid == false) moveVector = currentVector;
+        }
+        return moveVector;
+    }
+    private bool IsValidWalkerPosition(Vector2 position, out bool outsideGrid)
+    {
+        outsideGrid = (position.x < -limitWalkerPositionX || position.x > limitWalkerPositionX || position.y < -limitWalkerPositionY || position.y > limitWalkerPositionY);
+        return (FilledCells.ContainsKey(position) == false && outsideGrid == false);
     }
     private void FillContracts()
     {
@@ -119,8 +137,6 @@ public class RoomSpawner : MonoBehaviour
                 contractedRooms.TryGetValue(spawnedRoomIndex, out SpawnerRoom room);
                 if(room.availableRotations.Length != 0) rotation = room.availableRotations[Random.Range(0, room.availableRotations.Length)];
                 contractedRooms.Remove(spawnedRoomIndex);
-                
-                
                 
                 return InstantiateRoom(room, rotation, spawnPosition , walkerPosition);
             }
@@ -158,7 +174,6 @@ public class RoomSpawner : MonoBehaviour
                 break;
             }
         }
-        spawnedRoomCount++;
         return obj;
     }
     private void FillMark(SpawnerRoom room)
@@ -252,7 +267,7 @@ public class RoomSpawner : MonoBehaviour
         public ScenarioStage[] stages;
         public MarkDatabase.MarkSlot[] endMark;
         public Room room;
-        [Tooltip("1 turn = rotate 90 degrees clockwise"), Range(0, 3)] public byte[] availableRotations;
+        [Tooltip("1 turn is rotate 90 degrees clockwise"), Range(0, 3)] public byte[] availableRotations;
     }
     [System.Serializable]
     public struct ScenarioStage

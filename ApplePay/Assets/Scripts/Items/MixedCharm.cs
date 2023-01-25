@@ -7,14 +7,12 @@ public class MixedCharm : CharmObject
     public override void OnInstantiate()
     {
         base.OnInstantiate();
-        UnityEngine.Debug.Log("mixed charm awake");
         int charmLength = charms.Length;
         Charms = new Charm[charmLength];
         for(int i = 0; i < charmLength; i++)
         {
             Charms[i] = Instantiate(charms[i]);
         }
-        UnityEngine.Debug.Log(Charms.Length);
     }
     [UnityEngine.HideInInspector] public byte ActiveIndex;
 }

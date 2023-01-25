@@ -12,6 +12,5 @@ public class CollectableCharm : CollectableItem<CollectableCharm>
         Charm = Instantiate(charm);
         Charm.OnInstantiate();
         base.Awake();
-        print("awake");
     }
 }

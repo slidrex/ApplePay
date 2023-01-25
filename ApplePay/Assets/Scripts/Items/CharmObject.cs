@@ -26,7 +26,6 @@ public class CharmObject : UnityEngine.ScriptableObject
         }
         if(charmType == CharmType.Switchable)
         {
-            UnityEngine.Debug.Log("Error start");
             MixedCharm charm = (MixedCharm)this;
             return charm.Charms[charm.ActiveIndex];
         }

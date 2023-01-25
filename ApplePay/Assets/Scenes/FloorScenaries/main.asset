@@ -42,11 +42,12 @@ MonoBehaviour:
       availableRotations: 0100
     spawnRate: 50
   RoomCount: 8
+  GridSize: {x: 7, y: 7}
   CellSize: 50
-  StartGridComplexity: 2
+  StartGridComplexity: 1
   GridComplexityLimit: 2
-  GridComplexityIncreaseRate: 0.14
-  ChangeDirectionRate: 0.2
+  GridComplexityIncreaseRate: 0.068
+  ChangeDirectionRate: 0.336
   ContractRooms:
   - SpawnerRoom:
       minStageCount: 1

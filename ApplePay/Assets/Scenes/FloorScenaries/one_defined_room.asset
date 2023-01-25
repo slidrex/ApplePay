@@ -28,6 +28,7 @@ MonoBehaviour:
       availableRotations: 0001
     spawnRate: 0
   RoomCount: 6
+  GridSize: {x: 11, y: 11}
   CellSize: 50
   StartGridComplexity: 1
   GridComplexityLimit: 1

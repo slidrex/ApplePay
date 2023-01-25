@@ -12,18 +12,8 @@ namespace Pay.Functions
         ///<summary> Returns random cross vector (Vector2.up, Vector2.down etc.).</summary>
         public static Vector2 GetRandomCrossVector()
         {
-            int rand = Random.Range(0, 4);
-            switch(rand)
-            {
-                case 0:
-                    return Vector2.right;
-                case 1:
-                    return Vector2.left;
-                case 2:
-                    return Vector2.down;
-                default:
-                    return Vector2.up;
-            }
+            Vector2[] vectors = { Vector2.right, Vector2.left, Vector2.down, Vector2.up };
+            return vectors[Random.Range(0, vectors.Length)];
         }
         ///<summary> Returns random normalized vector. </summary>
         public static Vector2 GetRandomVector()
