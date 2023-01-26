@@ -288,11 +288,13 @@ MonoBehaviour:
     offset: {x: 0, y: 0}
     RelatedTransform: {fileID: 5932085665966830571}
   EntityList: []
+  doorHolder: {fileID: 241424083850018730}
   MarkList: []
+  CurrentStageIndex: 0
   EnvironmentObjectLimit: 0
-  isActive: 0
   MobCountLimit: 0
   MobList: {fileID: 0}
+  currentTransform: {fileID: 5932085665966830571}
 --- !u!1001 &2902952570128462253
 PrefabInstance:
   m_ObjectHideFlags: 0

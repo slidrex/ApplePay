@@ -6,10 +6,13 @@ public class Room : MonoBehaviour
     [SerializeField, Tooltip("Specified space is free for spawn objects.")] private RoomBound[] FreeRoomSpace;
     [SerializeField, Tooltip("Used for checking if object inside the room.")] public RoomBound RoomConfiners;
     [HideInInspector] public List<Creature> EntityList = new List<Creature>();
+    public DoorBehaviour[] Doors { get; set; }
+    [SerializeField] private Transform doorHolder;
     public ActionMark[] MarkList;
     public int CurrentStageIndex;
     [Header("Environment settings")]
     public byte EnvironmentObjectLimit;
+    public Vector2 GridPosition { get; set; }
     public RoomSpawner spawner { get; set; }
     public byte MobCountLimit;
     public RateArrayMark MobList;
@@ -29,8 +32,11 @@ public class Room : MonoBehaviour
     }
     private void LinkDoors()
     {
-        DoorBehaviour[] doors =  GetComponentsInChildren<DoorBehaviour>();
-        foreach(DoorBehaviour door in doors) door.AttachedRoom = this;
+        Doors = doorHolder.GetComponentsInChildren<DoorBehaviour>();
+        for(int i = 0 ; i < Doors.Length; i++)
+        {
+            Doors[i].AttachedRoom = this;
+        }
     }
     public bool NextRoomStage()
     {
@@ -41,7 +47,6 @@ public class Room : MonoBehaviour
         else
         {
             ActivateWaveMark(MarkList[CurrentStageIndex]);
-            print(CurrentStageIndex  + " stage number");
             CurrentStageIndex++;
             return true;
         }
@@ -74,6 +79,27 @@ public class Room : MonoBehaviour
     {
         executingMark = true;
         mark.ApplyMark(this);
+    }
+    public static bool ConnectRooms(Room first, Room second, Vector2 offset)
+    {
+        for(int i = 0; i < first.Doors.Length; i++)
+        {
+            DoorBehaviour firstDoor = first.Doors[i];
+                if(firstDoor.Direction == offset)
+                {
+                    for(int j = 0; j < second.Doors.Length; j++)
+                    {
+                        DoorBehaviour secondDoor = second.Doors[j];
+                        if(secondDoor.Direction == -offset)
+                        {
+                            firstDoor.SetConnectedDoor(secondDoor, secondDoor.GetSprite());
+                            secondDoor.SetConnectedDoor(firstDoor, secondDoor.GetSprite());
+                        }
+                    }
+                    return true;
+                }
+        }
+        return false;
     }
 
     [System.Serializable]

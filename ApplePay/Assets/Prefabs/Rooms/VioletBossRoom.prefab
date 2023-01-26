@@ -56,13 +56,15 @@ MonoBehaviour:
     offset: {x: 0, y: 0}
     RelatedTransform: {fileID: 1121041303643330065}
   EntityList: []
+  doorHolder: {fileID: 2423612851630494274}
   MarkList:
   - {fileID: 11400000, guid: 5531a6a026fb64046bb3d51f4027f6fa, type: 2}
   - {fileID: 11400000, guid: da65e072c8673bf4bb174cdf8ba6e803, type: 2}
+  CurrentStageIndex: 0
   EnvironmentObjectLimit: 6
-  isActive: 0
   MobCountLimit: 9
   MobList: {fileID: 11400000, guid: 09d3e5d435c9fdd4186415f16930e383, type: 2}
+  currentTransform: {fileID: 1121041303643330065}
 --- !u!1 &1261296925891834838
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,11 +476,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.000000007947286
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.18333332
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread
@@ -628,7 +630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.18333334
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread
@@ -770,7 +772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.18333334
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread
@@ -908,11 +910,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.000000007947286
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.18333332
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread

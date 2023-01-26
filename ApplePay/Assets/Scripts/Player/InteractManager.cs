@@ -59,14 +59,13 @@ public class InteractManager : MonoBehaviour
             CreateInteractHint(closestObject.InteractPointer);
             hintedObject = closestObject;
         }
-        if(hasInteractObjects && (currentInteractObject.interactiveObject == null || currentInteractObject.interactiveObject.IsValidInteract(this)))
+        if(hasInteractObjects && ((currentInteractObject.interactiveObject != null && currentInteractObject.interactiveObject.IsValidInteract(this)) || (currentInteractObject.interactiveObject == null && closestObject.IsValidInteract(this))))
         {
             HandleInteractInputs();
         }
     }
     private void HandleInteractInputs()
     {
-        
         if(Input.GetKeyDown(interactKey))
         {
             if(currentInteractObject.interactiveObject == null && InInteract == false && entity.IsFree())
@@ -74,10 +73,10 @@ public class InteractManager : MonoBehaviour
                 currentInteractObject = GetNearestInteractiveObject(out currentInteractObjectIndex);
                 InInteract = true;
             }
-                InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyDown(this);
+            InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyDown(this);
         }
         if(Input.GetKey(interactKey))
-            {
+        {
             if(currentInteractObject.interactiveObject == null && InInteract == false && entity.IsFree())
             {
                 CurrentInteractObject cur = GetNearestInteractiveObject(out currentInteractObjectIndex);

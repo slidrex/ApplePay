@@ -22,8 +22,9 @@ public class LevelController : MonoBehaviour
             if(!room.room.EntityList.Contains(creature) && room.room.RoomConfiners.IsInsideBound(creature.transform.position) && !creature.isDead)
             {
                 room.room.EntityList.Add(creature);
+                Room oldRoom = creature.CurrentRoom;
                 creature.CurrentRoom = room.room;
-                
+                if(oldRoom != creature.CurrentRoom) creature.OnRoomChanged(room.room, oldRoom);
             }
         }
     }

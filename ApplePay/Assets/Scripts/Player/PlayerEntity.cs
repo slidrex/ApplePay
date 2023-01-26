@@ -16,6 +16,9 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     private UnityEngine.Rendering.Universal.Vignette vignette;
     [SerializeField] private UIHolder holder;
     public VirtualBase test = new VirtualBase(0f);
+    [SerializeField] private NavigatorMap navigator;
+    [SerializeField] private Sprite currentRoomImage;
+    private GameObject activeNavigatorRoomIcon;
     protected override void Awake()
     {
         WaveController.SetupWaveEntity(this, this, 2.0f);
@@ -33,6 +36,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         AddDamageAttribute();
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
         
+        navigator.Clear();
         base.Start();
     }
     public void OnEffectUpdated()
@@ -50,6 +54,28 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
             obj.transform.SetParent(EffectList);
             obj.transform.localScale = Vector3.one;
             obj.EffectDisplay = ActiveEffects.ElementAt(i).Value.EffectDisplay;
+        }
+    }
+    public override void OnRoomChanged(Room room, Room oldRoom)
+    {
+        RenderNavigator(room);
+    }
+    private void RenderNavigator(Room initialRoom)
+    {
+        if(activeNavigatorRoomIcon != null) Destroy(activeNavigatorRoomIcon);
+        Vector2 gridPosition = initialRoom.GridPosition;
+        NavigatorMap.NavigatorElement element = navigator.RenderElement(gridPosition);
+        activeNavigatorRoomIcon = element.PushImage(currentRoomImage, Vector2.one * 1.2f);
+        TryRenderPosition(gridPosition + Vector2.up);
+        TryRenderPosition(gridPosition + Vector2.down);
+        TryRenderPosition(gridPosition + Vector2.right);
+        TryRenderPosition(gridPosition + Vector2.left);
+    }
+    private void TryRenderPosition(Vector2 position)
+    {
+        if(navigator.RoomSpawner.FilledCells.ContainsKey(position))
+        {
+            navigator.RenderElement(position);
         }
     }
     protected override void Update()

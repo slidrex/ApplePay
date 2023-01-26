@@ -117,7 +117,6 @@ public abstract class Creature : Entity, IKillHandler
         CollisionUpdate();
         Invulnerability();
 
-        ChangeRoomCheck();
         HandleStateLayers();
     }
     private void HandleStateLayers()
@@ -136,15 +135,7 @@ public abstract class Creature : Entity, IKillHandler
             }
         }
     }
-    private void ChangeRoomCheck()
-    {
-        if(oldRoom != CurrentRoom)
-        {
-            OnRoomChanged(CurrentRoom);
-        }
-        oldRoom = CurrentRoom;
-    }
-    protected virtual void OnRoomChanged(Room room)  { }
+    public virtual void OnRoomChanged(Room newRoom, Room oldRoom)  { }
     protected virtual void Invulnerability() 
     {
         if(TimeSinceInvulnerability < DamageInvulnerabilityDuration)
@@ -152,11 +143,11 @@ public abstract class Creature : Entity, IKillHandler
             TimeSinceInvulnerability += Time.deltaTime;
             Immortal = true;
             OnInvulnerability();
-        }
-        else if(Immortal)
-        {
-            OnInvulnerabilityEnd();
-            Immortal = false;
+            if(TimeSinceInvulnerability >= DamageInvulnerabilityDuration)
+            {
+                OnInvulnerabilityEnd();
+                Immortal = false;
+            }
         }
     }
     protected virtual void OnInvulnerability() {}
@@ -194,7 +185,6 @@ public abstract class Creature : Entity, IKillHandler
     public virtual void OnAfterKill()
     {
         LevelController.UpdateRoomEntityList();
-
         WaveController.UpdateWaveStatus();
     }
     private void OnDestroy()

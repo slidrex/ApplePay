@@ -42,7 +42,7 @@ public class RoomSpawner : MonoBehaviour
     {
         Setup();
         GridGeneration();
-        DoorsSetup();
+        DeleteExtraDoors();
         SetupObjects();
         FillMarks();
     }
@@ -76,16 +76,16 @@ public class RoomSpawner : MonoBehaviour
             {
                 if(spawnedRoomCount >= Scenario.RoomCount) return;
                 walker thisWalker = walkers[j];
-                Vector2 walkerMoveVector = Vector2.zero;
 
                 if(Scenario.ChangeDirectionRate < Random.Range(0, 1.0f) && IsValidWalkerPosition(thisWalker.position + thisWalker.lastDirection, out bool side))
                 {
-                    walkerMoveVector = thisWalker.lastDirection;
+                    thisWalker.Move(thisWalker.lastDirection);
                 }
-                else walkerMoveVector = GetValidWalkerMoveVector(thisWalker.position);
+                else SetWalkerValidPosition(ref thisWalker);
                 
-                thisWalker.Move(walkerMoveVector);
-                SpawnRoom(thisWalker.position, spawnedRoomCount);
+                Room currentRoom = FilledCells[thisWalker.position - thisWalker.lastDirection].room;
+                Room newRoom = SpawnRoom(thisWalker.position, spawnedRoomCount);
+                Room.ConnectRooms(currentRoom, newRoom, thisWalker.lastDirection);
                 spawnedRoomCount++;
                 if(Random.Range(0f, 1f) < Scenario.GridComplexityIncreaseRate && walkers.Count < Scenario.GridComplexityLimit) SpawnWalker(thisWalker.position);
                 walkers[j] = thisWalker;
@@ -93,20 +93,24 @@ public class RoomSpawner : MonoBehaviour
             }
         }
     }
-    private Vector2 GetValidWalkerMoveVector(Vector2 sourcePosition)
+    private Vector2 SetWalkerValidPosition(ref walker walker)
     {
-        Vector2 moveVector = Vector2.zero;
+        Vector2 passedDistance = Vector2.zero;
         
         bool vectorGenerated = false;
         while(vectorGenerated == false)
         {
-            Vector2 currentVector = moveVector + Pay.Functions.Math.GetRandomCrossVector();
+            Vector2 direction = Pay.Functions.Math.GetRandomCrossVector();
             
             
-            if(IsValidWalkerPosition(sourcePosition + currentVector, out bool outsideGrid)) return currentVector;
-            if(outsideGrid == false) moveVector = currentVector;
+            if(IsValidWalkerPosition(walker.position + direction, out bool outsideGrid)) vectorGenerated = true;
+            if(outsideGrid == false)
+            { 
+                walker.Move(direction);
+                passedDistance += direction;
+            }
         }
-        return moveVector;
+        return passedDistance;
     }
     private bool IsValidWalkerPosition(Vector2 position, out bool outsideGrid)
     {
@@ -157,13 +161,14 @@ public class RoomSpawner : MonoBehaviour
     private Room InstantiateRoom(SpawnerRoom room, byte rotations, Vector2 spawnPosition, Vector2 walkerPosition)
     {
         Room obj = Instantiate(room.room, spawnPosition, Quaternion.identity);
+        obj.GridPosition = walkerPosition;
         SpawnerRoom spawnerRoomInstance = room;
         spawnerRoomInstance.room = obj;
         Transform objTransform = obj.transform;
         objTransform.SetParent(RoomContainer);
         FilledCells.Add(walkerPosition, spawnerRoomInstance);
         objTransform.eulerAngles = objTransform.eulerAngles - Vector3.forward * rotations * 90f;
-        DoorBehaviour[] doors = obj.GetComponentsInChildren<DoorBehaviour>();
+        DoorBehaviour[] doors = obj.Doors;
         foreach(DoorBehaviour door in doors) door.SwapDirection(rotations);
         
         for(int i = 0; i < ActiveLevelRooms.Length; i++)
@@ -216,30 +221,14 @@ public class RoomSpawner : MonoBehaviour
             return targetMarks;
         }
     }
-    private void DoorsSetup()
+    private void DeleteExtraDoors()
     {
         for(int i = 0; i < FilledCells.Count; i++)
         {
-            DoorBehaviour[] roomDoors = FilledCells.ElementAt(i).Value.room.GetComponentsInChildren<DoorBehaviour>().Where(x => x.ConnectedDoor == null).ToArray();
-            foreach(DoorBehaviour currentDoor in roomDoors)
+            DoorBehaviour[] extraDoors = FilledCells.ElementAt(i).Value.room.Doors.Where(x => x.ConnectedDoor == null).ToArray();
+            for(int j = 0; j < extraDoors.Length; j++)
             {
-                Vector2 direction = currentDoor.Direction;
-                bool isRoomExist = FilledCells.TryGetValue(FilledCells.ElementAt(i).Key + direction, out SpawnerRoom wrappedRoom);
-                if(isRoomExist)
-                {
-                    DoorBehaviour dependentDoor = wrappedRoom.room.GetComponentsInChildren<DoorBehaviour>().FirstOrDefault(x => x.ConnectedDoor == null && x.Direction + currentDoor.Direction == Vector2.zero);
-                    
-                    if(dependentDoor == null)
-                    {
-                        Destroy(currentDoor.gameObject);
-                        continue;
-                    }
-                    Sprite dependentDoorSprite = dependentDoor.GetSprite();
-                    Sprite currentDoorSprite = currentDoor.GetSprite();
-                    dependentDoor.SetConnectedDoor(currentDoor, dependentDoorSprite);
-                    currentDoor.SetConnectedDoor(dependentDoor, currentDoorSprite);
-                }
-                else Destroy(currentDoor.gameObject);
+                Destroy(extraDoors[j].gameObject);
             }
         }
     }

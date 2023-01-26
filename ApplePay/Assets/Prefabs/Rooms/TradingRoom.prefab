@@ -91,12 +91,14 @@ MonoBehaviour:
     RelatedTransform: {fileID: 5777551608225268204}
   EntityList:
   - {fileID: 0}
+  doorHolder: {fileID: 5311395277631661913}
   MarkList:
   - {fileID: 11400000, guid: ee804215a8f323848b7ed64ae9bc97a8, type: 2}
+  CurrentStageIndex: 0
   EnvironmentObjectLimit: 0
-  isActive: 0
   MobCountLimit: 0
   MobList: {fileID: 0}
+  currentTransform: {fileID: 5777551608225268204}
 --- !u!1 &5777551608873297547
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.18333334
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread
@@ -637,11 +639,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.000000007947286
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.18333332
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread
@@ -792,11 +794,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.000000007947286
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.18333332
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread
@@ -967,7 +969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.18333334
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread

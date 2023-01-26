@@ -5065,6 +5065,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  doorHolder: {fileID: 4094145184728679873}
   MarkList:
   - {fileID: 0}
   CurrentStageIndex: 0

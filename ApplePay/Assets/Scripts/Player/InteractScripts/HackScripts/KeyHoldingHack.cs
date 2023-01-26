@@ -25,9 +25,9 @@ public class KeyHoldingHack : HackSystem
             if(CurrentProgress >= MaxProgress)
             {
                 interactEntity.FinishInteract(this);
+                OnInteractInterruption(interactEntity);
                 if(isUnlocked == false) OnAfterHack(interactEntity);
                 OnInteractAction(interactEntity);
-                OnInteractInterruption(interactEntity);
             }
         }
     }

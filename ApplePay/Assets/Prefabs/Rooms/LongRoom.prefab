@@ -375,7 +375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a90e84dc013d74d87c22913cee941d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveCompleteEffect: {fileID: 4752983371986300403, guid: b81541b4f6542724baa5d545f285a256, type: 3}
   FreeRoomSpace:
   - localScale: {x: 5.16, y: 12.15}
     offset: {x: 0, y: 0}
@@ -385,12 +384,14 @@ MonoBehaviour:
     offset: {x: 0, y: 0}
     RelatedTransform: {fileID: 3740072970622133676}
   EntityList: []
+  doorHolder: {fileID: 5598825009564475855}
   MarkList:
   - {fileID: 0}
   CurrentStageIndex: 0
   EnvironmentObjectLimit: 3
   MobCountLimit: 6
   MobList: {fileID: 11400000, guid: 09d3e5d435c9fdd4186415f16930e383, type: 2}
+  currentTransform: {fileID: 3740072970622133676}
 --- !u!1 &7417051529478944988
 GameObject:
   m_ObjectHideFlags: 0
@@ -5292,11 +5293,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.000000015894573
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.14999998
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread
@@ -5442,7 +5443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.14999999
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread
@@ -5556,11 +5557,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.000000015894573
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.14999998
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: direction
@@ -5682,7 +5683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700289274774262292, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.14999999
       objectReference: {fileID: 0}
     - target: {fileID: 8511027935190351422, guid: 0cbd06d622c527947b91d56638c9d050, type: 3}
       propertyPath: Spread
