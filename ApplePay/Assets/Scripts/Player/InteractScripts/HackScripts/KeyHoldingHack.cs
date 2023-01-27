@@ -25,8 +25,9 @@ public class KeyHoldingHack : HackSystem
             {
                 interactEntity.FinishInteract(this);
                 OnInteractInterruption(interactEntity);
-                if(isUnlocked == false) OnAfterHack(interactEntity);
+                OnHacked(interactEntity);
                 OnInteractAction(interactEntity);
+                if(isUnlocked == false) OnAfterHack(interactEntity);
             }
         }
     }
