@@ -75,29 +75,16 @@ public class InteractManager : MonoBehaviour
             }
             InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyDown(this);
         }
-        if(Input.GetKey(interactKey))
+        if(Input.GetKey(interactKey) && InInteract == true)
         {
-            if(currentInteractObject.interactiveObject == null && InInteract == false && entity.IsFree())
+            bool firstInteraction = false;
+            if(currentInteractObject.interactInitiated == false)
             {
-                CurrentInteractObject cur = GetNearestInteractiveObject(out currentInteractObjectIndex);
-                if(cur.interactiveObject.HoldFoundable == true)
-                {
-                    currentInteractObject = cur;
-                    InInteract = true;
-                }
+                firstInteraction = true;
+                currentInteractObject.interactInitiated = true;
+                InteractObjects[currentInteractObjectIndex] = currentInteractObject;
             }
-            if(currentInteractObject.interactiveObject != null && InInteract == true)
-            {
-                bool firstInteraction = false;
-                if(currentInteractObject.interactInitiated == false)
-                {
-                    firstInteraction = true;
-                    currentInteractObject.interactInitiated = true;
-                    InteractObjects[currentInteractObjectIndex] = currentInteractObject;
-                }
-                InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyHolding(this, firstInteraction);
-
-            }
+            InteractObjects[currentInteractObjectIndex].interactiveObject.OnInteractKeyHolding(this, firstInteraction);
         }
         if(Input.GetKeyUp(interactKey) && InInteract == true)
         {

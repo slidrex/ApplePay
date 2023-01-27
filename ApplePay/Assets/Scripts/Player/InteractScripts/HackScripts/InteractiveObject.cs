@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class InteractiveObject : MonoBehaviour
 {
     ///<summary>Mark that object can be interacted if entity holds key</summary>
-    public abstract bool HoldFoundable {get;}
     public InteractPointer InteractPointer;
     private void Awake() => InteractPointer.AttachedInteractive = this;
     ///<summary>Additional entry condition for interact entity.</summary>

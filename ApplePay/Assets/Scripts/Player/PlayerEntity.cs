@@ -70,12 +70,26 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         TryRenderPosition(gridPosition + Vector2.down);
         TryRenderPosition(gridPosition + Vector2.right);
         TryRenderPosition(gridPosition + Vector2.left);
+        TryRenderPath(gridPosition, gridPosition + Vector2.up);
+        TryRenderPath(gridPosition, gridPosition + Vector2.down);
+        TryRenderPath(gridPosition, gridPosition + Vector2.right);
+        TryRenderPath(gridPosition, gridPosition + Vector2.left);
     }
     private void TryRenderPosition(Vector2 position)
     {
         if(navigator.RoomSpawner.FilledCells.ContainsKey(position))
         {
             navigator.RenderElement(position);
+        }
+    }
+    private void TryRenderPath(Vector2 first, Vector2 second)
+    {
+        if(navigator.RoomSpawner.FilledCells.TryGetValue(first, out RoomSpawner.SpawnerRoom froom) && navigator.RoomSpawner.FilledCells.TryGetValue(second, out RoomSpawner.SpawnerRoom sroom))
+        {
+            if(RoomExtension.AreRoomsConnected(froom.room, sroom.room))
+            {
+                navigator.RenderPath(first, second);
+            }
         }
     }
     protected override void Update()

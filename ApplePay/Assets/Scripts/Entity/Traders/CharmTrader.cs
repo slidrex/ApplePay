@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CharmTrader : InteractiveObject
 {
-    public override bool HoldFoundable => false;
     [SerializeField] private GameObject cardCanvas;
     private Animator animator;
     private GameObject currentCardCanvas;

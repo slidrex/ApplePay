@@ -85,7 +85,7 @@ public class RoomSpawner : MonoBehaviour
                 
                 Room currentRoom = FilledCells[thisWalker.position - thisWalker.lastDirection].room;
                 Room newRoom = SpawnRoom(thisWalker.position, spawnedRoomCount);
-                Room.ConnectRooms(currentRoom, newRoom, thisWalker.lastDirection);
+                RoomExtension.ConnectRooms(currentRoom, newRoom, thisWalker.lastDirection);
                 spawnedRoomCount++;
                 if(Random.Range(0f, 1f) < Scenario.GridComplexityIncreaseRate && walkers.Count < Scenario.GridComplexityLimit) SpawnWalker(thisWalker.position);
                 walkers[j] = thisWalker;

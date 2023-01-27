@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class KeyHoldingHack : HackSystem
 {
-    public override bool HoldFoundable => true;
     [SerializeField] private bool saveProgess;
     private const float OpenTime = 0.35f;
     public override void OnInteractKeyHolding(InteractManager interactEntity, bool first)

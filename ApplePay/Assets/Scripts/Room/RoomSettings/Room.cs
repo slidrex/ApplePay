@@ -80,27 +80,6 @@ public class Room : MonoBehaviour
         executingMark = true;
         mark.ApplyMark(this);
     }
-    public static bool ConnectRooms(Room first, Room second, Vector2 offset)
-    {
-        for(int i = 0; i < first.Doors.Length; i++)
-        {
-            DoorBehaviour firstDoor = first.Doors[i];
-                if(firstDoor.Direction == offset)
-                {
-                    for(int j = 0; j < second.Doors.Length; j++)
-                    {
-                        DoorBehaviour secondDoor = second.Doors[j];
-                        if(secondDoor.Direction == -offset)
-                        {
-                            firstDoor.SetConnectedDoor(secondDoor, secondDoor.GetSprite());
-                            secondDoor.SetConnectedDoor(firstDoor, secondDoor.GetSprite());
-                        }
-                    }
-                    return true;
-                }
-        }
-        return false;
-    }
 
     [System.Serializable]
     public struct RoomBound
