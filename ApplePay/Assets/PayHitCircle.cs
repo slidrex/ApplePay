@@ -7,7 +7,9 @@ public class PayHitCircle : PayHitShape
     public override Collider2D M_Collider => Collider;
     public override void CheckHit()
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll((Vector2)transform.position + Collider.offset, Collider.radius, Vector2.zero);
+        Transform tr = transform;
+        float multiplier = Mathf.Max(Mathf.Abs(tr.localScale.x), Mathf.Abs(tr.localScale.y));
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(tr.position + (Vector3)(Collider.offset * tr.localScale), Collider.radius * multiplier, Vector2.zero);
         HandleHit(hits, Collider);
     }
 }

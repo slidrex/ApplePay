@@ -12,6 +12,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     [HideInInspector] public KeyCode ChangeHealthKey;
     private float vignetteIntensity;
     public WaveStatus WaveStatus { get; set; }
+
     [SerializeField] private EffectCell effectCell;
     private UnityEngine.Rendering.Universal.Vignette vignette;
     [SerializeField] private UIHolder holder;
@@ -19,6 +20,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     [SerializeField] private NavigatorMap navigator;
     [SerializeField] private Sprite currentRoomImage;
     private GameObject activeNavigatorRoomIcon;
+    [SerializeField] private RoomRenderAnchor renderAnchor;
     protected override void Awake()
     {
         WaveController.SetupWaveEntity(this, this, 2.0f);
@@ -35,30 +37,17 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     {
         AddDamageAttribute();
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
-        
         navigator.Clear();
+        
         base.Start();
-    }
-    public void OnEffectUpdated()
-    {
-        for(int i = 0; i < EffectList.childCount; i++)
-        {
-            Destroy(EffectList.GetChild(i).gameObject);
-        }
-        for(int i = 0; i < ActiveEffects.Count; i++)
-        {
-            if(ActiveEffects.ElementAt(i).Value.EffectDisplay.Equals(new PayWorld.EffectController.EffectDisplay()))
-                continue;
-                
-            var obj = Instantiate(effectCell, Vector3.zero, Quaternion.identity);
-            obj.transform.SetParent(EffectList);
-            obj.transform.localScale = Vector3.one;
-            obj.EffectDisplay = ActiveEffects.ElementAt(i).Value.EffectDisplay;
-        }
+        renderAnchor.UnrenderStack();
+        renderAnchor.RenderRoom(CurrentRoom);
     }
     public override void OnRoomChanged(Room room, Room oldRoom)
     {
         RenderNavigator(room);
+        renderAnchor.UnrenderRoom(oldRoom);
+        renderAnchor.RenderRoom(room);
     }
     private void RenderNavigator(Room initialRoom)
     {
@@ -115,7 +104,23 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         SpriteRenderer.color = tempColor;
     }
     protected override void OnInvulnerabilityEnd() => SpriteRenderer.color = new Color32(255, 255, 255, 255);
-
+    public void OnEffectUpdated()
+    {
+        for(int i = 0; i < EffectList.childCount; i++)
+        {
+            Destroy(EffectList.GetChild(i).gameObject);
+        }
+        for(int i = 0; i < ActiveEffects.Count; i++)
+        {
+            if(ActiveEffects.ElementAt(i).Value.EffectDisplay.Equals(new PayWorld.EffectController.EffectDisplay()))
+                continue;
+                
+            var obj = Instantiate(effectCell, Vector3.zero, Quaternion.identity);
+            obj.transform.SetParent(EffectList);
+            obj.transform.localScale = Vector3.one;
+            obj.EffectDisplay = ActiveEffects.ElementAt(i).Value.EffectDisplay;
+        }
+    }
     public UIHolder GetHolder()
     {
         return holder;

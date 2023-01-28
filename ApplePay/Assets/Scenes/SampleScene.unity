@@ -128,7 +128,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1463510011181285213, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
   m_PrefabInstance: {fileID: 6767946467036369934}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1273004580}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff64b7b98b0b5704a93d49556531ffff, type: 3}
@@ -908,6 +908,23 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 2273568673667364164, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
   m_PrefabInstance: {fileID: 2273568673703890235}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1273004580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7130324811207588971, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+  m_PrefabInstance: {fileID: 6767946467036369934}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1273004581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273004580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a615657b33d0757448c47f1560c794fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1309265905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,9 +1707,29 @@ PrefabInstance:
       value: 0.83800006
       objectReference: {fileID: 0}
     - target: {fileID: 1463510011181285213, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+      propertyPath: renderAnchor
+      value: 
+      objectReference: {fileID: 1273004581}
+    - target: {fileID: 1463510011181285213, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
       propertyPath: currentRoomImage
       value: 
       objectReference: {fileID: 21300000, guid: 5521d2ba435a472448a3b757e70b805b, type: 3}
+    - target: {fileID: 2513912861451587342, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+      propertyPath: m_Size.x
+      value: 0.20592263
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513912861451587342, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+      propertyPath: m_Size.y
+      value: 0.38363522
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513912861451587342, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.006267667
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513912861451587342, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.011817604
+      objectReference: {fileID: 0}
     - target: {fileID: 6462396802648980343, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
       propertyPath: m_Camera
       value: 

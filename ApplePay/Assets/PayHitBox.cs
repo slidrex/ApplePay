@@ -7,7 +7,9 @@ public class PayHitBox : PayHitShape
     public override Collider2D M_Collider => Collider;
     public override void CheckHit()
     {
-        RaycastHit2D[] hits = Physics2D.BoxCastAll((Vector2)transform.position + Collider.offset, Collider.size * transform.localScale, transform.eulerAngles.z, Vector2.zero);
+        Transform tr = transform;
+        Vector3 localScale = tr.localScale;
+        RaycastHit2D[] hits = Physics2D.BoxCastAll((Vector2)tr.position + Collider.offset * localScale, Collider.size * localScale, tr.eulerAngles.z, Vector2.zero);
         HandleHit(hits, Collider);
     }
 }

@@ -60,3 +60,12 @@ MonoBehaviour:
       availableRotations: 
     MinRoom: 8
     MaxRoom: 8
+  - SpawnerRoom:
+      minStageCount: 0
+      maxStageCount: 0
+      stages: []
+      endMark: []
+      room: {fileID: 2949683388831534208, guid: c2275ca7af267734dbec0e049e134086, type: 3}
+      availableRotations: 
+    MinRoom: 1
+    MaxRoom: 1
