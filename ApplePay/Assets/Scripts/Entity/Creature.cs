@@ -2,6 +2,8 @@ using UnityEngine;
 
 public abstract class Creature : Entity, IKillHandler
 {
+    public delegate void OnRoomChangeCallback(Room newRoom, Room oldRoom);
+    public OnRoomChangeCallback RoomChangeCallback;
     public struct EntityState
     {
         public enum InState
@@ -90,7 +92,7 @@ public abstract class Creature : Entity, IKillHandler
             ),
             Movement.GetCurrentSpeed());
         }
-        HealthBar?.IndicatorSetup();
+        HealthBar?.IndicatorSetup(this);
         base.Awake();
     }
     protected override void Start()
@@ -135,7 +137,12 @@ public abstract class Creature : Entity, IKillHandler
             }
         }
     }
-    public virtual void OnRoomChanged(Room newRoom, Room oldRoom)  { }
+    public void RoomChange(Room newRoom, Room oldRoom)
+    {
+        RoomChangeCallback?.Invoke(newRoom, oldRoom);
+        OnRoomChanged(newRoom, oldRoom);
+    }
+    protected virtual void OnRoomChanged(Room newRoom, Room oldRoom) { }
     protected virtual void Invulnerability() 
     {
         if(TimeSinceInvulnerability < DamageInvulnerabilityDuration)

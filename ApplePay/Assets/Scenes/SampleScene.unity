@@ -128,7 +128,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1463510011181285213, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
   m_PrefabInstance: {fileID: 6767946467036369934}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273004580}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff64b7b98b0b5704a93d49556531ffff, type: 3}
@@ -846,6 +846,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eadccb4d5049fba4c86fee36c38167fe, type: 3}
+--- !u!114 &1138625608 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4610561934697323429, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+  m_PrefabInstance: {fileID: 6767946467036369934}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d154fd37a0f9c4fb128d431259e8ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1142035283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -908,23 +919,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 2273568673667364164, guid: c8c2b7554db27d447a16a45ddf14caf4, type: 3}
   m_PrefabInstance: {fileID: 2273568673703890235}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1273004580 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7130324811207588971, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-  m_PrefabInstance: {fileID: 6767946467036369934}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1273004581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273004580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a615657b33d0757448c47f1560c794fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1309265905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,73 +1657,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: pathWidth
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
       propertyPath: RoomSpawner
       value: 
       objectReference: {fileID: 630467664}
-    - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: pathContainer
+    - target: {fileID: 1273004582, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+      propertyPath: energyBar
       value: 
-      objectReference: {fileID: 6767946467036369935}
-    - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: pathElementColor.a
-      value: 0.36862746
-      objectReference: {fileID: 0}
-    - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: pathElementColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: pathElementColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: pathElementColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: roomElementColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: roomElementColor.b
-      value: 0.83800006
-      objectReference: {fileID: 0}
-    - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: roomElementColor.g
-      value: 0.83800006
-      objectReference: {fileID: 0}
-    - target: {fileID: 840734477, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: roomElementColor.r
-      value: 0.83800006
+      objectReference: {fileID: 1138625608}
+    - target: {fileID: 1273004582, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
+      propertyPath: <MaxEnergy>k__BackingField
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1463510011181285213, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: renderAnchor
+      propertyPath: HealthBar
       value: 
-      objectReference: {fileID: 1273004581}
-    - target: {fileID: 1463510011181285213, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: currentRoomImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 5521d2ba435a472448a3b757e70b805b, type: 3}
-    - target: {fileID: 2513912861451587342, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: m_Size.x
-      value: 0.20592263
-      objectReference: {fileID: 0}
-    - target: {fileID: 2513912861451587342, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: m_Size.y
-      value: 0.38363522
-      objectReference: {fileID: 0}
-    - target: {fileID: 2513912861451587342, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.006267667
-      objectReference: {fileID: 0}
-    - target: {fileID: 2513912861451587342, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.011817604
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6767946468273704880, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
     - target: {fileID: 6462396802648980343, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1796,8 +1738,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
---- !u!224 &6767946467036369935 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8679229252751434566, guid: 120a8acdce20b0143990be54d79c1198, type: 3}
-  m_PrefabInstance: {fileID: 6767946467036369934}
-  m_PrefabAsset: {fileID: 0}

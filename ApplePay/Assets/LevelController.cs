@@ -24,7 +24,7 @@ public class LevelController : MonoBehaviour
             {
                 room.room.EntityList.Add(creature);
                 creature.CurrentRoom = room.room;
-                if(oldRoom != creature.CurrentRoom) creature.OnRoomChanged(room.room, oldRoom);
+                if(oldRoom != creature.CurrentRoom) creature.RoomChange(room.room, oldRoom);
             }
         }
     }

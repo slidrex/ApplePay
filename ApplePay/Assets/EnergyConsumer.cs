@@ -1,22 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnergyConsumer : MonoBehaviour
 {
-    public float EnergySubtractMultiplier { get; private set; }
-    public float EnergyAddMultiplier { get; private set; }
-    public float EnergyRegenerationRate { get; private set; }
-    public float MaxEnergy { get; private set; }
-    public float CurrentEnergy { get; private set; }
-    public void addattribs()
+    [field: SerializeField] public float EnergySubtractMultiplier { get; protected set; } = 1.0f;
+    [field: SerializeField] public float EnergyAddMultiplier { get; protected set; } = 1.0f;
+    [field: SerializeField] public int MaxEnergy { get; protected set; }
+    public int CurrentEnergy { get; protected set; }
+    private Creature entity;
+    public EnergyBar energyBar;
+    public void SetOwner(Creature entity) => this.entity = entity;
+    protected virtual void Start()
     {
-        //this.AddAttribute("attackDamage", new FloatRef(
-        //    () => AttackDamage,
-        //    val => AttackDamage = (int)val
-        //), AttackDamage);
+        SetupAttributes();
+        CurrentEnergy = MaxEnergy;
+        energyBar?.IndicatorSetup(entity);
     }
-    public bool TryConsumeEnergy(float amount)
+    private void SetupAttributes()
+    {
+        entity.AddAttribute("maxEnergy", new FloatRef( () => MaxEnergy,
+            v => MaxEnergy = (int)v
+        ), MaxEnergy);
+        entity.AddAttribute("energyAddMultiplier", new FloatRef( () => EnergyAddMultiplier,
+            val => EnergyAddMultiplier = val
+        ), EnergyAddMultiplier);
+        entity.AddAttribute("energyConsumeMultiplier", new FloatRef( () => EnergySubtractMultiplier,
+            val => EnergySubtractMultiplier = val
+        ), EnergySubtractMultiplier);
+    }
+    public bool TryConsumeEnergy(int amount)
     {
         if(CanConsume(amount)) 
         {
@@ -25,13 +36,22 @@ public class EnergyConsumer : MonoBehaviour
         }
         return false;
     }
-    public bool CanConsume(float amount) => CurrentEnergy - amount >= 0;
-    protected virtual void SubtractEnergy(float amount)
+    private void Update()
     {
-        CurrentEnergy -= amount * EnergySubtractMultiplier;
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            TryConsumeEnergy(5);
+        }
+    }
+    public bool CanConsume(int amount) => CurrentEnergy - amount >= 0;
+    protected virtual void SubtractEnergy(int amount)
+    {
+        CurrentEnergy -= (int)(amount * EnergySubtractMultiplier);
+        energyBar?.IndicatorUpdate();
     }
     public virtual void AddEnergy(int amount)
     {
-        CurrentEnergy = Mathf.Clamp(CurrentEnergy + amount * EnergyAddMultiplier, 0, MaxEnergy);
+        CurrentEnergy = Mathf.Clamp(CurrentEnergy + (int)(amount * EnergyAddMultiplier), 0, MaxEnergy);
+        energyBar?.IndicatorUpdate();
     }
 }

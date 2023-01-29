@@ -10,6 +10,7 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
     protected override Vector2 DropDirection => (Pay.Functions.Generic.GetMousePos(Camera.main) - (Vector2)transform.position).normalized;
     private Creature.EntityState state;
     private bool dropping;
+    public Creature creature;
     override protected void Update()
     {
         base.Update();

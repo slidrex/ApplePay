@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Linq;
 using Pay.UI;
 
-public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable, IUIHolder
+public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamageDealable, IUIHolder, IEnergyConsumer
 {
     public new PlayerMovement Movement => (PlayerMovement)Movement;
     public int AttackDamage { get; set; } = 10;
@@ -12,6 +12,8 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     [HideInInspector] public KeyCode ChangeHealthKey;
     private float vignetteIntensity;
     public WaveStatus WaveStatus { get; set; }
+
+    [field: SerializeField] public EnergyConsumer Consumer { get; set; }
 
     [SerializeField] private EffectCell effectCell;
     private UnityEngine.Rendering.Universal.Vignette vignette;
@@ -25,6 +27,8 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     {
         WaveController.SetupWaveEntity(this, this, 2.0f);
         base.Awake();
+        AddDamageAttribute();
+        Consumer.SetOwner(this);
     }
     public void AddDamageAttribute()
     {
@@ -35,7 +39,6 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     }
     protected override void Start()
     {
-        AddDamageAttribute();
         vignette = FindObjectOfType<UnityEngine.Rendering.Universal.Vignette>();
         navigator.Clear();
         
@@ -43,7 +46,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
         renderAnchor.UnrenderStack();
         renderAnchor.RenderRoom(CurrentRoom);
     }
-    public override void OnRoomChanged(Room room, Room oldRoom)
+    protected override void OnRoomChanged(Room room, Room oldRoom)
     {
         RenderNavigator(room);
         renderAnchor.UnrenderRoom(oldRoom);
