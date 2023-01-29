@@ -5,6 +5,7 @@ public class Room : MonoBehaviour
 {
     [SerializeField, Tooltip("Specified space is free for spawn objects.")] private RoomBound[] FreeRoomSpace;
     [SerializeField, Tooltip("Used for checking if object inside the room.")] public RoomBound RoomConfiners;
+    public Collider2D CameraConfiner;
     [HideInInspector] public List<Creature> EntityList = new List<Creature>();
     public DoorBehaviour[] Doors { get; set; }
     [SerializeField] private Transform doorHolder;

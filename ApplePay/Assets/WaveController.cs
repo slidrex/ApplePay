@@ -5,8 +5,31 @@ public static class WaveController
     public static Creature WaveCreature;
     public static IWavedepent WaveImplementation;
     public static GameObject StageClearEffect {get; private set;}
-    public static void OnWaveBegin() { }
-    public static void OnWaveEnd() { }
+    private static DoorBehaviour[] doors;
+    public static void OnWaveBegin()
+    {
+        doors = WaveCreature.CurrentRoom.Doors;
+        for (int i = 0; i < doors.Length; i++)
+        {
+            if(doors[i] != null && doors[i].InWaveEffect != null)
+            {
+                doors[i].Animator.SetTrigger("WaveBegun");
+                doors[i].InWaveEffect.Play();
+            }
+        }
+    }
+    public static void OnWaveEnd()
+    {
+        doors = WaveCreature.CurrentRoom.Doors;
+        for (int i = 0; i < doors.Length; i++)
+        {
+            if(doors[i] != null && doors[i].InWaveEffect != null)
+            {
+                doors[i].Animator.SetTrigger("WaveEnd");
+                doors[i].InWaveEffect.Stop();
+            }
+        }
+    }
     public static void SetupWaveEntity(Creature wrappedEntity, IWavedepent waveImplementation, float waveEndDelayTime)
     {
         WaveCreature = wrappedEntity;

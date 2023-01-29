@@ -4,6 +4,8 @@ public class DoorBehaviour : KeyHoldingHack
 {
     [HideInInspector] public SpriteRenderer spriteRenderer;
     public Room AttachedRoom { get; set; }
+    public ParticleSystem InWaveEffect;
+    public Animator Animator;
     [Header("Door Behaviour")]
     [SerializeField] private Transform TeleportPoint;
     [SerializeField] private DoorDirection direction;

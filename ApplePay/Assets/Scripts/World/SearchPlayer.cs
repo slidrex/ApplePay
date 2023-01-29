@@ -3,13 +3,13 @@ using Cinemachine;
 
 public class SearchPlayer : MonoBehaviour
 {
-    private GameObject followObject;
+    public GameObject FollowObject {get; set;}
     private CinemachineVirtualCamera virtalCamera;
     private void Start()
     {
-        followObject = GameObject.FindGameObjectWithTag("Player");
+        FollowObject = GameObject.FindGameObjectWithTag("Player");
         virtalCamera = GetComponent<CinemachineVirtualCamera>();
-        virtalCamera.Follow = followObject?.transform;
+        virtalCamera.Follow = FollowObject?.transform;
         virtalCamera.m_Lens.NearClipPlane = -1;
     }
     
