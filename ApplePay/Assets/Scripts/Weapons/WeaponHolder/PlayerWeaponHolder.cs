@@ -64,6 +64,10 @@ public class PlayerWeaponHolder : AdvancedWeaponHolder
         CollectableWeapon currentItem = GetActiveWeapon();
         if(currentItem != null)
         {
+            int energyConsumption = currentItem.Weapon.EnergyConsumption;
+            if(energyConsumption != 0)
+                weaponPlaceSlot.RenderEnergyCost(energyConsumption, true);
+            else weaponPlaceSlot.RenderEnergyCost(0, false);
             weaponPlaceSlot.CreateSlotIndicator(DropSettings.Holder);
             weaponPlaceSlot.SetItem(currentItem.Weapon.display.Icon);
             weaponPlaceSlot.CreateSlotText(DropSettings.Holder, GetActiveWeapon().Weapon.display.Description.Name);

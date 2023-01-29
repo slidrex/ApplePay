@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd90ad49e4796145841c09709697799, type: 3}
   m_Name: VioletBoss
   m_EditorClassIdentifier: 
+  BlockWave: 1
   SpawnDelay: 0
   MinContractObjects: 1
   MaxContractObjects: 1

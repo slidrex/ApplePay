@@ -20,7 +20,8 @@ public abstract class WeaponHolder : MonoBehaviour
     public virtual bool Activate(Creature attacker, ref Weapon activeWeapon, Vector2 beginTrajectory, Vector2 endTrajectory, Transform target) => ActivateHandler(attacker, beginTrajectory, endTrajectory, ref activeWeapon, target, out GameObject[] output);
     private bool ActivateHandler(Creature attacker, Vector2 beginTrajectory , Vector2 endTrajectory, ref Weapon activeWeapon, Transform target, out GameObject[] _output)
     {
-        if(activeWeapon == null || Disable || activeWeapon.weaponInfo.isActivatable == false || attacker.IsFree() == false) 
+        IEnergyConsumer consume = attacker as IEnergyConsumer;
+        if(activeWeapon == null || Disable || activeWeapon.weaponInfo.isActivatable == false || attacker.IsFree() == false || (consume != null && consume.Consumer.CanConsume(activeWeapon.EnergyConsumption) == false)) 
         {
             _output = null;
             OnWeaponActivate(activeWeapon, false);
@@ -31,6 +32,7 @@ public abstract class WeaponHolder : MonoBehaviour
         if(animatableWeapon != null) facingTime += animatableWeapon.animationInfo.animationTime;
         Vector2 facing = SetFacing(facingTime, beginTrajectory, endTrajectory, WeaponPlace.FreezeHorizontal, WeaponPlace.FreezeVertical);
         activeWeapon.Activate(attacker, beginTrajectory, endTrajectory, target, out _output);
+        consume.Consumer.TryConsumeEnergy(activeWeapon.EnergyConsumption);
         if(WeaponPlace.FreezeHorizontal) activeWeapon.FreezeHorizontalAttackAxis();
         else if(WeaponPlace.FreezeVertical) activeWeapon.FreezeVerticalAttackAxis();
         

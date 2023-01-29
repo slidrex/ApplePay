@@ -8,25 +8,31 @@ public static class WaveController
     private static DoorBehaviour[] doors;
     public static void OnWaveBegin()
     {
-        doors = WaveCreature.CurrentRoom.Doors;
-        for (int i = 0; i < doors.Length; i++)
+        if(WaveCreature.CurrentRoom.HasBlockingDefinitions())
         {
-            if(doors[i] != null && doors[i].InWaveEffect != null)
+            doors = WaveCreature.CurrentRoom.Doors;
+            for (int i = 0; i < doors.Length; i++)
             {
-                doors[i].Animator.SetTrigger("WaveBegun");
-                doors[i].InWaveEffect.Play();
+                if(doors[i] != null && doors[i].InWaveEffect != null)
+                {
+                    doors[i].Animator.SetTrigger("WaveBegun");
+                    doors[i].InWaveEffect.Play();
+                }
             }
         }
     }
     public static void OnWaveEnd()
     {
-        doors = WaveCreature.CurrentRoom.Doors;
-        for (int i = 0; i < doors.Length; i++)
+        if(WaveCreature.CurrentRoom.HasBlockingDefinitions())
         {
-            if(doors[i] != null && doors[i].InWaveEffect != null)
+            doors = WaveCreature.CurrentRoom.Doors;
+            for (int i = 0; i < doors.Length; i++)
             {
-                doors[i].Animator.SetTrigger("WaveEnd");
-                doors[i].InWaveEffect.Stop();
+                if(doors[i] != null && doors[i].InWaveEffect != null)
+                {
+                    doors[i].Animator.SetTrigger("WaveEnd");
+                    doors[i].InWaveEffect.Stop();
+                }
             }
         }
     }

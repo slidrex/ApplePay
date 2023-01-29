@@ -40,7 +40,7 @@ public class EnergyConsumer : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            TryConsumeEnergy(5);
+            AddEnergy(10);
         }
     }
     public bool CanConsume(int amount) => CurrentEnergy - amount >= 0;

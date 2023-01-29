@@ -12,6 +12,7 @@ public class MixedCharm : CharmObject
         for(int i = 0; i < charmLength; i++)
         {
             Charms[i] = Instantiate(charms[i]);
+            Charms[i].OnInstantiate();
         }
     }
     [UnityEngine.HideInInspector] public byte ActiveIndex;

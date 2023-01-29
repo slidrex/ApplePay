@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Weapon : ScriptableObject
 {
+    public int EnergyConsumption;
     public Weapon.AttackType attackType;
     public WeaponDisplay display;
     public WeaponInfo weaponInfo;

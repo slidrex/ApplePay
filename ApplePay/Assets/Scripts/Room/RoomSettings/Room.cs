@@ -39,6 +39,14 @@ public class Room : MonoBehaviour
             Doors[i].AttachedRoom = this;
         }
     }
+    public bool HasBlockingDefinitions()
+    {
+        foreach(ActionMark mark in MarkList)
+        {
+            if(mark.BlockWave) return true;
+        }
+        return false;
+    }
     public bool NextRoomStage()
     {
         if(!IsRedifinable())

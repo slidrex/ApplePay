@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2141524fee2942849ad2c376c28566f6, type: 3}
   m_Name: FireShooter
   m_EditorClassIdentifier: 
+  EnergyConsumption: 5
   attackType: 0
   display:
     Rarity: 1

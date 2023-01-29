@@ -236,8 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0b44f26e799494bbe4569878ace53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InstantiatedObjects: []
   Collider: {fileID: 8184339639806454002}
-  collideDamage: 15
+  collideDamage: 5
   Knockback: 0
   KnockbackTime: 0
   DamageType: 0

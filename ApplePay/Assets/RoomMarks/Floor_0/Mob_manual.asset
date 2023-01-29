@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6b0c29f6102e749b8a4a3c1e5c8002, type: 3}
   m_Name: Mob_manual
   m_EditorClassIdentifier: 
+  BlockWave: 1
   MinMobCount: 3
   MaxMobCount: 5
   SpawnDelay: 1

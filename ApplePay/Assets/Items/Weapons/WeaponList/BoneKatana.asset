@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2141524fee2942849ad2c376c28566f6, type: 3}
   m_Name: BoneKatana
   m_EditorClassIdentifier: 
+  EnergyConsumption: 1
   attackType: 0
   display:
     Rarity: 0
@@ -20,7 +21,7 @@ MonoBehaviour:
       Name: bone katana
       Description: BONES!!
   weaponInfo:
-    AttackCooldown: 0.15
+    AttackCooldown: 0
     AdditionalFacingTime: 0.2
   WeaponObject: {fileID: 1902481890512770881, guid: 0acb39584f3f53a4a8fc96b9ce685b56, type: 3}
   animationPreset: {fileID: 11400000, guid: 0ca9309d069ca7e439c7d3b4e90ae76a, type: 2}

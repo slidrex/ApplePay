@@ -11,7 +11,13 @@ public class WeaponPlaceSlot : MonoBehaviour
     [SerializeField] private float fadeIn;
     [SerializeField] private float duration;
     [SerializeField] private float fadeOut;
-    private void Start() => SetItem(null);
+    [SerializeField] private GameObject itemCostObject;
+    [SerializeField] private UnityEngine.UI.Text itemCastCost;
+    private void Start() 
+    {
+        SetItem(null);
+        RenderEnergyCost(0, false);
+    }
     public void SetItem(Sprite item)
     {
         ImageRenderer.sprite = item;
@@ -23,6 +29,15 @@ public class WeaponPlaceSlot : MonoBehaviour
             Pay.UI.Options.Transform.StaticProperty.Position(ImageRenderer.transform.position - Vector3.up),
             Pay.UI.Options.Transform.StaticProperty.LocalScale(Vector3.one / 5)
         );
+    }
+    public void RenderEnergyCost(int cost, bool render)
+    {
+        if(render == false) itemCostObject.SetActive(false);
+        else
+        {
+            itemCostObject.SetActive(true);
+            itemCastCost.text = cost.ToString();
+        }
     }
     public void CreateSlotText(Pay.UI.UIHolder holder, string text)
     {
@@ -36,6 +51,7 @@ public class WeaponPlaceSlot : MonoBehaviour
     {
         RemoveText();
         SetItem(null);
+        RenderEnergyCost(0, false);
         RemoveIndicator();
     }
     public void RemoveText() => Pay.UI.UIManager.RemoveUI(textBuffer);

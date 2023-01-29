@@ -179,9 +179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LifeTime: 1
-  Damage: 5
+  Damage: 10
   Acceleration: -2
-  Speed: 5
+  Speed: 9
   MinSpeed: 3
   MaxSpeed: 5
   HitBox: {fileID: 4022463295020868822}

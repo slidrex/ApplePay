@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2141524fee2942849ad2c376c28566f6, type: 3}
   m_Name: LimeKnife
   m_EditorClassIdentifier: 
+  EnergyConsumption: 2
   attackType: 1
   display:
     Rarity: 0

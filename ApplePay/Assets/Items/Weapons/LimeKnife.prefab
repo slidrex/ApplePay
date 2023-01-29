@@ -309,8 +309,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0b44f26e799494bbe4569878ace53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InstantiatedObjects: []
   Collider: {fileID: 200417554627986524}
-  collideDamage: 20
+  collideDamage: 25
   Knockback: 1
   KnockbackTime: 0.02
   DamageType: 0
