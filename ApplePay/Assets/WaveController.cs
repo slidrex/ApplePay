@@ -16,7 +16,6 @@ public static class WaveController
                 if(doors[i] != null && doors[i].GetInWaveEffect() != null)
                 {
                     doors[i].Animator.SetTrigger("WaveBegun");
-                    Debug.Log("Ya");
                     doors[i].InstantiateInWaveEffect();
                 }
             }
