@@ -77,8 +77,13 @@ public class DoorBehaviour : KeyHoldingHack
     }
     public GameObject GetInWaveEffect() => InWaveEffect;
     public void InstantiateInWaveEffect() =>
-        tempInWaveEffect = Instantiate(InWaveEffect, transform.position, Quaternion.identity, transform);
-    public void DestroyInWaveEffect(float time) => Destroy(tempInWaveEffect, time);
+        tempInWaveEffect = Instantiate(InWaveEffect, transform.position, 
+            Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z), transform);
+    public void DestroyInWaveEffect(float time)
+    {
+        tempInWaveEffect?.GetComponent<Animator>().SetTrigger("Disappear");
+        Destroy(tempInWaveEffect, time);
+    } 
 
     private System.Collections.Generic.Dictionary<DoorDirection, Vector2> directionConverter = new System.Collections.Generic.Dictionary<DoorDirection, Vector2>()
     {
