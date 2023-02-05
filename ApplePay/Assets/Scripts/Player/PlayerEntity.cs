@@ -8,8 +8,6 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     public int AttackDamage { get; set; } = 10;
     [Header("Player Entity")]
     [SerializeField] private Transform EffectList;
-    [HideInInspector] public float ChangeAmount;
-    [HideInInspector] public KeyCode ChangeHealthKey;
     private float vignetteIntensity;
     public WaveStatus WaveStatus { get; set; }
 
@@ -87,7 +85,7 @@ public class PlayerEntity : Creature, IWavedepent, IEffectUpdateHandler, IDamage
     protected override void Update()
     {
         base.Update();
-        if(Input.GetKeyDown(ChangeHealthKey)) ChangeHealth((int)ChangeAmount);
+        if(Input.GetKeyDown(KeyCode.Space)) Damage(50, DamageType.Physical, null);
     }
     public override void ChangeHealth(int changeAmount)
     {

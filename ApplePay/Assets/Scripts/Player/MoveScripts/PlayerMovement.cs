@@ -27,7 +27,7 @@ public class PlayerMovement : EntityMovement
         MoveVector.y = Input.GetAxisRaw("Vertical");
         if(GetMovementVector().x != 0 || GetMovementVector().y != 0) animator.SetBool("isMoving", true);
         else if(GetMovementVector() == Vector2.zero) animator.SetBool("isMoving", false);
-        if(cursorFollow == false && !FacingBlock) SetFacing(MoveVector, 0.0f, StateParameter.MirrorHorizontal);
+        if(cursorFollow == false && !FacingBlock && GetMovementVector() != Vector2.zero) SetFacing(MoveVector, 0.0f, StateParameter.MirrorHorizontal);
     }
     protected override void FixedUpdate()
     {

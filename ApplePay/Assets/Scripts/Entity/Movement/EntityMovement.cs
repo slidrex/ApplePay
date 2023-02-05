@@ -12,9 +12,11 @@ abstract public class EntityMovement : MonoBehaviour
     [HideInInspector] public Rigidbody2D Rigidbody;
     [HideInInspector] public bool FacingBlock;
     private float curConstraintDuration;
+    private Vector2 currentFacing;
     public Creature Entity {get; set;}
     protected virtual void Start()
     {
+        currentFacing = Vector2.down;
         if(Rigidbody == null) Rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -69,10 +71,12 @@ abstract public class EntityMovement : MonoBehaviour
             if(curConstraintDuration <= 0) FacingBlock = false;
         }
     }
+    public Vector2 GetFacing() => currentFacing;
     public void SetMoveMod(bool isMoving) => animator.SetBool("isMoving", isMoving);
     public void SetRotationConstraint(float duration) => curConstraintDuration = duration;
     public void SetFacing(Vector2 state, float bindTime, params StateParameter[] parameters)
-    {   
+    {
+        currentFacing = state; 
         SetRotationConstraint(bindTime);
         animator.SetInteger("Horizontal", (int)state.x);
         animator.SetInteger("Vertical", (int)state.y);
