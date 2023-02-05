@@ -4,7 +4,8 @@ public class DoorBehaviour : KeyHoldingHack
 {
     [HideInInspector] public SpriteRenderer spriteRenderer;
     public Room AttachedRoom { get; set; }
-    public ParticleSystem InWaveEffect;
+    [SerializeField] private GameObject InWaveEffect;
+    public GameObject tempInWaveEffect;
     public Animator Animator;
     [Header("Door Behaviour")]
     [SerializeField] private Transform TeleportPoint;
@@ -74,6 +75,11 @@ public class DoorBehaviour : KeyHoldingHack
         base.OnInteractInterruption(interactEntity);
         interactEntity.anim.SetBool("isUnhacking", true);
     }
+    public GameObject GetInWaveEffect() => tempInWaveEffect;
+    public void InstantiateInWaveEffect() =>
+        tempInWaveEffect = Instantiate(tempInWaveEffect, transform.position, Quaternion.identity, transform);
+    public void DestroyInWaveEffect(float time) => Destroy(tempInWaveEffect, time);
+
     private System.Collections.Generic.Dictionary<DoorDirection, Vector2> directionConverter = new System.Collections.Generic.Dictionary<DoorDirection, Vector2>()
     {
         [DoorDirection.Up] = Vector2.up,

@@ -13,10 +13,11 @@ public static class WaveController
             doors = WaveCreature.CurrentRoom.Doors;
             for (int i = 0; i < doors.Length; i++)
             {
-                if(doors[i] != null && doors[i].InWaveEffect != null)
+                if(doors[i] != null && doors[i].GetInWaveEffect() != null)
                 {
                     doors[i].Animator.SetTrigger("WaveBegun");
-                    doors[i].InWaveEffect.Play();
+                    Debug.Log("Ya");
+                    doors[i].InstantiateInWaveEffect();
                 }
             }
         }
@@ -28,10 +29,10 @@ public static class WaveController
             doors = WaveCreature.CurrentRoom.Doors;
             for (int i = 0; i < doors.Length; i++)
             {
-                if(doors[i] != null && doors[i].InWaveEffect != null)
+                if(doors[i] != null && doors[i].GetInWaveEffect() != null)
                 {
                     doors[i].Animator.SetTrigger("WaveEnd");
-                    doors[i].InWaveEffect.Stop();
+                    doors[i].DestroyInWaveEffect(0.4f);
                 }
             }
         }

@@ -5,6 +5,7 @@ public class ConfinerSetter : MonoBehaviour
 {
     [SerializeField] private CinemachineConfiner confiner;
     [SerializeField] private CinemachineVirtualCamera cam;
+    [SerializeField] private GameObject fade;
     private Creature holder;
 
     private void Start()
@@ -15,11 +16,14 @@ public class ConfinerSetter : MonoBehaviour
     }
     private void OnConfinerChange(Room newRoom, Room oldRoom)
     {
-        
         confiner.m_BoundingShape2D = newRoom.CameraConfiner;
+        if(holder is PlayerEntity player)
+        {
+            Transform canvas = player.GetHolder().HUDCanvas.transform;
+            GameObject obj = Instantiate(fade, canvas.position, Quaternion.identity, canvas);
+            Destroy(obj, 0.25f);
+        }
     }
-    private void OnDestroy()
-    {
+    private void OnDestroy() =>
         holder.RoomChangeCallback -= OnConfinerChange;
-    }
 }
