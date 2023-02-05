@@ -37,22 +37,22 @@ public class MobMovement : EntityMovement
             Target = Entity.GetNearestHostileTarget().transform;
         }
         base.Update();
-        if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.OnUpdate();
+        if(!isMovementDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.OnUpdate();
     }
     protected override void OnSpeedUpdate()
     {
-        if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.OnSpeedUpdate();
+        if(!isMovementDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.OnSpeedUpdate();
     }
     private void OnCollisionEnter2D(Collision2D collision) 
     {
-        if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.CollisionBegin(collision);
+        if(!isMovementDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.CollisionBegin(collision);
     }
     private void OnCollisionStay2D(Collision2D collision) 
     {
-        if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.CollisionState(collision);
+        if(!isMovementDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.CollisionState(collision);
     }
     private void OnCollisionExit2D(Collision2D collision) 
     {
-        if(!isDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.CollisionEnd(collision);
+        if(!isMovementDisabled) foreach(MovementPattern movePattern in GetActivePatterns()) movePattern.CollisionEnd(collision);
     }
 }

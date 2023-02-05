@@ -10,6 +10,13 @@ public class PayForceHandler : MonoBehaviour
     public float DragIntensity = 1f;
     public bool disabled { get; set; }
     private System.Collections.Generic.List<PayForce> Forces = new System.Collections.Generic.List<PayForce>();
+    private System.Collections.Generic.List<float> blockedForces = new System.Collections.Generic.List<float>();
+    internal struct ExternalForce
+    {
+        internal bool isForceBinded;
+        internal bool nullOnForceUnbind;
+    }
+    public bool AreIncomingForcesDisabled() => blockedForces.Count != 0;
     public bool Knockbacked { get => Forces.Count != 0; }
     private void Start()
     {
@@ -17,10 +24,11 @@ public class PayForceHandler : MonoBehaviour
     }
     public void Knock(Vector2 startSpeed, float decceleration, float disableTime = 0.0f)
     {
+        if(AreIncomingForcesDisabled()) return;
         Vector2 resultSpeed = Rigidbody.velocity + startSpeed * (1 - resistance);
         Forces.Add(new PayForce(startSpeed, decceleration * DragIntensity, disableTime));
     }
-    public void ResetForces() => Forces.Clear();
+    private void ResetForces() => Forces.Clear();
     public Vector2 GetResultanForce() => Rigidbody.velocity;
     public PayForce[] GetCurrentForces() => Forces.ToArray();
     public void SetResultanForce(Vector2 startSpeed, float decceleration, float disableTime = 0.0f)
@@ -33,6 +41,15 @@ public class PayForceHandler : MonoBehaviour
         ResetForces();
         Forces.AddRange(forces);
     }
+    public void BindForce(Vector2 force, float damping, float time)
+    {
+        SetResultanForce(force, damping, time);
+        BlockIncomingForces(time);
+    }
+    private void BlockIncomingForces(float time)
+    {
+        blockedForces.Add(time);
+    }
     public void Update()
     {
         HandleKnockback();
@@ -40,6 +57,11 @@ public class PayForceHandler : MonoBehaviour
     }
     private void HandleKnockback()
     {
+        for(int i = 0; i < blockedForces.Count; i++)
+        {
+            if(blockedForces[i] > 0.0f) blockedForces[i] -= Time.deltaTime;
+            else blockedForces.RemoveAt(i);
+        }
         for(int i = 0; i < Forces.Count; i++)
         {
             PayForce force = Forces[i];
@@ -49,7 +71,10 @@ public class PayForceHandler : MonoBehaviour
             {
                 Forces[i] = force;
             }
-            else Forces.RemoveAt(i);
+            else 
+            {
+                Forces.RemoveAt(i);
+            }
             disabled = true;
         }
         float disableTime = 0.0f;

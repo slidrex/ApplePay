@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2a2ef34dae55a4dae68a3af7bf065d, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
+  NodeCapacity: 4
   Nodes:
-  - {fileID: 11400000, guid: 39db6ae412a1c824aab3e5335483eb48, type: 2}
   - {fileID: 11400000, guid: c8e1cfea325c2684992f564f251262a8, type: 2}

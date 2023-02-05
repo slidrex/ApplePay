@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad632b3cda6e3c46b07d7bf496a688a, type: 3}
   m_Name: MoveVectorMotion
   m_EditorClassIdentifier: 
-  NodeTime: 0.5
+  Display:
+    Rarity: 0
+  NodeTime: 0.4
   Fields:
-  - FieldName: Speed
-    FieldScore: 2
-    ScoreMultiplier: 3
-    EnergyCostPerScore: 10
-    CooldownPerScore: 0
+  - FieldName: SpeedModifier
+    FieldScore: 1
+    ScoreMultiplier: 0.5
+    EnergyCostPerScore: 1
+    CooldownPerScore: 0.5
+  speedSource: 0

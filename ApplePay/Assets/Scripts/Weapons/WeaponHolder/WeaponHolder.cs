@@ -66,7 +66,7 @@ public abstract class WeaponHolder : MonoBehaviour
         if(freezeVertical) facing = Vector2.right * Mathf.Sign(distance.x);
         if(freezeHorizontal && freezeVertical) facing = Vector2.zero;
 
-        Owner.Movement.SetFacing(facing, freezeTime + additionalFreezeStateTime, StateParameter.MirrorHorizontal);
+        Owner.Movement.SetFacing(facing, freezeTime + additionalFreezeStateTime);
         return facing;
     }
     

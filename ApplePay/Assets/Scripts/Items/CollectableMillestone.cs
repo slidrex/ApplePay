@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [UnityEngine.RequireComponent(typeof(PayForceHandler))]
+
 public abstract class CollectableMillestone : MonoBehaviour, IHitResponder
 {
     public GameObject CollectEffect;
@@ -16,7 +17,7 @@ public abstract class CollectableMillestone : MonoBehaviour, IHitResponder
     }
     protected virtual void Update() => HitShape.CheckHit();
     protected virtual bool CollectRequest(HitInfo hitInfo) => true;
-    protected virtual void OnCollect(HitInfo hitInfo) 
+    protected virtual void OnCollect(HitInfo hitInfo)
     {
         PayWorld.Particles.InstantiateParticles(CollectEffect, transform.position, Quaternion.identity, 5.0f);
         Destroy(gameObject);

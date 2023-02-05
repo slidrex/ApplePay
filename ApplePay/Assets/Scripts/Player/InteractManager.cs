@@ -228,7 +228,7 @@ public class InteractManager : MonoBehaviour
         engagingStatus = entity.Engage(CancelInteract);
         Vector2 dist = interactiveObj.gameObject.transform.position - transform.position;
         Vector2 state = Mathf.Abs(dist.x) > Mathf.Abs(dist.y) ? Vector2.right * Mathf.Sign(dist.x) : Vector2.up * Mathf.Sign(dist.y);
-        entity.Movement.SetFacing(state, Time.deltaTime, StateParameter.MirrorHorizontal);
+        entity.Movement.SetFacing(state, Time.deltaTime);
         
         entity.Movement.SetMoveMod(false);
     }

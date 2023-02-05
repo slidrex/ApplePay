@@ -6,7 +6,8 @@ public class Ability : ScriptableObject
 {
     public delegate void AbilityEndCallback(Ability ability);
     private AbilityEndCallback abilityEndCallback;
-    private float timeSinceAbilityActivated;
+    public float timeSinceAbilityActivated;
+    public int NodeCapacity;
     [SerializeField] protected AbilityNode[] Nodes;
     private int activatingNodeIndex;
     private Creature executer;
@@ -17,6 +18,10 @@ public class Ability : ScriptableObject
         {
             Nodes[i] = Instantiate(Nodes[i]);
         }
+    }
+    public virtual void OnRepositoryAdded()
+    {
+        timeSinceAbilityActivated = 0.0f;
     }
     public void BeginAbility(Creature executer, AbilityEndCallback callback)
     {

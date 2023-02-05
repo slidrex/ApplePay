@@ -11,12 +11,7 @@ public class DoorBehaviour : KeyHoldingHack
     [SerializeField] private Transform TeleportPoint;
     [SerializeField] private DoorDirection direction;
     public DoorBehaviour ConnectedDoor { get; private set; }
-    public Vector2 Direction {get 
-    {
-        directionConverter.TryGetValue(direction, out Vector2 val);
-        return val;
-    }
-    }
+    public Vector2 Direction {get => directionConverter[direction]; }
     private void Awake()
     {
         if(spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();

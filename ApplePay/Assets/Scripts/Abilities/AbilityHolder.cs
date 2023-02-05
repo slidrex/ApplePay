@@ -3,15 +3,11 @@ using UnityEngine;
 public class AbilityHolder : MonoBehaviour
 {
     [SerializeField] private Creature entity;
-    [SerializeField] private System.Collections.Generic.List<AbilityObject> Abilities;
+    private AbilityRepository abilityRepository;
     private EnergyConsumer consumer;
     private void Awake()
     {
-        for(int i = 0; i < Abilities.Count; i++)
-        {
-            Abilities[i] = new AbilityObject() { ability = Instantiate(Abilities[i].ability), key = Abilities[i].key};
-            Abilities[i].ability.OnInstantiated();
-        }
+        abilityRepository = (AbilityRepository)entity.InventorySystem.GetRepository("ability");
         consumer = (entity as IEnergyConsumer).Consumer;
     }
     private void Update()
@@ -23,13 +19,16 @@ public class AbilityHolder : MonoBehaviour
     private void InputAbilities()
     {
         bool isFree = entity.IsFree();
-        foreach(AbilityObject abilityObject in Abilities)
+        for(int i = 0; i < abilityRepository.Items.Length; i++)
         {
-            if(Input.GetKeyDown(abilityObject.key) && isFree)
+            CollectableAbility ability = abilityRepository.Items[i];
+            if(ability == null) continue;
+            if(Input.GetKeyDown(ability.abilityKeyCode) && isFree)
             {
-                TryExecuteAbility(abilityObject.ability);
+                TryExecuteAbility(ability.Ability);
             }
-            abilityObject.ability.OnUpdate();
+            ability.Ability.OnUpdate();
+
         }
     }
     private void TryExecuteAbility(Ability ability)

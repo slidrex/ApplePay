@@ -105,7 +105,7 @@ public abstract class Creature : Entity, IKillHandler
         if(Movement != null && ForceHandler != null)
             if(ForceHandler.disabled && disableID == 0 && ForceHandler.knockbackResponse == PayForceHandler.KnockbackResponse.Disable)
             {
-                disableID = Movement.AddDisable();
+                disableID = Movement.AddDisable(true);
             }
             else if(ForceHandler.disabled == false && disableID != 0)
             {

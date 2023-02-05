@@ -6,7 +6,7 @@ public class VioletAttack : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         violet = animator.GetComponent<Violet>();
-        violet.DisableID = violet.Movement.AddDisable();
+        violet.DisableID = violet.Movement.AddDisable(true);
     }
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

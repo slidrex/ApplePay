@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 3917139913567164824}
   - component: {fileID: 6659970789127294732}
   - component: {fileID: 1849077798889129513}
+  - component: {fileID: 6081237778483342268}
   - component: {fileID: 1849077798889129514}
   - component: {fileID: 6475928628708991697}
   - component: {fileID: 7396770341887057190}
@@ -289,7 +290,7 @@ MonoBehaviour:
   appearParticle: {fileID: 0}
   MaxHealth: 500
   HitShape: {fileID: 0}
-  CollisionHandler: {fileID: 0}
+  ForceHandler: {fileID: 0}
   evasionRate: 0
   magicResistance: 0
   evasionEffect: {fileID: 2891188614314171647, guid: 954f520504525bf43b6bb04b77b565a9, type: 3}
@@ -310,10 +311,12 @@ MonoBehaviour:
   AllyTags: 
   WaveRelation: 0
   EffectList: {fileID: 0}
-  ChangeAmount: -10
-  ChangeHealthKey: 103
+  <Consumer>k__BackingField: {fileID: 0}
   effectCell: {fileID: 5231069705747123276, guid: 0e846913c595c3c44a676e3ea63f75d4, type: 3}
   holder: {fileID: 0}
+  navigator: {fileID: 0}
+  currentRoomImage: {fileID: 0}
+  renderAnchor: {fileID: 0}
 --- !u!114 &1849077798739181968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +337,7 @@ MonoBehaviour:
     Holder: {fileID: 0}
   InteractObjects: []
   Hint: {fileID: 6503411922167605338, guid: 7ba309c6c9722624588f5b1430533686, type: 3}
+  currentTransform: {fileID: 0}
 --- !u!114 &1463861389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,9 +351,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSpeed: 3.14
-  MoveVector: {x: 0, y: 0}
   Rigidbody: {fileID: 0}
-  ConstraintRotation: 0
+  FacingBlock: 0
+  cursorFollow: 0
+  facingTransform: {fileID: 0}
 --- !u!114 &3917139913567164824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,6 +367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5a042eb6aeb9d43b77abba143a14e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropItemOffset: 0
+  dropItemBlockTime: 0
   SystemOwner: {fileID: 5767637346845011317}
   Repositories:
   - {fileID: 1849077798889129513}
@@ -385,16 +392,15 @@ MonoBehaviour:
     MinForce: 5
     MaxForce: 15
     ForceAddSpeed: 5
-    dropOffset: 0
     Holder: {fileID: 0}
     dropIndicator: {fileID: 11400000, guid: d8076f58f95f62241b333c0124f92155, type: 2}
     currentDropIndicatorObject:
       Holder: {fileID: 0}
-    droppedItemBlockTime: 1
   switchKey: 113
   dropKey: 9
   activateKey: 323
   weaponPlaceSlot: {fileID: 0}
+  creature: {fileID: 0}
 --- !u!114 &1849077798889129513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +416,21 @@ MonoBehaviour:
   itemInstancesContainer: {fileID: 0}
   Capacity: 9
   Items: []
+--- !u!114 &6081237778483342268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2788200553323671107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be232af697978944f99c46b2a0898974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInstancesContainer: {fileID: 2155954438887680739}
+  Capacity: 3
+  Items: []
 --- !u!114 &1849077798889129514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008a6d603ec1dd84b840ec80694d0c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInstancesContainer: {fileID: 0}
+  itemInstancesContainer: {fileID: 1334837816}
   Capacity: 4
   Items: []
   Holder: {fileID: 6659970789127294732}
@@ -513,7 +534,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5017a57678c4194468ef182291bd884b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  Rigidbody: {fileID: 0}
+  knockbackResponse: 0
+  PhysicalCollisionsResistance: 5
   resistance: 0
   DragIntensity: 1
 --- !u!1 &4454439995575299210
@@ -647,6 +670,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6245237703281312080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2155954438887680739}
+  m_Layer: 3
+  m_Name: abilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2155954438887680739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6245237703281312080}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6995825413865361481}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6543561876505285755
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,6 +761,7 @@ Transform:
   m_Children:
   - {fileID: 1334837816}
   - {fileID: 6787220639480124577}
+  - {fileID: 2155954438887680739}
   m_Father: {fileID: 2788200553323671118}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

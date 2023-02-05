@@ -2,9 +2,10 @@ using UnityEngine;
 
 public abstract class AbilityNode : ScriptableObject
 {
+    public NodeDisplay Display;
     public delegate void OnNodeProcessed();
     private OnNodeProcessed onNodeProcessedCallback;
-    [SerializeField] private float NodeTime;
+    [SerializeField] protected float NodeTime;
     private float timeSinceNodeActivated;
     [SerializeField] protected NodeField[] Fields;
     private Ability processedAbility;

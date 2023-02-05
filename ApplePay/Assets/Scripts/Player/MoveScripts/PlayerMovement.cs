@@ -7,11 +7,11 @@ public class PlayerMovement : EntityMovement
     protected override void Update()
     {
         base.Update();
-        if(cursorFollow && !FacingBlock)
+        if(cursorFollow && !isFacingDisabled)
         {
-            SetFacing(GetCurrentFacing(), 0.0f, StateParameter.MirrorHorizontal);
+            SetFacing(GetCurrentFacing());
         }
-        if(GetCurrentSpeed() != 0) MoveInput();
+        MoveInput();
     }
     private Vector2 GetCurrentFacing()
     {
@@ -23,16 +23,20 @@ public class PlayerMovement : EntityMovement
     }
     private void MoveInput()
     {
-        MoveVector.x = Input.GetAxisRaw("Horizontal");
-        MoveVector.y = Input.GetAxisRaw("Vertical");
-        if(GetMovementVector().x != 0 || GetMovementVector().y != 0) animator.SetBool("isMoving", true);
-        else if(GetMovementVector() == Vector2.zero) animator.SetBool("isMoving", false);
-        if(cursorFollow == false && !FacingBlock && GetMovementVector() != Vector2.zero) SetFacing(MoveVector, 0.0f, StateParameter.MirrorHorizontal);
+        Vector2 inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if(isMovementDisabled == false)
+        {
+            MoveVector = inputVector;
+            if(GetMovementVector() != Vector2.zero) animator.SetBool("isMoving", true);
+            else animator.SetBool("isMoving", false);
+        }
+        if(!isFacingDisabled && !cursorFollow && inputVector != Vector2.zero) SetFacing(inputVector);
     }
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if(GetMovementVector() != Vector2.zero && isDisabled) SetMovementVector(Vector2.zero, false);
+        if(GetMovementVector() != Vector2.zero && isMovementDisabled) SetMovementVector(Vector2.zero, false);
+        if(!isMovementDisabled)
         Rigidbody.velocity = GetMovementVector() * GetCurrentSpeed();
     }
 }

@@ -12,7 +12,7 @@ public class EntityAttribute
         ReferencedAttribute = attribute;
         virtualBase = new VirtualBase(baseAttributeValue);
     }
-
+    public float GetSourceValue() => virtualBase.SourceValue;
     public float GetAttributeValue() => virtualBase.GetValue();
 
     public void ApplyResult() => ReferencedAttribute.Set(virtualBase.GetValue());

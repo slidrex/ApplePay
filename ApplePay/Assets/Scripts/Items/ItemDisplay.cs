@@ -8,6 +8,17 @@ public struct WeaponDisplay
     public ItemDescription Description;
 }
 [System.Serializable]
+public struct AbilityDisplay
+{
+    public ItemDescription Description;
+    public UnityEngine.Sprite Icon;
+}
+[System.Serializable]
+public struct NodeDisplay
+{
+    public ItemRarity Rarity;
+}
+[System.Serializable]
 public struct CharmDisplay
 {
     public ItemRarity Rarity;
