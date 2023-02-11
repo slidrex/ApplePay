@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2435458689832673922}
   - component: {fileID: 2435458689832673918}
   - component: {fileID: 2435458689832673919}
+  - component: {fileID: 8607014419884387731}
   m_Layer: 0
   m_Name: RoomSpawner
   m_TagString: Untagged
@@ -73,3 +74,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelRoomSpawner: {fileID: 2435458689832673922}
+--- !u!114 &8607014419884387731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2435458689832673921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aaec0758002a6047b9637af338c7feb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objects:
+  - {fileID: 0}

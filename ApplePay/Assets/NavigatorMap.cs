@@ -59,7 +59,7 @@ public class NavigatorMap : MonoBehaviour
 
         Vector2 firstPosition = renderedElements[first].element.transform.localPosition;
         Vector2 secondPosition = renderedElements[second].element.transform.localPosition;
-        print("Render path");
+        
         if(renderedPaths.ContainsKey(pathKey) == false)
         {
             Vector2 distance = (secondPosition - firstPosition);

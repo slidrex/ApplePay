@@ -1,37 +1,45 @@
 using UnityEngine;
 
-public class InventoryRepositoryHandler : InventoryElement
+public class InventoryPageHandler : InventoryElement
 {
-    public UnityEngine.UI.CanvasScaler Canvas;
-    public InventoryUIPage[] Repositories;
+    public UnityEngine.Canvas Canvas;
+    public UnityEngine.UI.CanvasScaler CanvasScaler;
+    public InventoryUIPage[] Pages;
     [SerializeField] private KeyCode previousRepositoryKey;
     [SerializeField] private KeyCode nextRepositoryKey;
     public int spacing;
     public float animationSpeed;
-    public int currentRepository;
+    public int CurrentRepository { get; set; }
     private bool isSwitching;
     public InventorySwitchAnimation currentAnimation;
-    public void ActiveRepository(int index)
+    private void Awake()
+    {
+        foreach(InventoryUIPage page in Pages)
+        {
+            page.AttachCanvas(Canvas);
+        }
+    }
+    public void ActiveInventoryPage(int index)
     {
         MenuHandler.DeactivateMenuComponents();
         gameObject.SetActive(true);
-        foreach(InventoryUIPage element in Repositories)
+        foreach(InventoryUIPage element in Pages)
         {
             element.gameObject.gameObject.SetActive(false);
         }
-        Repositories[index].transform.gameObject.SetActive(true);
-        currentRepository = index;   
+        Pages[index].transform.gameObject.SetActive(true);
+        CurrentRepository = index;   
     }
     private void Update()
     {
         if(isSwitching) OnSwitchUpdate();
         else
         {
-            if(Input.GetKeyDown(nextRepositoryKey) && Repositories.Length > 1)
+            if(Input.GetKeyDown(nextRepositoryKey) && Pages.Length > 1)
             {
                 SwitchRepository(true);
             }
-            if(Input.GetKeyDown(previousRepositoryKey) && Repositories.Length > 1)
+            if(Input.GetKeyDown(previousRepositoryKey) && Pages.Length > 1)
             {
                 SwitchRepository(false);
             }
@@ -40,13 +48,13 @@ public class InventoryRepositoryHandler : InventoryElement
     private void OnSwitchStart(int previousIndex, int newIndex, bool next)
     {
         int offsetDirection = next ? 1 : -1;
-        Vector2 newStartPosition = new Vector2((Canvas.referenceResolution.x + spacing) * offsetDirection, 0.0f);
-        Repositories[newIndex].gameObject.SetActive(true);
-        Repositories[newIndex].transform.localPosition = newStartPosition;
+        Vector2 newStartPosition = new Vector2((CanvasScaler.referencePixelsPerUnit + spacing) * offsetDirection, 0.0f);
+        Pages[newIndex].gameObject.SetActive(true);
+        Pages[newIndex].transform.localPosition = newStartPosition;
         isSwitching = true;
         currentAnimation = new InventorySwitchAnimation();
-        currentAnimation.swappingRepository = Repositories[previousIndex].Transform;
-        currentAnimation.targetRepository = Repositories[newIndex].Transform;
+        currentAnimation.swappingRepository = Pages[previousIndex].Transform;
+        currentAnimation.targetRepository = Pages[newIndex].Transform;
         currentAnimation.swappingRepositoryEndPosition = -newStartPosition;
     }
     private void OnSwitchUpdate()
@@ -68,10 +76,10 @@ public class InventoryRepositoryHandler : InventoryElement
     public void SwitchRepository(bool right)
     {
         int offset = right? 1 : -1;
-        int previousIndex = currentRepository;
-        currentRepository = (int)UnityEngine.Mathf.Repeat(currentRepository + offset, Repositories.Length);
+        int previousIndex = CurrentRepository;
+        CurrentRepository = (int)UnityEngine.Mathf.Repeat(CurrentRepository + offset, Pages.Length);
         
-        OnSwitchStart(previousIndex, currentRepository, right);
+        OnSwitchStart(previousIndex, CurrentRepository, right);
     }
     public struct InventorySwitchAnimation
     {

@@ -5,7 +5,7 @@ public class AbilityHolder : MonoBehaviour
     [SerializeField] private Creature entity;
     private AbilityRepository abilityRepository;
     private EnergyConsumer consumer;
-    private void Awake()
+    private void Start()
     {
         abilityRepository = (AbilityRepository)entity.InventorySystem.GetRepository("ability");
         consumer = (entity as IEnergyConsumer).Consumer;
@@ -28,7 +28,6 @@ public class AbilityHolder : MonoBehaviour
                 TryExecuteAbility(ability.Ability);
             }
             ability.Ability.OnUpdate();
-
         }
     }
     private void TryExecuteAbility(Ability ability)

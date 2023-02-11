@@ -17,6 +17,7 @@ public struct AbilityDisplay
 public struct NodeDisplay
 {
     public ItemRarity Rarity;
+    public ItemDescription Description;
 }
 [System.Serializable]
 public struct CharmDisplay

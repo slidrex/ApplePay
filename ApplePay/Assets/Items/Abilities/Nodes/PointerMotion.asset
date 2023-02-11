@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ebb0b5624f34248864162488c91758, type: 3}
   m_Name: PointerMotion
   m_EditorClassIdentifier: 
+  Display:
+    Rarity: 2
+    Description:
+      Name: Pointer Motion
+      Description: Dashes forward
   NodeTime: 0.5
   Fields:
-  - FieldName: Speed
+  - FieldName: SpeedModifier
     FieldScore: 1
     ScoreMultiplier: 3
     EnergyCostPerScore: 10
     CooldownPerScore: 1
+  speedSource: 0

@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24f1ba61ea40dd41964b86906064523, type: 3}
   m_Name: Health
   m_EditorClassIdentifier: 
+  Display:
+    Rarity: 1
+    Description:
+      Name: Health
+      Description: 
   NodeTime: 0
   Fields:
   - FieldName: Health

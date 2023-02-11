@@ -39,7 +39,7 @@ public abstract class AbilityNode : ScriptableObject
         onNodeProcessedCallback += endCallback;
         OnNodeBegin(executer);
     }
-    public void UpdateNode()
+    public bool UpdateNode()
     {
         if(timeSinceNodeActivated < NodeTime)
         {
@@ -51,7 +51,9 @@ public abstract class AbilityNode : ScriptableObject
             onNodeProcessedCallback.Invoke();
             onNodeProcessedCallback = null;
             isInitialized = false;
+            return true;
         }
+            return false;
     }
     protected virtual void OnNodeBegin(Creature entity) {}
     protected virtual void OnNodeUpdate(Creature entity) {}

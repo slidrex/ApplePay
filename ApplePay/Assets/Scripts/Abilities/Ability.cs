@@ -6,17 +6,23 @@ public class Ability : ScriptableObject
 {
     public delegate void AbilityEndCallback(Ability ability);
     private AbilityEndCallback abilityEndCallback;
-    public float timeSinceAbilityActivated;
-    public int NodeCapacity;
-    [SerializeField] protected AbilityNode[] Nodes;
-    private int activatingNodeIndex;
+    public float timeSinceAbilityActivated { get; set; }
+    public NodeLayer[] NodeLayers;
+    private int activatingNodeLayerIndex;
+    private int currentLayerNodeCount;
+    private int executedCurrentLayerNodeCount;
     private Creature executer;
     public bool IsActivate { get; set; }
     public void OnInstantiated()
     {
-        for(int i = 0; i < Nodes.Length; i++)
+        for(int i = 0; i < NodeLayers.Length; i++)
         {
-            Nodes[i] = Instantiate(Nodes[i]);
+            NodeLayer curLayer = NodeLayers[i];
+            for(int j = 0; j < curLayer.Nodes.Length; j++)
+            {
+                if(NodeLayers[i].Nodes[j] != null)
+                NodeLayers[i].Nodes[j] = Instantiate(curLayer.Nodes[j]);
+            }
         }
     }
     public virtual void OnRepositoryAdded()
@@ -48,41 +54,79 @@ public class Ability : ScriptableObject
     }
     private void ProcessNodes()
     {
-        AbilityNode currentNode = Nodes[activatingNodeIndex];
-        if(currentNode.isInitialized == false) currentNode.BeginNode(executer, this, OnNodeExecuted);
-        currentNode.UpdateNode();
+        bool nodeUpdate = false;
+        foreach(AbilityNode layerNode in NodeLayers[activatingNodeLayerIndex].Nodes)
+        {
+            if(layerNode != null)
+            {
+                if(layerNode.isInitialized == false) 
+                {
+                    layerNode.BeginNode(executer, this, OnNodeExecuted);
+                    currentLayerNodeCount++;
+                }
+                nodeUpdate = layerNode.UpdateNode();
+            }
+        }
+        if(currentLayerNodeCount == 0 && !nodeUpdate) 
+        {
+            MoveNextLayer();
+        }
     }
     private void OnNodeExecuted()
     {
-        if(activatingNodeIndex + 1 < Nodes.Length)
+        executedCurrentLayerNodeCount++;
+        
+        if(executedCurrentLayerNodeCount >= currentLayerNodeCount)
         {
-            activatingNodeIndex++;
+            MoveNextLayer();
         }
-        else 
+    }
+    private void MoveNextLayer()
+    {
+        executedCurrentLayerNodeCount = 0;
+        currentLayerNodeCount = 0;
+        
+        if(activatingNodeLayerIndex < NodeLayers.Length - 1)
         {
-            IsActivate = false;
+            activatingNodeLayerIndex++;
+            Debug.Log("new layer " + activatingNodeLayerIndex);
+        }
+        else
+        {
+            activatingNodeLayerIndex = 0;
             AbilityEnd();
-            activatingNodeIndex = 0;
         }
-
     }
     public bool IsActivatable() => timeSinceAbilityActivated >= GetCooldown();
     public int GetEnergyCost()
     {
         int energyCost = 0;
-        foreach(AbilityNode node in Nodes)
+        foreach(NodeLayer layer in NodeLayers)
         {
-            energyCost += node.GetNodeEnergyCost();
+            foreach(AbilityNode node in layer.Nodes)
+            {
+                if(node != null)
+                    energyCost += node.GetNodeEnergyCost();
+            }
         }
         return energyCost;
     }
     public float GetCooldown()
     {
         float cooldown = 0.0f;
-        foreach(AbilityNode node in Nodes)
+        foreach(NodeLayer layer in NodeLayers)
         {
-            cooldown += node.GetNodeCooldown();
+            foreach(AbilityNode node in layer.Nodes)
+            {
+                if(node != null)
+                    cooldown += node.GetNodeCooldown();
+            }
         }
         return cooldown;
+    }
+    [System.Serializable]
+    public struct NodeLayer
+    {
+        public AbilityNode[] Nodes;
     }
 }
