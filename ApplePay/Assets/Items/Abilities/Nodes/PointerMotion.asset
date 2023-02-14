@@ -16,12 +16,13 @@ MonoBehaviour:
     Rarity: 2
     Description:
       Name: Pointer Motion
-      Description: Dashes forward
-  NodeTime: 0.5
+      Description: Dashes towards pointer
   Fields:
-  - FieldName: SpeedModifier
+  - FieldName: Speed
     FieldScore: 1
     ScoreMultiplier: 3
     EnergyCostPerScore: 10
     CooldownPerScore: 1
+    NumberType: 1
+    ShowSign: 1
   speedSource: 0

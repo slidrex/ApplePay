@@ -16,11 +16,12 @@ MonoBehaviour:
     Rarity: 1
     Description:
       Name: Health
-      Description: 
-  NodeTime: 0
+      Description: Restores health
   Fields:
   - FieldName: Health
     FieldScore: 1
     ScoreMultiplier: 10
     EnergyCostPerScore: 10
     CooldownPerScore: 1
+    NumberType: 0
+    ShowSign: 1

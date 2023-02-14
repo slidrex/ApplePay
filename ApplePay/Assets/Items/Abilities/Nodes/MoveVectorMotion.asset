@@ -16,12 +16,13 @@ MonoBehaviour:
     Rarity: 0
     Description:
       Name: Move Vector Motion
-      Description: 
-  NodeTime: 0.4
+      Description: Dashes towards movement direction
   Fields:
-  - FieldName: SpeedModifier
+  - FieldName: Speed
     FieldScore: 1
     ScoreMultiplier: 0.5
     EnergyCostPerScore: 1
-    CooldownPerScore: 0.5
+    CooldownPerScore: 1
+    NumberType: 1
+    ShowSign: 1
   speedSource: 0

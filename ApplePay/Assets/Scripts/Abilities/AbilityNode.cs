@@ -2,15 +2,18 @@ using UnityEngine;
 
 public abstract class AbilityNode : ScriptableObject
 {
-    public NodeDisplay Display;
     public delegate void OnNodeProcessed();
     private OnNodeProcessed onNodeProcessedCallback;
-    [SerializeField] protected float NodeTime;
+    public NodeDisplay Display;
+    [SerializeField] public float NodeTime { protected set; get; }
     private float timeSinceNodeActivated;
     [SerializeField] protected NodeField[] Fields;
     private Ability processedAbility;
     private Creature executer;
     public bool isInitialized { get; private set; }
+    public Ability.NodeLayer AttachedLayer { get; set; }
+    public int NodeStackIndex { get; set; }
+    public NodeField[] GetFields() => Fields;
     public float GetNodeCooldown() 
     {
         float cooldown = 0.0f;
@@ -82,5 +85,8 @@ public abstract class AbilityNode : ScriptableObject
         public float ScoreMultiplier;
         public int EnergyCostPerScore;
         public float CooldownPerScore;
+        [Header("Display")]
+        public Pay.Functions.Math.NumberType NumberType;
+        public bool ShowSign;
     }
 }

@@ -7,24 +7,52 @@ public class Ability : ScriptableObject
     public delegate void AbilityEndCallback(Ability ability);
     private AbilityEndCallback abilityEndCallback;
     public float timeSinceAbilityActivated { get; set; }
-    public NodeLayer[] NodeLayers;
+    [SerializeField] private NodeLayer[] NodeLayers;
     private int activatingNodeLayerIndex;
     private int currentLayerNodeCount;
     private int executedCurrentLayerNodeCount;
     private Creature executer;
     public bool IsActivate { get; set; }
+    public NodeLayer[] GetLayersInstance() 
+    {
+        NodeLayer[] layers = new NodeLayer[NodeLayers.Length];
+        layers = NodeLayers;
+        return layers;
+    }
     public void OnInstantiated()
     {
         for(int i = 0; i < NodeLayers.Length; i++)
         {
             NodeLayer curLayer = NodeLayers[i];
+            curLayer.AttachedAbility = this;
+            curLayer.LayerStackIndex = i;
             for(int j = 0; j < curLayer.Nodes.Length; j++)
             {
-                if(NodeLayers[i].Nodes[j] != null)
-                NodeLayers[i].Nodes[j] = Instantiate(curLayer.Nodes[j]);
+                AbilityNode currentNode = NodeLayers[i].Nodes[j];
+                if(currentNode != null)
+                {
+                    NodeLayers[i].Nodes[j] = Instantiate(curLayer.Nodes[j]);
+                    currentNode.AttachedLayer = curLayer;
+                    currentNode.NodeStackIndex = j;
+                }
             }
         }
     }
+    public void SetLayerAt(int index, NodeLayer layer)
+    {
+        NodeLayers[index] = layer;
+        layer.LayerStackIndex = index;
+    }
+    public void SetNodeAt(int layerIndex, int nodeIndex, AbilityNode node)
+    {
+        NodeLayers[layerIndex].Nodes[nodeIndex] = node;
+        if(node != null)
+        {
+            node.NodeStackIndex = nodeIndex;
+            node.AttachedLayer = NodeLayers[layerIndex];
+        }
+    }
+    public AbilityNode GetNodeAt(int layerIndex, int nodeIndex) => NodeLayers[layerIndex].Nodes[nodeIndex];
     public virtual void OnRepositoryAdded()
     {
         timeSinceAbilityActivated = 0.0f;
@@ -127,6 +155,8 @@ public class Ability : ScriptableObject
     [System.Serializable]
     public struct NodeLayer
     {
+        public Ability AttachedAbility { get; internal set; }
+        public int LayerStackIndex { get; internal set; }
         public AbilityNode[] Nodes;
     }
 }

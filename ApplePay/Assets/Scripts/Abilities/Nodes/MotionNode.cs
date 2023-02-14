@@ -13,7 +13,7 @@ public abstract class MotionNode : AbilityNode
         entity.Movement.AddDisable(NodeTime, true, true);
         EntityAttribute attribute = entity.FindAttribute("movementSpeed");
         float sourceSpeed = speedSource == MotionSourceSpeed.SourceValue ? attribute.GetSourceValue() : attribute.GetAttributeValue();
-        speed = sourceSpeed * 2 * (1 + GetNodeValue("SpeedModifier"));
+        speed = sourceSpeed * 2 * (1 + GetNodeValue("Speed"));
         entity.ForceHandler.BindForce(motionVector * speed, 0.0f, NodeTime);
     }
     private enum MotionSourceSpeed
